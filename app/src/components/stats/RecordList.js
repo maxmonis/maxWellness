@@ -3,7 +3,7 @@ import { alphabetize } from '../../functions/helpers';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { formatDate } from '../../functions/helpers';
 
-const RecordList = ({ records }) => {
+const RecordList = ({ records, selectExercise }) => {
   const [selected, setSelected] = useState('#');
   const filtered =
     selected !== '#'
@@ -30,22 +30,25 @@ const RecordList = ({ records }) => {
             ))}
           </select>
           <TransitionGroup className='scrollable'>
-            {filtered.map(({ id, lift, printout, becameRecord, surpassed }) => (
-              <CSSTransition key={id} timeout={500} classNames='fade'>
-                <ul>
-                  <li key={id}>
-                    <h3>
-                      {selected === '#' && `${lift}: `}
-                      {printout}
-                    </h3>
-                    <h4>
-                      {formatDate(becameRecord)}
-                      {surpassed && ` - ${formatDate(surpassed)}`}
-                    </h4>
-                  </li>
-                </ul>
-              </CSSTransition>
-            ))}
+            {filtered.map(exercise => {
+              const { id, lift, printout, becameRecord, surpassed } = exercise;
+              return (
+                <CSSTransition key={id} timeout={500} classNames='fade'>
+                  <ul className='record'>
+                    <li key={id}>
+                      <h3 onClick={() => selectExercise(exercise)} className='pointer'>
+                        {selected === '#' && `${lift}: `}
+                        {printout}
+                      </h3>
+                      <h4 onClick={() => selectExercise(exercise)} className='pointer'>
+                        {formatDate(becameRecord)}
+                        {surpassed && ` - ${formatDate(surpassed)}`}
+                      </h4>
+                    </li>
+                  </ul>
+                </CSSTransition>
+              );
+            })}
           </TransitionGroup>
         </>
       ) : (

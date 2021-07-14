@@ -100,6 +100,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         updateWorkouts={updateWorkouts}
         selectWorkout={selectWorkout}
         editingWorkout={editingWorkout}
+        selectExercise={selectExercise}
       />
     </div>
   );

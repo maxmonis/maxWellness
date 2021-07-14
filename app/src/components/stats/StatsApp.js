@@ -8,6 +8,7 @@ const StatsApp = ({
   updateWorkouts,
   selectWorkout,
   editingWorkout,
+  selectExercise,
 }) => {
   const [display, setDisplay] = useState('workouts');
   const [isWide, setIsWide] = useState(
@@ -35,7 +36,10 @@ const StatsApp = ({
           </section>
           <section>
             <h2>Records</h2>
-            <RecordList records={[...records].reverse()} />
+            <RecordList
+              records={[...records].reverse()}
+              selectExercise={selectExercise}
+            />
           </section>
         </>
       ) : (
@@ -58,7 +62,10 @@ const StatsApp = ({
             </span>
           </h2>
           {display === 'records' ? (
-            <RecordList records={[...records].reverse()} />
+            <RecordList
+              records={[...records].reverse()}
+              selectExercise={selectExercise}
+            />
           ) : (
             <WorkoutList
               workouts={[...workouts].reverse()}
