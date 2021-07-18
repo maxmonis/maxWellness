@@ -10,7 +10,6 @@ const ExerciseHistory = ({ records, lift, setExercise }) => {
         <>
           {liftRecords.map(exercise => (
             <button
-              className='btn'
               key={exercise.id}
               onClick={() => setExercise(exercise)}>
               {exercise.printout}

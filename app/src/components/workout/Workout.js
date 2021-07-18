@@ -23,17 +23,13 @@ const Workout = ({
   return (
     <>
       {showDeleteModal && (
-        <Modal class='delete-workout-modal' handleClose={toggleDeleteModal}>
-          <div className='delete-workout-modal'>
-            <h2>Delete Workout?</h2>
-            <h5>This action cannot be undone</h5>
-            <button onClick={handleDelete} className='btn red'>
-              Delete
-            </button>
-            <button onClick={toggleDeleteModal} className='btn'>
-              Cancel
-            </button>
-          </div>
+        <Modal handleClose={toggleDeleteModal}>
+          <h2>Delete Workout?</h2>
+          <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
+          <button className='red' onClick={handleDelete}>
+            Delete
+          </button>
+          <button onClick={toggleDeleteModal}>Cancel</button>
         </Modal>
       )}
       <h3 className='pointer' onClick={toggleMenu}>
@@ -41,26 +37,22 @@ const Workout = ({
         {formatDate(date)}
       </h3>
       {editingWorkout && editingWorkout.id === id ? (
-        <button onClick={() => selectWorkout(null)} className='btn red'>
-          Discard Changes
-        </button>
+        <button onClick={() => selectWorkout(null)}>Discard Changes</button>
       ) : showMenu ? (
         <>
-          <button onClick={() => selectWorkout(workout)} className='btn'>
-            Edit
-          </button>
-          <button onClick={toggleDeleteModal} className='btn'>
-            Delete
-          </button>
+          <button onClick={() => selectWorkout(workout)}>Edit</button>
+          <button onClick={toggleDeleteModal}>Delete</button>
         </>
       ) : null}
-      <ul>
-        {organizeRoutine(routine).map(exercise => (
-          <li key={exercise.id}>
-            <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
-          </li>
-        ))}
-      </ul>
+      <section>
+        <ul>
+          {organizeRoutine(routine).map(exercise => (
+            <li key={exercise.id}>
+              <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 };

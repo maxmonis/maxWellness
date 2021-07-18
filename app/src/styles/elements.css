@@ -4,45 +4,48 @@
 
 /* Button */
 
-.btn.one:not(:disabled) {
+.btn-one, .btn-two {
+  border-radius: 10px;
+  margin: unset;
+  padding: 8px 12px;
+}
+
+.btn-one:not(:disabled) {
   background: var(--blue2);
   color: var(--white);
 }
-.btn.one:hover:not(:disabled) {
+.btn-one:hover:not(:disabled) {
   background: var(--blue3);
 }
-.btn.one:active:not(:disabled) {
+.btn-one:active:not(:disabled) {
   color: var(--blue1);
 }
-.btn.one:focus {
+.btn-one:focus {
   box-shadow: var(--glow);
 }
 
-.btn.two:not(:disabled) {
+.btn-two:not(:disabled) {
   background: var(--white);
   border: 2px solid var(--blue2);
   color: var(--blue2);
 }
-.btn.two:focus:not(:disabled) {
+.btn-two:focus:not(:disabled) {
   background: var(--white);
   border: 2px solid var(--blue3);
 }
-.btn.two:hover:not(:disabled) {
+.btn-two:hover:not(:disabled) {
   background: var(--blue1);
 }
-.btn.two:active:not(:disabled) {
+.btn-two:active:not(:disabled) {
   border: 2px solid var(--blue3);
   color: var(--blue3);
 }
-.btn.two:focus {
+.btn-two:focus {
   box-shadow: var(--glow);
 }
 
-.btn.red {
-  color: var(--red);
-}
-
-.btn:disabled {
+.btn-one:disabled,
+.btn-two:disabled {
   background: var(--grey1);
   border: 2px solid var(--grey2);
   color: var(--grey2);
@@ -81,26 +84,6 @@
 
 /* -------------------------------------------------- */
 
-/* Link */
-
-.link {
-  color: var(--blue2);
-}
-.link:hover {
-  text-decoration: underline;
-}
-.link:active {
-  color: var(--blue3);
-}
-.dark .link {
-  color: var(--white);
-}
-.dark .link:active {
-  color: var(--blue1);
-}
-
-/* -------------------------------------------------- */
-
 /* Select */
 
 .select {
@@ -111,6 +94,7 @@
   font-size: 16px;
   line-height: 24px;
   max-width: 200px;
+  min-height: 36px;
   min-width: 200px;
   outline: none;
   padding: 4px 8px;

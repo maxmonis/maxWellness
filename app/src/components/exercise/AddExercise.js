@@ -78,11 +78,11 @@ const AddExercise = ({
             error={error ? 'Must be > 0' : null}
           />
         </div>
-        <button className='btn two' type='submit'>
+        <button className='btn-two' type='submit'>
           Enter Exercise
         </button>
         {(sets || reps || weight) && (
-          <button onClick={() => reset()}>Clear</button>
+          <button onClick={() => reset()}>Reset</button>
         )}
       </form>
     </>

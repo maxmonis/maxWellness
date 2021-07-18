@@ -39,7 +39,7 @@ const Login = ({ history }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='full-size auth'>
+    <div className='full-size mt-24 mb-36'>
       <h1>Welcome Back!</h1>
       <h4>Enter your credentials</h4>
       <form noValidate onSubmit={handleSubmit}>
@@ -61,13 +61,13 @@ const Login = ({ history }) => {
           label='Password'
           error={errors.password}
         />
-        <button className='btn one' type='submit'>
+        <button className='btn-one mb-16' type='submit'>
           Access Account
         </button>
       </form>
       <h5>Need an account?</h5>
       <Link to='register'>
-        <button className='btn two'>Get started</button>
+        <button className='btn-two mt-4'>Get started</button>
       </Link>
       <Quote />
       <Footer />

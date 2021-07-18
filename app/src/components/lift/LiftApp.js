@@ -17,7 +17,7 @@ const LiftApp = ({ lifts, updateLifts, toggleLiftForm }) => {
           ))}
         </TransitionGroup>
       </ul>
-      <button className='btn two' onClick={toggleLiftForm}>Done Editing</button>
+      <button className='btn-two mt-24' onClick={toggleLiftForm}>Done Editing</button>
     </div>
   );
 };

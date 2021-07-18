@@ -41,7 +41,7 @@ const Register = ({ history }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='full-size auth'>
+    <div className='full-size mt-24 mb-36'>
       <h1>Welcome!</h1>
       <h4>Create your free account</h4>
       <form noValidate onSubmit={handleSubmit}>
@@ -80,13 +80,13 @@ const Register = ({ history }) => {
           label='Confirm Password'
           error={errors.password2}
         />
-        <button className='btn one' type='submit'>
+        <button className='btn-one mb-16' type='submit'>
           Create Account
         </button>
       </form>
       <h5>Already a member?</h5>
       <Link to='login'>
-        <button className='btn two'>Sign in</button>
+        <button className='btn-two mt-4'>Sign in</button>
       </Link>
       <Quote />
       <Footer />

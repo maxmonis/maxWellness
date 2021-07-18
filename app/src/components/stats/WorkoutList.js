@@ -49,7 +49,7 @@ const WorkoutList = ({
           </TransitionGroup>
         </>
       ) : (
-        <h4 class="intro-text">
+        <h4 className="intro-text">
           Your workouts will be displayed here. We recommend giving them names
           which describe the focus of that routine (eg. full body, chest and
           back, legs, etc.) since you'll then be able to filter your workouts by

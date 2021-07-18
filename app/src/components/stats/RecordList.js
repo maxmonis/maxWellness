@@ -34,18 +34,20 @@ const RecordList = ({ records, selectExercise }) => {
               const { id, lift, printout, becameRecord, surpassed } = exercise;
               return (
                 <CSSTransition key={id} timeout={500} classNames='fade'>
-                  <ul className='record'>
-                    <li key={id}>
-                      <h3 onClick={() => selectExercise(exercise)} className='pointer'>
-                        {selected === '#' && `${lift}: `}
-                        {printout}
-                      </h3>
-                      <h4 onClick={() => selectExercise(exercise)} className='pointer'>
-                        {formatDate(becameRecord)}
-                        {surpassed && ` - ${formatDate(surpassed)}`}
-                      </h4>
-                    </li>
-                  </ul>
+                  <section className='record'>
+                    <h3
+                      onClick={() => selectExercise(exercise)}
+                      className='pointer'>
+                      {selected === '#' && `${lift}: `}
+                      {printout}
+                    </h3>
+                    <h4
+                      onClick={() => selectExercise(exercise)}
+                      className='pointer'>
+                      {formatDate(becameRecord)}
+                      {surpassed && ` - ${formatDate(surpassed)}`}
+                    </h4>
+                  </section>
                 </CSSTransition>
               );
             })}
@@ -59,7 +61,6 @@ const RecordList = ({ records, selectExercise }) => {
           </h4>
           <h3>Bench Press: 3(10x135)</h3>
           <h4>3/12/21</h4>
-          <h3>***</h3>
           <h4>
             When you set a new personal record, you'll also see the date on
             which the previous one was broken:
@@ -68,12 +69,10 @@ const RecordList = ({ records, selectExercise }) => {
           <h4>3/19/21</h4>
           <h3>Bench Press: 3(10x135)</h3>
           <h4>3/12/21-3/19/21</h4>
-          <h3>***</h3>
           <h4>
             You can break a record by increasing the weight and/or reps and/or
             sets without decreasing any other field.
           </h4>
-          <h3>***</h3>
           <h4>
             Personal records will also be displayed in the New Workout widget to
             help you plan your routines.

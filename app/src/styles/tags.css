@@ -1,26 +1,18 @@
 /* Default overrides for HTML tags */
 
-a {
+a, button {
   background: inherit;
   border: none;
-  color: inherit;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-button {
-  background: inherit;
-  border: none;
-  border-radius: 10px;
   color: inherit;
   cursor: pointer;
   font-family: inherit;
   font-size: 16px;
   font-weight: 700;
+  margin: 8px 12px;
   outline: none;
-  padding: 8px 12px;
+  text-decoration: none;
+}
+button {
   text-transform: uppercase;
 }
 

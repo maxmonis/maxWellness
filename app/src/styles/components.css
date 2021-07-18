@@ -52,13 +52,6 @@
     1px 1px 0 #000;
 }
 
-.auth {
-  margin: 24px 0 36px;
-}
-.auth .btn {
-  margin: 4px 0 16px;
-}
-
 .background-blur-overlay {
   backdrop-filter: blur(6px);
   left: 0;
@@ -66,17 +59,6 @@
   min-width: 100%;
   position: fixed;
   top: 0;
-}
-
-.delete-workout-modal h5 {
-  margin: 8px 0 24px;
-}
-
-.dark-mode-switch {
-  padding-right: 12px;
-}
-.dark-mode-switch .switch.tooltip.bottom::after {
-  left: -10px;
 }
 
 .exercise-app {
@@ -90,16 +72,19 @@
 }
 
 .exercise-history {
-  margin: 0 auto 12px;
+  margin: 12px auto 20px;
   max-width: 275px;
   overflow-x: scroll;
   white-space: nowrap;
 }
-.exercise-history .btn:first-child {
-  padding-left: 0;
+.exercise-history button {
+  text-transform: none;
 }
-.exercise-history .btn:last-child {
-  padding-right: 0;
+.exercise-history button:first-child {
+  margin-left: 0;
+}
+.exercise-history button:last-child {
+  margin-right: 0;
 }
 .exercise-history h4 {
   white-space: normal;
@@ -110,9 +95,13 @@
   margin: 0 auto;
   max-width: 30ch;
 }
+.intro-text h4 {
+  margin-bottom: 8px;
+}
 
-.lift-app .btn {
-  margin: 24px 0 0;
+.lift-app h3 {
+  margin: 0 auto;
+  max-width: max-content;
 }
 .lift-app .input-container {
   margin: 12px auto;
@@ -146,34 +135,40 @@
   margin-bottom: 12px;
 }
 
-.save-workout-form ul {
-  margin-bottom: 24px;
+.record h3, .record h4 {
+  cursor: pointer;
+  max-width: max-content;
+  margin: 0 auto;
 }
 
 .scrollable {
   margin: 0 auto;
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 125px);
   max-width: 30ch;
   overflow: scroll;
+  padding-top: 16px;
 }
-.scrollable ul {
+.scrollable section {
   margin-bottom: 16px;
+}
+@media (min-width: 568px) {
+  .scrollable {
+    min-height: 450px;
+  }
 }
 
 .workout-app {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 50px);
   padding: 0 16px;
 }
 .workout-app > section:first-child {
   margin: 12px 0 36px;
 }
 .workout-app > section select {
-  margin: 12px 0;
+  margin-top: 12px;
+  min-width: clamp(200px, 80%, 300px);
 }
 @media (min-width: 568px) {
-  .scrollable {
-    min-height: 450px;
-  }
   .workout-app {
     display: grid;
     grid-auto-flow: column;

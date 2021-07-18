@@ -41,8 +41,8 @@ const SaveWorkout = ({
     // eslint-disable-next-line
   }, [routine]);
   return (
-    <form onSubmit={handleSubmit} noValidate className='save-workout-form'>
-      {isFormOpen ? (
+    <form onSubmit={handleSubmit} noValidate>
+      {isFormOpen && (
         <Modal handleClose={toggleForm}>
           <h2>Save Workout</h2>
           <Input
@@ -62,26 +62,27 @@ const SaveWorkout = ({
             error={errors.date}
             persistentLabel
           />
-          <ul>
+          <ul className="mb-24">
             {organizeRoutine(routine).map(exercise => (
               <li key={exercise.id}>
                 <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
               </li>
             ))}
           </ul>
-          <button className='btn one' type='submit'>
+          <button className='btn-one' type='submit'>
             Confirm
           </button>
           <button onClick={toggleForm}>Cancel</button>
         </Modal>
-      ) : routine.length > 0 ? (
+      )}
+      {routine.length > 0 && (
         <>
-          <button className='btn one' onClick={toggleForm}>
+          <button className='btn-one' onClick={toggleForm}>
             Save Workout
           </button>
           <button onClick={() => updateRoutine([])}>Clear</button>
         </>
-      ) : null}
+      )}
     </form>
   );
 };

@@ -20,7 +20,7 @@ const Navbar = ({ dark, toggleDark }) => {
     <header>
       {isAuthenticated ? (
         <>
-          <button className='link' onClick={() => logUserOut()}>
+          <button className='hover-underline' onClick={() => logUserOut()}>
             Logout
           </button>
           <Switch
@@ -31,11 +31,11 @@ const Navbar = ({ dark, toggleDark }) => {
         </>
       ) : (
         <>
-          <Link to='login' className='link'>
-            <button className='link'>Login</button>
+          <Link to='login'>
+            <button className='hover-underline'>Login</button>
           </Link>
-          <Link to='register' className='link'>
-            <button className='link'>Register</button>
+          <Link to='register'>
+            <button className='hover-underline'>Register</button>
           </Link>
         </>
       )}
