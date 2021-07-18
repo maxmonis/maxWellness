@@ -19,7 +19,7 @@ const RecordList = ({ records, selectExercise }) => {
     <>
       {records.length ? (
         <>
-          <select className='select' value={selected} onChange={handleChange}>
+          <select value={selected} onChange={handleChange}>
             <option key='#' value='#'>
               All Records
             </option>
@@ -34,16 +34,14 @@ const RecordList = ({ records, selectExercise }) => {
               const { id, lift, printout, becameRecord, surpassed } = exercise;
               return (
                 <CSSTransition key={id} timeout={500} classNames='fade'>
-                  <section className='record'>
+                  <section>
                     <h3
-                      onClick={() => selectExercise(exercise)}
-                      className='pointer'>
+                      className='record'
+                      onClick={() => selectExercise(exercise)}>
                       {selected === '#' && `${lift}: `}
                       {printout}
                     </h3>
-                    <h4
-                      onClick={() => selectExercise(exercise)}
-                      className='pointer'>
+                    <h4>
                       {formatDate(becameRecord)}
                       {surpassed && ` - ${formatDate(surpassed)}`}
                     </h4>

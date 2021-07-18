@@ -107,6 +107,13 @@
   margin: 12px auto;
 }
 
+.lightswitch {
+  margin-right: 12px;
+}
+.lightswitch .switch::after {
+  margin-left: -36px;
+}
+
 .new-exercise-inputs {
   display: flex;
   justify-content: space-evenly;
@@ -116,26 +123,24 @@
 .new-exercise-inputs .input-container {
   margin-top: 0;
 }
-.new-exercise-inputs .input {
-  max-width: 70px;
-  min-width: 70px;
+.new-exercise-inputs input {
   padding-right: 4px;
+  width: 70px;
 }
-.new-exercise-inputs div:last-child .input {
-  max-width: 90px;
-  min-width: 90px;
+.new-exercise-inputs div:last-child input {
+  width: 90px;
 }
 
 .quote {
   margin: 0 auto;
   max-width: 45ch;
-  padding: 16px 16px 24px;
+  padding: 36px 16px;
 }
 .quote h4 {
   margin-bottom: 12px;
 }
 
-.record h3, .record h4 {
+.record {
   cursor: pointer;
   max-width: max-content;
   margin: 0 auto;

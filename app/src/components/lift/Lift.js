@@ -16,7 +16,6 @@ const Lift = ({ lift, updateLifts }) => {
       {isEditing ? (
         <form onSubmit={handleSubmit}>
           <input
-            className='input'
             value={strInput(value)}
             onChange={handleChange}
             onBlur={toggle}

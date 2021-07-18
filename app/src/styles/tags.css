@@ -27,7 +27,50 @@ header {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 0 48px;
+  padding: 4px;
+}
+
+input {
+  border: 2px solid var(--grey1);
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  outline: none;
+  padding: 4px 8px;
+  width: 200px;
+}
+input:hover {
+  background: var(--blue1);
+}
+input:focus {
+  border: 2px solid var(--blue2);
+  box-shadow: var(--glow);
+}
+input::placeholder {
+  color: var(--grey1);
+}
+
+select {
+  background: var(--white);
+  border: 2px solid var(--blue1);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  height: 36px;
+  line-height: 24px;
+  outline: none;
+  padding: 4px 8px;
+  width: 200px;
+}
+select:hover {
+  background: var(--blue1);
+}
+select:focus {
+  border: 2px solid var(--blue2);
+  box-shadow: var(--glow);
+}
+select:active {
+  border: 2px solid var(--blue3);
 }
 
 ul li {

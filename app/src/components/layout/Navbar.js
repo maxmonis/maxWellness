@@ -24,6 +24,7 @@ const Navbar = ({ dark, toggleDark }) => {
             Logout
           </button>
           <Switch
+            classes='lightswitch'
             bool={!dark}
             toggle={toggleDark}
             tooltipContent={`Turn ${dark ? 'on' : 'off'} the lights`}

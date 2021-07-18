@@ -14,8 +14,8 @@
   position: absolute;
   text-shadow: none;
 }
-.input:focus + .floating-label,
-.input:not(:focus):valid + .floating-label,
+input:focus + .floating-label,
+input:not(:focus):valid + .floating-label,
 .persistent-label {
   color: var(--blue2);
   font-size: 12px;
@@ -29,6 +29,10 @@
   pointer-events: none;
   top: 8px;
   transition: 0.2s ease all;
+}
+.input-error {
+  color: var(--red);
+  font-size: 12px;
 }
 
 /* -------------------------------------------------- */

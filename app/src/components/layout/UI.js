@@ -12,7 +12,6 @@ export const Input = ({
 }) => (
   <div className='input-container'>
     <input
-      className='input'
       name={name}
       required
       type={type || 'text'}
@@ -41,8 +40,8 @@ export const Modal = ({ children, handleClose }) => {
 
 export const Spinner = () => <div className='spinner' />;
 
-export const Switch = ({ bool, toggle, label, tooltipContent }) => (
-  <div className='switch-container'>
+export const Switch = ({ bool, toggle, label, tooltipContent, classes }) => (
+  <div className={`switch-container ${classes}`}>
     <label
       className={`switch ${tooltipContent && 'tooltip bottom'}`}
       tooltip-content={tooltipContent}>

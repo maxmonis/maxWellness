@@ -54,64 +54,6 @@
 
 /* -------------------------------------------------- */
 
-/* Input */
-
-.input {
-  border: 2px solid var(--grey1);
-  border-radius: 6px;
-  font-size: 16px;
-  line-height: 24px;
-  max-width: 200px;
-  min-width: 200px;
-  outline: none;
-  padding: 4px 8px;
-}
-.input:hover {
-  background: var(--blue1);
-}
-.input:focus {
-  border: 2px solid var(--blue2);
-  box-shadow: var(--glow);
-}
-.input::placeholder {
-  color: var(--grey1);
-}
-
-.input-error {
-  color: var(--red);
-  font-size: 12px;
-}
-
-/* -------------------------------------------------- */
-
-/* Select */
-
-.select {
-  background: var(--white);
-  border: 2px solid var(--blue1);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 24px;
-  max-width: 200px;
-  min-height: 36px;
-  min-width: 200px;
-  outline: none;
-  padding: 4px 8px;
-}
-.select:hover {
-  background: var(--blue1);
-}
-.select:focus {
-  border: 2px solid var(--blue2);
-  box-shadow: var(--glow);
-}
-.select:active {
-  border: 2px solid var(--blue3);
-}
-
-/* -------------------------------------------------- */
-
 /* Tooltip */
 
 .tooltip {

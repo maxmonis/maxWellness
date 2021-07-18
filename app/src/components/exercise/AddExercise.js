@@ -35,7 +35,6 @@ const AddExercise = ({
   return (
     <>
       <select
-        className='select'
         name='lift'
         value={lift}
         onChange={handleChange}>
