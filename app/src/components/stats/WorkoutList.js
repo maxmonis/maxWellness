@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { alphabetize } from '../../functions/helpers';
-import Workout from '../workout/Workout';
+import WorkoutListItem from './WorkoutListItem';
 
 const WorkoutList = ({
   workouts,
@@ -37,7 +37,7 @@ const WorkoutList = ({
           <TransitionGroup className='scrollable'>
             {filtered.map(workout => (
               <CSSTransition key={workout.id} timeout={500} classNames='fade'>
-                <Workout
+                <WorkoutListItem
                   workout={workout}
                   selected={selected}
                   editingWorkout={editingWorkout}
