@@ -146,19 +146,9 @@
   margin-left: 48px;
 }
 
-.flex-row {
-  align-items: center;
-  display: flex;
-  flex: row;
-}
-
 .full-size {
   height: 100%;
   width: 100%;
-}
-
-.hover-underline:hover {
-  text-decoration: underline;
 }
 
 .pointer {
@@ -169,6 +159,7 @@
   color: var(--red);
 }
 
-.underline {
+.underline,
+.hover-underline:hover {
   text-decoration: underline;
 }
