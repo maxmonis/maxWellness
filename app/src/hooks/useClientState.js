@@ -9,6 +9,7 @@ const useClientState = initialClient => {
   const defaultRoutine =
     JSON.parse(window.localStorage.getItem(client._id)) || [];
   const [routine, setRoutine] = useState(defaultRoutine);
+  const [editingRoutine, setEditingRoutine] = useState([]);
   const saveRoutine = updated => {
     window.localStorage.setItem(client._id, JSON.stringify(updated));
     setRoutine(updated);
@@ -16,8 +17,13 @@ const useClientState = initialClient => {
   return {
     client,
     routine,
+    editingRoutine,
     updateRoutine: value =>
       saveRoutine(eliminateRedundancy(updateRoutine(value, routine))),
+    updateEditingRoutine: value =>
+      setEditingRoutine(
+        eliminateRedundancy(updateRoutine(value, editingRoutine))
+      ),
     updateLifts: (newName, oldName) => {
       const updated = updateLifts(newName, oldName, client, routine);
       if (updated) {

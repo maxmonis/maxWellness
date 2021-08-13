@@ -10,6 +10,7 @@ const AddExercise = ({
   records,
   updateRoutine,
   setExercise,
+  allowLiftEditing
 }) => {
   const { lift, sets, reps, weight } = exercise;
   const [blurred, setBlurred] = useState(false);
@@ -34,18 +35,17 @@ const AddExercise = ({
   }, [weight]);
   return (
     <>
-      <select
-        name='lift'
-        value={lift}
-        onChange={handleChange}>
+      <select name='lift' value={lift} onChange={handleChange}>
         {lifts.map(lift => (
           <option key={lift} value={lift}>
             {lift}
           </option>
         ))}
-        <option key='#' value='#'>
-          {'<<< Edit Exercises >>>'}
-        </option>
+        {allowLiftEditing && (
+          <option key='#' value='#'>
+            {'<<< Edit Exercises >>>'}
+          </option>
+        )}
       </select>
       <ExerciseHistory
         records={records}

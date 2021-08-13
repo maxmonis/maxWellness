@@ -5,10 +5,9 @@ import AlertContext from '../../context/alert/alertContext';
 import { formatDate } from '../../functions/helpers';
 import { Modal } from '../layout/UI';
 
-const Workout = ({
+const WorkoutListItem = ({
   workout,
   selected,
-  editingWorkout,
   selectWorkout,
   updateWorkouts,
 }) => {
@@ -36,14 +35,12 @@ const Workout = ({
         {selected === '#' && `${name} - `}
         {formatDate(date)}
       </h3>
-      {editingWorkout && editingWorkout.id === id ? (
-        <button onClick={() => selectWorkout(null)}>Discard Changes</button>
-      ) : showMenu ? (
+      {showMenu && (
         <>
           <button onClick={() => selectWorkout(workout)}>Edit</button>
           <button onClick={toggleDeleteModal}>Delete</button>
         </>
-      ) : null}
+      )}
       <section>
         <ul>
           {organizeRoutine(routine).map(exercise => (
@@ -57,4 +54,4 @@ const Workout = ({
   );
 };
 
-export default Workout;
+export default WorkoutListItem;

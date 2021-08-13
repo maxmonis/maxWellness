@@ -1,15 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
-import NewWorkout from './NewWorkout';
+import EditWorkout from './EditWorkout';
 import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
 import AlertContext from '../../context/alert/alertContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
+import { Modal } from '../layout/UI';
 
 const WorkoutApp = ({ selectedClient, updateClient }) => {
   const { setAlert } = useContext(AlertContext);
-  const { client, routine, updateRoutine, updateLifts, updateWorkouts } =
-    useClientState(selectedClient);
+  const {
+    client,
+    routine,
+    editingRoutine,
+    updateRoutine,
+    updateEditingRoutine,
+    updateLifts,
+    updateWorkouts,
+  } = useClientState(selectedClient);
   const { lifts, workouts, records, name } = client;
   const DEFAULT_EXERCISE = {
     lift: lifts[0],
@@ -18,6 +26,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     weight: '',
   };
   const [exercise, setExercise] = useState(DEFAULT_EXERCISE);
+  const [editingExercise, setEditingExercise] = useState(DEFAULT_EXERCISE);
   const DEFAULT_WORKOUT = {
     name: '',
     date: new Date().toISOString().slice(0, 10),
@@ -31,34 +40,45 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       editingWorkout
         ? setEditingWorkout({ ...editingWorkout, [name]: value })
         : setWorkout({ ...workout, [name]: value });
+    } else if (value === '#') {
+      toggleLiftForm();
     } else {
-      value === '#'
-        ? toggleLiftForm()
+      editingWorkout
+        ? setEditingExercise({ ...editingExercise, [name]: value })
         : setExercise({ ...exercise, [name]: value });
     }
   };
   const selectExercise = exercise => {
-    setExercise(exercise);
-    updateRoutine(exercise.id);
+    if (editingWorkout) {
+      setEditingExercise(exercise);
+      updateEditingRoutine(exercise.id);
+    } else {
+      setExercise(exercise);
+      updateRoutine(exercise.id);
+    }
   };
   const selectWorkout = workout => {
     if (workout) {
       setEditingWorkout(workout);
-      updateRoutine(workout.routine);
+      updateEditingRoutine(workout.routine);
     } else {
       setEditingWorkout(null);
     }
   };
   const saveWorkout = () => {
-    const updated = editingWorkout
-      ? { ...editingWorkout, routine }
-      : { ...workout, routine };
-    setAlert('Workout Saved', 'success');
-    updateWorkouts(updated);
-    setExercise(DEFAULT_EXERCISE);
-    setWorkout(DEFAULT_WORKOUT);
-    setEditingWorkout(null);
-    updateRoutine([]);
+    if (editingWorkout) {
+      updateWorkouts({ ...editingWorkout, routine: editingRoutine });
+      setEditingExercise(DEFAULT_EXERCISE);
+      setEditingWorkout(null);
+      updateEditingRoutine([]);
+      setAlert('Workout Updated', 'success');
+    } else {
+      updateWorkouts({ ...workout, routine });
+      setExercise(DEFAULT_EXERCISE);
+      setWorkout(DEFAULT_WORKOUT);
+      updateRoutine([]);
+      setAlert('Workout Saved', 'success');
+    }
   };
   const title = name[0] === '#' ? name.slice(2) : name;
   useEffect(() => {
@@ -72,6 +92,24 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   return (
     <div className='workout-app full-size'>
       <section>
+        {editingWorkout && (
+          <Modal handleClose={() => selectWorkout(null)}>
+            <h2>Edit Workout</h2>
+            <EditWorkout
+              exercise={editingExercise}
+              workout={editingWorkout}
+              lifts={lifts}
+              routine={editingRoutine}
+              workouts={workouts}
+              records={records}
+              handleChange={handleChange}
+              saveWorkout={saveWorkout}
+              updateRoutine={updateEditingRoutine}
+              selectExercise={selectExercise}
+              setExercise={setEditingExercise}
+            />
+          </Modal>
+        )}
         {isFormOpen ? (
           <LiftApp
             lifts={lifts}
@@ -79,19 +117,23 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             toggleLiftForm={toggleLiftForm}
           />
         ) : (
-          <NewWorkout
-            exercise={exercise}
-            workout={editingWorkout ? editingWorkout : workout}
-            lifts={lifts}
-            routine={routine}
-            workouts={workouts}
-            records={records}
-            handleChange={handleChange}
-            saveWorkout={saveWorkout}
-            updateRoutine={updateRoutine}
-            selectExercise={selectExercise}
-            setExercise={setExercise}
-          />
+          <>
+            <h2>New Workout</h2>
+            <EditWorkout
+              exercise={exercise}
+              workout={workout}
+              lifts={lifts}
+              routine={routine}
+              workouts={workouts}
+              records={records}
+              handleChange={handleChange}
+              saveWorkout={saveWorkout}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
+              setExercise={setExercise}
+              allowLiftEditing
+            />
+          </>
         )}
       </section>
       <StatsApp
@@ -99,7 +141,6 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         workouts={workouts}
         updateWorkouts={updateWorkouts}
         selectWorkout={selectWorkout}
-        editingWorkout={editingWorkout}
         selectExercise={selectExercise}
       />
     </div>

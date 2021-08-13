@@ -7,7 +7,6 @@ const StatsApp = ({
   records,
   updateWorkouts,
   selectWorkout,
-  editingWorkout,
   selectExercise,
 }) => {
   const [display, setDisplay] = useState('workouts');
@@ -31,7 +30,6 @@ const StatsApp = ({
               workouts={[...workouts].reverse()}
               updateWorkouts={updateWorkouts}
               selectWorkout={selectWorkout}
-              editingWorkout={editingWorkout}
             />
           </section>
           <section>
@@ -71,7 +69,6 @@ const StatsApp = ({
               workouts={[...workouts].reverse()}
               updateWorkouts={updateWorkouts}
               selectWorkout={selectWorkout}
-              editingWorkout={editingWorkout}
             />
           )}
         </section>

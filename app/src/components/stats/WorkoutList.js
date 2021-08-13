@@ -7,7 +7,6 @@ const WorkoutList = ({
   workouts,
   updateWorkouts,
   selectWorkout,
-  editingWorkout,
 }) => {
   const [selected, setSelected] = useState('#');
   const filtered =
@@ -40,7 +39,6 @@ const WorkoutList = ({
                 <WorkoutListItem
                   workout={workout}
                   selected={selected}
-                  editingWorkout={editingWorkout}
                   selectWorkout={selectWorkout}
                   updateWorkouts={updateWorkouts}
                 />

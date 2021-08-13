@@ -3,7 +3,7 @@ import AddExercise from '../exercise/AddExercise';
 import ExerciseApp from '../exercise/ExerciseApp';
 import SaveWorkout from './SaveWorkout';
 
-const NewWorkout = ({
+const EditWorkout = ({
   exercise,
   workout,
   lifts,
@@ -14,10 +14,10 @@ const NewWorkout = ({
   updateRoutine,
   selectExercise,
   setExercise,
+  allowLiftEditing
 }) => {
   return (
     <>
-      <h2>New Workout</h2>
       <AddExercise
         lifts={lifts}
         handleChange={handleChange}
@@ -25,6 +25,7 @@ const NewWorkout = ({
         records={records}
         updateRoutine={updateRoutine}
         setExercise={setExercise}
+        allowLiftEditing={allowLiftEditing}
       />
       <ExerciseApp
         routine={routine}
@@ -42,4 +43,4 @@ const NewWorkout = ({
   );
 };
 
-export default NewWorkout;
+export default EditWorkout;
