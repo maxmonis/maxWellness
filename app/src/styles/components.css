@@ -8,7 +8,7 @@
   position: absolute;
   right: 16px;
   width: max-content;
-  z-index: 2;
+  z-index: var(--alert-index);
 }
 .alert.critical {
   background: var(--red);
@@ -59,6 +59,7 @@
   min-width: 100%;
   position: fixed;
   top: 0;
+  z-index: var(--overlay-index);
 }
 
 .exercise-app {

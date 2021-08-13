@@ -73,7 +73,7 @@
   position: absolute;
   text-align: center;
   width: max-content;
-  z-index: 2;
+  z-index: var(--tooltip-index);
 }
 .tooltip::before {
   background: var(--blue2);
@@ -83,7 +83,7 @@
   left: 50%;
   position: absolute;
   width: 1rem;
-  z-index: 2;
+  z-index: var(--tooltip-index);
 }
 .tooltip:hover::after {
   display: block;

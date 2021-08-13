@@ -51,6 +51,7 @@ input:not(:focus):valid + .floating-label,
   text-shadow: none;
   top: 10%;
   width: 300px;
+  z-index: var(--overlay-index);
 }
 .dark .modal {
   background: var(--grey3);
