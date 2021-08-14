@@ -155,6 +155,10 @@
   cursor: pointer;
 }
 
+.blue {
+  color: var(--blue2);
+}
+
 .red {
   color: var(--red);
 }

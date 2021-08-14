@@ -3,12 +3,10 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { alphabetize } from '../../functions/helpers';
 import WorkoutListItem from './WorkoutListItem';
 
-const WorkoutList = ({
-  workouts,
-  updateWorkouts,
-  selectWorkout,
-}) => {
+const WorkoutList = ({ workouts, updateWorkouts, selectWorkout }) => {
   const [selected, setSelected] = useState('#');
+  const [menuID, setMenuID] = useState(null);
+  const toggleMenu = id => (id === menuID ? setMenuID(null) : setMenuID(id));
   const filtered =
     selected !== '#'
       ? workouts.filter(workout => workout.name === selected)
@@ -39,6 +37,8 @@ const WorkoutList = ({
                 <WorkoutListItem
                   workout={workout}
                   selected={selected}
+                  menuID={menuID}
+                  toggleMenu={toggleMenu}
                   selectWorkout={selectWorkout}
                   updateWorkouts={updateWorkouts}
                 />

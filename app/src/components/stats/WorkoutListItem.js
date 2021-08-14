@@ -10,10 +10,11 @@ const WorkoutListItem = ({
   selected,
   selectWorkout,
   updateWorkouts,
+  menuID,
+  toggleMenu,
 }) => {
   const { setAlert } = useContext(AlertContext);
   const { id, date, name, routine } = workout;
-  const [showMenu, toggleMenu] = useToggle(false);
   const [showDeleteModal, toggleDeleteModal] = useToggle(false);
   const handleDelete = () => {
     updateWorkouts(id);
@@ -31,17 +32,11 @@ const WorkoutListItem = ({
           <button onClick={toggleDeleteModal}>Cancel</button>
         </Modal>
       )}
-      <h3 className='pointer' onClick={toggleMenu}>
+      <h3 className='pointer' onClick={() => toggleMenu(workout.id)}>
         {selected === '#' && `${name} - `}
         {formatDate(date)}
       </h3>
-      {showMenu && (
-        <>
-          <button onClick={() => selectWorkout(workout)}>Edit</button>
-          <button onClick={toggleDeleteModal}>Delete</button>
-        </>
-      )}
-      <section>
+      <section className='mb-24'>
         <ul>
           {organizeRoutine(routine).map(exercise => (
             <li key={exercise.id}>
@@ -49,6 +44,12 @@ const WorkoutListItem = ({
             </li>
           ))}
         </ul>
+        {menuID === workout.id && (
+          <>
+            <button className='blue' onClick={() => selectWorkout(workout)}>Edit</button>
+            <button className='blue' onClick={toggleDeleteModal}>Delete</button>
+          </>
+        )}
       </section>
     </>
   );

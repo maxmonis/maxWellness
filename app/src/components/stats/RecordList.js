@@ -34,7 +34,7 @@ const RecordList = ({ records, selectExercise }) => {
               const { id, lift, printout, becameRecord, surpassed } = exercise;
               return (
                 <CSSTransition key={id} timeout={500} classNames='fade'>
-                  <section>
+                  <section className='mb-16'>
                     <h3
                       className='record'
                       onClick={() => selectExercise(exercise)}>
