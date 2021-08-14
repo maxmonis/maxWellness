@@ -3,7 +3,7 @@ import ActiveClient from './ActiveClient';
 import InactiveClient from './InactiveClient';
 import ClientContext from '../../context/client/clientContext';
 
-const Client = ({ client, toggle }) => {
+const Client = ({ client, toggleDrawer }) => {
   const { deleteClient, updateClient, setEditingClient } = useContext(
     ClientContext
   );
@@ -23,7 +23,7 @@ const Client = ({ client, toggle }) => {
   return isActive ? (
     <ActiveClient
       name={name}
-      toggle={toggle}
+      toggleDrawer={toggleDrawer}
       id={_id}
       handleEdit={handleEdit}
       handleDeactivate={handleDeactivate}

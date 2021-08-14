@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 import { standardize, strInput } from '../../functions/helpers';
 import useInputState from '../../hooks/useInputState';
 
@@ -17,7 +11,7 @@ const DeleteClient = ({ name, toggle, handleDelete }) => {
       : setIsMatch(false);
     // eslint-disable-next-line
   }, [value]);
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (isMatch) {
       toggle();
@@ -26,31 +20,27 @@ const DeleteClient = ({ name, toggle, handleDelete }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <DialogTitle>Permanently delete {name}?</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          All associated data will be lost forever and this action cannot be
-          undone. Confirm the name of the client you wish to delete in order to
-          proceed.
-        </DialogContentText>
-        <TextField
-          value={strInput(value)}
-          variant='outlined'
-          placeholder='Confirm Name...'
-          onChange={handleChange}
-          autoFocus
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={toggle}>Cancel</Button>
+      <h5>Permanently delete {name}?</h5>
+      <h6 className='m-12'>
+        All associated data will be lost forever and this action cannot be
+        undone. Confirm the name of the client you wish to delete in order to
+        proceed.
+      </h6>
+      <input
+        value={strInput(value)}
+        placeholder='Confirm Name...'
+        onChange={handleChange}
+      />
+      <div className='m-8'>
+        <button onClick={toggle}>Cancel</button>
         {isMatch ? (
-          <Button type='submit' color='primary'>
+          <button className='red' type='submit'>
             Delete
-          </Button>
+          </button>
         ) : (
-          <Button disabled>Delete</Button>
+          <button disabled>Delete</button>
         )}
-      </DialogActions>
+      </div>
     </form>
   );
 };

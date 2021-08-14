@@ -24,9 +24,9 @@ const FilterRoster = () => {
       <input
         ref={text}
         type='text'
-        placeholder='Search...'
+        placeholder='Search clients...'
         onChange={handleChange}
-        autoFocus
+        className='m-8'
       />
     </form>
   );

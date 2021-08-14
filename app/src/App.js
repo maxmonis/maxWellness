@@ -18,6 +18,7 @@ const App = () => {
   const [isDrawerOpen, toggleDrawer] = useToggle(true);
   useEffect(() => {
     isDrawerOpen && toggleDrawer();
+    // eslint-disable-next-line
   }, []);
   return (
     <div className={`app ${dark ? 'dark' : ''}`}>

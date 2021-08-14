@@ -148,7 +148,7 @@
 
 .scrollable {
   margin: 0 auto;
-  max-height: calc(100vh - 125px);
+  max-height: calc(100vh - 175px);
   max-width: 30ch;
   overflow: scroll;
   padding-top: 16px;

@@ -1,44 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import ClearIcon from '@material-ui/icons/Clear';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
 
-const ActiveClient = ({
-  name,
-  id,
-  toggle,
-  handleEdit,
-  handleDeactivate,
-}) => {
+const ActiveClient = ({ name, id, toggleDrawer, handleEdit, handleDeactivate }) => {
   const [optionsShown, setOptionsShown] = useState(false);
   const showOptions = () => setOptionsShown(true);
   const hideOptions = () => setOptionsShown(false);
   return (
     <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
-      <ListItem>
-        {optionsShown ? (
-          <Link className='link' to={id}>
-            <Button color='primary' onClick={toggle}>
-              {name}
-            </Button>
-          </Link>
-        ) : (
-          <Button color='default' onClick={toggle}>
-            {name}
-          </Button>
-        )}
-      </ListItem>
+      {optionsShown ? (
+        <Link className='link' to={id}>
+          <button onClick={toggleDrawer}>{name}</button>
+        </Link>
+      ) : (
+        <button onClick={toggleDrawer}>{name}</button>
+      )}
       {optionsShown && (
         <div>
-          <IconButton color='inherit' onClick={handleEdit}>
-            <EditIcon aria-label='Edit' />
-          </IconButton>
-          <IconButton color='inherit' onClick={handleDeactivate}>
-            <ClearIcon aria-label='Deactivate' />
-          </IconButton>
+          <button className='blue' onClick={handleEdit}>
+            Edit
+          </button>
+          <button className='red' onClick={handleDeactivate}>
+            Deactivate
+          </button>
         </div>
       )}
     </div>

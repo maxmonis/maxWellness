@@ -52,7 +52,7 @@ const RecordList = ({ records, selectExercise }) => {
           </TransitionGroup>
         </>
       ) : (
-        <div class='intro-text'>
+        <div className='intro-text'>
           <h4>
             Your personal records will be displayed here along with the date you
             first acheived them:

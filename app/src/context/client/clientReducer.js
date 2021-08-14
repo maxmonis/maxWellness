@@ -16,7 +16,7 @@ export default (state, action) => {
     case 'UPDATE_CLIENT':
       return {
         ...state,
-        clients: state.clients.map((client) =>
+        clients: state.clients.map(client =>
           client._id === payload._id ? payload : client
         ),
         loading: false,
@@ -24,7 +24,7 @@ export default (state, action) => {
     case 'DELETE_CLIENT':
       return {
         ...state,
-        clients: state.clients.filter((client) => client._id !== payload),
+        clients: state.clients.filter(client => client._id !== payload),
         loading: false,
       };
     case 'CLEAR_CLIENTS':
@@ -47,7 +47,7 @@ export default (state, action) => {
     case 'FILTER_CLIENTS':
       return {
         ...state,
-        filteredClients: state.clients.filter((client) => {
+        filteredClients: state.clients.slice(1).filter(client => {
           const regexp = new RegExp(payload, 'gi');
           const name = client.name.replace(/ /g, '');
           const email = client.email.replace(/@.*$/, '');

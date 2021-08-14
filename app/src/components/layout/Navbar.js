@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Roster from '../roster/Roster';
 import { Drawer, Switch } from '../layout/UI';
 import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
@@ -20,11 +21,15 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
     <header>
       {isDrawerOpen && (
         <Drawer handleClose={toggleDrawer}>
-          <section>
-            <h3>Settings</h3>
+          <section className='mb-24'>
+            <h2>Settings</h2>
             <div className='menu-drawer'>
               <Switch label='Dark Mode' bool={dark} toggle={toggleDark} />
             </div>
+          </section>
+          <section>
+            <h2>Clients</h2>
+            <Roster toggleDrawer={toggleDrawer} />
           </section>
         </Drawer>
       )}
