@@ -1,5 +1,14 @@
 import React from 'react';
 
+export const Drawer = ({ children, handleClose }) => {
+  return (
+    <>
+      <div className='background-blur-overlay' onClick={handleClose} />
+      <div className='drawer'>{children}</div>
+    </>
+  );
+};
+
 export const Input = ({
   name,
   value,
@@ -31,23 +40,19 @@ export const Modal = ({ children, handleClose }) => {
   return (
     <>
       <div className='background-blur-overlay' onClick={handleClose} />
-      <div className='modal'>
-        {children}
-      </div>
+      <div className='modal'>{children}</div>
     </>
   );
 };
 
 export const Spinner = () => <div className='spinner' />;
 
-export const Switch = ({ bool, toggle, label, tooltipContent, classes }) => (
-  <div className={`switch-container ${classes}`}>
-    <label
-      className={`switch ${tooltipContent && 'tooltip bottom'}`}
-      tooltip-content={tooltipContent}>
+export const Switch = ({ bool, toggle, label }) => (
+  <div className='switch-container'>
+    {label && <label className='switch-label'>{label}</label>}
+    <label className='switch'>
       <input type='checkbox' checked={bool} onChange={toggle} />
       <span className='slider'></span>
     </label>
-    {label && <label className='switch-label'>{label}</label>}
   </div>
 );

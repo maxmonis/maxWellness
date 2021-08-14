@@ -108,11 +108,10 @@
   margin: 12px auto;
 }
 
-.lightswitch {
-  margin-right: 12px;
-}
-.lightswitch .switch::after {
-  margin-left: -36px;
+.menu-drawer {
+  height: 100%;
+  overflow: scroll;
+  text-align: left;
 }
 
 .new-exercise-inputs {
