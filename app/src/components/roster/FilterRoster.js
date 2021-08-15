@@ -24,7 +24,7 @@ const FilterRoster = () => {
       <input
         ref={text}
         type='text'
-        placeholder='Search clients...'
+        placeholder='Filter clients...'
         onChange={handleChange}
         className='m-8'
       />

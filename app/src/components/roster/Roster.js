@@ -24,7 +24,7 @@ const Roster = ({ toggleDrawer }) => {
   const sorted = [
     ...alphabetize(active, 'name'),
     ...alphabetize(deactivated, 'name'),
-  ].slice(1);
+  ].filter(client => client.name[0] !== '#');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const openForm = () => clients.length < 21 && setIsFormOpen(true);
   const reset = () => {
