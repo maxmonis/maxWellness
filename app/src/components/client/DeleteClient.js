@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 import { standardize, strInput } from '../../functions/helpers';
 import useInputState from '../../hooks/useInputState';
 
-const DeleteClient = ({ name, toggle, handleDelete }) => {
+const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
   const [value, handleChange] = useInputState('');
   const [isMatch, setIsMatch] = useState(false);
   useEffect(() => {
@@ -17,40 +11,37 @@ const DeleteClient = ({ name, toggle, handleDelete }) => {
       : setIsMatch(false);
     // eslint-disable-next-line
   }, [value]);
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (isMatch) {
-      toggle();
+      toggleMenu();
       handleDelete();
     }
   };
   return (
     <form onSubmit={handleSubmit}>
-      <DialogTitle>Permanently delete {name}?</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          All associated data will be lost forever and this action cannot be
-          undone. Confirm the name of the client you wish to delete in order to
-          proceed.
-        </DialogContentText>
-        <TextField
-          value={strInput(value)}
-          variant='outlined'
-          placeholder='Confirm Name...'
-          onChange={handleChange}
-          autoFocus
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={toggle}>Cancel</Button>
+      <h4 className='mt-12 mb-12'>Permanently delete {name}?</h4>
+      <h5>
+        All associated data will be lost forever and this action cannot be
+        undone. Confirm the name of the client you wish to delete in order to
+        proceed.
+      </h5>
+      <input
+        className='m-12'
+        value={strInput(value)}
+        placeholder='Confirm Name...'
+        onChange={handleChange}
+      />
+      <div>
+        <button onClick={toggleMenu}>Cancel</button>
         {isMatch ? (
-          <Button type='submit' color='primary'>
+          <button className='red' type='submit'>
             Delete
-          </Button>
+          </button>
         ) : (
-          <Button disabled>Delete</Button>
+          <button disabled>Delete</button>
         )}
-      </DialogActions>
+      </div>
     </form>
   );
 };

@@ -1,6 +1,7 @@
 /* Default overrides for HTML tags */
 
-a, button {
+a,
+button {
   background: inherit;
   border: none;
   color: inherit;
@@ -15,6 +16,11 @@ a, button {
 button {
   text-transform: uppercase;
 }
+a:disabled,
+button:disabled {
+  color: var(--grey2);
+  cursor: not-allowed;
+}
 
 footer {
   bottom: 5px;
@@ -28,6 +34,14 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 4px;
+}
+
+hr {
+  background: var(--grey2);
+  height: 1px;
+}
+.dark hr {
+  background: var(--white);
 }
 
 input {

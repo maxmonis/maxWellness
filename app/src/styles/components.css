@@ -62,6 +62,13 @@
   z-index: var(--overlay-index);
 }
 
+.client-form {
+  border: 1px solid var(--white);
+  border-radius: 6px;
+  margin: 12px 0;
+  padding: 8px 0;
+}
+
 .exercise-app {
   display: flex;
   justify-content: center;
@@ -108,11 +115,10 @@
   margin: 12px auto;
 }
 
-.lightswitch {
-  margin-right: 12px;
-}
-.lightswitch .switch::after {
-  margin-left: -36px;
+.menu-drawer {
+  height: 100%;
+  overflow: scroll;
+  text-align: left;
 }
 
 .new-exercise-inputs {
@@ -149,7 +155,7 @@
 
 .scrollable {
   margin: 0 auto;
-  max-height: calc(100vh - 125px);
+  max-height: calc(100vh - 175px);
   max-width: 30ch;
   overflow: scroll;
   padding-top: 16px;

@@ -2,6 +2,31 @@
 
 /* -------------------------------------------------- */
 
+/* Drawer */
+
+.drawer {
+  background: var(--white);
+  border-right: 1px solid var(--grey2);
+  color: var(--grey3);
+  left: 0;
+  min-height: 100vh;
+  overflow: scroll;
+  padding: 16px;
+  position: fixed;
+  text-shadow: none;
+  top: 0;
+  width: clamp(250px, 85%, 300px);
+  z-index: var(--overlay-index);
+}
+.dark .drawer {
+  background: var(--grey3);
+  border-right: 1px solid var(--white);
+  color: var(--white);
+  text-shadow: inherit;
+}
+
+/* -------------------------------------------------- */
+
 /* Input */
 
 .input-container {
@@ -157,11 +182,10 @@ input:not(:focus):valid + .floating-label,
 .switch-container {
   align-items: center;
   display: flex;
-  justify-content: center;
   padding: 8px 0;
 }
 .switch-label {
-  margin-left: 8px;
+  margin-right: 8px;
 }
 .switch {
   display: inline-block;
@@ -175,7 +199,7 @@ input:not(:focus):valid + .floating-label,
   width: 0;
 }
 .slider {
-  background: var(--blue3);
+  background: var(--grey1);
   bottom: 0;
   border-radius: 34px;
   cursor: pointer;
@@ -199,7 +223,7 @@ input:not(:focus):valid + .floating-label,
   width: 26px;
 }
 input:checked + .slider {
-  background: var(--grey1);
+  background: var(--blue3);
 }
 input:hover + .slider {
   background: var(--blue2);

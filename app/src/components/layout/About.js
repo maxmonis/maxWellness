@@ -1,7 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import useToggle from '../../hooks/useToggle';
 
 const About = () => {
@@ -13,14 +11,12 @@ const About = () => {
       <TransitionGroup className='full-size'>
         {!isDisplayed ? (
           <CSSTransition key={1} timeout={500} classNames='fade'>
-            <Button color='inherit' onClick={toggle}>
-              More Info &#x25BC;
-            </Button>
+            <button onClick={toggle}>More Info &#x25BC;</button>
           </CSSTransition>
         ) : (
           <CSSTransition key={2} timeout={500} classNames='fade'>
-            <Fragment>
-              <Typography variant='h6'>
+            <>
+              <h4>
                 Thank you for visiting maxWellness
                 <br /> *** <br />
                 Track your workouts and personal bests along with those of up to
@@ -34,12 +30,10 @@ const About = () => {
                 <br /> *** <br />
                 Please direct questions, comments or concerns to
                 <br /> {CONTACT_EMAIL}
-              </Typography>
+              </h4>
               <br />
-              <Button color='inherit' onClick={toggle}>
-                Hide Greeting &#x25B2;
-              </Button>
-            </Fragment>
+              <button onClick={toggle}>Hide Greeting &#x25B2;</button>
+            </>
           </CSSTransition>
         )}
       </TransitionGroup>

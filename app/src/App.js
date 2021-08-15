@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Alerts from './components/layout/Alerts';
@@ -15,6 +15,11 @@ import useToggle from './hooks/useToggle';
 
 const App = () => {
   const [dark, toggleDark] = useToggle(true);
+  const [isDrawerOpen, toggleDrawer] = useToggle(true);
+  useEffect(() => {
+    isDrawerOpen && toggleDrawer();
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className={`app ${dark ? 'dark' : ''}`}>
       <AuthState>
@@ -22,7 +27,12 @@ const App = () => {
           <WorkoutState>
             <AlertState>
               <Router>
-                <Navbar dark={dark} toggleDark={toggleDark} />
+                <Navbar
+                  dark={dark}
+                  toggleDark={toggleDark}
+                  isDrawerOpen={isDrawerOpen}
+                  toggleDrawer={toggleDrawer}
+                />
                 <Route
                   render={({ location }) => (
                     <TransitionGroup>

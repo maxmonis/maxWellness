@@ -90,60 +90,63 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client]);
   return (
-    <div className='workout-app full-size'>
-      <section>
-        {editingWorkout && (
-          <Modal handleClose={() => selectWorkout(null)}>
-            <h2>Edit Workout</h2>
-            <EditWorkout
-              exercise={editingExercise}
-              workout={editingWorkout}
+    <>
+      <h1>{title}</h1>
+      <div className='workout-app full-size'>
+        <section>
+          {editingWorkout && (
+            <Modal handleClose={() => selectWorkout(null)}>
+              <h2>Edit Workout</h2>
+              <EditWorkout
+                exercise={editingExercise}
+                workout={editingWorkout}
+                lifts={lifts}
+                routine={editingRoutine}
+                workouts={workouts}
+                records={records}
+                handleChange={handleChange}
+                saveWorkout={saveWorkout}
+                updateRoutine={updateEditingRoutine}
+                selectExercise={selectExercise}
+                setExercise={setEditingExercise}
+              />
+            </Modal>
+          )}
+          {isFormOpen ? (
+            <LiftApp
               lifts={lifts}
-              routine={editingRoutine}
-              workouts={workouts}
-              records={records}
-              handleChange={handleChange}
-              saveWorkout={saveWorkout}
-              updateRoutine={updateEditingRoutine}
-              selectExercise={selectExercise}
-              setExercise={setEditingExercise}
+              updateLifts={updateLifts}
+              toggleLiftForm={toggleLiftForm}
             />
-          </Modal>
-        )}
-        {isFormOpen ? (
-          <LiftApp
-            lifts={lifts}
-            updateLifts={updateLifts}
-            toggleLiftForm={toggleLiftForm}
-          />
-        ) : (
-          <>
-            <h2>New Workout</h2>
-            <EditWorkout
-              exercise={exercise}
-              workout={workout}
-              lifts={lifts}
-              routine={routine}
-              workouts={workouts}
-              records={records}
-              handleChange={handleChange}
-              saveWorkout={saveWorkout}
-              updateRoutine={updateRoutine}
-              selectExercise={selectExercise}
-              setExercise={setExercise}
-              allowLiftEditing
-            />
-          </>
-        )}
-      </section>
-      <StatsApp
-        records={records}
-        workouts={workouts}
-        updateWorkouts={updateWorkouts}
-        selectWorkout={selectWorkout}
-        selectExercise={selectExercise}
-      />
-    </div>
+          ) : (
+            <>
+              <h2>New Workout</h2>
+              <EditWorkout
+                exercise={exercise}
+                workout={workout}
+                lifts={lifts}
+                routine={routine}
+                workouts={workouts}
+                records={records}
+                handleChange={handleChange}
+                saveWorkout={saveWorkout}
+                updateRoutine={updateRoutine}
+                selectExercise={selectExercise}
+                setExercise={setExercise}
+                allowLiftEditing
+              />
+            </>
+          )}
+        </section>
+        <StatsApp
+          records={records}
+          workouts={workouts}
+          updateWorkouts={updateWorkouts}
+          selectWorkout={selectWorkout}
+          selectExercise={selectExercise}
+        />
+      </div>
+    </>
   );
 };
 
