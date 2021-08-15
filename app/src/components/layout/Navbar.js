@@ -31,6 +31,11 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
             <h2>Clients</h2>
             <Roster toggleDrawer={toggleDrawer} />
           </section>
+          <Link className='link' to='/'>
+            <button className='btn-two mt-24' onClick={toggleDrawer}>
+              My Workouts
+            </button>
+          </Link>
         </Drawer>
       )}
       {isAuthenticated ? (

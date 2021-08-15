@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { standardize, strInput } from '../../functions/helpers';
 import useInputState from '../../hooks/useInputState';
 
-const DeleteClient = ({ name, toggle, handleDelete }) => {
+const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
   const [value, handleChange] = useInputState('');
   const [isMatch, setIsMatch] = useState(false);
   useEffect(() => {
@@ -14,25 +14,26 @@ const DeleteClient = ({ name, toggle, handleDelete }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (isMatch) {
-      toggle();
+      toggleMenu();
       handleDelete();
     }
   };
   return (
     <form onSubmit={handleSubmit}>
-      <h5>Permanently delete {name}?</h5>
-      <h6 className='m-12'>
+      <h4 className='mt-12 mb-12'>Permanently delete {name}?</h4>
+      <h5>
         All associated data will be lost forever and this action cannot be
         undone. Confirm the name of the client you wish to delete in order to
         proceed.
-      </h6>
+      </h5>
       <input
+        className='m-12'
         value={strInput(value)}
         placeholder='Confirm Name...'
         onChange={handleChange}
       />
-      <div className='m-8'>
-        <button onClick={toggle}>Cancel</button>
+      <div>
+        <button onClick={toggleMenu}>Cancel</button>
         {isMatch ? (
           <button className='red' type='submit'>
             Delete

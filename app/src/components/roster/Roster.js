@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Client from '../client/Client';
 import EditRoster from './EditRoster';
@@ -60,7 +59,7 @@ const Roster = ({ toggleDrawer }) => {
             </TransitionGroup>
           </ul>
           {clients.length < 21 && (
-            <button className='btn-one m-12' onClick={openForm}>
+            <button className='btn-one mt-16 mb-4' onClick={openForm}>
               Add New Client
             </button>
           )}
@@ -70,11 +69,6 @@ const Roster = ({ toggleDrawer }) => {
         You have {21 - clients.length} opening{clients.length !== 20 && 's'} on
         your roster
       </h4>
-      <Link className='link' to='/'>
-        <button className='btn-two mt-16' onClick={toggleDrawer}>
-          My Workouts
-        </button>
-      </Link>
     </>
   );
 };

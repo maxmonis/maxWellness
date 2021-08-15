@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Input } from '../layout/UI';
-import { strInput } from '../../functions/helpers';
+import { strInput, numInput } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
 
 const EditRoster = ({ reset }) => {
@@ -28,8 +28,8 @@ const EditRoster = ({ reset }) => {
     }
   };
   return (
-    <div>
-      <h4>{editingClient ? 'Edit Client' : 'New Client'}</h4>
+    <div className='client-form'>
+      <h3>{editingClient ? 'Edit Client' : 'New Client'}</h3>
       <form onSubmit={handleSubmit} noValidate>
         <Input
           label='Name'
@@ -47,11 +47,11 @@ const EditRoster = ({ reset }) => {
         <Input
           label='Phone'
           name='phone'
-          value={phone}
+          value={numInput(phone)}
           handleChange={handleChange}
         />
         <div>
-          <button className='blue' onClick={reset}>
+          <button onClick={reset}>
             Cancel
           </button>
           <button className='blue' type='submit'>

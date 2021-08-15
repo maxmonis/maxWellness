@@ -19,6 +19,7 @@ button {
 a:disabled,
 button:disabled {
   color: var(--grey2);
+  cursor: not-allowed;
 }
 
 footer {
