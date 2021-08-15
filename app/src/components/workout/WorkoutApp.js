@@ -143,6 +143,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           workouts={workouts}
           updateWorkouts={updateWorkouts}
           selectWorkout={selectWorkout}
+          updateRoutine={updateRoutine}
           selectExercise={selectExercise}
         />
       </div>

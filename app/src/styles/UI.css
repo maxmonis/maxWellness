@@ -71,6 +71,8 @@ input:not(:focus):valid + .floating-label,
   color: var(--grey3);
   left: 50%;
   margin-left: -150px;
+  max-height: calc(100vh - 15%);
+  overflow: scroll;
   padding: 16px;
   position: fixed;
   text-shadow: none;

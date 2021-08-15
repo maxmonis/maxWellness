@@ -37,6 +37,7 @@ const RecordList = ({ records, selectExercise }) => {
                   <section className='mb-16'>
                     <h3
                       className='record'
+                      title='Click to copy'
                       onClick={() => selectExercise(exercise)}>
                       {selected === '#' && `${lift}: `}
                       {printout}

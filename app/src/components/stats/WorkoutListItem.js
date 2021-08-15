@@ -9,6 +9,7 @@ const WorkoutListItem = ({
   workout,
   selected,
   selectWorkout,
+  updateRoutine,
   updateWorkouts,
   menuID,
   toggleMenu,
@@ -20,6 +21,14 @@ const WorkoutListItem = ({
     updateWorkouts(id);
     setAlert('Workout Deleted', 'success');
   };
+  const HOVER_TEXT =
+    'Click to copy routine, double click to copy workout to clipboard';
+  const organizedRoutine = organizeRoutine(routine);
+  const CLIPBOARD_TEXT = `
+  ${name}
+  ${formatDate(date)}
+  ${organizedRoutine.map(exercise => `${exercise.lift}: ${exercise.printout}`)}
+  `;
   return (
     <>
       {showDeleteModal && (
@@ -32,22 +41,36 @@ const WorkoutListItem = ({
           <button onClick={toggleDeleteModal}>Cancel</button>
         </Modal>
       )}
-      <h3 className='pointer' onClick={() => toggleMenu(workout.id)}>
+      <h3
+        className='pointer'
+        onClick={() => toggleMenu(workout.id)}
+        title='Click to open menu'>
         {selected === '#' && `${name} - `}
         {formatDate(date)}
       </h3>
       <section className='mb-24'>
         <ul>
-          {organizeRoutine(routine).map(exercise => (
-            <li key={exercise.id}>
+          {organizedRoutine.map(exercise => (
+            <li
+              className='pointer'
+              key={exercise.id}
+              onClick={() => updateRoutine(routine)}
+              onDoubleClick={() =>
+                navigator.clipboard.writeText(CLIPBOARD_TEXT)
+              }
+              title={HOVER_TEXT}>
               <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
             </li>
           ))}
         </ul>
         {menuID === workout.id && (
           <>
-            <button className='blue' onClick={() => selectWorkout(workout)}>Edit</button>
-            <button className='blue' onClick={toggleDeleteModal}>Delete</button>
+            <button className='blue' onClick={() => selectWorkout(workout)}>
+              Edit
+            </button>
+            <button className='red' onClick={toggleDeleteModal}>
+              Delete
+            </button>
           </>
         )}
       </section>
