@@ -8,7 +8,7 @@ import { Modal } from '../layout/UI';
 const WorkoutListItem = ({
   workout,
   selected,
-  selectWorkout,
+  editWorkout,
   updateRoutine,
   updateWorkouts,
   menuID,
@@ -21,51 +21,48 @@ const WorkoutListItem = ({
     updateWorkouts(id);
     setAlert('Workout Deleted', 'success');
   };
-  const HOVER_TEXT =
-    'Click to copy routine, double click to copy workout to clipboard';
   const organizedRoutine = organizeRoutine(routine);
   const CLIPBOARD_TEXT = `
   ${name}
   ${formatDate(date)}
   ${organizedRoutine.map(exercise => `${exercise.lift}: ${exercise.printout}`)}
   `;
+  const handleClick = () => {
+    updateRoutine(routine);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(CLIPBOARD_TEXT);
+    }
+  };
   return (
-    <>
+    <div
+      className='border-b mb-8 pb-4'
+      onMouseEnter={() => toggleMenu(workout.id)}
+      onMouseLeave={() => toggleMenu(workout.id)}>
       {showDeleteModal && (
         <Modal handleClose={toggleDeleteModal}>
           <h2>Delete Workout?</h2>
           <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
+          <button onClick={toggleDeleteModal}>Cancel</button>
           <button className='red' onClick={handleDelete}>
             Delete
           </button>
-          <button onClick={toggleDeleteModal}>Cancel</button>
         </Modal>
       )}
-      <h3
-        className='pointer'
-        onClick={() => toggleMenu(workout.id)}
-        title='Click to open menu'>
+      <h3>
         {selected === '#' && `${name} - `}
         {formatDate(date)}
       </h3>
-      <section className='mb-24'>
+      <section className='mb-4'>
         <ul>
           {organizedRoutine.map(exercise => (
-            <li
-              className='pointer'
-              key={exercise.id}
-              onClick={() => updateRoutine(routine)}
-              onDoubleClick={() =>
-                navigator.clipboard.writeText(CLIPBOARD_TEXT)
-              }
-              title={HOVER_TEXT}>
-              <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
+            <li className='pointer' key={exercise.id} onClick={handleClick}>
+              <h4 title={'Copy'}>{`${exercise.lift}: ${exercise.printout}`}</h4>
             </li>
           ))}
         </ul>
         {menuID === workout.id && (
           <>
-            <button className='blue' onClick={() => selectWorkout(workout)}>
+            <button className='outline' onClick={() => editWorkout(workout)}>
               Edit
             </button>
             <button className='red' onClick={toggleDeleteModal}>
@@ -74,7 +71,7 @@ const WorkoutListItem = ({
           </>
         )}
       </section>
-    </>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Roster from '../roster/Roster';
 import { Drawer, Switch } from '../layout/UI';
@@ -17,25 +17,37 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
     user ? getClients() : clearClients();
     // eslint-disable-next-line
   }, [user]);
+  const [selectedMenu, selectMenu] = useState('clients');
   return (
     <header>
       {isDrawerOpen && (
         <Drawer handleClose={toggleDrawer}>
-          <section className='mb-24'>
-            <h2>Settings</h2>
-            <div className='menu-drawer'>
-              <Switch label='Dark Mode' bool={dark} toggle={toggleDark} />
-            </div>
-          </section>
-          <section>
-            <h2>Clients</h2>
-            <Roster toggleDrawer={toggleDrawer} />
-          </section>
-          <Link className='link' to='/'>
-            <button className='btn-two mt-24' onClick={toggleDrawer}>
-              My Workouts
+          <header className='mb-12 p-0'>
+            <button
+              onClick={() => selectMenu('clients')}
+              className={selectedMenu === 'clients' ? 'underline m-0' : 'm-0'}>
+              Clients
             </button>
-          </Link>
+            <button
+              onClick={() => selectMenu('settings')}
+              className={selectedMenu === 'settings' ? 'underline m-0' : 'm-0'}>
+              Settings
+            </button>
+          </header>
+          {selectedMenu === 'settings' ? (
+            <section>
+              <Switch label='Dark Mode' bool={dark} toggle={toggleDark} />
+            </section>
+          ) : (
+            <section>
+              <Roster toggleDrawer={toggleDrawer} />
+              <Link to='/'>
+                <button className='btn-two mt-24' onClick={toggleDrawer}>
+                  Workouts
+                </button>
+              </Link>
+            </section>
+          )}
         </Drawer>
       )}
       {isAuthenticated ? (

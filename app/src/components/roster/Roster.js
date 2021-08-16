@@ -50,9 +50,8 @@ const Roster = ({ toggleDrawer }) => {
             <TransitionGroup>
               {sorted.map(client => (
                 <CSSTransition timeout={500} classNames='fade' key={client._id}>
-                  <li>
+                  <li className='border-b p-4'>
                     <Client client={client} toggleDrawer={toggleDrawer} />
-                    <hr />
                   </li>
                 </CSSTransition>
               ))}

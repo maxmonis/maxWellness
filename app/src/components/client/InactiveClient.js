@@ -10,15 +10,19 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
   return (
     <>
       {isMenuOpen ? (
-        <DeleteClient name={name} toggleMenu={toggleMenu} handleDelete={handleDelete} />
+        <DeleteClient
+          name={name}
+          toggleMenu={toggleMenu}
+          handleDelete={handleDelete}
+        />
       ) : (
         <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
-          <button disabled>{name}</button>
+          <button className='line-through cursor-auto mb-0' disabled>
+            {name}
+          </button>
           {optionsShown && (
             <div>
-              <button className='blue' onClick={handleActivate}>
-                Reactivate
-              </button>
+              <button onClick={handleActivate}>Activate</button>
               <button className='red' onClick={toggleMenu}>
                 Delete
               </button>

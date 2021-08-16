@@ -1,8 +1,8 @@
 .alert {
-  background: var(--grey3);
+  background: var(--background);
   bottom: 36px;
-  color: var(--white);
-  border-radius: 6px;
+  color: var(--color);
+  border-radius: var(--border-radius);
   margin: 0 auto;
   padding: 8px 16px;
   position: absolute;
@@ -18,6 +18,8 @@
 }
 
 .app {
+  --background: var(--white);
+  --color: var(--grey3);
   align-items: center;
   background-image: linear-gradient(
       to bottom,
@@ -28,7 +30,7 @@
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: var(--grey3);
+  color: var(--color);
   font-weight: 500;
   justify-content: center;
   min-height: 100vh;
@@ -41,13 +43,14 @@
   width: 100%;
 }
 .app.dark {
+  --background: var(--grey3);
+  --color: var(--white);
   background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.7)
     ),
     url('/background.jpg');
-  color: var(--white);
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
 }
@@ -63,8 +66,8 @@
 }
 
 .client-form {
-  border: 1px solid var(--white);
-  border-radius: 6px;
+  border: 1px solid var(--color);
+  border-radius: var(--border-radius);
   margin: 12px 0;
   padding: 8px 0;
 }
@@ -103,7 +106,7 @@
   margin: 0 auto;
   max-width: 30ch;
 }
-.intro-text h4 {
+.intro-text p {
   margin-bottom: 8px;
 }
 
@@ -113,12 +116,6 @@
 }
 .lift-app .input-container {
   margin: 12px auto;
-}
-
-.menu-drawer {
-  height: 100%;
-  overflow: scroll;
-  text-align: left;
 }
 
 .new-exercise-inputs {
@@ -155,7 +152,7 @@
 
 .scrollable {
   margin: 0 auto;
-  max-height: calc(100vh - 175px);
+  max-height: calc(100vh - 125px);
   max-width: 30ch;
   overflow: scroll;
   padding-top: 16px;
@@ -168,6 +165,9 @@
 
 .workout-app {
   padding: 0 16px;
+}
+.workout-app-title {
+  margin-bottom: 24px;
 }
 .workout-app > section:first-child {
   margin-bottom: 36px;
@@ -185,6 +185,9 @@
     margin: 0 auto;
     max-width: 700px;
     padding: 0 auto;
+  }
+  .workout-app-title {
+    margin: -48px 0 0;
   }
 }
 @media (min-width: 992px) {

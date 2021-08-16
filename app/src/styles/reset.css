@@ -32,7 +32,7 @@ code {
   --blue3: #00538c;
 
   --grey1: #a2aaaf;
-  --grey2: #434546;
+  --grey2: #58595a;
   --grey3: #01090e;
 
   --red: #e04040;
@@ -41,7 +41,10 @@ code {
 
   --glow: 0 0 2px 2px rgba(57, 141, 227, 0.54);
 
-  --tooltip-index: 1;
-  --alert-index: 2;
-  --overlay-index: 3;
+  --base-index: 0;
+  --tooltip-index: calc(var(--base-index) + 1);;
+  --alert-index: calc(var(--tooltip-index) + 1);
+  --overlay-index: calc(var(--alert-index) + 1);
+
+  --border-radius: 6px;
 }

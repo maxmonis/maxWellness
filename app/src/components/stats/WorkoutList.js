@@ -6,7 +6,7 @@ import WorkoutListItem from './WorkoutListItem';
 const WorkoutList = ({
   workouts,
   updateWorkouts,
-  selectWorkout,
+  editWorkout,
   updateRoutine,
 }) => {
   const [selected, setSelected] = useState('#');
@@ -44,7 +44,7 @@ const WorkoutList = ({
                   selected={selected}
                   menuID={menuID}
                   toggleMenu={toggleMenu}
-                  selectWorkout={selectWorkout}
+                  editWorkout={editWorkout}
                   updateWorkouts={updateWorkouts}
                   updateRoutine={updateRoutine}
                 />
@@ -53,12 +53,12 @@ const WorkoutList = ({
           </TransitionGroup>
         </>
       ) : (
-        <h4 className='intro-text'>
+        <p className='intro-text'>
           Your workouts will be displayed here. We recommend giving them names
           which describe the focus of that routine (eg. full body, chest and
           back, legs, etc.) since you'll then be able to filter your workouts by
           name. New personal records will be flagged with an asterisk.
-        </h4>
+        </p>
       )}
     </>
   );

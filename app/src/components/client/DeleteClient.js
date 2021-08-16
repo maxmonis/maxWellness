@@ -19,7 +19,7 @@ const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='pb-12' onSubmit={handleSubmit}>
       <h4 className='mt-12 mb-12'>Permanently delete {name}?</h4>
       <h5>
         All associated data will be lost forever and this action cannot be

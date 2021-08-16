@@ -6,7 +6,7 @@ const StatsApp = ({
   workouts,
   records,
   updateWorkouts,
-  selectWorkout,
+  editWorkout,
   updateRoutine,
   selectExercise,
 }) => {
@@ -30,7 +30,7 @@ const StatsApp = ({
             <WorkoutList
               workouts={[...workouts].reverse()}
               updateWorkouts={updateWorkouts}
-              selectWorkout={selectWorkout}
+              editWorkout={editWorkout}
               updateRoutine={updateRoutine}
             />
           </section>
@@ -70,7 +70,7 @@ const StatsApp = ({
             <WorkoutList
               workouts={[...workouts].reverse()}
               updateWorkouts={updateWorkouts}
-              selectWorkout={selectWorkout}
+              editWorkout={editWorkout}
               updateRoutine={updateRoutine}
             />
           )}

@@ -37,7 +37,7 @@ const RecordList = ({ records, selectExercise }) => {
                   <section className='mb-16'>
                     <h3
                       className='record'
-                      title='Click to copy'
+                      title='Copy'
                       onClick={() => selectExercise(exercise)}>
                       {selected === '#' && `${lift}: `}
                       {printout}
@@ -54,28 +54,28 @@ const RecordList = ({ records, selectExercise }) => {
         </>
       ) : (
         <div className='intro-text'>
-          <h4>
+          <p>
             Your personal records will be displayed here along with the date you
             first acheived them:
-          </h4>
+          </p>
           <h3>Bench Press: 3(10x135)</h3>
           <h4>3/12/21</h4>
-          <h4>
+          <p>
             When you set a new personal record, you'll also see the date on
             which the previous one was broken:
-          </h4>
+          </p>
           <h3>Bench Press: 3(10x145)</h3>
           <h4>3/19/21</h4>
           <h3>Bench Press: 3(10x135)</h3>
           <h4>3/12/21-3/19/21</h4>
-          <h4>
+          <p>
             You can break a record by increasing the weight and/or reps and/or
             sets without decreasing any other field.
-          </h4>
-          <h4>
+          </p>
+          <p>
             Personal records will also be displayed in the New Workout widget to
             help you plan your routines.
-          </h4>
+          </p>
         </div>
       )}
     </>

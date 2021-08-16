@@ -57,7 +57,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       updateRoutine(exercise.id);
     }
   };
-  const selectWorkout = workout => {
+  const editWorkout = workout => {
     if (workout) {
       setEditingWorkout(workout);
       updateEditingRoutine(workout.routine);
@@ -91,27 +91,27 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   }, [client]);
   return (
     <>
-      <h1>{title}</h1>
+      {editingWorkout && (
+        <Modal handleClose={() => editWorkout(null)}>
+          <h2>Edit Workout</h2>
+          <EditWorkout
+            exercise={editingExercise}
+            workout={editingWorkout}
+            lifts={lifts}
+            routine={editingRoutine}
+            workouts={workouts}
+            records={records}
+            handleChange={handleChange}
+            saveWorkout={saveWorkout}
+            updateRoutine={updateEditingRoutine}
+            selectExercise={selectExercise}
+            setExercise={setEditingExercise}
+          />
+        </Modal>
+      )}
+      <h1 className='workout-app-title'>{title}</h1>
       <div className='workout-app full-size'>
         <section>
-          {editingWorkout && (
-            <Modal handleClose={() => selectWorkout(null)}>
-              <h2>Edit Workout</h2>
-              <EditWorkout
-                exercise={editingExercise}
-                workout={editingWorkout}
-                lifts={lifts}
-                routine={editingRoutine}
-                workouts={workouts}
-                records={records}
-                handleChange={handleChange}
-                saveWorkout={saveWorkout}
-                updateRoutine={updateEditingRoutine}
-                selectExercise={selectExercise}
-                setExercise={setEditingExercise}
-              />
-            </Modal>
-          )}
           {isFormOpen ? (
             <LiftApp
               lifts={lifts}
@@ -142,7 +142,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           records={records}
           workouts={workouts}
           updateWorkouts={updateWorkouts}
-          selectWorkout={selectWorkout}
+          editWorkout={editWorkout}
           updateRoutine={updateRoutine}
           selectExercise={selectExercise}
         />

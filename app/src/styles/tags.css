@@ -9,11 +9,11 @@ button {
   font-family: inherit;
   font-size: 16px;
   font-weight: 700;
-  margin: 8px 12px;
   outline: none;
   text-decoration: none;
 }
 button {
+  margin: 8px 12px;
   text-transform: uppercase;
 }
 a:disabled,
@@ -36,17 +36,9 @@ header {
   padding: 4px;
 }
 
-hr {
-  background: var(--grey2);
-  height: 1px;
-}
-.dark hr {
-  background: var(--white);
-}
-
 input {
   border: 2px solid var(--grey1);
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   font-size: 16px;
   line-height: 24px;
   outline: none;
