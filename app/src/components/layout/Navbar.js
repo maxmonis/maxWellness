@@ -50,7 +50,7 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
           )}
         </Drawer>
       )}
-      {isAuthenticated ? (
+      {isAuthenticated && (
         <>
           <button className='hover-underline' onClick={toggleDrawer}>
             Menu
@@ -58,15 +58,6 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
           <button className='hover-underline' onClick={() => logUserOut()}>
             Logout
           </button>
-        </>
-      ) : (
-        <>
-          <Link to='login'>
-            <button className='hover-underline'>Login</button>
-          </Link>
-          <Link to='register'>
-            <button className='hover-underline'>Register</button>
-          </Link>
         </>
       )}
     </header>

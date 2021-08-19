@@ -22,6 +22,7 @@ export const Input = ({
   <div className='input-container'>
     <input
       name={name}
+      id={label}
       required
       type={type || 'text'}
       value={value}
@@ -29,9 +30,9 @@ export const Input = ({
       onBlur={handleBlur}
       pattern={type === 'number' ? '[0-9]*' : null}
     />
-    <span className={persistentLabel ? 'persistent-label' : 'floating-label'}>
+    <label for={label} className={persistentLabel ? 'persistent-label' : 'floating-label'}>
       {label}
-    </span>
+    </label>
     {error && <p className='input-error'>{error}</p>}
   </div>
 );

@@ -39,7 +39,7 @@ const Login = ({ history }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='full-size mt-24 mb-36'>
+    <div className='full-size mt-48 mb-36'>
       <h1>Welcome Back!</h1>
       <h4>Enter your credentials</h4>
       <form noValidate onSubmit={handleSubmit}>

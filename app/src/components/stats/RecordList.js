@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { alphabetize } from '../../functions/helpers';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { formatDate, getDate } from '../../functions/helpers';
 
 const RecordList = ({ records, selectExercise }) => {
@@ -29,28 +28,26 @@ const RecordList = ({ records, selectExercise }) => {
               </option>
             ))}
           </select>
-          <TransitionGroup className='scrollable'>
+          <div className='scrollable'>
             {filtered.map(exercise => {
               const { id, lift, printout, becameRecord, surpassed } = exercise;
               return (
-                <CSSTransition key={id} timeout={500} classNames='fade'>
-                  <section className='mb-16'>
-                    <h3
-                      className='record'
-                      title='Copy'
-                      onClick={() => selectExercise(exercise)}>
-                      {selected === '#' && `${lift}: `}
-                      {printout}
-                    </h3>
-                    <h4>
-                      {formatDate(becameRecord)}
-                      {surpassed && ` - ${formatDate(surpassed)}`}
-                    </h4>
-                  </section>
-                </CSSTransition>
+                <section className='mb-16'>
+                  <h3
+                    className='record'
+                    title='Copy'
+                    onClick={() => selectExercise(exercise)}>
+                    {selected === '#' && `${lift}: `}
+                    {printout}
+                  </h3>
+                  <h4>
+                    {formatDate(becameRecord)}
+                    {surpassed && ` - ${formatDate(surpassed)}`}
+                  </h4>
+                </section>
               );
             })}
-          </TransitionGroup>
+          </div>
         </>
       ) : (
         <div className='intro-text'>

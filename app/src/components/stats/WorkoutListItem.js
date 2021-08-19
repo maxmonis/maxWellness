@@ -48,15 +48,15 @@ const WorkoutListItem = ({
           </button>
         </Modal>
       )}
-      <h3>
+      <h3 className='pointer' onClick={handleClick} title='Copy'>
         {selected === '#' && `${name} - `}
         {formatDate(date)}
       </h3>
       <section className='mb-4'>
         <ul>
           {organizedRoutine.map(exercise => (
-            <li className='pointer' key={exercise.id} onClick={handleClick}>
-              <h4 title={'Copy'}>{`${exercise.lift}: ${exercise.printout}`}</h4>
+            <li key={exercise.id}>
+              <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
             </li>
           ))}
         </ul>

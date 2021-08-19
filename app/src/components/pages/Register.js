@@ -41,7 +41,7 @@ const Register = ({ history }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='full-size mt-24 mb-36'>
+    <div className='full-size mt-48 mb-36'>
       <h1>Welcome!</h1>
       <h4>Create your free account</h4>
       <form noValidate onSubmit={handleSubmit}>
