@@ -152,31 +152,28 @@
 
 .scrollable {
   margin: 0 auto;
-  max-height: calc(100vh - 125px);
+  max-height: calc(100vh - 200px);
   max-width: 30ch;
   overflow: scroll;
   padding-top: 16px;
-}
-@media (min-width: 568px) {
-  .scrollable {
-    min-height: 450px;
-  }
 }
 
 .workout-app {
   padding: 0 16px;
 }
-.workout-app-title {
-  margin-bottom: 24px;
-}
-.workout-app > section:first-child {
-  margin-bottom: 36px;
+.workout-app > section {
+  margin-top: 24px;
 }
 .workout-app > section select {
   margin-top: 12px;
   min-width: clamp(200px, 80%, 300px);
 }
+
 @media (min-width: 568px) {
+  .scrollable {
+    min-height: 450px;
+  }
+
   .workout-app {
     display: grid;
     grid-auto-flow: column;
@@ -186,10 +183,8 @@
     max-width: 700px;
     padding: 0 auto;
   }
-  .workout-app-title {
-    margin: -48px 0 0;
-  }
 }
+
 @media (min-width: 992px) {
   .workout-app {
     max-width: 1000px;

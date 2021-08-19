@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { alphabetize } from '../../functions/helpers';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { formatDate } from '../../functions/helpers';
+import { formatDate, getDate } from '../../functions/helpers';
 
 const RecordList = ({ records, selectExercise }) => {
   const [selected, setSelected] = useState('#');
@@ -59,15 +59,17 @@ const RecordList = ({ records, selectExercise }) => {
             first acheived them:
           </p>
           <h3>Bench Press: 3(10x135)</h3>
-          <h4>3/12/21</h4>
+          <h4>{getDate(-4)}</h4>
           <p>
             When you set a new personal record, you'll also see the date on
             which the previous one was broken:
           </p>
-          <h3>Bench Press: 3(10x145)</h3>
-          <h4>3/19/21</h4>
+          <h3>Bench Press: 3(12x135)</h3>
+          <h4>{getDate()}</h4>
           <h3>Bench Press: 3(10x135)</h3>
-          <h4>3/12/21-3/19/21</h4>
+          <h4>
+            {getDate(-4)}-{getDate()}
+          </h4>
           <p>
             You can break a record by increasing the weight and/or reps and/or
             sets without decreasing any other field.

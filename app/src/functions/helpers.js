@@ -19,18 +19,16 @@ export function strInput(string) {
 }
 
 export function formatDate(date) {
-  const days = [
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-  ];
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const weekday = days[new Date(`${date.replace(/-/g, '/')}`).getDay()];
   const year = date.slice(2, 4);
   const month = parseInt(date.slice(5, 7));
   const day = parseInt(date.slice(8));
   return `${weekday} ${month}/${day}/${year}`;
+}
+
+export function getDate(daysAdded = 0) {
+  const date = new Date();
+  date.setDate(date.getDate() + daysAdded - 1);
+  return formatDate(date.toISOString().slice(0, 10));
 }

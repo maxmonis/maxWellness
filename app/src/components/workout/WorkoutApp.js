@@ -109,7 +109,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1 className='workout-app-title'>{title}</h1>
+      <h1>{title}</h1>
       <div className='workout-app full-size'>
         <section>
           {isFormOpen ? (
