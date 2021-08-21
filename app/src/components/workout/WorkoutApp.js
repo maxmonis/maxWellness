@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import EditWorkout from './EditWorkout';
 import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
+import WorkoutTable from './WorkoutTable';
 import AlertContext from '../../context/alert/alertContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
@@ -89,6 +90,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
+  const [gridView, setGrigView] = useState(true);
   return (
     <>
       {editingWorkout && (
@@ -109,44 +111,60 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1>{title}</h1>
-      <div className='workout-app full-size'>
-        <section>
-          {isFormOpen ? (
-            <LiftApp
-              lifts={lifts}
-              updateLifts={updateLifts}
-              toggleLiftForm={toggleLiftForm}
+      {gridView ? (
+        <>
+          <button className='outline mb-24' onClick={() => setGrigView(false)}>
+            New Workout
+          </button>
+          <WorkoutTable workouts={workouts} />
+        </>
+      ) : (
+        <>
+          <h1>{title}</h1>
+          <div className='workout-app full-size'>
+            <section>
+              {isFormOpen ? (
+                <LiftApp
+                  lifts={lifts}
+                  updateLifts={updateLifts}
+                  toggleLiftForm={toggleLiftForm}
+                />
+              ) : (
+                <>
+                  <h2>New Workout</h2>
+                  <EditWorkout
+                    exercise={exercise}
+                    workout={workout}
+                    lifts={lifts}
+                    routine={routine}
+                    workouts={workouts}
+                    records={records}
+                    handleChange={handleChange}
+                    saveWorkout={saveWorkout}
+                    updateRoutine={updateRoutine}
+                    selectExercise={selectExercise}
+                    setExercise={setExercise}
+                    allowLiftEditing
+                  />
+                  <button
+                    className='outline mt-24'
+                    onClick={() => setGrigView(true)}>
+                    Workouts
+                  </button>
+                </>
+              )}
+            </section>
+            <StatsApp
+              records={records}
+              workouts={workouts}
+              updateWorkouts={updateWorkouts}
+              editWorkout={editWorkout}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
             />
-          ) : (
-            <>
-              <h2>New Workout</h2>
-              <EditWorkout
-                exercise={exercise}
-                workout={workout}
-                lifts={lifts}
-                routine={routine}
-                workouts={workouts}
-                records={records}
-                handleChange={handleChange}
-                saveWorkout={saveWorkout}
-                updateRoutine={updateRoutine}
-                selectExercise={selectExercise}
-                setExercise={setExercise}
-                allowLiftEditing
-              />
-            </>
-          )}
-        </section>
-        <StatsApp
-          records={records}
-          workouts={workouts}
-          updateWorkouts={updateWorkouts}
-          editWorkout={editWorkout}
-          updateRoutine={updateRoutine}
-          selectExercise={selectExercise}
-        />
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

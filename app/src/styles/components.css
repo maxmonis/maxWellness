@@ -192,3 +192,23 @@
     max-width: 1000px;
   }
 }
+
+.workout-table {
+  border-top: 2px solid var(--color);
+  display: flex;
+  overflow-x: scroll;
+}
+
+.workout-table-item {
+  border: 1px solid var(--color);
+  height: 28px;
+  min-width: 200px;
+  overflow-x: scroll;
+}
+.workout-table-item > div {
+  white-space: nowrap;
+  margin: 0 8px;
+  max-width: 200px;
+  overflow-x: scroll;
+  overflow-y: visible;
+}
