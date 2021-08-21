@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ExerciseHistory from '../exercise/ExerciseHistory';
+import LiftRecords from '../lift/LiftRecords';
 import { Input } from '../layout/UI';
 import { numInput } from '../../functions/helpers';
 
@@ -47,7 +47,7 @@ const AddExercise = ({
           </option>
         )}
       </select>
-      <ExerciseHistory
+      <LiftRecords
         records={records}
         lift={exercise.lift}
         setExercise={setExercise}

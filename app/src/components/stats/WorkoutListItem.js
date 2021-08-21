@@ -37,7 +37,7 @@ const WorkoutListItem = ({
   };
   return (
     <div
-      className='border-b mb-8 pb-4'
+      className='mb-24 pb-4'
       onMouseEnter={() => toggleMenu(workout.id)}
       onMouseLeave={() => toggleMenu(workout.id)}>
       {showDeleteModal && (

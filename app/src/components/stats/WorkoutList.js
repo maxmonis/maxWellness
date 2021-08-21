@@ -76,7 +76,7 @@ const WorkoutList = ({
             by name. New personal records will be flagged with an asterisk.
           </p>
           {EXAMPLE_WORKOUTS.map(({ date, bench, deadlift }) => (
-            <div className='border-b mb-8 pb-8' key={date}>
+            <div className='mb-8 pb-8' key={date}>
               <h3>Chest and Back - {date}</h3>
               <ul>
                 <li>

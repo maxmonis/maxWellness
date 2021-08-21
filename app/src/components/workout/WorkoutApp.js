@@ -90,12 +90,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
-  const [gridView, setGrigView] = useState(true);
   return (
     <>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
-          <h2>Edit Workout</h2>
+          <h2 className='mb-12'>Edit Workout</h2>
           <EditWorkout
             exercise={editingExercise}
             workout={editingWorkout}
@@ -111,59 +110,46 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      {gridView ? (
-        <>
-          <button className='outline mb-24' onClick={() => setGrigView(false)}>
-            New Workout
-          </button>
-          <WorkoutTable workouts={workouts} />
-        </>
-      ) : (
-        <>
-          <h1>{title}</h1>
-          <div className='workout-app full-size'>
-            <section>
-              {isFormOpen ? (
-                <LiftApp
-                  lifts={lifts}
-                  updateLifts={updateLifts}
-                  toggleLiftForm={toggleLiftForm}
-                />
-              ) : (
-                <>
-                  <h2>New Workout</h2>
-                  <EditWorkout
-                    exercise={exercise}
-                    workout={workout}
-                    lifts={lifts}
-                    routine={routine}
-                    workouts={workouts}
-                    records={records}
-                    handleChange={handleChange}
-                    saveWorkout={saveWorkout}
-                    updateRoutine={updateRoutine}
-                    selectExercise={selectExercise}
-                    setExercise={setExercise}
-                    allowLiftEditing
-                  />
-                  <button
-                    className='outline mt-24'
-                    onClick={() => setGrigView(true)}>
-                    Workouts
-                  </button>
-                </>
-              )}
-            </section>
-            <StatsApp
-              records={records}
-              workouts={workouts}
-              updateWorkouts={updateWorkouts}
-              editWorkout={editWorkout}
-              updateRoutine={updateRoutine}
-              selectExercise={selectExercise}
+      <h1 className='mb-12'>{title}</h1>
+      <div className='workout-app full-size'>
+        <section>
+          {isFormOpen ? (
+            <LiftApp
+              lifts={lifts}
+              updateLifts={updateLifts}
+              toggleLiftForm={toggleLiftForm}
             />
-          </div>
-        </>
+          ) : (
+            <>
+              <h2>New Workout</h2>
+              <EditWorkout
+                exercise={exercise}
+                workout={workout}
+                lifts={lifts}
+                routine={routine}
+                workouts={workouts}
+                records={records}
+                handleChange={handleChange}
+                saveWorkout={saveWorkout}
+                updateRoutine={updateRoutine}
+                selectExercise={selectExercise}
+                setExercise={setExercise}
+                allowLiftEditing
+              />
+            </>
+          )}
+        </section>
+        <StatsApp
+          records={records}
+          workouts={workouts}
+          updateWorkouts={updateWorkouts}
+          editWorkout={editWorkout}
+          updateRoutine={updateRoutine}
+          selectExercise={selectExercise}
+        />
+      </div>
+      {workouts.length > 0 && (
+        <WorkoutTable workouts={[...workouts].reverse()} />
       )}
     </>
   );

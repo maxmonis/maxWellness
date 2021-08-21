@@ -32,7 +32,7 @@ const RecordList = ({ records, selectExercise }) => {
             {filtered.map(exercise => {
               const { id, lift, printout, becameRecord, surpassed } = exercise;
               return (
-                <section className='mb-16' key={id}>
+                <section className='mb-24' key={id}>
                   <h3
                     className='record'
                     title='Copy'
@@ -52,19 +52,14 @@ const RecordList = ({ records, selectExercise }) => {
       ) : (
         <div className='intro-text'>
           <p>
-            Your personal records will be displayed here along with the date you
-            first acheived them:
-          </p>
-          <h3>Bench Press: 3(10x135)</h3>
-          <h4>{getDate(-4)}</h4>
-          <p>
-            When you set a new personal record, you'll also see the date on
-            which the previous one was broken:
+            The dates of your personal records will be displayed here. When you
+            set a new one, any previous records which it surpassed will be
+            updated to reflect your progress:
           </p>
           <h3>Bench Press: 3(12x135)</h3>
-          <h4>{getDate()}</h4>
+          <h4 className='mb-12'>{getDate()}</h4>
           <h3>Bench Press: 3(10x135)</h3>
-          <h4>
+          <h4 className='mb-12'>
             {getDate(-4)}-{getDate()}
           </h4>
           <p>

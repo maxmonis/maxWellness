@@ -5,6 +5,7 @@ import Alerts from './components/layout/Alerts';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import PrivateRoute from './components/pages/PrivateRoute';
 import Register from './components/pages/Register';
 import AlertState from './context/alert/AlertState';
@@ -51,6 +52,7 @@ const App = () => {
                   )}
                 />
               </Router>
+              <Footer />
               <Alerts />
             </AlertState>
           </WorkoutState>

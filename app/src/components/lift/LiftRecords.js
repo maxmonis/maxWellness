@@ -1,14 +1,14 @@
 import React from 'react';
 import { formatDate } from '../../functions/helpers';
 
-const ExerciseHistory = ({ records, lift, setExercise }) => {
+const LiftRecords = ({ records, lift, setExercise }) => {
   const liftRecords = records.filter(record => record.lift === lift).reverse();
   const getTitle = ({ becameRecord, surpassed }) =>
     surpassed
       ? `${formatDate(becameRecord)} - ${formatDate(surpassed)}`
       : formatDate(becameRecord);
   return (
-    <div className='exercise-history'>
+    <div className='lift-records'>
       {!liftRecords.length ? (
         <h4>{lift} records will be displayed here</h4>
       ) : (
@@ -27,4 +27,4 @@ const ExerciseHistory = ({ records, lift, setExercise }) => {
   );
 };
 
-export default ExerciseHistory;
+export default LiftRecords;
