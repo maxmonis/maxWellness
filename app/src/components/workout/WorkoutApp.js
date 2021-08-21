@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import EditWorkout from './EditWorkout';
 import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
+import ExerciseHistory from '../exercise/ExerciseHistory';
 import AlertContext from '../../context/alert/alertContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
@@ -93,7 +94,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     <>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
-          <h2>Edit Workout</h2>
+          <h2 className='mb-12'>Edit Workout</h2>
           <EditWorkout
             exercise={editingExercise}
             workout={editingWorkout}
@@ -109,7 +110,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1>{title}</h1>
+      <h1 className='mb-12'>{title}</h1>
       <div className='workout-app full-size'>
         <section>
           {isFormOpen ? (
@@ -147,6 +148,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           selectExercise={selectExercise}
         />
       </div>
+      {workouts.length > 0 && (
+        <ExerciseHistory workouts={[...workouts].reverse()} />
+      )}
     </>
   );
 };

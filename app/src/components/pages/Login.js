@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Quote from '../layout/Quote';
-import Footer from '../layout/Footer';
 import useValidate from '../../hooks/useValidate';
 import validateLogin from '../../validation/validateLogin';
 import { Input, Spinner } from '../layout/UI';
@@ -70,7 +69,6 @@ const Login = ({ history }) => {
         <button className='btn-two mt-4'>Get started</button>
       </Link>
       <Quote />
-      <Footer />
     </div>
   );
 };

@@ -30,7 +30,7 @@ export const Input = ({
       onBlur={handleBlur}
       pattern={type === 'number' ? '[0-9]*' : null}
     />
-    <label for={label} className={persistentLabel ? 'persistent-label' : 'floating-label'}>
+    <label htmlFor={label} className={persistentLabel ? 'persistent-label' : 'floating-label'}>
       {label}
     </label>
     {error && <p className='input-error'>{error}</p>}

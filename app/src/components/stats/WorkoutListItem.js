@@ -20,12 +20,14 @@ const WorkoutListItem = ({
   const handleDelete = () => {
     updateWorkouts(id);
     setAlert('Workout Deleted', 'success');
+    toggleDeleteModal();
   };
   const organizedRoutine = organizeRoutine(routine);
   const CLIPBOARD_TEXT = `
   ${name}
   ${formatDate(date)}
-  ${organizedRoutine.map(exercise => `${exercise.lift}: ${exercise.printout}`)}
+  ${organizedRoutine.map(exercise => `
+  ${exercise.lift}: ${exercise.printout}`)}
   `;
   const handleClick = () => {
     updateRoutine(routine);
@@ -35,7 +37,7 @@ const WorkoutListItem = ({
   };
   return (
     <div
-      className='border-b mb-8 pb-4'
+      className='mb-24 pb-4'
       onMouseEnter={() => toggleMenu(workout.id)}
       onMouseLeave={() => toggleMenu(workout.id)}>
       {showDeleteModal && (
