@@ -32,7 +32,7 @@ const RecordList = ({ records, selectExercise }) => {
             {filtered.map(exercise => {
               const { id, lift, printout, becameRecord, surpassed } = exercise;
               return (
-                <section className='mb-16'>
+                <section className='mb-16' key={id}>
                   <h3
                     className='record'
                     title='Copy'

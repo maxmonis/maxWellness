@@ -53,16 +53,17 @@ const WorkoutList = ({
             ))}
           </select>
           <div className='scrollable'>
-            {filtered.map(workout => (
-                <WorkoutListItem
-                  workout={workout}
-                  selected={selected}
-                  menuID={menuID}
-                  toggleMenu={toggleMenu}
-                  editWorkout={editWorkout}
-                  updateWorkouts={updateWorkouts}
-                  updateRoutine={updateRoutine}
-                />
+            {filtered.map((workout, i) => (
+              <WorkoutListItem
+                key={i}
+                workout={workout}
+                selected={selected}
+                menuID={menuID}
+                toggleMenu={toggleMenu}
+                editWorkout={editWorkout}
+                updateWorkouts={updateWorkouts}
+                updateRoutine={updateRoutine}
+              />
             ))}
           </div>
         </>

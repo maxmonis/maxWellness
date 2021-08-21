@@ -29,6 +29,6 @@ export function formatDate(date) {
 
 export function getDate(daysAdded = 0) {
   const date = new Date();
-  date.setDate(date.getDate() + daysAdded - 1);
+  date.setDate(date.getDate() + daysAdded);
   return formatDate(date.toISOString().slice(0, 10));
 }
