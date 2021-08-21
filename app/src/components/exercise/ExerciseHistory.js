@@ -2,7 +2,7 @@ import React from 'react';
 import organizeRoutine from '../../functions/organizeRoutine';
 import { formatDate } from '../../functions/helpers';
 
-const WorkoutTable = ({ workouts }) => {
+const ExerciseHistory = ({ workouts }) => {
   const lifts = {};
   for (const { routine } of workouts) {
     for (const { lift } of routine) {
@@ -43,4 +43,4 @@ const WorkoutTable = ({ workouts }) => {
   );
 };
 
-export default WorkoutTable;
+export default ExerciseHistory;

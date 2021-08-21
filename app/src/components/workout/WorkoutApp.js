@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import EditWorkout from './EditWorkout';
 import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
-import WorkoutTable from './WorkoutTable';
+import ExerciseHistory from '../exercise/ExerciseHistory';
 import AlertContext from '../../context/alert/alertContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
@@ -149,7 +149,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         />
       </div>
       {workouts.length > 0 && (
-        <WorkoutTable workouts={[...workouts].reverse()} />
+        <ExerciseHistory workouts={[...workouts].reverse()} />
       )}
     </>
   );
