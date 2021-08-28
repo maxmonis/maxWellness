@@ -4,12 +4,14 @@ import StatsApp from '../stats/StatsApp';
 import LiftApp from '../lift/LiftApp';
 import ExerciseHistory from '../exercise/ExerciseHistory';
 import AlertContext from '../../context/alert/alertContext';
+import WorkoutContext from '../../context/workout/workoutContext';
 import useClientState from '../../hooks/useClientState';
 import useToggle from '../../hooks/useToggle';
-import { Modal } from '../layout/UI';
+import { Modal, Spinner } from '../layout/UI';
 
 const WorkoutApp = ({ selectedClient, updateClient }) => {
   const { setAlert } = useContext(AlertContext);
+  const { setAllWorkouts, filteredWorkouts } = useContext(WorkoutContext);
   const {
     client,
     routine,
@@ -20,6 +22,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateWorkouts,
   } = useClientState(selectedClient);
   const { lifts, workouts, records, name } = client;
+  useEffect(() => {
+    setAllWorkouts(workouts ? workouts : null);
+    // eslint-disable-next-line
+  }, [workouts]);
   const DEFAULT_EXERCISE = {
     lift: lifts[0],
     sets: '',
@@ -90,7 +96,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateClient(client);
     // eslint-disable-next-line
   }, [client]);
-  return (
+  return filteredWorkouts ? (
     <>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
@@ -110,7 +116,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1 className='mb-12'>{title}</h1>
+      <h1 className='mt-48 mb-12'>{title}</h1>
       <div className='workout-app full-size'>
         <section>
           {isFormOpen ? (
@@ -140,8 +146,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           )}
         </section>
         <StatsApp
-          records={records}
-          workouts={workouts}
+          workouts={filteredWorkouts}
           updateWorkouts={updateWorkouts}
           editWorkout={editWorkout}
           updateRoutine={updateRoutine}
@@ -149,9 +154,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         />
       </div>
       {workouts.length > 0 && (
-        <ExerciseHistory workouts={[...workouts].reverse()} />
+        <ExerciseHistory workouts={[...filteredWorkouts].reverse()} />
       )}
     </>
+  ) : (
+    <Spinner />
   );
 };
 

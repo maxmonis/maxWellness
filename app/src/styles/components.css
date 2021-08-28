@@ -21,6 +21,7 @@
   --background: var(--white);
   --color: var(--grey3);
   align-items: center;
+  background: var(--background);
   background-image: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0.8),
@@ -84,7 +85,7 @@
 }
 
 .lift-records {
-  margin: 12px auto 20px;
+  margin: 8px auto;
   max-width: 275px;
   overflow-x: scroll;
   white-space: nowrap;
@@ -131,7 +132,7 @@
   max-width: 240px;
 }
 .new-exercise-inputs .input-container {
-  margin-top: 0;
+  margin: 0 0 16px;
 }
 .new-exercise-inputs input {
   padding-right: 4px;
@@ -157,11 +158,10 @@
 }
 
 .scrollable {
-  margin: 0 auto;
+  margin: 8px auto 0;
   max-height: 400px;
   max-width: 30ch;
   overflow: scroll;
-  padding-top: 16px;
 }
 
 .workout-app {
@@ -195,15 +195,15 @@
 
 .workout-table-item {
   border: 1px solid var(--color);
-  height: 32px;
-  min-width: 120px;
+  min-height: 32px;
+  min-width: 150px;
   overflow-x: scroll;
   overflow-y: hidden;
 }
 .workout-table-head,
 .workout-table-item > h3 {
   margin: auto 0;
-  max-width: 120px;
+  max-width: 150px;
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 0 8px;
@@ -211,20 +211,9 @@
 }
 .workout-table-head {
   margin: unset;
+  min-height: 32px;
   padding: unset;
   text-align: center;
-}
-
-.workout-table-date {
-  background: var(--background);
-  border: 2px solid var(--color);
-  font-weight: 400;
-  left: -8px;
-  margin-right: 36px;
-  position: absolute;
-  text-shadow: none;
-  transform: translate(4px, -1px);
-  min-width: 130px;
 }
 
 @media (min-width: 568px) {
@@ -236,14 +225,6 @@
     margin: 0 auto;
     max-width: 700px;
     padding: 0 auto;
-  }
-  .workout-table-date {
-    background: inherit;
-    border: none;
-    padding: 8px;
-    min-width: 120px;
-    position: relative;
-    transform: translate(4px, 2px);
   }
 }
 

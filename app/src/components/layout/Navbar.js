@@ -16,25 +16,27 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
     // eslint-disable-next-line
   }, [user]);
   return (
-    <header>
-      {isDrawerOpen && (
-        <MenuDrawer
-          dark={dark}
-          toggleDark={toggleDark}
-          toggleDrawer={toggleDrawer}
-        />
-      )}
-      {isAuthenticated && (
-        <>
-          <button className='hover-underline' onClick={toggleDrawer}>
-            Menu
-          </button>
-          <button className='hover-underline' onClick={() => logUserOut()}>
-            Logout
-          </button>
-        </>
-      )}
-    </header>
+    <nav>
+      <header>
+        {isDrawerOpen && (
+          <MenuDrawer
+            dark={dark}
+            toggleDark={toggleDark}
+            toggleDrawer={toggleDrawer}
+          />
+        )}
+        {isAuthenticated && (
+          <>
+            <button className='hover-underline' onClick={toggleDrawer}>
+              Menu
+            </button>
+            <button className='hover-underline' onClick={() => logUserOut()}>
+              Logout
+            </button>
+          </>
+        )}
+      </header>
+    </nav>
   );
 };
 
