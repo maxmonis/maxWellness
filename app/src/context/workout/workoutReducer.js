@@ -152,12 +152,9 @@ export default (state, action) => {
     return state.allWorkouts
       .filter(
         workout =>
+          workout.date >= filters.workoutDates.startDate &&
+          workout.date <= filters.workoutDates.endDate &&
           filters.workoutNames.find(({ name }) => name === workout.name).checked
-      )
-      .filter(
-        ({ date }) =>
-          date >= filters.workoutDates.startDate &&
-          date <= filters.workoutDates.endDate
       )
       .map(workout => ({
         ...workout,
