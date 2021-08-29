@@ -11,7 +11,7 @@ const eliminateRedundancy = routine => {
       reps === previous.reps &&
       weight === previous.weight
     ) {
-      const currentSets = exercise.sets || 1;
+      const currentSets = sets || 1;
       const previousSets = previous.sets || 1;
       const updatedExercise = createNewExercise({
         ...exercise,

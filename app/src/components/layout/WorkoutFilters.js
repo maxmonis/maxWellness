@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { formatDate } from '../../functions/helpers';
-import { Checkbox, Spinner } from './UI';
+import { Checkbox } from './UI';
 import WorkoutContext from '../../context/workout/workoutContext';
 
 const WorkoutFilters = () => {
   const { workoutsFilters, updateWorkoutsFilter, clearWorkoutsFilters } =
     useContext(WorkoutContext);
-  return workoutsFilters ? (
+  return workoutsFilters.workoutNames.length ? (
     <>
       <h3 className='m-8'>Workout Name</h3>
       {workoutsFilters.workoutNames.map(({ name, checked }) => (
@@ -46,7 +46,7 @@ const WorkoutFilters = () => {
           })
         }>
         {workoutsFilters.workoutDates.allDates
-          .filter(date => date < workoutsFilters.workoutDates.endDate)
+          .filter(date => date <= workoutsFilters.workoutDates.endDate)
           .map(date => (
             <option key={date} value={date}>
               {formatDate(date)}
@@ -63,7 +63,7 @@ const WorkoutFilters = () => {
           })
         }>
         {workoutsFilters.workoutDates.allDates
-          .filter(date => date > workoutsFilters.workoutDates.startDate)
+          .filter(date => date >= workoutsFilters.workoutDates.startDate)
           .map(date => (
             <option key={date} value={date}>
               {formatDate(date)}
@@ -75,10 +75,10 @@ const WorkoutFilters = () => {
       </button>
     </>
   ) : (
-    <>
-      <Spinner />
-      <h3>Loading filters...</h3>
-    </>
+    <h4 className='mt-24 mb-24'>
+      Workout filters will be displayed here. You'll be able to filter by
+      workout name, workout date, or exercise name.
+    </h4>
   );
 };
 

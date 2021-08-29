@@ -117,7 +117,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         </Modal>
       )}
       <h1 className='mt-48 mb-12'>{title}</h1>
-      <div className='workout-app full-size'>
+      <div className='workout-app'>
         <section>
           {isFormOpen ? (
             <LiftApp

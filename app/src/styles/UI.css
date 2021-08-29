@@ -24,8 +24,8 @@
   border-right: 1px solid var(--color);
   color: var(--color);
   left: 0;
-  min-height: 100vh;
-  max-height: 100vh;
+  height: 100vh;
+  height: -webkit-fill-available;
   overflow: scroll;
   padding: 16px;
   position: fixed;
