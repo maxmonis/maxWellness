@@ -1,6 +1,6 @@
 import createNewExercise from './createNewExercise';
 
-const eliminateRedundancy = (routine) => {
+const eliminateRedundancy = routine => {
   const updatedRoutine = routine.length ? [routine[0]] : [];
   for (let i = 1; i < routine.length; i++) {
     const exercise = routine[i];
@@ -11,9 +11,11 @@ const eliminateRedundancy = (routine) => {
       reps === previous.reps &&
       weight === previous.weight
     ) {
+      const currentSets = exercise.sets || 1;
+      const previousSets = previous.sets || 1;
       const updatedExercise = createNewExercise({
         ...exercise,
-        sets: sets + previous.sets,
+        sets: currentSets + previousSets,
       });
       updatedRoutine.splice(-1, 1, updatedExercise);
     } else {

@@ -106,6 +106,7 @@ export default (state, action) => {
         name,
         checked: true,
       })),
+      newestFirst: true,
     };
   }
 
@@ -143,13 +144,18 @@ export default (state, action) => {
             endDate: clicked,
           },
         };
+      case 'chronology':
+        return {
+          ...state.workoutsFilters,
+          newestFirst: !state.workoutsFilters.newestFirst, 
+        }
       default:
         return state.workoutsFilters;
     }
   }
 
   function filterWorkouts(filters) {
-    return state.allWorkouts
+    const updatedState = state.allWorkouts
       .filter(
         workout =>
           workout.date >= filters.workoutDates.startDate &&
@@ -163,5 +169,6 @@ export default (state, action) => {
             filters.liftNames.find(({ name }) => name === lift).checked
         ),
       }));
+    return filters.newestFirst ? updatedState : updatedState.reverse();
   }
 };

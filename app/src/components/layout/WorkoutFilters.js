@@ -31,7 +31,13 @@ const WorkoutFilters = () => {
         />
       ))}
       <h3 className='m-8'>Workout Date</h3>
+      <Checkbox
+        label='Show newest first'
+        bool={workoutsFilters.newestFirst}
+        toggle={() => updateWorkoutsFilter({ type: 'chronology' })}
+      />
       <select
+        className='mt-8'
         value={workoutsFilters.workoutDates.startDate}
         onChange={e =>
           updateWorkoutsFilter({
