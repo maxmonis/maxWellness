@@ -175,33 +175,33 @@
   min-width: clamp(200px, 80%, 300px);
 }
 
-.workout-table {
+.exercise-history {
   border-top: 2px solid var(--color);
   overflow: scroll;
   padding: 24px 0;
   text-align: left;
 }
-.workout-table > h2 {
+.exercise-history > div:first-child {
   left: 0;
   margin-bottom: 16px;
   position: sticky;
   text-align: center;
 }
-.workout-table > div {
+.exercise-history > div {
   display: flex;
   justify-content: center;
   min-width: max-content;
 }
 
-.workout-table-item {
+.exercise-history-item {
   border: 1px solid var(--color);
   min-height: 32px;
   min-width: 150px;
   overflow-x: scroll;
   overflow-y: hidden;
 }
-.workout-table-head,
-.workout-table-item > h3 {
+.exercise-history-head,
+.exercise-history-item > h3 {
   margin: auto 0;
   max-width: 150px;
   overflow-x: scroll;
@@ -209,7 +209,7 @@
   padding: 0 8px;
   white-space: nowrap;
 }
-.workout-table-head {
+.exercise-history-head {
   margin: unset;
   min-height: 32px;
   padding: unset;
