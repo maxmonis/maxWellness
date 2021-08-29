@@ -15,7 +15,7 @@ const ExerciseHistory = ({ workouts }) => {
     liftArray.push({ lift, total: lifts[lift] });
   }
   const sortedLifts = liftArray.sort((a, b) => b.total - a.total);
-  const [sortByDate, toggleSort] = useToggle(true);
+  const [sortByDate, toggleSort] = useToggle(false);
   return (
     <div className='exercise-history'>
       <div>

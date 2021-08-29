@@ -84,8 +84,58 @@
   max-width: 30ch;
 }
 
+.exercise-history {
+  border-top: 2px solid var(--color);
+  overflow: scroll;
+  padding: 24px 0;
+  text-align: left;
+}
+.exercise-history > div:first-child {
+  left: 0;
+  margin-bottom: 16px;
+  position: sticky;
+  text-align: center;
+}
+.exercise-history > div {
+  display: flex;
+  justify-content: center;
+  min-width: max-content;
+}
+
+.exercise-history-item {
+  border: 1px solid var(--color);
+  height: 32px;
+  min-width: 130px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.exercise-history-head,
+.exercise-history-item > h3 {
+  margin: auto 0;
+  max-width: 130px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+.exercise-history-head {
+  margin: unset;
+  min-height: 28px;
+  padding: unset;
+  text-align: center;
+}
+
+.intro-text {
+  padding: 8px 16px 16px;
+  margin: 0 auto;
+  max-width: 30ch;
+}
+.intro-text p {
+  margin-bottom: 8px;
+}
+
 .lift-records {
-  margin: 8px auto;
+  margin: 4px auto 8px;
   max-width: 275px;
   overflow-x: scroll;
   white-space: nowrap;
@@ -100,16 +150,8 @@
   margin-right: 0;
 }
 .lift-records h4 {
+  margin: 4px 0 8px;
   white-space: normal;
-}
-
-.intro-text {
-  padding: 8px 16px 16px;
-  margin: 0 auto;
-  max-width: 30ch;
-}
-.intro-text p {
-  margin-bottom: 8px;
 }
 
 .lift-app h3 {
@@ -173,47 +215,6 @@
 .workout-app > section select {
   margin-top: 12px;
   min-width: clamp(200px, 80%, 300px);
-}
-
-.exercise-history {
-  border-top: 2px solid var(--color);
-  overflow: scroll;
-  padding: 24px 0;
-  text-align: left;
-}
-.exercise-history > div:first-child {
-  left: 0;
-  margin-bottom: 16px;
-  position: sticky;
-  text-align: center;
-}
-.exercise-history > div {
-  display: flex;
-  justify-content: center;
-  min-width: max-content;
-}
-
-.exercise-history-item {
-  border: 1px solid var(--color);
-  min-height: 32px;
-  min-width: 150px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-.exercise-history-head,
-.exercise-history-item > h3 {
-  margin: auto 0;
-  max-width: 150px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  padding: 0 8px;
-  white-space: nowrap;
-}
-.exercise-history-head {
-  margin: unset;
-  min-height: 32px;
-  padding: unset;
-  text-align: center;
 }
 
 @media (min-width: 568px) {

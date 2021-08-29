@@ -10,14 +10,14 @@ const AddExercise = ({
   records,
   updateRoutine,
   setExercise,
-  allowLiftEditing
+  allowLiftEditing,
 }) => {
   const { lift, sets, reps, weight } = exercise;
   const [blurred, setBlurred] = useState(false);
   const [error, setError] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
-    if (weight > 0) {
+    if (weight > 0 || reps > 0) {
       setBlurred(false);
       setError(false);
       updateRoutine(exercise);
@@ -30,9 +30,9 @@ const AddExercise = ({
     setError(false);
   };
   useEffect(() => {
-    blurred && weight < 1 ? setError(true) : setError(false);
+    blurred && !weight && !reps ? setError(true) : setError(false);
     // eslint-disable-next-line
-  }, [weight]);
+  }, [reps, weight]);
   return (
     <>
       <select name='lift' value={lift} onChange={handleChange}>
@@ -74,7 +74,6 @@ const AddExercise = ({
             type='number'
             value={numInput(weight)}
             handleChange={handleChange}
-            error={error ? 'Must be > 0' : null}
           />
         </div>
         <button className='btn-two' type='submit'>
@@ -83,6 +82,7 @@ const AddExercise = ({
         {(sets || reps || weight) && (
           <button onClick={() => reset()}>Reset</button>
         )}
+        {error && <p className='red'>Invalid exercise</p>}
       </form>
     </>
   );
