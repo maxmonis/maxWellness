@@ -7,7 +7,6 @@ import { Modal } from '../layout/UI';
 
 const WorkoutListItem = ({
   workout,
-  selected,
   editWorkout,
   updateRoutine,
   updateWorkouts,
@@ -26,8 +25,10 @@ const WorkoutListItem = ({
   const CLIPBOARD_TEXT = `
   ${name}
   ${formatDate(date)}
-  ${organizedRoutine.map(exercise => `
-  ${exercise.lift}: ${exercise.printout}`)}
+  ${organizedRoutine.map(
+    exercise => `
+  ${exercise.lift}: ${exercise.printout}`
+  )}
   `;
   const handleClick = () => {
     updateRoutine(routine);
@@ -36,44 +37,43 @@ const WorkoutListItem = ({
     }
   };
   return (
-    <div
-      className='mb-24 pb-4'
-      onMouseEnter={() => toggleMenu(workout.id)}
-      onMouseLeave={() => toggleMenu(workout.id)}>
-      {showDeleteModal && (
-        <Modal handleClose={toggleDeleteModal}>
-          <h2>Delete Workout?</h2>
-          <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
-          <button onClick={toggleDeleteModal}>Cancel</button>
-          <button className='red' onClick={handleDelete}>
-            Delete
-          </button>
-        </Modal>
-      )}
-      <h3 className='pointer' onClick={handleClick} title='Copy'>
-        {selected === '#' && `${name} - `}
-        {formatDate(date)}
-      </h3>
-      <section className='mb-4'>
-        <ul>
-          {organizedRoutine.map(exercise => (
-            <li key={exercise.id}>
-              <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
-            </li>
-          ))}
-        </ul>
-        {menuID === workout.id && (
-          <>
-            <button className='outline' onClick={() => editWorkout(workout)}>
-              Edit
-            </button>
-            <button className='red' onClick={toggleDeleteModal}>
+    routine.length > 0 && (
+      <div className='mb-24 pb-4'>
+        {showDeleteModal && (
+          <Modal handleClose={toggleDeleteModal}>
+            <h2>Delete Workout?</h2>
+            <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
+            <button onClick={toggleDeleteModal}>Cancel</button>
+            <button className='red' onClick={handleDelete}>
               Delete
             </button>
-          </>
+          </Modal>
         )}
-      </section>
-    </div>
+        <h3 className='pointer' onClick={handleClick} title='Copy'>
+          {`${name} - `}
+          {formatDate(date)}
+        </h3>
+        <section className='mb-4'>
+          <ul onClick={() => toggleMenu(workout.id)}>
+            {organizedRoutine.map(exercise => (
+              <li key={exercise.id}>
+                <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
+              </li>
+            ))}
+          </ul>
+          {menuID === workout.id && (
+            <>
+              <button className='outline' onClick={() => editWorkout(workout)}>
+                Edit
+              </button>
+              <button className='red' onClick={toggleDeleteModal}>
+                Delete
+              </button>
+            </>
+          )}
+        </section>
+      </div>
+    )
   );
 };
 

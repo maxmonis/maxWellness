@@ -2,6 +2,21 @@
 
 /* -------------------------------------------------- */
 
+/* Checkbox */
+
+.checkbox {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  width: max-content;
+}
+.checkbox input {
+  margin-right: 8px;
+  width: max-content;
+}
+
+/* -------------------------------------------------- */
+
 /* Drawer */
 
 .drawer {

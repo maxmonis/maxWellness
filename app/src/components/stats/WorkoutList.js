@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { alphabetize, getDate } from '../../functions/helpers';
+import { getDate } from '../../functions/helpers';
 import WorkoutListItem from './WorkoutListItem';
 
 const WorkoutList = ({
@@ -8,19 +8,8 @@ const WorkoutList = ({
   editWorkout,
   updateRoutine,
 }) => {
-  const [selected, setSelected] = useState('#');
   const [menuID, setMenuID] = useState(null);
   const toggleMenu = id => (id === menuID ? setMenuID(null) : setMenuID(id));
-  const filtered =
-    selected !== '#'
-      ? workouts.filter(workout => workout.name === selected)
-      : workouts;
-  const names = alphabetize([
-    ...new Set([...workouts.map(workout => workout.name)]),
-  ]);
-  const handleChange = e => {
-    setSelected(e.target.value);
-  };
   const EXAMPLE_WORKOUTS = [
     {
       date: getDate(),
@@ -42,22 +31,12 @@ const WorkoutList = ({
     <>
       {workouts.length ? (
         <>
-          <select value={selected} onChange={handleChange}>
-            <option key='#' value='#'>
-              All Workouts
-            </option>
-            {names.map(name => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </select>
           <div className='scrollable'>
-            {filtered.map((workout, i) => (
+            {workouts.map((workout, i) => (
               <WorkoutListItem
                 key={i}
                 workout={workout}
-                selected={selected}
+                selected={workouts}
                 menuID={menuID}
                 toggleMenu={toggleMenu}
                 editWorkout={editWorkout}

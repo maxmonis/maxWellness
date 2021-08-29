@@ -6,7 +6,9 @@ import workoutReducer from './workoutReducer';
 const WorkoutState = ({ children }) => {
   const INITIAL_STATE = {
     workouts: [],
+    workoutsFilters: null,
     editingWorkout: null,
+    allWorkouts: null,
     filteredWorkouts: [],
     loading: true,
     error: null,
@@ -17,7 +19,15 @@ const WorkoutState = ({ children }) => {
     },
   };
   const [state, dispatch] = useReducer(workoutReducer, INITIAL_STATE);
-  const { workouts, editingWorkout, filteredWorkouts, loading, error } = state;
+  const {
+    workouts,
+    workoutsFilters,
+    editingWorkout,
+    allWorkouts,
+    filteredWorkouts,
+    loading,
+    error,
+  } = state;
   const getWorkouts = async () => {
     try {
       const { data } = await axios.get('/api/workouts');
@@ -69,11 +79,22 @@ const WorkoutState = ({ children }) => {
   const clearFilteredWorkouts = () => {
     dispatch({ type: 'CLEAR_FILTERED_WORKOUTS' });
   };
+  const setAllWorkouts = workouts => {
+    dispatch({ type: 'SET_ALL_WORKOUTS', payload: workouts });
+  };
+  const updateWorkoutsFilter = filter => {
+    dispatch({ type: 'UPDATE_WORKOUTS_FILTER', payload: filter });
+  };
+  const clearWorkoutsFilters = () => {
+    dispatch({ type: 'CLEAR_WORKOUTS_FILTERS' });
+  };
   return (
     <WorkoutContext.Provider
       value={{
         workouts,
+        workoutsFilters,
         editingWorkout,
+        allWorkouts,
         filteredWorkouts,
         loading,
         error,
@@ -86,6 +107,9 @@ const WorkoutState = ({ children }) => {
         clearEditingWorkout,
         filterWorkouts,
         clearFilteredWorkouts,
+        setAllWorkouts,
+        updateWorkoutsFilter,
+        clearWorkoutsFilters,
       }}>
       {children}
     </WorkoutContext.Provider>

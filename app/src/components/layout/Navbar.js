@@ -1,9 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Roster from '../roster/Roster';
-import { Drawer, Switch } from '../layout/UI';
+import React, { useContext, useEffect } from 'react';
 import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
+import MenuDrawer from './MenuDrawer';
 
 const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
   const { isAuthenticated, logUserOut, loadUser, user } =
@@ -17,50 +15,28 @@ const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
     user ? getClients() : clearClients();
     // eslint-disable-next-line
   }, [user]);
-  const [selectedMenu, selectMenu] = useState('clients');
   return (
-    <header>
-      {isDrawerOpen && (
-        <Drawer handleClose={toggleDrawer}>
-          <header className='mb-12 p-0'>
-            <button
-              onClick={() => selectMenu('clients')}
-              className={selectedMenu === 'clients' ? 'underline m-0' : 'm-0'}>
-              Clients
+    <nav>
+      <header>
+        {isDrawerOpen && (
+          <MenuDrawer
+            dark={dark}
+            toggleDark={toggleDark}
+            toggleDrawer={toggleDrawer}
+          />
+        )}
+        {isAuthenticated && (
+          <>
+            <button className='hover-underline' onClick={toggleDrawer}>
+              Menu
             </button>
-            <button
-              onClick={() => selectMenu('settings')}
-              className={selectedMenu === 'settings' ? 'underline m-0' : 'm-0'}>
-              Settings
+            <button className='hover-underline' onClick={() => logUserOut()}>
+              Logout
             </button>
-          </header>
-          {selectedMenu === 'settings' ? (
-            <section>
-              <Switch label='Dark Mode' bool={dark} toggle={toggleDark} />
-            </section>
-          ) : (
-            <section>
-              <Roster toggleDrawer={toggleDrawer} />
-              <Link to='/'>
-                <button className='btn-two mt-24' onClick={toggleDrawer}>
-                  Workouts
-                </button>
-              </Link>
-            </section>
-          )}
-        </Drawer>
-      )}
-      {isAuthenticated && (
-        <>
-          <button className='hover-underline' onClick={toggleDrawer}>
-            Menu
-          </button>
-          <button className='hover-underline' onClick={() => logUserOut()}>
-            Logout
-          </button>
-        </>
-      )}
-    </header>
+          </>
+        )}
+      </header>
+    </nav>
   );
 };
 
