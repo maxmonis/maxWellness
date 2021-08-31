@@ -8,6 +8,10 @@
   cursor: auto;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -19,6 +23,10 @@
 .full-size {
   height: 100%;
   width: 100%;
+}
+
+.opacity-0 {
+  opacity: 0;
 }
 
 .outline {

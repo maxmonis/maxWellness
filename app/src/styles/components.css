@@ -62,7 +62,7 @@
   flex-direction: column;
   justify-content: center;
   margin-top: -48px;
-  min-height:  100vh;
+  min-height: 100vh;
   min-width: 100vw;
 }
 
@@ -144,19 +144,23 @@
 }
 
 .lift-records {
-  margin: 4px auto 8px;
-  max-width: 275px;
-  overflow-x: scroll;
+  align-items: center;
+  display: flex;
+  flex: row;
+  justify-content: center;
+  margin: 8px auto 12px;
+  overflow-x: hidden;
   white-space: nowrap;
 }
 .lift-records button {
   text-transform: none;
 }
-.lift-records button:first-child {
-  margin-left: 0;
-}
-.lift-records button:last-child {
-  margin-right: 0;
+.lift-records div {
+  display: flex;
+  justify-content: center;
+  margin: 0 4px;
+  padding: 0 4px;
+  width: 200px;
 }
 .lift-records h4 {
   margin: 4px 0 8px;
