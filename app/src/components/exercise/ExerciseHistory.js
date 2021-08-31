@@ -80,7 +80,9 @@ const ExerciseHistory = ({ workouts }) => {
                       routine.filter(exercise => exercise.lift === lift)
                     ).map(exercise => (
                       <h3 key={exercise.id} title={lift}>
-                        {exercise.printout}
+                        {exercise.printout.split(' ').map((printout, i) => (
+                          <span key={printout + i}>{printout}</span>
+                        ))}
                       </h3>
                     ))
                   ) : (

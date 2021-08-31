@@ -123,10 +123,11 @@
 }
 .exercise-history-head,
 .exercise-history-item > h3 {
+  display: flex;
+  flex-direction: column;
   margin: auto 0;
   max-width: 130px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: scroll;
   padding: 0 8px;
   white-space: nowrap;
 }
