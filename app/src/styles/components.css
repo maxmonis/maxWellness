@@ -95,11 +95,15 @@
 
 .exercise-history {
   border-top: 2px solid var(--color);
-  overflow: scroll;
+  overflow: hidden;
   padding: 24px 0;
   text-align: left;
 }
 .exercise-history > div:first-child {
+  align-items: center;
+  display: flex;
+  flex: row;
+  justify-content: center;
   left: 0;
   margin-bottom: 16px;
   position: sticky;
@@ -115,8 +119,7 @@
   border: 1px solid var(--color);
   height: 32px;
   min-width: 130px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: scroll;
 }
 .exercise-history-head,
 .exercise-history-item > h3 {
