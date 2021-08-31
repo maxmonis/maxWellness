@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import organizeRoutine from '../../functions/organizeRoutine';
 import { formatDate } from '../../functions/helpers';
 import useToggle from '../../hooks/useToggle';
@@ -16,29 +16,60 @@ const ExerciseHistory = ({ workouts }) => {
   }
   const sortedLifts = liftArray.sort((a, b) => b.total - a.total);
   const [sortByDate, toggleSort] = useToggle(true);
-  const [horizontalIndex, setHorizontalIndex] = useState(1);
-  const increment = () => setHorizontalIndex(horizontalIndex + 1);
-  const decrement = () => setHorizontalIndex(horizontalIndex - 1 || 1);
-  const [displayedDates, setDisplayedDates] = useState(10);
+  const [displayedRows, setDisplayedRows] = useState(10);
+  const [maxColumns, setMaxColumns] = useState(
+    typeof window !== 'undefined' && Math.floor(window.innerWidth / 130) - 1
+  );
+  const updateMedia = () => {
+    setMaxColumns(Math.floor(window.innerWidth / 130) - 1);
+    setHorizontalIndex(0);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  });
+  const [horizontalIndex, setHorizontalIndex] = useState(0);
+  useEffect(() => {
+    setHorizontalIndex(0);
+  }, [sortByDate]);
+  const [canIncrement, setCanIncrement] = useState(false);
+  useEffect(() => {
+    setCanIncrement(
+      sortByDate
+        ? horizontalIndex < workouts.length - maxColumns
+        : horizontalIndex < liftArray.length - maxColumns
+    );
+    // eslint-disable-next-line
+  }, [workouts, liftArray, horizontalIndex]);
+  const increment = () =>
+    canIncrement && setHorizontalIndex(horizontalIndex + 1);
+  const decrement = () =>
+    horizontalIndex && setHorizontalIndex(horizontalIndex - 1);
+
   return (
     <div className='exercise-history'>
       <div>
         <button
-          className={horizontalIndex > 1 ? '' : 'opacity-0 cursor-default'}
+          className={horizontalIndex > 0 ? '' : 'opacity-0 cursor-default'}
           onClick={decrement}>
           {'<-'}
         </button>
         <h2 className='pointer' onClick={toggleSort}>
           Exercise History
         </h2>
-        <button onClick={increment}>{'->'}</button>
+        <button
+          className={canIncrement ? '' : 'opacity-0 cursor-default'}
+          onClick={increment}>
+          {'->'}
+        </button>
       </div>
       {sortByDate ? (
         <div>
-          {[{}, ...workouts].map(({ routine, date, id }, i) => (
-            <div
-              className={i && i < horizontalIndex ? 'display-none' : ''}
-              key={id || 'id'}>
+          {[
+            {},
+            ...workouts.slice(horizontalIndex, horizontalIndex + maxColumns),
+          ].map(({ routine, date, id }) => (
+            <div key={id || 'id'}>
               <div className='exercise-history-head'>
                 {date ? <h3>{formatDate(date)}</h3> : null}
               </div>
@@ -63,15 +94,19 @@ const ExerciseHistory = ({ workouts }) => {
       ) : (
         <>
           <div>
-            {[{}, ...sortedLifts].map(({ lift }, i) => (
-              <div
-                className={i && i < horizontalIndex ? 'display-none' : ''}
-                key={lift || 'id'}>
+            {[
+              {},
+              ...sortedLifts.slice(
+                horizontalIndex,
+                horizontalIndex + maxColumns
+              ),
+            ].map(({ lift }) => (
+              <div key={lift || 'id'}>
                 <div className='exercise-history-head'>
                   {lift ? <h3>{lift}</h3> : null}
                 </div>
                 {workouts
-                  .slice(0, displayedDates)
+                  .slice(0, displayedRows)
                   .map(({ routine, date, name, id }) => (
                     <div className='exercise-history-item' key={id}>
                       {lift ? (
@@ -90,9 +125,11 @@ const ExerciseHistory = ({ workouts }) => {
               </div>
             ))}
           </div>
-          {workouts.length > displayedDates && (
+          {workouts.length > displayedRows && (
             <div>
-              <button className='outline m-20' onClick={() => setDisplayedDates(displayedDates + 10)}>
+              <button
+                className='outline m-20'
+                onClick={() => setDisplayedRows(displayedRows + 10)}>
                 More Workouts
               </button>
             </div>
