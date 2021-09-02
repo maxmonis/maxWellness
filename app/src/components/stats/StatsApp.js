@@ -65,7 +65,7 @@ const StatsApp = ({
               </button>
             </div>
             <WorkoutList
-              workouts={[...workouts].reverse()}
+              workouts={workouts}
               updateWorkouts={updateWorkouts}
               editWorkout={editWorkout}
               updateRoutine={updateRoutine}
@@ -91,7 +91,7 @@ const StatsApp = ({
               </button>
             </div>
             <RecordList
-              records={[...records].reverse()}
+              records={records}
               selectExercise={selectExercise}
               recordsIndex={recordsIndex}
             />
@@ -141,13 +141,13 @@ const StatsApp = ({
           </div>
           {display === 'records' ? (
             <RecordList
-              records={[...records].reverse()}
+              records={records}
               selectExercise={selectExercise}
               recordsIndex={recordsIndex}
             />
           ) : (
             <WorkoutList
-              workouts={[...workouts].reverse()}
+              workouts={workouts}
               updateWorkouts={updateWorkouts}
               editWorkout={editWorkout}
               updateRoutine={updateRoutine}

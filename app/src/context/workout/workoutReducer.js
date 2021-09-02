@@ -61,7 +61,7 @@ export default (state, action) => {
         ...state,
         workoutsFilters: generateWorkoutsFilters(payload),
         allWorkouts: payload,
-        filteredWorkouts: payload,
+        filteredWorkouts: [...payload].reverse(),
       };
     case 'UPDATE_WORKOUTS_FILTER':
       const updatedFilters = updateWorkoutsFilter(payload);
@@ -169,6 +169,6 @@ export default (state, action) => {
             filters.liftNames.find(({ name }) => name === lift).checked
         ),
       }));
-    return filters.newestFirst ? updatedState : updatedState.reverse();
+    return filters.newestFirst ? updatedState.reverse() : updatedState;
   }
 };
