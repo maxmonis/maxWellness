@@ -4,6 +4,7 @@ import WorkoutList from '../stats/WorkoutList';
 
 const StatsApp = ({
   workouts,
+  records,
   updateWorkouts,
   editWorkout,
   updateRoutine,
@@ -20,12 +21,6 @@ const StatsApp = ({
     window.addEventListener('resize', updateMedia);
     return () => window.removeEventListener('resize', updateMedia);
   });
-  const records = [];
-  for (const { routine } of workouts) {
-    for (const exercise of routine) {
-      if (exercise.becameRecord) records.push(exercise);
-    }
-  }
   const [workoutsIndex, setWorkoutsIndex] = useState(0);
   const [recordsIndex, setRecordsIndex] = useState(0);
   const increment = (list = display) => {

@@ -21,11 +21,25 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateLifts,
     updateWorkouts,
   } = useClientState(selectedClient);
-  const { lifts, workouts, records, name } = client;
+  const { lifts, workouts, name } = client;
   useEffect(() => {
     setAllWorkouts(workouts ? workouts : null);
     // eslint-disable-next-line
   }, [workouts]);
+  const [records, setRecords] = useState([]);
+  useEffect(() => {
+    setRecords(filteredWorkouts ? getRecords(filteredWorkouts) : []);
+    // eslint-disable-next-line
+  }, [filteredWorkouts]);
+  const getRecords = workouts => {
+    const records = [];
+    for (const { routine } of workouts) {
+      for (const exercise of routine) {
+        if (exercise.becameRecord) records.push(exercise);
+      }
+    }
+    return records;
+  };
   const DEFAULT_EXERCISE = {
     lift: lifts[0],
     sets: '',
@@ -156,6 +170,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             </section>
             <StatsApp
               workouts={filteredWorkouts}
+              records={records}
               updateWorkouts={updateWorkouts}
               editWorkout={editWorkout}
               updateRoutine={updateRoutine}
