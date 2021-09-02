@@ -24,7 +24,7 @@ const LiftRecords = ({ records, lift, setExercise }) => {
           <button
             className={horizontalIndex > 2 ? '' : 'opacity-0 cursor-default'}
             onClick={decrement}>
-            {'<-'}
+            <h3>{'<-'}</h3>
           </button>
           <div>
             {liftRecords
@@ -34,7 +34,7 @@ const LiftRecords = ({ records, lift, setExercise }) => {
                   key={exercise.id}
                   onClick={() => setExercise(exercise)}
                   title={getTitle(exercise)}>
-                  {exercise.printout}
+                  <h3>{exercise.printout}</h3>
                 </button>
               ))}
           </div>
@@ -45,7 +45,7 @@ const LiftRecords = ({ records, lift, setExercise }) => {
                 : 'opacity-0 cursor-default'
             }
             onClick={increment}>
-            {'->'}
+            <h3>{'->'}</h3>
           </button>
         </>
       )}

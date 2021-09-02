@@ -7,6 +7,7 @@ const WorkoutList = ({
   updateWorkouts,
   editWorkout,
   updateRoutine,
+  workoutsIndex,
 }) => {
   const [menuID, setMenuID] = useState(null);
   const toggleMenu = id => (id === menuID ? setMenuID(null) : setMenuID(id));
@@ -31,19 +32,21 @@ const WorkoutList = ({
     <>
       {workouts.length ? (
         <>
-          <div className='scrollable'>
-            {workouts.map((workout, i) => (
-              <WorkoutListItem
-                key={i}
-                workout={workout}
-                selected={workouts}
-                menuID={menuID}
-                toggleMenu={toggleMenu}
-                editWorkout={editWorkout}
-                updateWorkouts={updateWorkouts}
-                updateRoutine={updateRoutine}
-              />
-            ))}
+          <div>
+            {workouts
+              .slice(workoutsIndex, workoutsIndex + 3)
+              .map((workout, i) => (
+                <WorkoutListItem
+                  key={i}
+                  workout={workout}
+                  selected={workouts}
+                  menuID={menuID}
+                  toggleMenu={toggleMenu}
+                  editWorkout={editWorkout}
+                  updateWorkouts={updateWorkouts}
+                  updateRoutine={updateRoutine}
+                />
+              ))}
           </div>
         </>
       ) : (

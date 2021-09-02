@@ -38,7 +38,7 @@ const Login = ({ history }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='auth'>
+    <div className='page auth'>
       <h1>Welcome Back!</h1>
       <h4>Enter your credentials</h4>
       <form noValidate onSubmit={handleSubmit}>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { formatDate, getDate } from '../../functions/helpers';
 
-const RecordList = ({ records, selectExercise }) => {
+const RecordList = ({ records, selectExercise, recordsIndex }) => {
   return records.length ? (
-    <div className='scrollable'>
-      {records.map(exercise => {
+    <div>
+      {records.slice(recordsIndex, recordsIndex + 5).map(exercise => {
         const { id, lift, printout, becameRecord, surpassed } = exercise;
         return (
           <section className='mb-24' key={id}>

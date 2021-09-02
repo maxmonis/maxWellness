@@ -3,7 +3,7 @@ import organizeRoutine from '../../functions/organizeRoutine';
 import { formatDate } from '../../functions/helpers';
 import useToggle from '../../hooks/useToggle';
 
-const ExerciseHistory = ({ workouts }) => {
+const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
   const lifts = {};
   for (const { routine } of workouts) {
     for (const { lift } of routine) {
@@ -17,11 +17,16 @@ const ExerciseHistory = ({ workouts }) => {
   const sortedLifts = liftArray.sort((a, b) => b.total - a.total);
   const [sortByDate, toggleSort] = useToggle(true);
   const [displayedRows, setDisplayedRows] = useState(10);
+  const getMaxColumns = () => {
+    const canFit = Math.floor(window.innerWidth / 150) - 2;
+    const res = canFit < 2 ? 1 : canFit < 7 ? canFit : 7;
+    return res;
+  };
   const [maxColumns, setMaxColumns] = useState(
-    typeof window !== 'undefined' && Math.floor(window.innerWidth / 130) - 1
+    typeof window !== 'undefined' && getMaxColumns()
   );
   const updateMedia = () => {
-    setMaxColumns(Math.floor(window.innerWidth / 130) - 1);
+    setMaxColumns(getMaxColumns());
     setHorizontalIndex(0);
   };
   useEffect(() => {
@@ -52,19 +57,19 @@ const ExerciseHistory = ({ workouts }) => {
         <button
           className={horizontalIndex > 0 ? '' : 'opacity-0 cursor-default'}
           onClick={decrement}>
-          {'<-'}
+          <h3>{'<-'}</h3>
         </button>
-        <h2 className='pointer' onClick={toggleSort}>
-          Exercise History
-        </h2>
+        <h3 className='pointer mr-20 ml-20' onClick={toggleExerciseHistory}>
+          Workouts
+        </h3>
         <button
           className={canIncrement ? '' : 'opacity-0 cursor-default'}
           onClick={increment}>
-          {'->'}
+          <h3>{'->'}</h3>
         </button>
       </div>
       {sortByDate ? (
-        <div>
+        <div onClick={toggleSort}>
           {[
             {},
             ...workouts.slice(horizontalIndex, horizontalIndex + maxColumns),
@@ -95,7 +100,7 @@ const ExerciseHistory = ({ workouts }) => {
         </div>
       ) : (
         <>
-          <div>
+          <div onClick={toggleSort}>
             {[
               {},
               ...sortedLifts.slice(
@@ -132,7 +137,7 @@ const ExerciseHistory = ({ workouts }) => {
               <button
                 className='outline m-20'
                 onClick={() => setDisplayedRows(displayedRows + 10)}>
-                More Workouts
+                Load More
               </button>
             </div>
           )}

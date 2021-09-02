@@ -88,6 +88,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     }
   };
   const title = name[0] === '#' ? name.slice(2) : name;
+  const [showExerciseHistory, toggleExerciseHistory] = useToggle(false);
   useEffect(() => {
     document.title = `maxWellness | ${title}`;
     // eslint-disable-next-line
@@ -100,7 +101,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     <>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
-          <h2 className='mb-12'>Edit Workout</h2>
+          <h3 className='mb-12'>Edit Workout</h3>
           <EditWorkout
             exercise={editingExercise}
             workout={editingWorkout}
@@ -116,46 +117,53 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1 className='mt-48 mb-12'>{title}</h1>
-      <div className='workout-app'>
-        <section>
-          {isFormOpen ? (
-            <LiftApp
-              lifts={lifts}
-              updateLifts={updateLifts}
-              toggleLiftForm={toggleLiftForm}
+      <h1>{title}</h1>
+      <>
+        {showExerciseHistory ? (
+          <ExerciseHistory
+            workouts={filteredWorkouts}
+            toggleExerciseHistory={toggleExerciseHistory}
+          />
+        ) : (
+          <div className='workout-app'>
+            <section>
+              {isFormOpen ? (
+                <LiftApp
+                  lifts={lifts}
+                  updateLifts={updateLifts}
+                  toggleLiftForm={toggleLiftForm}
+                />
+              ) : (
+                <>
+                  <h3>New Workout</h3>
+                  <EditWorkout
+                    toggleExerciseHistory={toggleExerciseHistory}
+                    exercise={exercise}
+                    workout={workout}
+                    lifts={lifts}
+                    routine={routine}
+                    workouts={workouts}
+                    records={records}
+                    handleChange={handleChange}
+                    saveWorkout={saveWorkout}
+                    updateRoutine={updateRoutine}
+                    selectExercise={selectExercise}
+                    setExercise={setExercise}
+                    isNewWorkout
+                  />
+                </>
+              )}
+            </section>
+            <StatsApp
+              workouts={filteredWorkouts}
+              updateWorkouts={updateWorkouts}
+              editWorkout={editWorkout}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
             />
-          ) : (
-            <>
-              <h2>New Workout</h2>
-              <EditWorkout
-                exercise={exercise}
-                workout={workout}
-                lifts={lifts}
-                routine={routine}
-                workouts={workouts}
-                records={records}
-                handleChange={handleChange}
-                saveWorkout={saveWorkout}
-                updateRoutine={updateRoutine}
-                selectExercise={selectExercise}
-                setExercise={setExercise}
-                allowLiftEditing
-              />
-            </>
-          )}
-        </section>
-        <StatsApp
-          workouts={filteredWorkouts}
-          updateWorkouts={updateWorkouts}
-          editWorkout={editWorkout}
-          updateRoutine={updateRoutine}
-          selectExercise={selectExercise}
-        />
-      </div>
-      {workouts.length > 0 && (
-        <ExerciseHistory workouts={[...filteredWorkouts].reverse()} />
-      )}
+          </div>
+        )}
+      </>
     </>
   ) : (
     <Spinner />

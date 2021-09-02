@@ -61,6 +61,7 @@ nav {
   color: var(--color);
   position: fixed;
   height: max-content;
+  top: 0;
   width: 100%;
   z-index: var(--navbar-index);
 }

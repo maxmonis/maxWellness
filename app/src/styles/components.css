@@ -20,7 +20,6 @@
 .app {
   --background: var(--white);
   --color: var(--grey3);
-  align-items: center;
   background: var(--background);
   background-image: linear-gradient(
       to bottom,
@@ -33,10 +32,9 @@
   background-size: cover;
   color: var(--color);
   font-weight: 500;
-  justify-content: center;
   min-height: 100vh;
   overflow-y: scroll;
-  padding-bottom: 36px;
+  padding: 36px 0;
   position: relative;
   text-align: center;
   text-shadow: none;
@@ -58,12 +56,7 @@
 }
 
 .auth {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: -48px;
-  min-height: 100vh;
-  min-width: 100vw;
+  margin-top: -36px;
 }
 
 .background-blur-overlay {
@@ -94,25 +87,15 @@
 }
 
 .exercise-history {
-  border-top: 2px solid var(--color);
-  overflow: hidden;
-  padding: 24px 0;
-  text-align: left;
-}
-.exercise-history > div:first-child {
-  align-items: center;
-  display: flex;
-  flex: row;
-  justify-content: center;
-  left: 0;
-  margin-bottom: 16px;
-  position: sticky;
-  text-align: center;
+  min-height: 70vh;
+  padding: 0;
 }
 .exercise-history > div {
+  align-items: center;
   display: flex;
   justify-content: center;
   min-width: max-content;
+  text-align: left;
 }
 
 .exercise-history-item {
@@ -127,7 +110,7 @@
   flex-direction: column;
   margin: auto 0;
   max-width: 130px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 0 8px;
   white-space: nowrap;
 }
@@ -152,7 +135,7 @@
   display: flex;
   flex: row;
   justify-content: center;
-  margin: 8px auto 12px;
+  margin: 4px auto 8px;
   overflow-x: hidden;
   white-space: nowrap;
 }
@@ -201,6 +184,14 @@
   width: 90px;
 }
 
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
 .quote {
   margin: 0 auto;
   max-width: 45ch;
@@ -216,32 +207,17 @@
   margin: 0 auto;
 }
 
-.scrollable {
-  margin: 8px auto 0;
-  max-height: 400px;
-  max-width: 30ch;
-  overflow: scroll;
+.workout-app {
+  min-height: 70vh;
 }
-
-.workout-app > section:first-child {
-  border-bottom: 2px solid var(--color);
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-}
-
 @media (min-width: 568px) {
   .workout-app {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
-    grid-gap: 8px;
     margin: 0 auto;
     max-width: 700px;
     padding: 0 auto;
-  }
-  .workout-app > section:first-child {
-    border: none;
-    padding: 0;
   }
 }
 

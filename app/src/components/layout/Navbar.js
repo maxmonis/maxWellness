@@ -3,7 +3,8 @@ import AuthContext from '../../context/auth/authContext';
 import ClientContext from '../../context/client/clientContext';
 import MenuDrawer from './MenuDrawer';
 
-const Navbar = ({ dark, toggleDark, isDrawerOpen, toggleDrawer }) => {
+const Navbar = props => {
+  const { dark, toggleDark, isDrawerOpen, toggleDrawer } = props;
   const { isAuthenticated, logUserOut, loadUser, user } =
     useContext(AuthContext);
   const { getClients, clearClients } = useContext(ClientContext);

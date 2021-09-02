@@ -10,7 +10,8 @@ const AddExercise = ({
   records,
   updateRoutine,
   setExercise,
-  allowLiftEditing,
+  isNewWorkout,
+  toggleExerciseHistory,
 }) => {
   const { lift, sets, reps, weight } = exercise;
   const [blurred, setBlurred] = useState(false);
@@ -35,18 +36,29 @@ const AddExercise = ({
   }, [reps, weight]);
   return (
     <>
-      <select className='mt-12' name='lift' value={lift} onChange={handleChange}>
+      <select
+        className='mt-12'
+        name='lift'
+        value={lift}
+        onChange={handleChange}>
         {lifts.map(lift => (
           <option key={lift} value={lift}>
             {lift}
           </option>
         ))}
-        {allowLiftEditing && (
+        {isNewWorkout && (
           <option key='#' value='#'>
             {'<<< Edit Exercises >>>'}
           </option>
         )}
       </select>
+      {isNewWorkout && (
+        <div>
+          <button className='mb-0 mt-16' onClick={toggleExerciseHistory}>
+            Exercise History
+          </button>
+        </div>
+      )}
       <LiftRecords
         records={records}
         lift={exercise.lift}

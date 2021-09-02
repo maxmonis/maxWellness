@@ -20,8 +20,18 @@
 
 /* Layout */
 
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
 .display-none {
   display: none;
+}
+
+.flex-row {
+  display: flex;
+  flex: row;
 }
 
 .full-size {

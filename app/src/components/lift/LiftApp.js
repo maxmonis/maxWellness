@@ -6,7 +6,7 @@ import AddLift from './AddLift';
 const LiftApp = ({ lifts, updateLifts, toggleLiftForm }) => {
   return (
     <div className='lift-app'>
-      <h2>Exercises</h2>
+      <h3>Exercises</h3>
       <AddLift updateLifts={updateLifts} />
       <ul>
         <TransitionGroup>

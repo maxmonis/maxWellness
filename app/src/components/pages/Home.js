@@ -20,7 +20,7 @@ const Home = props => {
     // eslint-disable-next-line
   }, [clients]);
   return (
-    <div className='full-size'>
+    <div className='page'>
       {selectedClient ? (
         <WorkoutApp
           selectedClient={selectedClient}
