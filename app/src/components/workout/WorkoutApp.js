@@ -121,7 +121,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       <>
         {showExerciseHistory ? (
           <ExerciseHistory
-            workouts={filteredWorkouts}
+            workouts={[...filteredWorkouts].reverse()}
             toggleExerciseHistory={toggleExerciseHistory}
           />
         ) : (

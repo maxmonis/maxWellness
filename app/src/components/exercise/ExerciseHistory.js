@@ -50,7 +50,6 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
     canIncrement && setHorizontalIndex(horizontalIndex + 1);
   const decrement = () =>
     horizontalIndex && setHorizontalIndex(horizontalIndex - 1);
-
   return (
     <div className='exercise-history'>
       <div>
@@ -121,7 +120,9 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
                           routine.filter(exercise => exercise.lift === lift)
                         ).map(exercise => (
                           <h3 key={exercise.id} title={lift}>
-                            {exercise.printout}
+                            {exercise.printout.split(' ').map((printout, i) => (
+                              <span key={printout + i}>{printout}</span>
+                            ))}
                           </h3>
                         ))
                       ) : (
