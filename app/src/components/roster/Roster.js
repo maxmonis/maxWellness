@@ -58,7 +58,7 @@ const Roster = ({ toggleDrawer }) => {
             </TransitionGroup>
           </ul>
           {clients.length < 21 && (
-            <button className='btn-one mt-16 mb-4' onClick={openForm}>
+            <button className='btn-1 mt-16 mb-4' onClick={openForm}>
               Add New Client
             </button>
           )}

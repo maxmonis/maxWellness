@@ -54,7 +54,7 @@ const EditRoster = ({ reset }) => {
           <button onClick={reset}>
             Cancel
           </button>
-          <button className='outline mt-0' type='submit'>
+          <button className='btn-3 mt-0' type='submit'>
             Save
           </button>
         </div>

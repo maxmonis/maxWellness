@@ -44,7 +44,7 @@ const WorkoutListItem = ({
             <h2>Delete Workout?</h2>
             <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
             <button onClick={toggleDeleteModal}>Cancel</button>
-            <button className='red' onClick={handleDelete}>
+            <button className='red ml-12' onClick={handleDelete}>
               Delete
             </button>
           </Modal>
@@ -63,10 +63,8 @@ const WorkoutListItem = ({
           </ul>
           {menuID === workout.id && (
             <>
-              <button className='outline' onClick={() => editWorkout(workout)}>
-                Edit
-              </button>
-              <button className='red' onClick={toggleDeleteModal}>
+              <button onClick={() => editWorkout(workout)}>Edit</button>
+              <button className='ml-12 mt-8 red' onClick={toggleDeleteModal}>
                 Delete
               </button>
             </>

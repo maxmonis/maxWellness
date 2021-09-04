@@ -70,7 +70,7 @@ const WorkoutFilters = () => {
             </option>
           ))}
       </select>
-      <button className='btn-two mt-24 mb-48' onClick={clearWorkoutsFilters}>
+      <button className='btn-2 mt-24 mb-48' onClick={clearWorkoutsFilters}>
         Clear Filters
       </button>
     </>

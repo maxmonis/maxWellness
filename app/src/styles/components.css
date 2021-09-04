@@ -34,7 +34,7 @@
   font-weight: 500;
   min-height: 100vh;
   overflow-y: scroll;
-  padding: 36px 0;
+  padding: 48px 0;
   position: relative;
   text-align: center;
   text-shadow: none;
@@ -56,7 +56,7 @@
 }
 
 .auth {
-  margin-top: -36px;
+  margin-top: -100px;
 }
 
 .background-blur-overlay {
@@ -97,6 +97,9 @@
   min-width: max-content;
   text-align: left;
 }
+.exercise-history > div:first-child {
+  margin: 16px 0 12px;
+}
 
 .exercise-history-item {
   border: 1px solid var(--color);
@@ -115,6 +118,7 @@
   white-space: nowrap;
 }
 .exercise-history-head {
+  cursor: pointer;
   margin: unset;
   min-height: 28px;
   padding: unset;
@@ -135,7 +139,7 @@
   display: flex;
   flex: row;
   justify-content: center;
-  margin: 4px auto 8px;
+  margin: 8px auto 12px;
   overflow-x: hidden;
   white-space: nowrap;
 }
@@ -210,19 +214,23 @@
 .workout-app {
   min-height: 70vh;
 }
+.workout-app > section {
+  margin: 16px auto 36px;
+}
 @media (min-width: 568px) {
   .workout-app {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
     margin: 0 auto;
-    max-width: 700px;
+    max-width: 650px;
     padding: 0 auto;
   }
 }
 
 @media (min-width: 992px) {
   .workout-app {
-    max-width: 1000px;
+    grid-gap: 24px;
+    max-width: 950px;
   }
 }

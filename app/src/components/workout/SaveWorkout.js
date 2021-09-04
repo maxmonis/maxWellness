@@ -69,7 +69,7 @@ const SaveWorkout = ({
               </li>
             ))}
           </ul>
-          <button className='btn-one' type='submit'>
+          <button className='btn-1' type='submit'>
             Confirm
           </button>
           <button onClick={toggleForm}>Cancel</button>
@@ -77,7 +77,7 @@ const SaveWorkout = ({
       )}
       {routine.length > 0 && (
         <>
-          <button className='btn-one' onClick={toggleForm}>
+          <button className='btn-1 mr-8' onClick={toggleForm}>
             Save Workout
           </button>
           <button onClick={() => updateRoutine([])}>Clear</button>

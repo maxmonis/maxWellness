@@ -29,7 +29,7 @@ const MenuDrawer = ({ dark, toggleDark, toggleDrawer }) => {
         <section>
           <Roster toggleDrawer={toggleDrawer} />
           <Link to='/'>
-            <button className='btn-two mt-24' onClick={toggleDrawer}>
+            <button className='btn-2 mt-24' onClick={toggleDrawer}>
               My Workouts
             </button>
           </Link>

@@ -68,14 +68,14 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
         </button>
       </div>
       {sortByDate ? (
-        <div onClick={toggleSort}>
+        <div>
           {[
             {},
             ...workouts.slice(horizontalIndex, horizontalIndex + maxColumns),
           ].map(({ routine, date, id }) => (
             <div key={id || 'id'}>
               <div className='exercise-history-head'>
-                {date ? <h3>{formatDate(date)}</h3> : null}
+                {date ? <h3 onClick={toggleSort}>{formatDate(date)}</h3> : null}
               </div>
               {sortedLifts.map(({ lift }) => (
                 <div className='exercise-history-item' key={lift}>
@@ -108,7 +108,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
               ),
             ].map(({ lift }) => (
               <div key={lift || 'id'}>
-                <div className='exercise-history-head'>
+                <div onClick={toggleSort} className='exercise-history-head'>
                   {lift ? <h3>{lift}</h3> : null}
                 </div>
                 {workouts
@@ -136,7 +136,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
           {workouts.length > displayedRows && (
             <div>
               <button
-                className='outline m-20'
+                className='btn-3 m-20'
                 onClick={() => setDisplayedRows(displayedRows + 10)}>
                 Load More
               </button>

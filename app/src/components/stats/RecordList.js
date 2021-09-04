@@ -7,7 +7,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
       {records.slice(recordsIndex, recordsIndex + 5).map(exercise => {
         const { id, lift, printout, becameRecord, surpassed } = exercise;
         return (
-          <section className='mb-24' key={id}>
+          <section className='mb-20' key={id}>
             <h3
               className='record'
               title='Copy'

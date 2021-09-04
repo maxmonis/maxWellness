@@ -175,6 +175,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
               editWorkout={editWorkout}
               updateRoutine={updateRoutine}
               selectExercise={selectExercise}
+              toggleExerciseHistory={toggleExerciseHistory}
             />
           </div>
         )}

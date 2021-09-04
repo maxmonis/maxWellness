@@ -9,6 +9,7 @@ const StatsApp = ({
   editWorkout,
   updateRoutine,
   selectExercise,
+  toggleExerciseHistory,
 }) => {
   const [display, setDisplay] = useState('workouts');
   const [isWide, setIsWide] = useState(
@@ -41,14 +42,18 @@ const StatsApp = ({
     <>
       {isWide ? (
         <>
-          <section>
-            <div className='flex-row center'>
+          <section className='mr-12 ml-12'>
+            <div className='flex-row center mb-12'>
               <button
                 className={workoutsIndex ? '' : 'opacity-0 cursor-default'}
                 onClick={() => decrement('workouts')}>
                 <h3>{'<-'}</h3>
               </button>
-              <h3>Workouts</h3>
+              <h3
+                className='pointer ml-20 mr-20'
+                onClick={toggleExerciseHistory}>
+                Workouts
+              </h3>
               <button
                 className={
                   workoutsIndex < workouts.length - 3
@@ -67,14 +72,14 @@ const StatsApp = ({
               workoutsIndex={workoutsIndex}
             />
           </section>
-          <section>
-            <div className='flex-row center'>
+          <section className='mr-12 ml-12'>
+            <div className='flex-row center mb-12'>
               <button
                 className={recordsIndex ? '' : 'opacity-0 cursor-default'}
                 onClick={() => decrement('records')}>
                 <h3>{'<-'}</h3>
               </button>
-              <h3>Records</h3>
+              <h3 className='ml-20 mr-20'>Records</h3>
               <button
                 onClick={() => increment('records')}
                 className={
@@ -93,14 +98,14 @@ const StatsApp = ({
           </section>
         </>
       ) : (
-        <section>
-          <div className='flex-row center'>
+        <section className='mr-12 ml-12'>
+          <div className='flex-row center mb-12'>
             <button
               className={
                 (display === 'workouts' && workoutsIndex) ||
                 (display === 'records' && recordsIndex)
-                  ? ''
-                  : 'opacity-0 cursor-default'
+                  ? 'mr-20 ml-0'
+                  : 'mr-20 ml-0 opacity-0 cursor-default'
               }
               onClick={() => decrement(display)}>
               <h3>{'<-'}</h3>
@@ -127,8 +132,8 @@ const StatsApp = ({
                 (display === 'workouts' &&
                   workoutsIndex < workouts.length - 3) ||
                 (display === 'records' && recordsIndex < records.length - 5)
-                  ? ''
-                  : 'opacity-0 cursor-default'
+                  ? 'mr-0 ml-20'
+                  : 'mr-0 ml-20 opacity-0 cursor-default'
               }
               onClick={() => increment(display)}>
               <h3>{'->'}</h3>

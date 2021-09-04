@@ -28,10 +28,10 @@ const Navbar = props => {
         )}
         {isAuthenticated && (
           <>
-            <button className='hover-underline' onClick={toggleDrawer}>
+            <button className='hover-underline m-12' onClick={toggleDrawer}>
               Menu
             </button>
-            <button className='hover-underline' onClick={() => logUserOut()}>
+            <button className='hover-underline m-12' onClick={() => logUserOut()}>
               Logout
             </button>
           </>

@@ -4,48 +4,55 @@
 
 /* Button */
 
-.btn-one, .btn-two {
+.btn-1, .btn-2 {
   border-radius: 10px;
   margin: unset;
   padding: 8px 12px;
 }
 
-.btn-one:not(:disabled) {
+.btn-1:not(:disabled) {
   background: var(--blue2);
   color: var(--white);
 }
-.btn-one:hover:not(:disabled) {
+.btn-1:hover:not(:disabled) {
   background: var(--blue3);
 }
-.btn-one:active:not(:disabled) {
+.btn-1:active:not(:disabled) {
   color: var(--blue1);
 }
-.btn-one:focus {
+.btn-1:focus {
   box-shadow: var(--glow);
 }
 
-.btn-two:not(:disabled) {
+.btn-2:not(:disabled) {
   background: var(--white);
   border: 2px solid var(--blue2);
   color: var(--blue2);
 }
-.btn-two:focus:not(:disabled) {
+.btn-2:focus:not(:disabled) {
   background: var(--white);
   border: 2px solid var(--blue3);
 }
-.btn-two:hover:not(:disabled) {
+.btn-2:hover:not(:disabled) {
   background: var(--blue1);
 }
-.btn-two:active:not(:disabled) {
+.btn-2:active:not(:disabled) {
   border: 2px solid var(--blue3);
   color: var(--blue3);
 }
-.btn-two:focus {
+.btn-2:focus {
   box-shadow: var(--glow);
 }
 
-.btn-one:disabled,
-.btn-two:disabled {
+.btn-3 {
+  border: 1px solid var(--color);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.btn-1:disabled,
+.btn-2:disabled,
+.btn-3:disabled {
   background: var(--grey1);
   border: 2px solid var(--grey2);
   color: var(--grey2);

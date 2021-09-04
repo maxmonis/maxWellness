@@ -9,11 +9,11 @@ button {
   font-family: inherit;
   font-size: 16px;
   font-weight: 700;
+  line-height: 24px;
   outline: none;
   text-decoration: none;
 }
 button {
-  margin: 8px 12px;
   text-transform: uppercase;
 }
 a:disabled,

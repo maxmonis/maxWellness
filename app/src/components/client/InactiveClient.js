@@ -23,7 +23,7 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
           {optionsShown && (
             <div>
               <button onClick={handleActivate}>Activate</button>
-              <button className='red' onClick={toggleMenu}>
+              <button className='red m-12' onClick={toggleMenu}>
                 Delete
               </button>
             </div>
