@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { standardize, strInput } from '../../functions/helpers';
 import useInputState from '../../hooks/useInputState';
+import AlertContext from '../../context/alert/alertContext';
 
 const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
+  const { setAlert } = useContext(AlertContext);
   const [value, handleChange] = useInputState('');
   const [isMatch, setIsMatch] = useState(false);
   useEffect(() => {
@@ -16,6 +18,7 @@ const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
     if (isMatch) {
       toggleMenu();
       handleDelete();
+      setAlert('Client Deleted', 'success');
     }
   };
   return (
@@ -33,7 +36,9 @@ const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
         onChange={handleChange}
       />
       <div>
-        <button onClick={toggleMenu} type='button'>Cancel</button>
+        <button onClick={toggleMenu} type='button'>
+          Cancel
+        </button>
         <button className='red ml-20' type='submit' disabled={!isMatch}>
           Delete
         </button>

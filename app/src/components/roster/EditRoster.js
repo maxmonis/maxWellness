@@ -2,9 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Input } from '../layout/UI';
 import { strInput, numInput } from '../../functions/helpers';
 import ClientContext from '../../context/client/clientContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const EditRoster = ({ reset }) => {
   const { addClient, updateClient, editingClient } = useContext(ClientContext);
+  const { setAlert } = useContext(AlertContext);
   const defaultClient = {
     name: '',
     email: '',
@@ -23,6 +25,7 @@ const EditRoster = ({ reset }) => {
       editingClient ? updateClient(client) : addClient(client);
       setError(null);
       reset();
+      setAlert(editingClient ? 'Client Updated' : 'Client Added', 'success');
     } else {
       setError('Name is required');
     }
@@ -49,7 +52,9 @@ const EditRoster = ({ reset }) => {
         value={numInput(phone)}
         handleChange={handleChange}
       />
-      <button onClick={reset} type='button'>Cancel</button>
+      <button onClick={reset} type='button'>
+        Cancel
+      </button>
       <button className='btn-3 ml-20' type='submit'>
         Save
       </button>

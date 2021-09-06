@@ -1,6 +1,6 @@
 .alert {
   background: var(--background);
-  color: var(--color);
+  color: var(--white);
   border-radius: var(--border-radius);
   left: 16px;
   margin: 0 auto;
