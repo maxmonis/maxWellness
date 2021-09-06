@@ -33,14 +33,10 @@ const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
         onChange={handleChange}
       />
       <div>
-        <button onClick={toggleMenu}>Cancel</button>
-        {isMatch ? (
-          <button className='red' type='submit'>
-            Delete
-          </button>
-        ) : (
-          <button disabled>Delete</button>
-        )}
+        <button onClick={toggleMenu} type='button'>Cancel</button>
+        <button className='red ml-20' type='submit' disabled={!isMatch}>
+          Delete
+        </button>
       </div>
     </form>
   );

@@ -28,38 +28,32 @@ const EditRoster = ({ reset }) => {
     }
   };
   return (
-    <div className='client-form'>
+    <form onSubmit={handleSubmit} noValidate className='client-form'>
       <h3>{editingClient ? 'Edit Client' : 'New Client'}</h3>
-      <form onSubmit={handleSubmit} noValidate>
-        <Input
-          label='Name'
-          name='name'
-          value={strInput(name)}
-          handleChange={handleChange}
-          error={error}
-        />
-        <Input
-          label='Email'
-          name='email'
-          value={email}
-          handleChange={handleChange}
-        />
-        <Input
-          label='Phone'
-          name='phone'
-          value={numInput(phone)}
-          handleChange={handleChange}
-        />
-        <div>
-          <button onClick={reset}>
-            Cancel
-          </button>
-          <button className='btn-3 mt-0' type='submit'>
-            Save
-          </button>
-        </div>
-      </form>
-    </div>
+      <Input
+        label='Name'
+        name='name'
+        value={strInput(name)}
+        handleChange={handleChange}
+        error={error}
+      />
+      <Input
+        label='Email'
+        name='email'
+        value={email}
+        handleChange={handleChange}
+      />
+      <Input
+        label='Phone'
+        name='phone'
+        value={numInput(phone)}
+        handleChange={handleChange}
+      />
+      <button onClick={reset} type='button'>Cancel</button>
+      <button className='btn-3 ml-20' type='submit'>
+        Save
+      </button>
+    </form>
   );
 };
 
