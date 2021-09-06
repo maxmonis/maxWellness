@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { formatDate } from '../../functions/helpers';
 
 const LiftRecords = ({ records, lift, setExercise }) => {
-  const liftRecords = records.filter(record => record.lift === lift).reverse();
+  const liftRecords = records.filter(record => record.lift === lift);
   const getTitle = ({ becameRecord, surpassed }) =>
     surpassed
       ? `${formatDate(becameRecord)} - ${formatDate(surpassed)}`
@@ -22,7 +22,9 @@ const LiftRecords = ({ records, lift, setExercise }) => {
       ) : (
         <>
           <button
-            className={horizontalIndex > 2 ? 'mr-20' : 'mr-20 opacity-0 cursor-default'}
+            className={
+              horizontalIndex > 2 ? 'mr-20' : 'mr-20 opacity-0 cursor-default'
+            }
             onClick={decrement}>
             <h3>{'<-'}</h3>
           </button>
