@@ -24,13 +24,13 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
   const [maxColumns, setMaxColumns] = useState(
     typeof window !== 'undefined' && getMaxColumns()
   );
-  const updateMedia = () => {
+  const handleResize = () => {
     setMaxColumns(getMaxColumns());
     setHorizontalIndex(0);
   };
   useEffect(() => {
-    window.addEventListener('resize', updateMedia);
-    return () => window.removeEventListener('resize', updateMedia);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   });
   const [horizontalIndex, setHorizontalIndex] = useState(0);
   useEffect(() => {
@@ -82,7 +82,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
                     organizeRoutine(
                       routine.filter(exercise => exercise.lift === lift)
                     ).map(exercise => (
-                      <h3 key={exercise.id} title={lift}>
+                      <h3 key={exercise.id}>
                         {exercise.printout.split(' ').map((printout, i) => (
                           <span key={printout + i}>{printout}</span>
                         ))}
@@ -118,14 +118,14 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
                         organizeRoutine(
                           routine.filter(exercise => exercise.lift === lift)
                         ).map(exercise => (
-                          <h3 key={exercise.id} title={lift}>
+                          <h3 key={exercise.id}>
                             {exercise.printout.split(' ').map((printout, i) => (
                               <span key={printout + i}>{printout}</span>
                             ))}
                           </h3>
                         ))
                       ) : (
-                        <h3 title={name}>{formatDate(date)}</h3>
+                        <h3>{formatDate(date)}</h3>
                       )}
                     </div>
                   ))}

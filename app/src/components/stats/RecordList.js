@@ -8,10 +8,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
         const { id, lift, printout, becameRecord, surpassed } = exercise;
         return (
           <section className='mb-20' key={id}>
-            <h3
-              className='record'
-              title='Copy'
-              onClick={() => selectExercise(exercise)}>
+            <h3 className='record' onClick={() => selectExercise(exercise)}>
               {lift}: {printout}
             </h3>
             <h4>

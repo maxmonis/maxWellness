@@ -1,0 +1,17 @@
+.hide-gt-992 {
+  display: block;
+}
+
+.show-gt-992 {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .hide-gt-992 {
+    display: none;
+  }
+
+  .show-gt-992 {
+    display: block;
+  }
+}
