@@ -54,7 +54,7 @@ const AddExercise = ({
       </select>
       {isNewWorkout && (
         <div>
-          <button className='btn-3 mb-0 mt-16' onClick={toggleExerciseHistory}>
+          <button className='btn-3 mt-16' onClick={toggleExerciseHistory}>
             Exercise History
           </button>
         </div>

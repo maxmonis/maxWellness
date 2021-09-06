@@ -37,19 +37,19 @@
 
 /* -------------------------------------------------- */
 
-/* Slide up from bottom then back down */
+/* Slide in from left then back out */
 
-.slide-up-enter {
+.slide-in-enter {
   position: fixed;
-  transform: translateY(100%);
+  transform: translateX(-100%);
 }
-.slide-up-enter-active {
+.slide-in-enter-active {
   position: fixed;
   transition: transform 200ms ease-in;
-  transform: translateY(0);
+  transform: translateX(0);
 }
-.slide-up-exit-active {
+.slide-in-exit-active {
   position: fixed;
   transition: transform 200ms ease-in;
-  transform: translateY(100%);
+  transform: translateX(-100%);
 }

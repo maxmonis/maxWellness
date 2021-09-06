@@ -17,13 +17,13 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
         />
       ) : (
         <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
-          <button className='line-through cursor-auto mb-0' disabled>
+          <button className='line-through cursor-auto' disabled>
             {name}
           </button>
           {optionsShown && (
             <div>
               <button onClick={handleActivate}>Activate</button>
-              <button className='red m-12' onClick={toggleMenu}>
+              <button className='red mt-4 ml-20' onClick={toggleMenu}>
                 Delete
               </button>
             </div>

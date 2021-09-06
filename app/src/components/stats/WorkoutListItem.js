@@ -35,6 +35,8 @@ const WorkoutListItem = ({
     if (navigator.clipboard) {
       navigator.clipboard.writeText(CLIPBOARD_TEXT);
     }
+    toggleMenu(id);
+    setAlert('Workout Copied', 'success');
   };
   return (
     routine.length > 0 && (
@@ -44,12 +46,12 @@ const WorkoutListItem = ({
             <h2>Delete Workout?</h2>
             <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
             <button onClick={toggleDeleteModal}>Cancel</button>
-            <button className='red ml-12' onClick={handleDelete}>
+            <button className='red ml-20' onClick={handleDelete}>
               Delete
             </button>
           </Modal>
         )}
-        <h3 className='pointer' onClick={handleClick} title='Copy'>
+        <h3>
           {`${name} - `}
           {formatDate(date)}
         </h3>
@@ -63,8 +65,15 @@ const WorkoutListItem = ({
           </ul>
           {menuID === workout.id && (
             <>
-              <button onClick={() => editWorkout(workout)}>Edit</button>
-              <button className='ml-12 mt-8 red' onClick={toggleDeleteModal}>
+              <button className='btn-3' onClick={handleClick}>
+                Copy
+              </button>
+              <button
+                className='mt-16 mr-20 ml-20'
+                onClick={() => editWorkout(workout)}>
+                Edit
+              </button>
+              <button className='red' onClick={toggleDeleteModal}>
                 Delete
               </button>
             </>

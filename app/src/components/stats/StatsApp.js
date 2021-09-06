@@ -104,8 +104,8 @@ const StatsApp = ({
               className={
                 (display === 'workouts' && workoutsIndex) ||
                 (display === 'records' && recordsIndex)
-                  ? 'mr-20 ml-0'
-                  : 'mr-20 ml-0 opacity-0 cursor-default'
+                  ? 'mr-20'
+                  : 'mr-20 opacity-0 cursor-default'
               }
               onClick={() => decrement(display)}>
               <h3>{'<-'}</h3>
@@ -132,8 +132,8 @@ const StatsApp = ({
                 (display === 'workouts' &&
                   workoutsIndex < workouts.length - 3) ||
                 (display === 'records' && recordsIndex < records.length - 5)
-                  ? 'mr-0 ml-20'
-                  : 'mr-0 ml-20 opacity-0 cursor-default'
+                  ? 'ml-20'
+                  : 'ml-20 opacity-0 cursor-default'
               }
               onClick={() => increment(display)}>
               <h3>{'->'}</h3>

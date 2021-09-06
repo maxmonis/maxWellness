@@ -11,12 +11,12 @@ const MenuDrawer = ({ dark, toggleDark, toggleDrawer }) => {
       <header className='mb-12 p-0'>
         <button
           onClick={() => selectMenu('clients')}
-          className={selectedMenu === 'clients' ? 'underline m-0' : 'm-0'}>
+          className={selectedMenu === 'clients' ? 'underline' : ''}>
           Clients
         </button>
         <button
           onClick={() => selectMenu('filters')}
-          className={selectedMenu === 'filters' ? 'underline m-0' : 'm-0'}>
+          className={selectedMenu === 'filters' ? 'underline' : ''}>
           Filters
         </button>
       </header>

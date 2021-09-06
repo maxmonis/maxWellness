@@ -12,10 +12,10 @@ const ActiveClient = ({
   const showOptions = () => setOptionsShown(true);
   const hideOptions = () => setOptionsShown(false);
   return (
-    <div className='p-8' onMouseEnter={showOptions} onMouseLeave={hideOptions}>
+    <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       {optionsShown ? (
         <Link to={id} title='Workouts'>
-          <button className='hover-underline mb-0' onClick={toggleDrawer}>
+          <button className='hover-underline' onClick={toggleDrawer}>
             {name}
           </button>
         </Link>
@@ -25,7 +25,7 @@ const ActiveClient = ({
       {optionsShown && (
         <div>
           <button onClick={handleEdit}>Edit</button>
-          <button className='ml-12 mt-8 red' onClick={handleDeactivate}>Remove</button>
+          <button className='red mt-4 ml-20' onClick={handleDeactivate}>Remove</button>
         </div>
       )}
     </div>

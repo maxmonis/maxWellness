@@ -1,12 +1,13 @@
 .alert {
   background: var(--background);
-  bottom: 36px;
   color: var(--color);
   border-radius: var(--border-radius);
+  left: 16px;
   margin: 0 auto;
   padding: 8px 16px;
-  position: absolute;
-  right: 16px;
+  position: fixed;
+  text-shadow: none;
+  top: 60px;
   width: max-content;
   z-index: var(--alert-index);
 }
@@ -14,7 +15,7 @@
   background: var(--red);
 }
 .alert.success {
-  background: var(--blue2);
+  background: var(--green);
 }
 
 .app {
@@ -73,7 +74,7 @@
   border: 1px solid var(--color);
   border-radius: var(--border-radius);
   margin: 12px 0;
-  padding: 8px 0;
+  padding: 12px 0 20px;
 }
 
 .exercise-app {
