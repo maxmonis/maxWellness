@@ -6,6 +6,14 @@ export function alphabetize(array, property) {
   });
 }
 
+export function chronologize(array) {
+  return array.sort((a, b) => {
+    const dateA = parseInt(a.date.replace(/-/g, ''));
+    const dateB = parseInt(b.date.replace(/-/g, ''));
+    return dateA - dateB;
+  });
+}
+
 export function numInput(value) {
   return value.toString().replace(/[^\d]/g, '');
 }

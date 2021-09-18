@@ -8,7 +8,6 @@
   position: fixed;
   text-shadow: none;
   top: 60px;
-  width: max-content;
   z-index: var(--alert-index);
 }
 .alert.critical {
@@ -165,11 +164,6 @@
 }
 .lift-app .input-container {
   margin: 12px auto;
-}
-
-.modal .lift-records {
-  margin: 12px 0 20px;
-  min-width: 100%;
 }
 
 .new-exercise-inputs {

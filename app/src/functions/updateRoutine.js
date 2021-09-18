@@ -1,13 +1,20 @@
 import createNewExercise from './createNewExercise';
 
-const UpdateRoutine = (value, routine) =>
+const UpdateRoutine = (value = [], routine) =>
+  // If the value we were passed is a string...
   typeof value === 'string'
-    ? routine.filter(exercise => exercise.id !== value)
-    : value.lift
-    ? [...routine, createNewExercise(value)]
-    : typeof value[0] === 'string'
-    ? reorderExercises(value, routine)
-    : value;
+    ? // ...it's the ID of an exercise selected for deletion.
+      routine.filter(exercise => exercise.id !== value)
+    : // If it's got a lift property...
+    value.lift
+    ? // it's a new exercise we need to append to the routine.
+      [...routine, createNewExercise(value)]
+    : // If it's an array of strings...
+    typeof value[0] === 'string'
+    ? // ...those strings are the IDs of the reordered routine after a drag and drop event.
+      reorderExercises(value, routine)
+    : // By default we return the array we were passed.
+      value;
 
 function reorderExercises(exerciseIds, routine) {
   const updatedRoutine = [];
