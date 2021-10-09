@@ -10,7 +10,7 @@ export default (state, action) => {
       };
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':
-      localStorage.setItem('token', payload.token);
+      localStorage.setItem('maxWellness_token', payload.token);
       return {
         ...state,
         ...payload,
@@ -21,7 +21,7 @@ export default (state, action) => {
     case 'LOG_USER_OUT':
     case 'LOGIN_FAILURE':
     case 'REGISTER_FAILURE':
-      localStorage.removeItem('token');
+      localStorage.removeItem('maxWellness_token');
       return {
         ...state,
         token: null,

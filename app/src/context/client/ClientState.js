@@ -1,104 +1,78 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import ClientContext from './clientContext';
-import clientReducer from './clientReducer';
-import { standardize } from '../../functions/helpers';
+import React, { useReducer } from 'react'
+import ClientContext from './clientContext'
+import clientReducer from './clientReducer'
+import request from '../../functions/request'
+import { standardize } from '../../functions/helpers'
 
-const ClientState = (props) => {
+const ClientState = props => {
   const initialState = {
     clients: [],
     editingClient: null,
     filteredClients: [],
     loading: true,
     error: null,
-  };
-  const [state, dispatch] = useReducer(clientReducer, initialState);
-  const { clients, editingClient, filteredClients, loading, error } = state;
+  }
+  const [state, dispatch] = useReducer(clientReducer, initialState)
+  const { clients, editingClient, filteredClients, loading, error } = state
   const getClients = async () => {
     try {
-      const { data } = await axios.get('/api/clients');
-      if (data.length === 0)
-        addClient({
-          name: '#',
-        });
-      dispatch({ type: 'GET_CLIENTS', payload: data });
+      const payload = await request('/api/clients')
+      if (payload.length === 0) addClient({ name: '#' })
+      dispatch({ type: 'GET_CLIENTS', payload })
     } catch (err) {
-      dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
     }
-  };
-  const addClient = async (client) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    if (clients.some((c) => standardize(c.name) === standardize(client.name))) {
-      dispatch({
-        type: 'CLIENT_ERROR',
-        payload: `${client.name} already exists`,
-      });
+  }
+  const addClient = async body => {
+    const { name } = body
+    if (nameIsDuplicate({ name })) {
+      dispatch({ type: 'CLIENT_ERROR', payload: `${name} already exists` })
     } else {
       try {
-        const res = await axios.post('/api/clients', client, config);
-        dispatch({ type: 'ADD_CLIENT', payload: res.data });
+        const payload = await request('/api/clients', { body })
+        dispatch({ type: 'ADD_CLIENT', payload })
       } catch (err) {
-        dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+        dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
       }
     }
-  };
-  const updateClient = async (client) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    if (
-      clients.some(
-        (c) =>
-          standardize(c.name) === standardize(client.name) &&
-          c._id !== client._id
-      )
-    ) {
-      dispatch({
-        type: 'CLIENT_ERROR',
-        payload: `${client.name} already exists`,
-      });
+  }
+  const updateClient = async body => {
+    const { name, _id } = body
+    if (nameIsDuplicate({ name, _id })) {
+      dispatch({ type: 'CLIENT_ERROR', payload: `${name} already exists` })
     } else {
       try {
-        const res = await axios.put(
-          `/api/clients/${client._id}`,
-          client,
-          config
-        );
-        dispatch({ type: 'UPDATE_CLIENT', payload: res.data });
+        const config = { body, method: 'PUT' }
+        const payload = await request(`/api/clients/${_id}`, config)
+        dispatch({ type: 'UPDATE_CLIENT', payload })
       } catch (err) {
-        dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+        dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
       }
     }
-  };
-  const deleteClient = async (id) => {
+  }
+  const deleteClient = async id => {
     try {
-      await axios.delete(`/api/clients/${id}`);
-      dispatch({ type: 'DELETE_CLIENT', payload: id });
+      await request(`/api/clients/${id}`, { method: 'DELETE' })
+      dispatch({ type: 'DELETE_CLIENT', payload: id })
     } catch (err) {
-      dispatch({ type: 'CLIENT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
     }
-  };
+  }
   const clearClients = () => {
-    dispatch({ type: 'CLEAR_CLIENTS' });
-  };
-  const setEditingClient = (client) => {
-    dispatch({ type: 'SET_EDITING_CLIENT', payload: client });
-  };
+    dispatch({ type: 'CLEAR_CLIENTS' })
+  }
+  const setEditingClient = client => {
+    dispatch({ type: 'SET_EDITING_CLIENT', payload: client })
+  }
   const clearEditingClient = () => {
-    dispatch({ type: 'CLEAR_EDITING_CLIENT' });
-  };
-  const filterClients = (text) => {
-    dispatch({ type: 'FILTER_CLIENTS', payload: text });
-  };
+    dispatch({ type: 'CLEAR_EDITING_CLIENT' })
+  }
+  const filterClients = text => {
+    dispatch({ type: 'FILTER_CLIENTS', payload: text })
+  }
   const clearFilteredClients = () => {
-    dispatch({ type: 'CLEAR_FILTERED_CLIENTS' });
-  };
+    dispatch({ type: 'CLEAR_FILTERED_CLIENTS' })
+  }
   return (
     <ClientContext.Provider
       value={{
@@ -116,11 +90,16 @@ const ClientState = (props) => {
         clearEditingClient,
         filterClients,
         clearFilteredClients,
-      }}
-    >
+      }}>
       {props.children}
     </ClientContext.Provider>
-  );
-};
+  )
+  function nameIsDuplicate({ name, _id }) {
+    return clients.some(
+      client =>
+        standardize(client.name) === standardize(name) && client._id !== _id
+    )
+  }
+}
 
-export default ClientState;
+export default ClientState

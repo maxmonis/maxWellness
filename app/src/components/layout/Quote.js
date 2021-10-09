@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import request from '../../functions/request'
 
 const Quote = () => {
-  const [quote, setQuote] = useState(null);
+  const [quote, setQuote] = useState(null)
   const getQuote = async () => {
-    setQuote(null);
+    setQuote(null)
     try {
-      const { data } = await axios.get('https://type.fit/api/quotes');
-      const index = Math.floor(Math.random() * data.length);
-      setQuote(data[index]);
+      const quotes = await request('https://type.fit/api/quotes')
+      const index = Math.floor(Math.random() * quotes.length)
+      setQuote(quotes[index])
     } catch (err) {
-      console.error(err);
+      console.error(err)
       setQuote({
         text: 'Be the change you want to see in the world',
         author: 'Mohandas Gandhi',
-      });
+      })
     }
-  };
+  }
   useEffect(() => {
-    getQuote();
+    getQuote()
     // eslint-disable-next-line
-  }, []);
+  }, [])
   return (
     <div className='quote'>
       {!quote ? (
@@ -32,7 +32,7 @@ const Quote = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Quote;
+export default Quote

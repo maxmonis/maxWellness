@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import WorkoutContext from './workoutContext';
-import workoutReducer from './workoutReducer';
+import React, { useReducer } from 'react'
+import WorkoutContext from './workoutContext'
+import workoutReducer from './workoutReducer'
+import request from '../../functions/request'
 
 const WorkoutState = ({ children }) => {
   const INITIAL_STATE = {
@@ -12,13 +12,8 @@ const WorkoutState = ({ children }) => {
     filteredWorkouts: [],
     loading: true,
     error: null,
-  };
-  const CONFIG = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const [state, dispatch] = useReducer(workoutReducer, INITIAL_STATE);
+  }
+  const [state, dispatch] = useReducer(workoutReducer, INITIAL_STATE)
   const {
     workouts,
     workoutsFilters,
@@ -27,67 +22,64 @@ const WorkoutState = ({ children }) => {
     filteredWorkouts,
     loading,
     error,
-  } = state;
+  } = state
   const getWorkouts = async () => {
     try {
-      const { data } = await axios.get('/api/workouts');
-      dispatch({ type: 'GET_WORKOUTS', payload: data });
+      const payload = await request('/api/workouts')
+      dispatch({ type: 'GET_WORKOUTS', payload })
     } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
     }
-  };
-  const addWorkout = async workout => {
+  }
+  const addWorkout = async body => {
     try {
-      const { data } = await axios.post('/api/workouts', workout, CONFIG);
-      dispatch({ type: 'ADD_WORKOUT', payload: data });
+      const payload = await request('/api/workouts', { body })
+      dispatch({ type: 'ADD_WORKOUT', payload })
     } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
     }
-  };
-  const updateWorkout = async workout => {
+  }
+  const updateWorkout = async body => {
     try {
-      const { data } = await axios.put(
-        `/api/workouts/${workout._id}`,
-        workout,
-        CONFIG
-      );
-      dispatch({ type: 'UPDATE_WORKOUT', payload: data });
+      const config = { body, method: 'PUT' }
+      const payload = request(`/api/workouts/${body._id}`, config)
+      dispatch({ type: 'UPDATE_WORKOUT', payload })
     } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
     }
-  };
+  }
   const deleteWorkout = async id => {
     try {
-      await axios.delete(`/api/workouts/${id}`);
-      dispatch({ type: 'DELETE_WORKOUT', payload: id });
+      await request(`/api/workouts/${id}`, { method: 'DELETE' })
+      dispatch({ type: 'DELETE_WORKOUT', payload: id })
     } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: err.response.msg });
+      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
     }
-  };
+  }
   const clearWorkouts = () => {
-    dispatch({ type: 'CLEAR_WORKOUTS' });
-  };
-  const setEditingWorkout = workout => {
-    dispatch({ type: 'SET_EDITING_WORKOUT', payload: workout });
-  };
+    dispatch({ type: 'CLEAR_WORKOUTS' })
+  }
+  const setEditingWorkout = payload => {
+    dispatch({ type: 'SET_EDITING_WORKOUT', payload })
+  }
   const clearEditingWorkout = () => {
-    dispatch({ type: 'CLEAR_EDITING_WORKOUT' });
-  };
-  const filterWorkouts = text => {
-    dispatch({ type: 'FILTER_WORKOUTS', payload: text });
-  };
+    dispatch({ type: 'CLEAR_EDITING_WORKOUT' })
+  }
+  const filterWorkouts = payload => {
+    dispatch({ type: 'FILTER_WORKOUTS', payload })
+  }
   const clearFilteredWorkouts = () => {
-    dispatch({ type: 'CLEAR_FILTERED_WORKOUTS' });
-  };
-  const setAllWorkouts = workouts => {
-    dispatch({ type: 'SET_ALL_WORKOUTS', payload: workouts });
-  };
-  const updateWorkoutsFilter = filter => {
-    dispatch({ type: 'UPDATE_WORKOUTS_FILTER', payload: filter });
-  };
+    dispatch({ type: 'CLEAR_FILTERED_WORKOUTS' })
+  }
+  const setAllWorkouts = payload => {
+    dispatch({ type: 'SET_ALL_WORKOUTS', payload })
+  }
+  const updateWorkoutsFilter = payload => {
+    dispatch({ type: 'UPDATE_WORKOUTS_FILTER', payload })
+  }
   const clearWorkoutsFilters = () => {
-    dispatch({ type: 'CLEAR_WORKOUTS_FILTERS' });
-  };
+    dispatch({ type: 'CLEAR_WORKOUTS_FILTERS' })
+  }
   return (
     <WorkoutContext.Provider
       value={{
@@ -113,7 +105,7 @@ const WorkoutState = ({ children }) => {
       }}>
       {children}
     </WorkoutContext.Provider>
-  );
-};
+  )
+}
 
-export default WorkoutState;
+export default WorkoutState
