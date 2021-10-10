@@ -77,7 +77,7 @@ const SaveWorkout = ({
       )}
       {routine.length > 0 && (
         <>
-          <button className='btn-1 mr-8' onClick={toggleForm}>
+          <button className='btn-1 mr-8' onClick={toggleForm} type='button'>
             Save Workout
           </button>
           <button onClick={() => updateRoutine([])}>Clear</button>

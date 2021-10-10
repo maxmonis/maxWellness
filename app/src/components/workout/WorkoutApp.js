@@ -115,7 +115,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     <>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
-          <h3 className='mb-12'>Edit Workout</h3>
+          <h2 className='mb-12'>Edit Workout</h2>
           <EditWorkout
             exercise={editingExercise}
             workout={editingWorkout}
