@@ -26,8 +26,8 @@ const AuthState = ({ children }) => {
       const payload = await request('/api/users', { body })
       dispatch({ type: 'REGISTER_SUCCESS', payload })
       loadUser()
-    } catch (err) {
-      dispatch({ type: 'REGISTER_FAILURE', payload: 'Registration Failed' })
+    } catch ({ message }) {
+      dispatch({ type: 'REGISTER_FAILURE', payload: message })
     }
   }
   const logUserIn = async body => {
@@ -35,8 +35,8 @@ const AuthState = ({ children }) => {
       const payload = await request('/api/auth', { body })
       dispatch({ type: 'LOGIN_SUCCESS', payload })
       loadUser()
-    } catch (err) {
-      dispatch({ type: 'LOGIN_FAILURE', payload: 'Login Failed' })
+    } catch ({ message }) {
+      dispatch({ type: 'LOGIN_FAILURE', payload: message })
     }
   }
   const logUserOut = () => {

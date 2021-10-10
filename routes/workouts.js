@@ -10,8 +10,8 @@ router.get('/', auth, async (req, res) => {
       date: -1,
     })
     res.json(workouts)
-  } catch (err) {
-    console.error(err.message)
+  } catch ({ message }) {
+    console.error(message)
     res.status(500).send('Server Error')
   }
 })
@@ -34,8 +34,8 @@ router.post(
       })
       const workout = await newWorkout.save()
       res.json(workout)
-    } catch (err) {
-      console.error(err.message)
+    } catch ({ message }) {
+      console.error(message)
       res.status(500).send('Server Error')
     }
   }
@@ -50,9 +50,9 @@ router.put('/:id', auth, async (req, res) => {
   if (routine) workoutFields.routine = routine
   try {
     let workout = await Workout.findById(req.params.id)
-    if (!workout) return res.status(404).json({ msg: 'Workout not found' })
+    if (!workout) return res.status(404).send('Workout not found')
     if (workout.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' })
+      return res.status(401).send('Not authorized')
     }
     workout = await Workout.findByIdAndUpdate(
       req.params.id,
@@ -60,8 +60,8 @@ router.put('/:id', auth, async (req, res) => {
       { new: true }
     )
     res.json(workout)
-  } catch (err) {
-    console.error(err.message)
+  } catch ({ message }) {
+    console.error(message)
     res.status(500).send('Server Error')
   }
 })
@@ -69,14 +69,14 @@ router.put('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const workout = await Workout.findById(req.params.id)
-    if (!workout) return res.status(404).json({ msg: 'Workout not found' })
+    if (!workout) return res.status(404).send('Workout not found')
     if (workout.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorized' })
+      return res.status(401).send('Not authorized')
     }
     await Workout.findByIdAndRemove(req.params.id)
-    res.json({ msg: 'Workout removed' })
-  } catch (err) {
-    console.error(err.message)
+    res.send('Workout removed')
+  } catch ({ message }) {
+    console.error(message)
     res.status(500).send('Server Error')
   }
 })

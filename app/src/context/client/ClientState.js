@@ -19,56 +19,56 @@ const ClientState = props => {
       const payload = await request('/api/clients')
       if (payload.length === 0) addClient({ name: '#' })
       dispatch({ type: 'GET_CLIENTS', payload })
-    } catch (err) {
-      dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
+    } catch ({ message }) {
+      dispatch({ type: 'CLIENT_ERROR', payload: message })
     }
   }
   const addClient = async body => {
     const { name } = body
-    if (nameIsDuplicate({ name })) {
-      dispatch({ type: 'CLIENT_ERROR', payload: `${name} already exists` })
-    } else {
+    if (nameIsUnique({ name })) {
       try {
         const payload = await request('/api/clients', { body })
         dispatch({ type: 'ADD_CLIENT', payload })
-      } catch (err) {
-        dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
+      } catch ({ message }) {
+        dispatch({ type: 'CLIENT_ERROR', payload: message })
       }
+    } else {
+      dispatch({ type: 'CLIENT_ERROR', payload: `${name} already exists` })
     }
   }
   const updateClient = async body => {
     const { name, _id } = body
-    if (nameIsDuplicate({ name, _id })) {
-      dispatch({ type: 'CLIENT_ERROR', payload: `${name} already exists` })
-    } else {
+    if (nameIsUnique({ name, _id })) {
       try {
         const config = { body, method: 'PUT' }
         const payload = await request(`/api/clients/${_id}`, config)
         dispatch({ type: 'UPDATE_CLIENT', payload })
-      } catch (err) {
-        dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
+      } catch ({ message }) {
+        dispatch({ type: 'CLIENT_ERROR', payload: message })
       }
+    } else {
+      dispatch({ type: 'CLIENT_ERROR', payload: `${name} already exists` })
     }
   }
   const deleteClient = async id => {
     try {
       await request(`/api/clients/${id}`, { method: 'DELETE' })
       dispatch({ type: 'DELETE_CLIENT', payload: id })
-    } catch (err) {
-      dispatch({ type: 'CLIENT_ERROR', payload: 'Error' })
+    } catch ({ message }) {
+      dispatch({ type: 'CLIENT_ERROR', payload: message })
     }
   }
   const clearClients = () => {
     dispatch({ type: 'CLEAR_CLIENTS' })
   }
-  const setEditingClient = client => {
-    dispatch({ type: 'SET_EDITING_CLIENT', payload: client })
+  const setEditingClient = payload => {
+    dispatch({ type: 'SET_EDITING_CLIENT', payload })
   }
   const clearEditingClient = () => {
     dispatch({ type: 'CLEAR_EDITING_CLIENT' })
   }
-  const filterClients = text => {
-    dispatch({ type: 'FILTER_CLIENTS', payload: text })
+  const filterClients = payload => {
+    dispatch({ type: 'FILTER_CLIENTS', payload })
   }
   const clearFilteredClients = () => {
     dispatch({ type: 'CLEAR_FILTERED_CLIENTS' })
@@ -94,8 +94,8 @@ const ClientState = props => {
       {props.children}
     </ClientContext.Provider>
   )
-  function nameIsDuplicate({ name, _id }) {
-    return clients.some(
+  function nameIsUnique({ name, _id }) {
+    return !clients.some(
       client =>
         standardize(client.name) === standardize(name) && client._id !== _id
     )

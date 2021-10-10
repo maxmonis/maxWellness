@@ -27,16 +27,16 @@ const WorkoutState = ({ children }) => {
     try {
       const payload = await request('/api/workouts')
       dispatch({ type: 'GET_WORKOUTS', payload })
-    } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
+    } catch ({ message }) {
+      dispatch({ type: 'WORKOUT_ERROR', payload: message })
     }
   }
   const addWorkout = async body => {
     try {
       const payload = await request('/api/workouts', { body })
       dispatch({ type: 'ADD_WORKOUT', payload })
-    } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
+    } catch ({ message }) {
+      dispatch({ type: 'WORKOUT_ERROR', payload: message })
     }
   }
   const updateWorkout = async body => {
@@ -44,16 +44,16 @@ const WorkoutState = ({ children }) => {
       const config = { body, method: 'PUT' }
       const payload = request(`/api/workouts/${body._id}`, config)
       dispatch({ type: 'UPDATE_WORKOUT', payload })
-    } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
+    } catch ({ message }) {
+      dispatch({ type: 'WORKOUT_ERROR', payload: message })
     }
   }
   const deleteWorkout = async id => {
     try {
       await request(`/api/workouts/${id}`, { method: 'DELETE' })
       dispatch({ type: 'DELETE_WORKOUT', payload: id })
-    } catch (err) {
-      dispatch({ type: 'WORKOUT_ERROR', payload: 'Error' })
+    } catch ({ message }) {
+      dispatch({ type: 'WORKOUT_ERROR', payload: message })
     }
   }
   const clearWorkouts = () => {
