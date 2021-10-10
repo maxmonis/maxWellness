@@ -1,20 +1,24 @@
 import createNewExercise from './createNewExercise'
 
-const UpdateRoutine = (value = [], routine) =>
+const updateRoutine = (value = [], routine = []) =>
   // If the value we were passed is a string...
   typeof value === 'string'
     ? // ...it's the ID of an exercise selected for deletion.
       routine.filter(exercise => exercise.id !== value)
-    : // If it's got a lift property...
+    : // If it's an Object with a lift property...
     value.lift
-    ? // it's a new exercise we need to append to the routine.
+    ? // ...it's a new exercise we need to append to the routine.
       [...routine, createNewExercise(value)]
+    : // If it's an array of Objects...
+    typeof value[0] === 'object'
+    ? // ...it's a previous routine the user wants to copy.
+      value.map(exercise => createNewExercise(exercise))
     : // If it's an array of strings...
     typeof value[0] === 'string'
     ? // ...those strings are the IDs of the reordered routine after a drag and drop event.
       reorderExercises(value, routine)
-    : // By default we return the array we were passed.
-      value
+    : // By default we reset the routine.
+      []
 
 function reorderExercises(exerciseIds, routine) {
   const updatedRoutine = []
@@ -29,4 +33,4 @@ function reorderExercises(exerciseIds, routine) {
   return updatedRoutine
 }
 
-export default UpdateRoutine
+export default updateRoutine
