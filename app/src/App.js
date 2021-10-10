@@ -15,7 +15,10 @@ import WorkoutState from './context/workout/WorkoutState'
 import useToggle from './hooks/useToggle'
 
 const App = () => {
-  const [dark, toggleDark] = useToggle(true)
+  const [dark, toggleDark] = useToggle(
+    window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+  )
   const [isDrawerOpen, toggleDrawer] = useToggle(true)
   useEffect(() => {
     isDrawerOpen && toggleDrawer()
