@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 
 export const Checkbox = ({ label, bool, toggle }) => (
   <label className='checkbox'>
     <input type='checkbox' checked={bool} onChange={toggle} />
     {label}
   </label>
-);
+)
 
 export const Drawer = ({ children, handleClose }) => (
   <>
     <div className='background-blur-overlay' onClick={handleClose} />
     <div className='drawer'>{children}</div>
   </>
-);
+)
 
 export const Input = ({
   name,
@@ -42,16 +42,16 @@ export const Input = ({
     </label>
     {error && <p className='input-error'>{error}</p>}
   </div>
-);
+)
 
 export const Modal = ({ children, handleClose }) => (
   <>
     <div className='background-blur-overlay' onClick={handleClose} />
     <div className='modal'>{children}</div>
   </>
-);
+)
 
-export const Spinner = () => <div className='spinner' />;
+export const Spinner = () => <div className='spinner' />
 
 export const Switch = ({ bool, toggle, label }) => (
   <div className='switch-container'>
@@ -61,4 +61,4 @@ export const Switch = ({ bool, toggle, label }) => (
       <span className='slider'></span>
     </label>
   </div>
-);
+)

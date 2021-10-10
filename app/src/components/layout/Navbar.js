@@ -1,21 +1,21 @@
-import React, { useContext, useEffect } from 'react';
-import AuthContext from '../../context/auth/authContext';
-import ClientContext from '../../context/client/clientContext';
-import MenuDrawer from './MenuDrawer';
+import React, { useContext, useEffect } from 'react'
+import AuthContext from '../../context/auth/authContext'
+import ClientContext from '../../context/client/clientContext'
+import MenuDrawer from './MenuDrawer'
 
 const Navbar = props => {
-  const { dark, toggleDark, isDrawerOpen, toggleDrawer } = props;
+  const { dark, toggleDark, isDrawerOpen, toggleDrawer } = props
   const { isAuthenticated, logUserOut, loadUser, user } =
-    useContext(AuthContext);
-  const { getClients, clearClients } = useContext(ClientContext);
+    useContext(AuthContext)
+  const { getClients, clearClients } = useContext(ClientContext)
   useEffect(() => {
-    loadUser();
+    loadUser()
     // eslint-disable-next-line
-  }, []);
+  }, [])
   useEffect(() => {
-    user ? getClients() : clearClients();
+    user ? getClients() : clearClients()
     // eslint-disable-next-line
-  }, [user]);
+  }, [user])
   return (
     <nav>
       <header>
@@ -31,14 +31,16 @@ const Navbar = props => {
             <button className='hover-underline m-12' onClick={toggleDrawer}>
               Menu
             </button>
-            <button className='hover-underline m-12' onClick={() => logUserOut()}>
+            <button
+              className='hover-underline m-12'
+              onClick={() => logUserOut()}>
               Logout
             </button>
           </>
         )}
       </header>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import eliminateRedundancy from '../functions/eliminateRedundancy';
-import updateLifts from '../functions/updateLifts';
-import updateRoutine from '../functions/updateRoutine';
-import updateWorkouts from '../functions/updateWorkouts';
+import { useState } from 'react'
+import eliminateRedundancy from '../functions/eliminateRedundancy'
+import updateLifts from '../functions/updateLifts'
+import updateRoutine from '../functions/updateRoutine'
+import updateWorkouts from '../functions/updateWorkouts'
 
 const useClientState = initialClient => {
-  const [client, setClient] = useState(initialClient);
+  const [client, setClient] = useState(initialClient)
   const defaultRoutine =
-    JSON.parse(window.localStorage.getItem(client._id)) || [];
-  const [routine, setRoutine] = useState(defaultRoutine);
-  const [editingRoutine, setEditingRoutine] = useState([]);
+    JSON.parse(window.localStorage.getItem(client._id)) || []
+  const [routine, setRoutine] = useState(defaultRoutine)
+  const [editingRoutine, setEditingRoutine] = useState([])
   const saveRoutine = updated => {
-    window.localStorage.setItem(client._id, JSON.stringify(updated));
-    setRoutine(updated);
-  };
+    window.localStorage.setItem(client._id, JSON.stringify(updated))
+    setRoutine(updated)
+  }
   return {
     client,
     routine,
@@ -25,22 +25,22 @@ const useClientState = initialClient => {
         eliminateRedundancy(updateRoutine(value, editingRoutine))
       ),
     updateLifts: (newName, oldName) => {
-      const updated = updateLifts(newName, oldName, client, routine);
+      const updated = updateLifts(newName, oldName, client, routine)
       if (updated) {
         if (updated.length) {
-          setClient({ ...client, lifts: updated });
+          setClient({ ...client, lifts: updated })
         } else {
-          saveRoutine(updated.routine);
-          const { lifts, workouts, records } = updated;
-          setClient({ ...client, lifts, workouts, records });
+          saveRoutine(updated.routine)
+          const { lifts, workouts, records } = updated
+          setClient({ ...client, lifts, workouts, records })
         }
       }
     },
     updateWorkouts: value => {
-      const { workouts, records } = updateWorkouts(value, client.workouts);
-      setClient({ ...client, workouts, records });
+      const { workouts, records } = updateWorkouts(value, client.workouts)
+      setClient({ ...client, workouts, records })
     },
-  };
-};
+  }
+}
 
-export default useClientState;
+export default useClientState

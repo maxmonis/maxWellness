@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import organizeRoutine from '../../functions/organizeRoutine';
-import useToggle from '../../hooks/useToggle';
-import AlertContext from '../../context/alert/alertContext';
-import { formatDate } from '../../functions/helpers';
-import { Modal } from '../layout/UI';
+import React, { useContext } from 'react'
+import organizeRoutine from '../../functions/organizeRoutine'
+import useToggle from '../../hooks/useToggle'
+import AlertContext from '../../context/alert/alertContext'
+import { formatDate } from '../../functions/helpers'
+import { Modal } from '../layout/UI'
 
 const WorkoutListItem = ({
   workout,
@@ -13,15 +13,15 @@ const WorkoutListItem = ({
   menuID,
   toggleMenu,
 }) => {
-  const { setAlert } = useContext(AlertContext);
-  const { id, date, name, routine } = workout;
-  const [showDeleteModal, toggleDeleteModal] = useToggle(false);
+  const { setAlert } = useContext(AlertContext)
+  const { id, date, name, routine } = workout
+  const [showDeleteModal, toggleDeleteModal] = useToggle(false)
   const handleDelete = () => {
-    updateWorkouts(id);
-    setAlert('Workout Deleted', 'success');
-    toggleDeleteModal();
-  };
-  const organizedRoutine = organizeRoutine(routine);
+    updateWorkouts(id)
+    setAlert('Workout Deleted', 'success')
+    toggleDeleteModal()
+  }
+  const organizedRoutine = organizeRoutine(routine)
   const CLIPBOARD_TEXT = `
   ${name}
   ${formatDate(date)}
@@ -29,15 +29,15 @@ const WorkoutListItem = ({
     exercise => `
   ${exercise.lift}: ${exercise.printout}`
   )}
-  `;
+  `
   const handleClick = () => {
-    updateRoutine(routine);
+    updateRoutine(routine)
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(CLIPBOARD_TEXT);
+      navigator.clipboard.writeText(CLIPBOARD_TEXT)
     }
-    toggleMenu(id);
-    setAlert('Workout Copied', 'success');
-  };
+    toggleMenu(id)
+    setAlert('Workout Copied', 'success')
+  }
   return (
     routine.length > 0 && (
       <div className='mb-24 pb-4'>
@@ -81,7 +81,7 @@ const WorkoutListItem = ({
         </section>
       </div>
     )
-  );
-};
+  )
+}
 
-export default WorkoutListItem;
+export default WorkoutListItem

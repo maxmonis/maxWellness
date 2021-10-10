@@ -1,16 +1,16 @@
-import React from 'react';
-import useInputState from '../../hooks/useInputState';
-import useToggle from '../../hooks/useToggle';
-import { strInput } from '../../functions/helpers';
+import React from 'react'
+import useInputState from '../../hooks/useInputState'
+import useToggle from '../../hooks/useToggle'
+import { strInput } from '../../functions/helpers'
 
 const Lift = ({ lift, updateLifts }) => {
-  const [isEditing, toggle] = useToggle(false);
-  const [value, handleChange] = useInputState(lift);
+  const [isEditing, toggle] = useToggle(false)
+  const [value, handleChange] = useInputState(lift)
   const handleSubmit = e => {
-    e.preventDefault();
-    updateLifts(value.trim(), lift);
-    toggle();
-  };
+    e.preventDefault()
+    updateLifts(value.trim(), lift)
+    toggle()
+  }
   return (
     <li>
       {isEditing ? (
@@ -28,7 +28,7 @@ const Lift = ({ lift, updateLifts }) => {
         </h3>
       )}
     </li>
-  );
-};
+  )
+}
 
-export default Lift;
+export default Lift

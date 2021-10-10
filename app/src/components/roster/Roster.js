@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Client from '../client/Client';
-import EditRoster from './EditRoster';
-import FilterRoster from './FilterRoster';
-import { alphabetize } from '../../functions/helpers';
-import ClientContext from '../../context/client/clientContext';
+import React, { useState, useEffect, useContext } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import Client from '../client/Client'
+import EditRoster from './EditRoster'
+import FilterRoster from './FilterRoster'
+import { alphabetize } from '../../functions/helpers'
+import ClientContext from '../../context/client/clientContext'
 
 const Roster = ({ toggleDrawer }) => {
   const {
@@ -13,32 +13,32 @@ const Roster = ({ toggleDrawer }) => {
     filteredClients,
     clearEditingClient,
     clearFilteredClients,
-  } = useContext(ClientContext);
+  } = useContext(ClientContext)
   const active = filteredClients.length
     ? filteredClients.filter(client => client.isActive)
-    : clients.filter(client => client.isActive);
+    : clients.filter(client => client.isActive)
   const deactivated = filteredClients.length
     ? filteredClients.filter(client => !client.isActive)
-    : clients.filter(client => !client.isActive);
+    : clients.filter(client => !client.isActive)
   const sorted = [
     ...alphabetize(active, 'name'),
     ...alphabetize(deactivated, 'name'),
-  ].filter(client => client.name[0] !== '#');
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const openForm = () => clients.length < 21 && setIsFormOpen(true);
+  ].filter(client => client.name[0] !== '#')
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const openForm = () => clients.length < 21 && setIsFormOpen(true)
   const reset = () => {
-    setIsFormOpen(false);
-    clearEditingClient();
-    clearFilteredClients();
-  };
+    setIsFormOpen(false)
+    clearEditingClient()
+    clearFilteredClients()
+  }
   useEffect(() => {
-    editingClient ? openForm() : reset();
+    editingClient ? openForm() : reset()
     // eslint-disable-next-line
-  }, [editingClient]);
+  }, [editingClient])
   useEffect(() => {
-    reset();
+    reset()
     // eslint-disable-next-line
-  }, [clients]);
+  }, [clients])
   return (
     <>
       {isFormOpen || clients.length < 2 ? (
@@ -69,7 +69,7 @@ const Roster = ({ toggleDrawer }) => {
         your roster
       </h4>
     </>
-  );
-};
+  )
+}
 
-export default Roster;
+export default Roster

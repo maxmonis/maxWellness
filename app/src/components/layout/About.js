@@ -1,10 +1,10 @@
-import React from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import useToggle from '../../hooks/useToggle';
+import React from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import useToggle from '../../hooks/useToggle'
 
 const About = () => {
-  const [isDisplayed, toggle] = useToggle(false);
-  const CONTACT_EMAIL = 'maxwellnesscontact@gmail.com';
+  const [isDisplayed, toggle] = useToggle(false)
+  const CONTACT_EMAIL = 'maxwellnesscontact@gmail.com'
   return (
     <div>
       <br />
@@ -39,7 +39,7 @@ const About = () => {
       </TransitionGroup>
       <br />
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

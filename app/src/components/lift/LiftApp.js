@@ -1,7 +1,7 @@
-import React from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Lift from './Lift';
-import AddLift from './AddLift';
+import React from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import Lift from './Lift'
+import AddLift from './AddLift'
 
 const LiftApp = ({ lifts, updateLifts, toggleLiftForm }) => {
   return (
@@ -17,9 +17,11 @@ const LiftApp = ({ lifts, updateLifts, toggleLiftForm }) => {
           ))}
         </TransitionGroup>
       </ul>
-      <button className='btn-2 mt-24' onClick={toggleLiftForm}>Done Editing</button>
+      <button className='btn-2 mt-24' onClick={toggleLiftForm}>
+        Done Editing
+      </button>
     </div>
-  );
-};
+  )
+}
 
-export default LiftApp;
+export default LiftApp

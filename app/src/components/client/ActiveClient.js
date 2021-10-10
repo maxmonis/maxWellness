@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const ActiveClient = ({
   name,
@@ -8,9 +8,9 @@ const ActiveClient = ({
   handleEdit,
   handleDeactivate,
 }) => {
-  const [optionsShown, setOptionsShown] = useState(false);
-  const showOptions = () => setOptionsShown(true);
-  const hideOptions = () => setOptionsShown(false);
+  const [optionsShown, setOptionsShown] = useState(false)
+  const showOptions = () => setOptionsShown(true)
+  const hideOptions = () => setOptionsShown(false)
   return (
     <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
       {optionsShown ? (
@@ -25,11 +25,13 @@ const ActiveClient = ({
       {optionsShown && (
         <div>
           <button onClick={handleEdit}>Edit</button>
-          <button className='red mt-4 ml-20' onClick={handleDeactivate}>Remove</button>
+          <button className='red mt-4 ml-20' onClick={handleDeactivate}>
+            Remove
+          </button>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ActiveClient;
+export default ActiveClient

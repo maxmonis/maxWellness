@@ -1,26 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { standardize, strInput } from '../../functions/helpers';
-import useInputState from '../../hooks/useInputState';
-import AlertContext from '../../context/alert/alertContext';
+import React, { useState, useEffect, useContext } from 'react'
+import { standardize, strInput } from '../../functions/helpers'
+import useInputState from '../../hooks/useInputState'
+import AlertContext from '../../context/alert/alertContext'
 
 const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
-  const { setAlert } = useContext(AlertContext);
-  const [value, handleChange] = useInputState('');
-  const [isMatch, setIsMatch] = useState(false);
+  const { setAlert } = useContext(AlertContext)
+  const [value, handleChange] = useInputState('')
+  const [isMatch, setIsMatch] = useState(false)
   useEffect(() => {
-    standardize(value).includes(standardize(name))
-      ? setIsMatch(true)
-      : setIsMatch(false);
+    setIsMatch(standardize(value).includes(standardize(name)))
     // eslint-disable-next-line
-  }, [value]);
+  }, [value])
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (isMatch) {
-      toggleMenu();
-      handleDelete();
-      setAlert('Client Deleted', 'success');
+      toggleMenu()
+      handleDelete()
+      setAlert('Client Deleted', 'success')
     }
-  };
+  }
   return (
     <form className='pb-12' onSubmit={handleSubmit}>
       <h4 className='mt-12 mb-12'>Permanently delete {name}?</h4>
@@ -44,7 +42,7 @@ const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default DeleteClient;
+export default DeleteClient

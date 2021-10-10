@@ -1,4 +1,4 @@
-import createNewExercise from './createNewExercise';
+import createNewExercise from './createNewExercise'
 
 const UpdateRoutine = (value = [], routine) =>
   // If the value we were passed is a string...
@@ -14,19 +14,19 @@ const UpdateRoutine = (value = [], routine) =>
     ? // ...those strings are the IDs of the reordered routine after a drag and drop event.
       reorderExercises(value, routine)
     : // By default we return the array we were passed.
-      value;
+      value
 
 function reorderExercises(exerciseIds, routine) {
-  const updatedRoutine = [];
+  const updatedRoutine = []
   for (const exerciseId of exerciseIds) {
     for (const exercise of routine) {
       if (exercise.id === exerciseId) {
-        updatedRoutine.push(exercise);
-        break;
+        updatedRoutine.push(exercise)
+        break
       }
     }
   }
-  return updatedRoutine;
+  return updatedRoutine
 }
 
-export default UpdateRoutine;
+export default UpdateRoutine

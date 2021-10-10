@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Alerts from './components/layout/Alerts';
-import Home from './components/pages/Home';
-import Login from './components/pages/Login';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import PrivateRoute from './components/pages/PrivateRoute';
-import Register from './components/pages/Register';
-import AlertState from './context/alert/AlertState';
-import AuthState from './context/auth/AuthState';
-import ClientState from './context/client/ClientState';
-import WorkoutState from './context/workout/WorkoutState';
-import useToggle from './hooks/useToggle';
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import Alerts from './components/layout/Alerts'
+import Home from './components/pages/Home'
+import Login from './components/pages/Login'
+import Navbar from './components/layout/Navbar'
+import Footer from './components/layout/Footer'
+import PrivateRoute from './components/pages/PrivateRoute'
+import Register from './components/pages/Register'
+import AlertState from './context/alert/AlertState'
+import AuthState from './context/auth/AuthState'
+import ClientState from './context/client/ClientState'
+import WorkoutState from './context/workout/WorkoutState'
+import useToggle from './hooks/useToggle'
 
 const App = () => {
-  const [dark, toggleDark] = useToggle(true);
-  const [isDrawerOpen, toggleDrawer] = useToggle(true);
+  const [dark, toggleDark] = useToggle(true)
+  const [isDrawerOpen, toggleDrawer] = useToggle(true)
   useEffect(() => {
-    isDrawerOpen && toggleDrawer();
+    isDrawerOpen && toggleDrawer()
     // eslint-disable-next-line
-  }, []);
+  }, [])
   return (
     <div className={`app ${dark ? 'dark' : ''}`}>
       <AuthState>
@@ -59,7 +59,7 @@ const App = () => {
         </ClientState>
       </AuthState>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

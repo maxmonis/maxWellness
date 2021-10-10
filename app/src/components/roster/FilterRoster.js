@@ -1,26 +1,25 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import ClientContext from '../../context/client/clientContext';
+import React, { useContext, useEffect, useRef } from 'react'
+import ClientContext from '../../context/client/clientContext'
 
 const FilterRoster = () => {
-  const { filterClients, clearFilteredClients, filteredClients } = useContext(
-    ClientContext
-  );
-  const text = useRef('');
+  const { filterClients, clearFilteredClients, filteredClients } =
+    useContext(ClientContext)
+  const text = useRef('')
   useEffect(() => {
     if (!filteredClients.length) {
-      text.current.value = '';
+      text.current.value = ''
     }
-  });
-  const handleChange = (e) => {
-    text.current.value = text.current.value.replace(/[^a-z]/gi, '');
+  })
+  const handleChange = e => {
+    text.current.value = text.current.value.replace(/[^a-z]/gi, '')
     if (text.current.value !== '') {
-      filterClients(e.target.value);
+      filterClients(e.target.value)
     } else {
-      clearFilteredClients();
+      clearFilteredClients()
     }
-  };
+  }
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={e => e.preventDefault()}>
       <input
         ref={text}
         type='text'
@@ -29,7 +28,7 @@ const FilterRoster = () => {
         className='m-8'
       />
     </form>
-  );
-};
+  )
+}
 
-export default FilterRoster;
+export default FilterRoster

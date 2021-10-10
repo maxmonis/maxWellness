@@ -1,11 +1,11 @@
-import React from 'react';
-import { Draggable } from 'react-beautiful-dnd';
+import React from 'react'
+import { Draggable } from 'react-beautiful-dnd'
 
 const Exercise = ({ exercise, index, selectExercise }) => {
-  const { id, lift, printout } = exercise;
+  const { id, lift, printout } = exercise
   const handleClick = () => {
-    selectExercise(exercise);
-  };
+    selectExercise(exercise)
+  }
   return (
     <Draggable draggableId={id} index={index}>
       {provided => (
@@ -20,7 +20,7 @@ const Exercise = ({ exercise, index, selectExercise }) => {
         </li>
       )}
     </Draggable>
-  );
-};
+  )
+}
 
-export default Exercise;
+export default Exercise

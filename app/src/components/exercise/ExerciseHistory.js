@@ -1,54 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import organizeRoutine from '../../functions/organizeRoutine';
-import { formatDate } from '../../functions/helpers';
-import useToggle from '../../hooks/useToggle';
+import React, { useState, useEffect } from 'react'
+import organizeRoutine from '../../functions/organizeRoutine'
+import { formatDate } from '../../functions/helpers'
+import useToggle from '../../hooks/useToggle'
 
 const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
-  const lifts = {};
+  const lifts = {}
   for (const { routine } of workouts) {
     for (const { lift } of routine) {
-      lifts[lift] = lifts[lift] + 1 || 1;
+      lifts[lift] = lifts[lift] + 1 || 1
     }
   }
-  const liftArray = [];
+  const liftArray = []
   for (const lift in lifts) {
-    liftArray.push({ lift, total: lifts[lift] });
+    liftArray.push({ lift, total: lifts[lift] })
   }
-  const sortedLifts = liftArray.sort((a, b) => b.total - a.total);
-  const [sortByDate, toggleSort] = useToggle(true);
-  const [displayedRows, setDisplayedRows] = useState(10);
+  const sortedLifts = liftArray.sort((a, b) => b.total - a.total)
+  const [sortByDate, toggleSort] = useToggle(true)
+  const [displayedRows, setDisplayedRows] = useState(10)
   const getMaxColumns = () => {
-    const canFit = Math.floor(window.innerWidth / 150) - 2;
-    return canFit < 2 ? 1 : canFit < 5 ? canFit : 5;
-  };
+    const canFit = Math.floor(window.innerWidth / 150) - 2
+    return canFit < 2 ? 1 : canFit < 5 ? canFit : 5
+  }
   const [maxColumns, setMaxColumns] = useState(
     typeof window !== 'undefined' && getMaxColumns()
-  );
+  )
   const handleResize = () => {
-    setMaxColumns(getMaxColumns());
-    setHorizontalIndex(0);
-  };
+    setMaxColumns(getMaxColumns())
+    setHorizontalIndex(0)
+  }
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  });
-  const [horizontalIndex, setHorizontalIndex] = useState(0);
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  })
+  const [horizontalIndex, setHorizontalIndex] = useState(0)
   useEffect(() => {
-    setHorizontalIndex(0);
-  }, [sortByDate]);
-  const [canIncrement, setCanIncrement] = useState(false);
+    setHorizontalIndex(0)
+  }, [sortByDate])
+  const [canIncrement, setCanIncrement] = useState(false)
   useEffect(() => {
     setCanIncrement(
       sortByDate
         ? horizontalIndex < workouts.length - maxColumns
         : horizontalIndex < liftArray.length - maxColumns
-    );
+    )
     // eslint-disable-next-line
-  }, [workouts, liftArray, horizontalIndex]);
+  }, [workouts, liftArray, horizontalIndex])
   const increment = () =>
-    canIncrement && setHorizontalIndex(horizontalIndex + 1);
+    canIncrement && setHorizontalIndex(horizontalIndex + 1)
   const decrement = () =>
-    horizontalIndex && setHorizontalIndex(horizontalIndex - 1);
+    horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
   return (
     <div className='exercise-history'>
       <div>
@@ -144,7 +144,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ExerciseHistory;
+export default ExerciseHistory

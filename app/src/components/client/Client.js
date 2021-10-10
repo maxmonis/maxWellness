@@ -1,25 +1,24 @@
-import React, { useContext } from 'react';
-import ActiveClient from './ActiveClient';
-import InactiveClient from './InactiveClient';
-import ClientContext from '../../context/client/clientContext';
+import React, { useContext } from 'react'
+import ActiveClient from './ActiveClient'
+import InactiveClient from './InactiveClient'
+import ClientContext from '../../context/client/clientContext'
 
 const Client = ({ client, toggleDrawer }) => {
-  const { deleteClient, updateClient, setEditingClient } = useContext(
-    ClientContext
-  );
-  const { _id, name, isActive } = client;
+  const { deleteClient, updateClient, setEditingClient } =
+    useContext(ClientContext)
+  const { _id, name, isActive } = client
   const handleEdit = () => {
-    setEditingClient(client);
-  };
+    setEditingClient(client)
+  }
   const handleDeactivate = () => {
-    updateClient({ ...client, isActive: false });
-  };
+    updateClient({ ...client, isActive: false })
+  }
   const handleActivate = () => {
-    updateClient({ ...client, isActive: true });
-  };
+    updateClient({ ...client, isActive: true })
+  }
   const handleDelete = () => {
-    deleteClient(_id);
-  };
+    deleteClient(_id)
+  }
   return isActive ? (
     <ActiveClient
       name={name}
@@ -34,7 +33,7 @@ const Client = ({ client, toggleDrawer }) => {
       handleActivate={handleActivate}
       handleDelete={handleDelete}
     />
-  );
-};
+  )
+}
 
-export default Client;
+export default Client

@@ -1,6 +1,6 @@
-import uuid from 'uuid/v4';
-import updateRecords from './updateRecords';
-import { chronologize } from './helpers';
+import uuid from 'uuid/v4'
+import updateRecords from './updateRecords'
+import { chronologize } from './helpers'
 
 const updateWorkouts = (value, workouts) =>
   saveWorkouts(
@@ -22,24 +22,24 @@ const updateWorkouts = (value, workouts) =>
             id: uuid(),
           },
         ])
-  );
+  )
 
 function saveWorkouts(pendingWorkouts, workouts = [], records = []) {
   // If no more pending workouts remain...
   if (!pendingWorkouts.length) {
     // ...return an Object with the updated workouts and records.
-    return { workouts, records };
+    return { workouts, records }
   }
   // Otherwise remove the first pending workout...
-  const workout = pendingWorkouts.shift();
+  const workout = pendingWorkouts.shift()
   // ...and update the personal records...
-  const updated = updateRecords(workout, records);
+  const updated = updateRecords(workout, records)
   // ...before calling this same method again with the updated workouts and records.
   return saveWorkouts(
     pendingWorkouts,
     [...workouts, updated.workout],
     updated.records
-  );
+  )
 }
 
-export default updateWorkouts;
+export default updateWorkouts

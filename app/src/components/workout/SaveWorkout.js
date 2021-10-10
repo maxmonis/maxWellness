@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Input, Modal } from '../layout/UI';
-import { strInput } from '../../functions/helpers';
-import organizeRoutine from '../../functions/organizeRoutine';
-import useToggle from '../../hooks/useToggle';
+import React, { useState, useEffect } from 'react'
+import { Input, Modal } from '../layout/UI'
+import { strInput } from '../../functions/helpers'
+import organizeRoutine from '../../functions/organizeRoutine'
+import useToggle from '../../hooks/useToggle'
 
 const SaveWorkout = ({
   name,
@@ -12,34 +12,34 @@ const SaveWorkout = ({
   routine,
   updateRoutine,
 }) => {
-  const INITIAL_ERRORS = { name: null, date: null };
-  const [errors, setErrors] = useState(INITIAL_ERRORS);
-  const [isFormOpen, toggleForm] = useToggle(false);
+  const INITIAL_ERRORS = { name: null, date: null }
+  const [errors, setErrors] = useState(INITIAL_ERRORS)
+  const [isFormOpen, toggleForm] = useToggle(false)
   const validateDate = date =>
-    /^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/.test(date);
+    /^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/.test(date)
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (routine.length) {
-      const isDateValid = validateDate(date);
+      const isDateValid = validateDate(date)
       if (name && isDateValid) {
-        setErrors(INITIAL_ERRORS);
-        saveWorkout();
+        setErrors(INITIAL_ERRORS)
+        saveWorkout()
       } else {
-        const nameError = !name ? 'Workout name is required' : null;
+        const nameError = !name ? 'Workout name is required' : null
         const dateError = !isDateValid
           ? 'Date must be in format yyyy-mm-dd'
-          : null;
-        setErrors({ name: nameError, date: dateError });
+          : null
+        setErrors({ name: nameError, date: dateError })
       }
     }
-  };
-  const handleBlur = () => name && setErrors({ ...errors, name: null });
+  }
+  const handleBlur = () => (name) && setErrors({ ...errors, name: null })
   useEffect(() => {
     if (routine.length === 0 && isFormOpen) {
-      toggleForm();
+      toggleForm()
     }
     // eslint-disable-next-line
-  }, [routine]);
+  }, [routine])
   return (
     <form onSubmit={handleSubmit} noValidate>
       {isFormOpen && (
@@ -62,7 +62,7 @@ const SaveWorkout = ({
             error={errors.date}
             persistentLabel
           />
-          <ul className="mb-24">
+          <ul className='mb-24'>
             {organizeRoutine(routine).map(exercise => (
               <li key={exercise.id}>
                 <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
@@ -84,7 +84,7 @@ const SaveWorkout = ({
         </>
       )}
     </form>
-  );
-};
+  )
+}
 
-export default SaveWorkout;
+export default SaveWorkout

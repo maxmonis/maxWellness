@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { getDate } from '../../functions/helpers';
-import WorkoutListItem from './WorkoutListItem';
+import React, { useState } from 'react'
+import { getDate } from '../../functions/helpers'
+import WorkoutListItem from './WorkoutListItem'
 
 const WorkoutList = ({
   workouts,
@@ -9,8 +9,8 @@ const WorkoutList = ({
   updateRoutine,
   workoutsIndex,
 }) => {
-  const [menuID, setMenuID] = useState(null);
-  const toggleMenu = id => (id === menuID ? setMenuID(null) : setMenuID(id));
+  const [menuID, setMenuID] = useState(null)
+  const toggleMenu = id => (id === menuID ? setMenuID(null) : setMenuID(id))
   const EXAMPLE_WORKOUTS = [
     {
       date: getDate(),
@@ -27,7 +27,7 @@ const WorkoutList = ({
       bench: '3(10x135)*',
       deadlift: '3(10x225)*',
     },
-  ];
+  ]
   return (
     <>
       {workouts.length ? (
@@ -71,7 +71,7 @@ const WorkoutList = ({
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default WorkoutList;
+export default WorkoutList

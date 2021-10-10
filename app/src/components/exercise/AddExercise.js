@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import LiftRecords from '../lift/LiftRecords';
-import { Input } from '../layout/UI';
-import { numInput } from '../../functions/helpers';
+import React, { useEffect, useState } from 'react'
+import LiftRecords from '../lift/LiftRecords'
+import { Input } from '../layout/UI'
+import { numInput } from '../../functions/helpers'
 
 const AddExercise = ({
   lifts,
@@ -13,27 +13,27 @@ const AddExercise = ({
   isNewWorkout,
   toggleExerciseHistory,
 }) => {
-  const { lift, sets, reps, weight } = exercise;
-  const [blurred, setBlurred] = useState(false);
-  const [error, setError] = useState(false);
+  const { lift, sets, reps, weight } = exercise
+  const [blurred, setBlurred] = useState(false)
+  const [error, setError] = useState(false)
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (weight > 0 || reps > 0) {
-      setBlurred(false);
-      setError(false);
-      updateRoutine(exercise);
+      setBlurred(false)
+      setError(false)
+      updateRoutine(exercise)
     } else {
-      setError(true);
+      setError(true)
     }
-  };
+  }
   const reset = () => {
-    setExercise({ ...exercise, sets: '', reps: '', weight: '' });
-    setError(false);
-  };
+    setExercise({ ...exercise, sets: '', reps: '', weight: '' })
+    setError(false)
+  }
   useEffect(() => {
-    blurred && !weight && !reps ? setError(true) : setError(false);
+    blurred && !weight && !reps ? setError(true) : setError(false)
     // eslint-disable-next-line
-  }, [reps, weight]);
+  }, [reps, weight])
   return (
     <>
       <select
@@ -97,7 +97,7 @@ const AddExercise = ({
         {error && <p className='red'>Invalid exercise</p>}
       </form>
     </>
-  );
-};
+  )
+}
 
-export default AddExercise;
+export default AddExercise

@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { formatDate } from '../../functions/helpers';
-import { Checkbox } from './UI';
-import WorkoutContext from '../../context/workout/workoutContext';
+import React, { useContext } from 'react'
+import { formatDate } from '../../functions/helpers'
+import { Checkbox } from './UI'
+import WorkoutContext from '../../context/workout/workoutContext'
 
 const WorkoutFilters = () => {
   const { workoutsFilters, updateWorkoutsFilter, clearWorkoutsFilters } =
-    useContext(WorkoutContext);
+    useContext(WorkoutContext)
   return workoutsFilters.workoutNames.length ? (
     <>
       <h3 className='m-8'>Workout Name</h3>
@@ -79,7 +79,7 @@ const WorkoutFilters = () => {
       Workout filters will be displayed here. You'll be able to filter by
       workout name, workout date, or exercise name.
     </h4>
-  );
-};
+  )
+}
 
-export default WorkoutFilters;
+export default WorkoutFilters

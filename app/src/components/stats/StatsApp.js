@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import RecordList from './RecordList';
-import WorkoutList from '../stats/WorkoutList';
+import React, { useState } from 'react'
+import RecordList from './RecordList'
+import WorkoutList from '../stats/WorkoutList'
 
 const StatsApp = ({
   workouts,
@@ -11,23 +11,23 @@ const StatsApp = ({
   selectExercise,
   toggleExerciseHistory,
 }) => {
-  const [display, setDisplay] = useState('workouts');
-  const [workoutsIndex, setWorkoutsIndex] = useState(0);
-  const [recordsIndex, setRecordsIndex] = useState(0);
+  const [display, setDisplay] = useState('workouts')
+  const [workoutsIndex, setWorkoutsIndex] = useState(0)
+  const [recordsIndex, setRecordsIndex] = useState(0)
   const increment = (list = display) => {
     if (list === 'workouts' && workoutsIndex < workouts.length - 3) {
-      setWorkoutsIndex(workoutsIndex + 3);
+      setWorkoutsIndex(workoutsIndex + 3)
     } else if (list === 'records' && recordsIndex < records.length - 5) {
-      setRecordsIndex(recordsIndex + 5);
+      setRecordsIndex(recordsIndex + 5)
     }
-  };
+  }
   const decrement = (list = display) => {
     if (list === 'workouts' && workoutsIndex) {
-      setWorkoutsIndex(workoutsIndex - 3);
+      setWorkoutsIndex(workoutsIndex - 3)
     } else if (list === 'records' && recordsIndex) {
-      setRecordsIndex(recordsIndex - 5);
+      setRecordsIndex(recordsIndex - 5)
     }
-  };
+  }
   return (
     <>
       <section className='show-gt-992 mr-12 ml-12'>
@@ -139,7 +139,7 @@ const StatsApp = ({
         )}
       </section>
     </>
-  );
-};
+  )
+}
 
-export default StatsApp;
+export default StatsApp

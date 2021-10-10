@@ -1,35 +1,35 @@
-import React, { useState, useContext } from 'react';
-import { Input } from '../layout/UI';
-import { strInput, numInput } from '../../functions/helpers';
-import ClientContext from '../../context/client/clientContext';
-import AlertContext from '../../context/alert/alertContext';
+import React, { useState, useContext } from 'react'
+import { Input } from '../layout/UI'
+import { strInput, numInput } from '../../functions/helpers'
+import ClientContext from '../../context/client/clientContext'
+import AlertContext from '../../context/alert/alertContext'
 
 const EditRoster = ({ reset }) => {
-  const { addClient, updateClient, editingClient } = useContext(ClientContext);
-  const { setAlert } = useContext(AlertContext);
+  const { addClient, updateClient, editingClient } = useContext(ClientContext)
+  const { setAlert } = useContext(AlertContext)
   const defaultClient = {
     name: '',
     email: '',
     phone: '',
-  };
-  const initialClient = editingClient ? editingClient : defaultClient;
-  const [client, setClient] = useState(initialClient);
-  const { name, email, phone } = client;
-  const [error, setError] = useState(null);
+  }
+  const initialClient = editingClient ? editingClient : defaultClient
+  const [client, setClient] = useState(initialClient)
+  const { name, email, phone } = client
+  const [error, setError] = useState(null)
   const handleChange = e => {
-    setClient({ ...client, [e.target.name]: e.target.value });
-  };
+    setClient({ ...client, [e.target.name]: e.target.value })
+  }
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (name) {
-      editingClient ? updateClient(client) : addClient(client);
-      setError(null);
-      reset();
-      setAlert(editingClient ? 'Client Updated' : 'Client Added', 'success');
+      editingClient ? updateClient(client) : addClient(client)
+      setError(null)
+      reset()
+      setAlert(editingClient ? 'Client Updated' : 'Client Added', 'success')
     } else {
-      setError('Name is required');
+      setError('Name is required')
     }
-  };
+  }
   return (
     <form onSubmit={handleSubmit} noValidate className='client-form'>
       <h3>{editingClient ? 'Edit Client' : 'New Client'}</h3>
@@ -59,7 +59,7 @@ const EditRoster = ({ reset }) => {
         Save
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default EditRoster;
+export default EditRoster

@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { formatDate } from '../../functions/helpers';
+import React, { useState, useEffect } from 'react'
+import { formatDate } from '../../functions/helpers'
 
 const LiftRecords = ({ records, lift, setExercise }) => {
-  const liftRecords = records.filter(record => record.lift === lift);
+  const liftRecords = records.filter(record => record.lift === lift)
   const getTitle = ({ becameRecord, surpassed }) =>
     surpassed
       ? `${formatDate(becameRecord)} - ${formatDate(surpassed)}`
-      : formatDate(becameRecord);
-  const [horizontalIndex, setHorizontalIndex] = useState(2);
+      : formatDate(becameRecord)
+  const [horizontalIndex, setHorizontalIndex] = useState(2)
   const increment = () =>
     horizontalIndex < liftRecords.length &&
-    setHorizontalIndex(horizontalIndex + 2);
-  const decrement = () => setHorizontalIndex(horizontalIndex - 2 || 2);
+    setHorizontalIndex(horizontalIndex + 2)
+  const decrement = () => setHorizontalIndex(horizontalIndex - 2 || 2)
   useEffect(() => {
-    setHorizontalIndex(2);
-  }, [lift]);
+    setHorizontalIndex(2)
+  }, [lift])
   return (
     <div className='lift-records'>
       {!liftRecords.length ? (
@@ -52,7 +52,7 @@ const LiftRecords = ({ records, lift, setExercise }) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default LiftRecords;
+export default LiftRecords

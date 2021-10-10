@@ -1,5 +1,5 @@
 const validate = ({ name, email, password, password2 }) => {
-    let errors = {};
+    const errors = {};
     if (!name) errors.name = 'Name is required';
     if (!email) {
       errors.email = 'Email is required';

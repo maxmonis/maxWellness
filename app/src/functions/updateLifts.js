@@ -1,7 +1,7 @@
-import { alphabetize } from './helpers';
+import { alphabetize } from './helpers'
 
 const updateLifts = (newName, oldName, client, routine) => {
-  const { lifts, workouts, records } = client;
+  const { lifts, workouts, records } = client
   // If a name has been replaced with an empty string and there are at least two lifts left...
   return oldName && !newName && lifts.length > 1
     ? // ...we delete the name.
@@ -11,7 +11,7 @@ const updateLifts = (newName, oldName, client, routine) => {
     ? // ...we add it to the lifts.
       alphabetize([...lifts, newName])
     : // Otherwise a name has been updated.
-      updateName();
+      updateName()
 
   // Update the name of a lift everywhere it appears.
   function updateName() {
@@ -25,15 +25,15 @@ const updateLifts = (newName, oldName, client, routine) => {
       })),
       records: mapName(records),
       routine: mapName(routine),
-    };
+    }
   }
 
   // Map a new (updated) lift name onto exercises with the old name.
   function mapName(exercises) {
     return exercises.map(exercise =>
       exercise.lift === oldName ? { ...exercise, lift: newName } : exercise
-    );
+    )
   }
-};
+}
 
-export default updateLifts;
+export default updateLifts

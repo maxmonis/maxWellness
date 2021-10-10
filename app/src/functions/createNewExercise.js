@@ -1,11 +1,11 @@
-import uuid from 'uuid/v4';
+import uuid from 'uuid/v4'
 
 const createNewExercise = exercise => {
-  const id = uuid();
-  const { lift } = exercise;
-  const sets = getNum(exercise.sets);
-  const reps = getNum(exercise.reps);
-  const weight = getNum(exercise.weight);
+  const id = uuid()
+  const { lift } = exercise
+  const sets = getNum(exercise.sets)
+  const reps = getNum(exercise.reps)
+  const weight = getNum(exercise.weight)
   const printout =
     sets && reps && weight
       ? `${sets}(${reps}x${weight})`
@@ -15,7 +15,7 @@ const createNewExercise = exercise => {
       ? `${sets}(${reps})`
       : reps
       ? `${reps}`
-      : `${weight}`;
+      : `${weight}`
   const newExercise = {
     id,
     lift,
@@ -23,12 +23,12 @@ const createNewExercise = exercise => {
     reps,
     weight,
     printout,
-  };
-  return newExercise;
-};
-
-function getNum(value) {
-  return parseInt(value) || '';
+  }
+  return newExercise
 }
 
-export default createNewExercise;
+function getNum(value) {
+  return parseInt(value) || ''
+}
+
+export default createNewExercise

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Roster from '../roster/Roster';
-import { Drawer, Switch } from '../layout/UI';
-import WorkoutFilters from './WorkoutFilters';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import Roster from '../roster/Roster'
+import { Drawer, Switch } from '../layout/UI'
+import WorkoutFilters from './WorkoutFilters'
 
 const MenuDrawer = ({ dark, toggleDark, toggleDrawer }) => {
-  const [selectedMenu, selectMenu] = useState('clients');
+  const [selectedMenu, selectMenu] = useState('clients')
   return (
     <Drawer handleClose={toggleDrawer}>
       <header className='mb-12 p-0'>
@@ -36,7 +36,7 @@ const MenuDrawer = ({ dark, toggleDark, toggleDrawer }) => {
         </section>
       )}
     </Drawer>
-  );
-};
+  )
+}
 
-export default MenuDrawer;
+export default MenuDrawer

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import Exercise from './Exercise';
+import React from 'react'
+import { Droppable } from 'react-beautiful-dnd'
+import Exercise from './Exercise'
 
 const ExerciseList = ({ routine, selectExercise }) => {
   return (
@@ -19,7 +19,7 @@ const ExerciseList = ({ routine, selectExercise }) => {
         </ul>
       )}
     </Droppable>
-  );
-};
+  )
+}
 
-export default ExerciseList;
+export default ExerciseList

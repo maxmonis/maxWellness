@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const WorkoutSchema = mongoose.Schema({
   user: {
@@ -19,6 +19,6 @@ const WorkoutSchema = mongoose.Schema({
     type: [],
     required: true,
   },
-});
+})
 
-module.exports = mongoose.model('workout', WorkoutSchema);
+module.exports = mongoose.model('workout', WorkoutSchema)

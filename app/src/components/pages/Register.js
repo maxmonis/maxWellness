@@ -1,41 +1,41 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import useValidate from '../../hooks/useValidate';
-import validateRegister from '../../validation/validateRegister';
-import { Input, Spinner } from '../layout/UI';
-import AlertContext from '../../context/alert/alertContext';
-import AuthContext from '../../context/auth/authContext';
+import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import useValidate from '../../hooks/useValidate'
+import validateRegister from '../../validation/validateRegister'
+import { Input, Spinner } from '../layout/UI'
+import AlertContext from '../../context/alert/alertContext'
+import AuthContext from '../../context/auth/authContext'
 
 const Register = ({ history }) => {
-  const { setAlert } = useContext(AlertContext);
+  const { setAlert } = useContext(AlertContext)
   const { registerUser, error, clearErrors, isAuthenticated, loading } =
-    useContext(AuthContext);
+    useContext(AuthContext)
   useEffect(() => {
     if (isAuthenticated) {
-      history.push('/');
+      history.push('/')
     }
     if (error === 'User already exists') {
-      setAlert(error, 'critical');
-      clearErrors();
+      setAlert(error, 'critical')
+      clearErrors()
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, history]);
+  }, [error, isAuthenticated, history])
   const INITIAL_STATE = {
     name: '',
     email: '',
     password: '',
     password2: '',
-  };
+  }
   const createAccount = () => {
-    registerUser({ name, email, password });
-  };
+    registerUser({ name, email, password })
+  }
   const { values, errors, handleChange, handleSubmit, handleBlur } =
-    useValidate(INITIAL_STATE, validateRegister, createAccount);
-  const { name, email, password, password2 } = values;
+    useValidate(INITIAL_STATE, validateRegister, createAccount)
+  const { name, email, password, password2 } = values
   useEffect(() => {
-    document.title = `maxWellness | Fitness First`;
+    document.title = `maxWellness | Fitness First`
     // eslint-disable-next-line
-  }, []);
+  }, [])
   return loading ? (
     <Spinner />
   ) : (
@@ -87,7 +87,7 @@ const Register = ({ history }) => {
         <button className='btn-2 mt-4'>Sign in</button>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

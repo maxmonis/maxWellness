@@ -1,11 +1,11 @@
-import React from 'react';
-import { formatDate, getDate } from '../../functions/helpers';
+import React from 'react'
+import { formatDate, getDate } from '../../functions/helpers'
 
 const RecordList = ({ records, selectExercise, recordsIndex }) => {
   return records.length ? (
     <div>
       {records.slice(recordsIndex, recordsIndex + 5).map(exercise => {
-        const { id, lift, printout, becameRecord, surpassed } = exercise;
+        const { id, lift, printout, becameRecord, surpassed } = exercise
         return (
           <section className='mb-20' key={id}>
             <h3 className='record' onClick={() => selectExercise(exercise)}>
@@ -16,7 +16,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
               {surpassed && ` - ${formatDate(surpassed)}`}
             </h4>
           </section>
-        );
+        )
       })}
     </div>
   ) : (
@@ -41,7 +41,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
         help you plan your routines.
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default RecordList;
+export default RecordList

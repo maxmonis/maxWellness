@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import DeleteClient from './DeleteClient';
-import useToggle from '../../hooks/useToggle';
+import React, { useState } from 'react'
+import DeleteClient from './DeleteClient'
+import useToggle from '../../hooks/useToggle'
 
 const InactiveClient = ({ name, handleActivate, handleDelete }) => {
-  const [isMenuOpen, toggleMenu] = useToggle(false);
-  const [optionsShown, setOptionsShown] = useState(false);
-  const showOptions = () => setOptionsShown(true);
-  const hideOptions = () => setOptionsShown(false);
+  const [isMenuOpen, toggleMenu] = useToggle(false)
+  const [optionsShown, setOptionsShown] = useState(false)
+  const showOptions = () => setOptionsShown(true)
+  const hideOptions = () => setOptionsShown(false)
   return (
     <>
       {isMenuOpen ? (
@@ -31,7 +31,7 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default InactiveClient;
+export default InactiveClient

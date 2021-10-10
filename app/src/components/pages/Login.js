@@ -1,40 +1,35 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Quote from '../layout/Quote';
-import useValidate from '../../hooks/useValidate';
-import validateLogin from '../../validation/validateLogin';
-import { Input, Spinner } from '../layout/UI';
-import AlertContext from '../../context/alert/alertContext';
-import AuthContext from '../../context/auth/authContext';
+import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import Quote from '../layout/Quote'
+import useValidate from '../../hooks/useValidate'
+import validateLogin from '../../validation/validateLogin'
+import { Input, Spinner } from '../layout/UI'
+import AlertContext from '../../context/alert/alertContext'
+import AuthContext from '../../context/auth/authContext'
 
 const Login = ({ history }) => {
-  const { setAlert } = useContext(AlertContext);
+  const { setAlert } = useContext(AlertContext)
   const { logUserIn, error, clearErrors, isAuthenticated, loading } =
-    useContext(AuthContext);
+    useContext(AuthContext)
   useEffect(() => {
     if (isAuthenticated) {
-      history.push('/');
+      history.push('/')
     }
     if (error === 'Invalid Credentials') {
-      setAlert(error, 'critical');
-      clearErrors();
+      setAlert(error, 'critical')
+      clearErrors()
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, history]);
-  const INITIAL_STATE = {
-    email: '',
-    password: '',
-  };
-  const submitForm = () => {
-    logUserIn({ email, password });
-  };
+  }, [error, isAuthenticated, history])
+  const INITIAL_STATE = { email: '', password: '' }
+  const submitForm = () => logUserIn({ email, password })
   const { values, errors, handleChange, handleSubmit, handleBlur } =
-    useValidate(INITIAL_STATE, validateLogin, submitForm);
-  const { email, password } = values;
+    useValidate(INITIAL_STATE, validateLogin, submitForm)
+  const { email, password } = values
   useEffect(() => {
-    document.title = `maxWellness | Fitness First`;
+    document.title = `maxWellness | Fitness First`
     // eslint-disable-next-line
-  }, []);
+  }, [])
   return loading ? (
     <Spinner />
   ) : (
@@ -70,7 +65,7 @@ const Login = ({ history }) => {
       </Link>
       <Quote />
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
