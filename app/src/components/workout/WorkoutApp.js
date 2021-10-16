@@ -97,7 +97,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       updateWorkouts({ ...workout, routine })
       setExercise(DEFAULT_EXERCISE)
       setWorkout(DEFAULT_WORKOUT)
-      updateRoutine([])
+      updateRoutine()
       setAlert('Workout Saved', 'success')
     }
   }

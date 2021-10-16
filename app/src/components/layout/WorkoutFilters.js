@@ -6,10 +6,12 @@ import WorkoutContext from '../../context/workout/workoutContext'
 const WorkoutFilters = () => {
   const { workoutsFilters, updateWorkoutsFilter, clearWorkoutsFilters } =
     useContext(WorkoutContext)
+  const { workoutNames, liftNames, newestFirst, workoutDates } = workoutsFilters
+  const { startDate, endDate, allDates } = workoutDates
   return workoutsFilters.workoutNames.length ? (
     <>
       <h3 className='m-8'>Workout Name</h3>
-      {workoutsFilters.workoutNames.map(({ name, checked }) => (
+      {workoutNames.map(({ name, checked }) => (
         <Checkbox
           key={name}
           label={name}
@@ -20,7 +22,7 @@ const WorkoutFilters = () => {
         />
       ))}
       <h3 className='m-8'>Exercise Name</h3>
-      {workoutsFilters.liftNames.map(({ name, checked }) => (
+      {liftNames.map(({ name, checked }) => (
         <Checkbox
           key={name}
           label={name}
@@ -33,20 +35,20 @@ const WorkoutFilters = () => {
       <h3 className='m-8'>Workout Date</h3>
       <Checkbox
         label='Show newest first'
-        bool={workoutsFilters.newestFirst}
+        bool={newestFirst}
         toggle={() => updateWorkoutsFilter({ type: 'chronology' })}
       />
       <select
         className='mt-8'
-        value={workoutsFilters.workoutDates.startDate}
+        value={startDate}
         onChange={e =>
           updateWorkoutsFilter({
             type: 'startDate',
             clicked: e.target.value,
           })
         }>
-        {workoutsFilters.workoutDates.allDates
-          .filter(date => date <= workoutsFilters.workoutDates.endDate)
+        {allDates
+          .filter(date => date <= endDate)
           .map(date => (
             <option key={date} value={date}>
               {formatDate(date)}
@@ -55,15 +57,15 @@ const WorkoutFilters = () => {
       </select>
       <h5 className='m-4'>to</h5>
       <select
-        value={workoutsFilters.workoutDates.endDate}
+        value={endDate}
         onChange={e =>
           updateWorkoutsFilter({
             type: 'endDate',
             clicked: e.target.value,
           })
         }>
-        {workoutsFilters.workoutDates.allDates
-          .filter(date => date >= workoutsFilters.workoutDates.startDate)
+        {allDates
+          .filter(date => date >= startDate)
           .map(date => (
             <option key={date} value={date}>
               {formatDate(date)}

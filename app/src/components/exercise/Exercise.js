@@ -3,9 +3,7 @@ import { Draggable } from 'react-beautiful-dnd'
 
 const Exercise = ({ exercise, index, selectExercise }) => {
   const { id, lift, printout } = exercise
-  const handleClick = () => {
-    selectExercise(exercise)
-  }
+  const handleClick = () => selectExercise(exercise)
   return (
     <Draggable draggableId={id} index={index}>
       {provided => (

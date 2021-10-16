@@ -7,18 +7,10 @@ const Client = ({ client, toggleDrawer }) => {
   const { deleteClient, updateClient, setEditingClient } =
     useContext(ClientContext)
   const { _id, name, isActive } = client
-  const handleEdit = () => {
-    setEditingClient(client)
-  }
-  const handleDeactivate = () => {
-    updateClient({ ...client, isActive: false })
-  }
-  const handleActivate = () => {
-    updateClient({ ...client, isActive: true })
-  }
-  const handleDelete = () => {
-    deleteClient(_id)
-  }
+  const handleEdit = () => setEditingClient(client)
+  const handleDeactivate = () => updateClient({ ...client, isActive: false })
+  const handleActivate = () => updateClient({ ...client, isActive: true })
+  const handleDelete = () => deleteClient(_id)
   return isActive ? (
     <ActiveClient
       name={name}

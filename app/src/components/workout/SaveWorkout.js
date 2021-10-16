@@ -80,7 +80,7 @@ const SaveWorkout = ({
           <button className='btn-1 mr-8' onClick={toggleForm} type='button'>
             Save Workout
           </button>
-          <button onClick={() => updateRoutine([])}>Clear</button>
+          <button onClick={() => updateRoutine()}>Clear</button>
         </>
       )}
     </form>

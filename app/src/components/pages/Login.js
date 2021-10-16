@@ -12,9 +12,7 @@ const Login = ({ history }) => {
   const { logUserIn, error, clearErrors, isAuthenticated, loading } =
     useContext(AuthContext)
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push('/')
-    }
+    if (isAuthenticated) history.push('/')
     if (error === 'Invalid Credentials') {
       setAlert(error, 'critical')
       clearErrors()

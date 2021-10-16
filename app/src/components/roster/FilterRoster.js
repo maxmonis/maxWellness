@@ -6,9 +6,7 @@ const FilterRoster = () => {
     useContext(ClientContext)
   const text = useRef('')
   useEffect(() => {
-    if (!filteredClients.length) {
-      text.current.value = ''
-    }
+    if (!filteredClients.length) text.current.value = ''
   })
   const handleChange = e => {
     text.current.value = text.current.value.replace(/[^a-z]/gi, '')

@@ -31,7 +31,7 @@ const AddExercise = ({
     setError(false)
   }
   useEffect(() => {
-    blurred && !weight && !reps ? setError(true) : setError(false)
+    setError(blurred && !weight && !reps)
     // eslint-disable-next-line
   }, [reps, weight])
   return (
@@ -91,9 +91,7 @@ const AddExercise = ({
         <button className='btn-2 mr-8' type='submit'>
           Enter Exercise
         </button>
-        {(sets || reps || weight) && (
-          <button onClick={() => reset()}>Reset</button>
-        )}
+        {(sets || reps || weight) && <button onClick={reset}>Reset</button>}
         {error && <p className='red'>Invalid exercise</p>}
       </form>
     </>

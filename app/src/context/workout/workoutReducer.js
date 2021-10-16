@@ -111,11 +111,14 @@ export default (state, action) => {
   }
 
   function updateWorkoutsFilter({ type, clicked }) {
+    const { workoutsFilters } = state
+    const { workoutNames, workoutDates, liftNames, newestFirst } =
+      workoutsFilters
     switch (type) {
       case 'workoutName':
         return {
-          ...state.workoutsFilters,
-          workoutNames: state.workoutsFilters.workoutNames.map(workout =>
+          ...workoutsFilters,
+          workoutNames: workoutNames.map(workout =>
             workout.name === clicked
               ? { ...workout, checked: !workout.checked }
               : workout
@@ -123,34 +126,34 @@ export default (state, action) => {
         }
       case 'liftName':
         return {
-          ...state.workoutsFilters,
-          liftNames: state.workoutsFilters.liftNames.map(lift =>
+          ...workoutsFilters,
+          liftNames: liftNames.map(lift =>
             lift.name === clicked ? { ...lift, checked: !lift.checked } : lift
           ),
         }
       case 'startDate':
         return {
-          ...state.workoutsFilters,
+          ...workoutsFilters,
           workoutDates: {
-            ...state.workoutsFilters.workoutDates,
+            ...workoutDates,
             startDate: clicked,
           },
         }
       case 'endDate':
         return {
-          ...state.workoutsFilters,
+          ...workoutsFilters,
           workoutDates: {
-            ...state.workoutsFilters.workoutDates,
+            ...workoutDates,
             endDate: clicked,
           },
         }
       case 'chronology':
         return {
-          ...state.workoutsFilters,
-          newestFirst: !state.workoutsFilters.newestFirst,
+          ...workoutsFilters,
+          newestFirst: !newestFirst,
         }
       default:
-        return state.workoutsFilters
+        return workoutsFilters
     }
   }
 
@@ -160,7 +163,7 @@ export default (state, action) => {
     liftNames,
     newestFirst,
   }) {
-    const updatedState = state.allWorkouts
+    const filteredWorkouts = state.allWorkouts
       .map(workout =>
         // If the workout is between the selected start and end dates...
         workout.date >= workoutDates.startDate &&
@@ -181,6 +184,6 @@ export default (state, action) => {
       // Then we filter out any workouts whose routines are now empty...
       .filter(workout => workout?.routine?.length)
     // ...and factor the user's chronology preference into our return value.
-    return newestFirst ? updatedState.reverse() : updatedState
+    return newestFirst ? filteredWorkouts.reverse() : filteredWorkouts
   }
 }

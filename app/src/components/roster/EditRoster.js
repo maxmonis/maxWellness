@@ -16,9 +16,8 @@ const EditRoster = ({ reset }) => {
   const [client, setClient] = useState(initialClient)
   const { name, email, phone } = client
   const [error, setError] = useState(null)
-  const handleChange = e => {
+  const handleChange = e =>
     setClient({ ...client, [e.target.name]: e.target.value })
-  }
   const handleSubmit = e => {
     e.preventDefault()
     if (name) {

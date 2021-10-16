@@ -32,9 +32,7 @@ const WorkoutListItem = ({
   `
   const handleClick = () => {
     updateRoutine(routine)
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(CLIPBOARD_TEXT)
-    }
+    if (navigator.clipboard) navigator.clipboard.writeText(CLIPBOARD_TEXT)
     toggleMenu(id)
     setAlert('Workout Copied', 'success')
   }

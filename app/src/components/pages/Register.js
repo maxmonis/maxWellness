@@ -11,9 +11,7 @@ const Register = ({ history }) => {
   const { registerUser, error, clearErrors, isAuthenticated, loading } =
     useContext(AuthContext)
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push('/')
-    }
+    if (isAuthenticated) history.push('/')
     if (error === 'User already exists') {
       setAlert(error, 'critical')
       clearErrors()
@@ -26,9 +24,7 @@ const Register = ({ history }) => {
     password: '',
     password2: '',
   }
-  const createAccount = () => {
-    registerUser({ name, email, password })
-  }
+  const createAccount = () => registerUser({ name, email, password })
   const { values, errors, handleChange, handleSubmit, handleBlur } =
     useValidate(INITIAL_STATE, validateRegister, createAccount)
   const { name, email, password, password2 } = values
