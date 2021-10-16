@@ -34,7 +34,7 @@
   font-weight: 500;
   min-height: 100vh;
   overflow-y: scroll;
-  padding: 48px 0;
+  padding: 60px 0;
   position: relative;
   text-align: center;
   text-shadow: none;
@@ -56,7 +56,7 @@
 }
 
 .auth {
-  margin-top: -100px;
+  margin-top: -128px;
 }
 
 .background-blur-overlay {
@@ -212,7 +212,14 @@
 .workout-app > section {
   margin: 16px auto 36px;
 }
+
 @media (min-width: 568px) {
+  .app {
+    padding: 0;
+  }
+  .auth {
+    margin-top: -40px;
+  }
   .workout-app {
     display: grid;
     grid-auto-flow: column;
