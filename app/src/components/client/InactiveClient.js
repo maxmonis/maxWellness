@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DeleteClient from './DeleteClient'
 import useToggle from '../../hooks/useToggle'
 
 const InactiveClient = ({ name, handleActivate, handleDelete }) => {
   const [isMenuOpen, toggleMenu] = useToggle(false)
-  const [optionsShown, setOptionsShown] = useState(false)
-  const showOptions = () => setOptionsShown(true)
-  const hideOptions = () => setOptionsShown(false)
+  const [optionsShown, toggleOptions] = useToggle(false)
   return (
     <>
       {isMenuOpen ? (
@@ -16,7 +14,9 @@ const InactiveClient = ({ name, handleActivate, handleDelete }) => {
           handleDelete={handleDelete}
         />
       ) : (
-        <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
+        <div
+          onMouseEnter={() => toggleOptions(true)}
+          onMouseLeave={() => toggleOptions(false)}>
           <button className='line-through cursor-auto' disabled>
             {name}
           </button>

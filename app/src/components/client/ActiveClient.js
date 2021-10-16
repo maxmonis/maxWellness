@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import useToggle from '../../hooks/useToggle'
 
 const ActiveClient = ({
   name,
@@ -8,11 +9,11 @@ const ActiveClient = ({
   handleEdit,
   handleDeactivate,
 }) => {
-  const [optionsShown, setOptionsShown] = useState(false)
-  const showOptions = () => setOptionsShown(true)
-  const hideOptions = () => setOptionsShown(false)
+  const [optionsShown, toggleOptions] = useToggle(false)
   return (
-    <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
+    <div
+      onMouseEnter={() => toggleOptions(true)}
+      onMouseLeave={() => toggleOptions(false)}>
       {optionsShown ? (
         <Link to={id} title='Workouts'>
           <button className='hover-underline' onClick={toggleDrawer}>

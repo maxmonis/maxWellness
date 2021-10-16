@@ -21,7 +21,7 @@ const App = () => {
   )
   const [isDrawerOpen, toggleDrawer] = useToggle(true)
   useEffect(() => {
-    isDrawerOpen && toggleDrawer()
+    toggleDrawer(false)
     // eslint-disable-next-line
   }, [])
   return (
