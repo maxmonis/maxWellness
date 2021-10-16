@@ -73,7 +73,7 @@ export default (state, action) => {
     case 'CLEAR_WORKOUTS_FILTERS':
       return {
         ...state,
-        filteredWorkouts: state.allWorkouts,
+        filteredWorkouts: [...state.allWorkouts].reverse(),
         workoutsFilters: generateWorkoutsFilters(state.allWorkouts),
       }
     default:
