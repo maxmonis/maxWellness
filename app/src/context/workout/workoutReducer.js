@@ -154,21 +154,33 @@ export default (state, action) => {
     }
   }
 
-  function filterWorkouts(filters) {
+  function filterWorkouts({
+    workoutDates,
+    workoutNames,
+    liftNames,
+    newestFirst,
+  }) {
     const updatedState = state.allWorkouts
-      .filter(
-        workout =>
-          workout.date >= filters.workoutDates.startDate &&
-          workout.date <= filters.workoutDates.endDate &&
-          filters.workoutNames.find(({ name }) => name === workout.name).checked
+      .map(workout =>
+        // If the workout is between the selected start and end dates...
+        workout.date >= workoutDates.startDate &&
+        workout.date <= workoutDates.endDate &&
+        // ...and its name is included in the selected workout names...
+        workoutNames.find(({ name }) => name === workout.name).checked
+          ? // ...we filter its routine to only include the selected lifts.
+            {
+              ...workout,
+              routine: workout.routine.filter(
+                ({ lift }) =>
+                  liftNames.find(({ name }) => name === lift).checked
+              ),
+            }
+          : // Otherwise we map this workout to null to filter it out.
+            null
       )
-      .map(workout => ({
-        ...workout,
-        routine: workout.routine.filter(
-          ({ lift }) =>
-            filters.liftNames.find(({ name }) => name === lift).checked
-        ),
-      }))
-    return filters.newestFirst ? updatedState.reverse() : updatedState
+      // Then we filter out any workouts whose routines are now empty...
+      .filter(workout => workout?.routine?.length)
+    // ...and factor the user's chronology preference into our return value.
+    return newestFirst ? updatedState.reverse() : updatedState
   }
 }
