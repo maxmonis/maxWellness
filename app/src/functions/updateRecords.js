@@ -24,13 +24,9 @@ const updateRecords = (workout, initialRecords) => {
     }
     if (isRecord) {
       exercise.becameRecord = date
-      records.push({
-        ...exercise,
-        becameRecord: date,
-        id: exercise.id.split('').reverse().join(''),
-      })
+      records.push({...exercise, id: exercise.id.split('').reverse().join('')})
     } else {
-      exercise.becameRecord = null
+      delete exercise.becameRecord
     }
   }
   return { records, workout }
