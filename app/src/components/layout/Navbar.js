@@ -4,7 +4,14 @@ import ClientContext from '../../context/client/clientContext'
 import MenuDrawer from './MenuDrawer'
 
 const Navbar = props => {
-  const { dark, toggleDark, isDrawerOpen, toggleDrawer } = props
+  const {
+    dark,
+    showBackground,
+    toggleDark,
+    toggleBackground,
+    isDrawerOpen,
+    toggleDrawer,
+  } = props
   const { isAuthenticated, logUserOut, loadUser, user } =
     useContext(AuthContext)
   const { getClients, clearClients } = useContext(ClientContext)
@@ -23,6 +30,8 @@ const Navbar = props => {
           <MenuDrawer
             dark={dark}
             toggleDark={toggleDark}
+            showBackground={showBackground}
+            toggleBackground={toggleBackground}
             toggleDrawer={toggleDrawer}
           />
         )}

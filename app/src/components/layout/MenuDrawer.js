@@ -4,7 +4,7 @@ import Roster from '../roster/Roster'
 import { Drawer, Switch } from '../layout/UI'
 import WorkoutFilters from './WorkoutFilters'
 
-const MenuDrawer = ({ dark, toggleDark, toggleDrawer }) => {
+const MenuDrawer = ({ dark, showBackground, toggleDark, toggleBackground, toggleDrawer }) => {
   const [selectedMenu, selectMenu] = useState('clients')
   return (
     <Drawer handleClose={toggleDrawer}>
@@ -24,6 +24,7 @@ const MenuDrawer = ({ dark, toggleDark, toggleDrawer }) => {
         <section>
           <WorkoutFilters />
           <Switch label='Dark Mode' bool={dark} toggle={toggleDark} />
+          <Switch label='Background Image' bool={showBackground} toggle={toggleBackground} />
         </section>
       ) : (
         <section>

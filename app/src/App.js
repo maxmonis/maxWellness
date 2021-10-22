@@ -20,12 +20,13 @@ const App = () => {
       window.matchMedia('(prefers-color-scheme: dark)').matches
   )
   const [isDrawerOpen, toggleDrawer] = useToggle(true)
+  const [showBackground, toggleBackground] = useToggle(true)
   useEffect(() => {
     toggleDrawer(false)
     // eslint-disable-next-line
   }, [])
   return (
-    <div className={`app ${dark ? 'dark' : ''}`}>
+    <div className={`app ${dark ? 'dark' : ''} ${showBackground ? 'show-bg' : ''}`}>
       <AuthState>
         <ClientState>
           <WorkoutState>
@@ -34,6 +35,8 @@ const App = () => {
                 <Navbar
                   dark={dark}
                   toggleDark={toggleDark}
+                  showBackground={showBackground}
+                  toggleBackground={toggleBackground}
                   isDrawerOpen={isDrawerOpen}
                   toggleDrawer={toggleDrawer}
                 />
