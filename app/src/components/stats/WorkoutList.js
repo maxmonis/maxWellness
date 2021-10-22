@@ -10,6 +10,7 @@ const WorkoutList = ({
   workoutsIndex,
 }) => {
   const [menuID, setMenuID] = useState(null)
+  const [showExamples, setShowExamples] = useState(false)
   const toggleMenu = id => (id === menuID ? setMenuID(null) : setMenuID(id))
   const EXAMPLE_WORKOUTS = [
     {
@@ -55,19 +56,30 @@ const WorkoutList = ({
             Your workouts will be displayed here. We recommend giving them names
             which describe the focus of that routine (eg. full body, chest and
             back, legs, etc.) since you'll then be able to filter your workouts
-            by name. New personal records will be flagged with an asterisk.
+            by name. New personal records will be flagged with an asterisk.{' '}
+            {showExamples ? 'For example:' : null}
           </p>
-          {EXAMPLE_WORKOUTS.map(({ date, bench, deadlift }) => (
-            <div className='mb-8 pb-8' key={date}>
-              <h3>Chest and Back - {date}</h3>
-              <ul>
-                <li>
-                  <h4>Bench Press: {bench}</h4>
-                  <h4>Deadlift: {deadlift}</h4>
-                </li>
-              </ul>
-            </div>
-          ))}
+          {showExamples ? (
+            <>
+              {EXAMPLE_WORKOUTS.map(({ date, bench, deadlift }) => (
+                <div className='mb-8 pb-8' key={date}>
+                  <h3>Chest and Back - {date}</h3>
+                  <ul>
+                    <li>
+                      <h4>Bench Press: {bench}</h4>
+                      <h4>Deadlift: {deadlift}</h4>
+                    </li>
+                  </ul>
+                </div>
+              ))}
+            </>
+          ) : (
+            <button
+              className='btn-3 mt-12'
+              onClick={() => setShowExamples(true)}>
+              See Examples
+            </button>
+          )}
         </div>
       )}
     </>
