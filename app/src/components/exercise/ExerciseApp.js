@@ -18,12 +18,7 @@ const ExerciseApp = ({ routine, updateRoutine, selectExercise }) => {
         <DragDropContext onDragEnd={handleDragEnd}>
           <ExerciseList routine={routine} selectExercise={selectExercise} />
         </DragDropContext>
-      ) : (
-        <h4>
-          Use the widget above to enter your routine, then give your workout a
-          name and save it to the database
-        </h4>
-      )}
+      ) : null}
     </div>
   )
 }
