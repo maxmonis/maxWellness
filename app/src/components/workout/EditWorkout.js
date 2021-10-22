@@ -15,7 +15,6 @@ const EditWorkout = ({
   selectExercise,
   setExercise,
   isNewWorkout,
-  toggleExerciseHistory,
 }) => {
   return (
     <>
@@ -27,7 +26,6 @@ const EditWorkout = ({
         updateRoutine={updateRoutine}
         setExercise={setExercise}
         isNewWorkout={isNewWorkout}
-        toggleExerciseHistory={toggleExerciseHistory}
       />
       <ExerciseApp
         routine={routine}

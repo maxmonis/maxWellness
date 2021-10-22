@@ -51,21 +51,30 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
     horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
   return (
     <div className='exercise-history'>
-      <div>
-        <button
-          className={horizontalIndex > 0 ? '' : 'opacity-0 cursor-default'}
-          onClick={decrement}>
-          <h3>{'<-'}</h3>
-        </button>
-        <h3 className='pointer mr-20 ml-20' onClick={toggleExerciseHistory}>
-          Workouts
-        </h3>
-        <button
-          className={canIncrement ? '' : 'opacity-0 cursor-default'}
-          onClick={increment}>
-          <h3>{'->'}</h3>
-        </button>
-      </div>
+      {workouts.length ? (
+        <div>
+          <button
+            className={horizontalIndex ? '' : 'opacity-0 cursor-default'}
+            onClick={decrement}>
+            <h3>{'<-'}</h3>
+          </button>
+          <h3 className='pointer mr-20 ml-20' onClick={toggleExerciseHistory}>
+            Workouts
+          </h3>
+          <button
+            className={canIncrement ? '' : 'opacity-0 cursor-default'}
+            onClick={increment}>
+            <h3>{'->'}</h3>
+          </button>
+        </div>
+      ) : (
+        <>
+          <h4>No workouts to display yet</h4>
+          <button className='btn-3 mt-20' onClick={toggleExerciseHistory}>
+            New Workout
+          </button>
+        </>
+      )}
       {sortByDate ? (
         <div>
           {[

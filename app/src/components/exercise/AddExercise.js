@@ -11,7 +11,6 @@ const AddExercise = ({
   updateRoutine,
   setExercise,
   isNewWorkout,
-  toggleExerciseHistory,
 }) => {
   const { lift, sets, reps, weight } = exercise
   const [blurred, setBlurred] = useState(false)
@@ -52,13 +51,6 @@ const AddExercise = ({
           </option>
         )}
       </select>
-      {isNewWorkout && (
-        <div>
-          <button className='btn-3 mt-16' onClick={toggleExerciseHistory}>
-            Exercise History
-          </button>
-        </div>
-      )}
       <LiftRecords
         records={records}
         lift={exercise.lift}

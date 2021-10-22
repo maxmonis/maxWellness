@@ -151,7 +151,6 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 <>
                   <h3>New Workout</h3>
                   <EditWorkout
-                    toggleExerciseHistory={toggleExerciseHistory}
                     exercise={exercise}
                     workout={workout}
                     lifts={lifts}
