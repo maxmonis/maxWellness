@@ -53,16 +53,16 @@ const WorkoutList = ({
       ) : (
         <div className='intro-text'>
           <p>
-            Your workouts will be displayed here. We recommend giving them names
+            Workouts will be displayed here. We recommend giving them names
             which describe the focus of that routine (eg. full body, chest and
             back, legs, etc.) since you'll then be able to filter your workouts
             by name. New personal records will be flagged with an asterisk.{' '}
-            {showExamples ? 'For example:' : null}
+            {showExamples ? 'For example:' : ''}
           </p>
           {showExamples ? (
             <>
-              {EXAMPLE_WORKOUTS.map(({ date, bench, deadlift }) => (
-                <div className='mb-8 pb-8' key={date}>
+              {EXAMPLE_WORKOUTS.map(({ date, bench, deadlift }, i) => (
+                <div key={i}>
                   <h3>Chest and Back - {date}</h3>
                   <ul>
                     <li>

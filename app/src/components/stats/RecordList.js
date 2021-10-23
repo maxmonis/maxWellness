@@ -47,11 +47,11 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
   ) : (
     <div className='intro-text'>
       <p>
-        The dates of your personal records will be displayed here. When you set
-        a new one, any previous records which it surpassed will be updated to
-        reflect your progress. You can break a record by increasing the weight
-        and/or reps and/or sets without decreasing any other field.{' '}
-        {showExamples ? 'For example:' : null}
+        Personal records will be displayed here. When you set a new one, any
+        previous records which it surpassed will be updated to reflect your
+        progress. You can break a record by increasing the weight and/or reps
+        and/or sets without decreasing any other field.{' '}
+        {showExamples ? 'For example:' : ''}
       </p>
       {!showExamples ? (
         <button className='btn-3 mt-12' onClick={() => setShowExamples(true)}>

@@ -69,8 +69,8 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
         </div>
       ) : (
         <>
-          <h4>No workouts to display yet</h4>
-          <button className='btn-3 mt-20' onClick={toggleExerciseHistory}>
+          <h4 className='m-20'>No workouts to display yet</h4>
+          <button className='btn-3' onClick={toggleExerciseHistory}>
             New Workout
           </button>
         </>
