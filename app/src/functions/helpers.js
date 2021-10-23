@@ -28,11 +28,26 @@ export function strInput(string) {
 
 export function formatDate(date) {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
   const weekday = days[new Date(`${date.replace(/-/g, '/')}`).getDay()]
-  const year = date.slice(2, 4)
-  const month = parseInt(date.slice(5, 7))
+  const year = date.slice(0, 4)
+  const currentYear = new Date().getFullYear().toString()
+  const month = months[parseInt(date.slice(5, 7)) - 1]
   const day = parseInt(date.slice(8))
-  return `${weekday} ${month}/${day}/${year}`
+  return `${weekday}, ${month} ${day}${year !== currentYear ? `, ${year}` : ''}`
 }
 
 export function getDate(daysAdded = 0) {
