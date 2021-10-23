@@ -1,5 +1,5 @@
 .alert {
-  background: var(--background);
+  background: var(--blue3);
   color: var(--white);
   border-radius: var(--border-radius);
   left: 16px;
@@ -21,9 +21,6 @@
   --background: var(--white);
   --color: var(--grey3);
   background: var(--background);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: cover;
   color: var(--color);
   font-weight: 500;
   min-height: 100vh;
@@ -40,7 +37,6 @@
   --background: var(--grey3);
   --color: var(--white);
 }
-
 .app.show-bg {
   background-image: linear-gradient(
       to bottom,
@@ -48,6 +44,9 @@
       rgba(255, 255, 255, 0.7)
     ),
     url('/background.jpg');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .app.show-bg.dark {
   background-image: linear-gradient(
@@ -211,9 +210,6 @@
   margin: 0 auto;
 }
 
-.workout-app {
-  min-height: 70vh;
-}
 .workout-app > section {
   margin: 16px auto 36px;
 }

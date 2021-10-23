@@ -33,11 +33,9 @@ const SaveWorkout = ({
       }
     }
   }
-  const handleBlur = () => (name) && setErrors({ ...errors, name: null })
+  const handleBlur = () => name && setErrors({ ...errors, name: null })
   useEffect(() => {
-    if (routine.length === 0 && isFormOpen) {
-      toggleForm()
-    }
+    if (routine.length === 0) toggleForm(false)
     // eslint-disable-next-line
   }, [routine])
   return (
@@ -63,9 +61,9 @@ const SaveWorkout = ({
             persistentLabel
           />
           <ul className='mb-24'>
-            {organizeRoutine(routine).map(exercise => (
-              <li key={exercise.id}>
-                <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>
+            {organizeRoutine(routine).map(({ id, lift, printout }) => (
+              <li key={id}>
+                <h4>{`${lift}: ${printout}`}</h4>
               </li>
             ))}
           </ul>
