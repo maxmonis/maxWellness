@@ -19,14 +19,38 @@ const App = () => {
     window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
   )
-  const [isDrawerOpen, toggleDrawer] = useToggle(true)
+  const [isDrawerOpen, toggleDrawer] = useToggle(false)
   const [showBackground, toggleBackground] = useToggle(true)
   useEffect(() => {
     toggleDrawer(false)
+    getSavedPreferences()
     // eslint-disable-next-line
   }, [])
+  useEffect(() => {
+    saveDarkPreference(dark)
+    // eslint-disable-next-line
+  }, [dark])
+  useEffect(() => {
+    saveBgPreference(showBackground)
+    // eslint-disable-next-line
+  }, [showBackground])
+  const LOCAL_STORAGE_KEY = 'max_wellness_'
+  const DARK_KEY = `${LOCAL_STORAGE_KEY}prefers_dark`
+  const BG_KEY = `${LOCAL_STORAGE_KEY}prefers_bg`
+  const saveDarkPreference = bool =>
+    window.localStorage.setItem(DARK_KEY, JSON.stringify(bool))
+  const saveBgPreference = bool =>
+    window.localStorage.setItem(BG_KEY, JSON.stringify(bool))
+  const getSavedPreferences = () => {
+    const darkSetting = JSON.parse(window.localStorage.getItem(DARK_KEY))
+    if (typeof darkSetting === 'boolean') toggleDark(darkSetting)
+    const bgSetting = JSON.parse(window.localStorage.getItem(BG_KEY))
+    if (typeof bgSetting === 'boolean') toggleBackground(bgSetting)
+  }
   return (
-    <div className={`app ${dark ? 'dark' : ''} ${showBackground ? 'show-bg' : ''}`}>
+    <div
+      className={`app ${dark ? 'dark' : ''}
+        ${showBackground ? 'show-bg' : ''}`}>
       <AuthState>
         <ClientState>
           <WorkoutState>
