@@ -14,7 +14,7 @@ const WorkoutFilters = () => {
   const { startDate, endDate, allDates } = workoutDates
   return workoutsFilters.workoutNames.length ? (
     <>
-      <h3 className='m-8'>Exercise Name</h3>
+      <h3 className='mb-24'>Exercise Name</h3>
       {liftNames.map(({ name, checked }) => (
         <Checkbox
           key={name}
@@ -25,7 +25,7 @@ const WorkoutFilters = () => {
           }
         />
       ))}
-      <h3 className='mt-24 mb-8'>Workout Name</h3>
+      <h3 className='mt-36 mb-24'>Workout Name</h3>
       {workoutNames.map(({ name, checked }) => (
         <Checkbox
           key={name}
@@ -36,7 +36,7 @@ const WorkoutFilters = () => {
           }
         />
       ))}
-      <h3 className='mt-24 mb-8'>Workout Date</h3>
+      <h3 className='mt-36 mb-24'>Workout Date</h3>
       <Checkbox
         label='Show newest first'
         bool={newestFirst}
@@ -76,7 +76,7 @@ const WorkoutFilters = () => {
             </option>
           ))}
       </select>
-      <div className='mt-24 mb-48'>
+      <div className='mt-24 mb-24'>
         {!filteredWorkouts.length && (
           <h4 className='red mb-8'>No results for these filters</h4>
         )}
