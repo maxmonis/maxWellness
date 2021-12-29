@@ -2,8 +2,9 @@ import React from 'react'
 
 export const Checkbox = ({ label, bool, toggle }) => (
   <label className='checkbox'>
-    <input type='checkbox' checked={bool} onChange={toggle} />
     {label}
+    <input type='checkbox' checked={bool} onChange={toggle} />
+    <span className='checkmark'></span>
   </label>
 )
 
