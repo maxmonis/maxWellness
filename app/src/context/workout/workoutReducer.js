@@ -95,7 +95,7 @@ export default (state, action) => {
     return {
       workoutNames: alphabetize([...workoutNames]).map(name => ({
         name,
-        checked: true,
+        checked: false,
       })),
       workoutDates: {
         allDates,
@@ -104,7 +104,7 @@ export default (state, action) => {
       },
       liftNames: alphabetize([...liftNames]).map(name => ({
         name,
-        checked: true,
+        checked: false,
       })),
       newestFirst: true,
     }
@@ -163,20 +163,27 @@ export default (state, action) => {
     liftNames,
     newestFirst,
   }) {
+    const workoutFilterApplied = workoutNames.some(({ checked }) => checked)
+    const liftFilterApplied = liftNames.some(({ checked }) => checked)
     const filteredWorkouts = state.allWorkouts
       .map(workout =>
         // If the workout is between the selected start and end dates...
         workout.date >= workoutDates.startDate &&
         workout.date <= workoutDates.endDate &&
-        // ...and its name is included in the selected workout names...
-        workoutNames.find(({ name }) => name === workout.name).checked
-          ? // ...we filter its routine to only include the selected lifts.
+        // ...and no workout name filter has been selected...
+        (!workoutFilterApplied ||
+          // ...or this workout's name is among the selected names...
+          workoutNames.find(({ name }) => name === workout.name).checked)
+          ? // ...we filter its routine to only include the selected lifts
+            // (or all lifts of no lift name filter has been selected).
             {
               ...workout,
-              routine: workout.routine.filter(
-                ({ lift }) =>
-                  liftNames.find(({ name }) => name === lift).checked
-              ),
+              routine: !liftFilterApplied
+                ? workout.routine
+                : workout.routine.filter(
+                    ({ lift }) =>
+                      liftNames.find(({ name }) => name === lift).checked
+                  ),
             }
           : // Otherwise we map this workout to null to filter it out.
             null
