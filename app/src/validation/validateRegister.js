@@ -1,4 +1,4 @@
-const validate = ({ name, email, password, password2 }) => {
+const validateRegister = ({ name, email, password, password2 }) => {
     const errors = {};
     if (!name) errors.name = 'Name is required';
     if (!email) {
@@ -21,5 +21,5 @@ const validate = ({ name, email, password, password2 }) => {
     return errors;
   };
   
-  export default validate;
+  export default validateRegister;
   

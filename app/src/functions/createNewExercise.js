@@ -3,10 +3,11 @@ import uuid from 'uuid/v4'
 const createNewExercise = exercise => {
   const id = uuid()
   const { lift } = exercise
+  const num_sets = getNum(exercise.sets)
+  const num_reps = getNum(exercise.reps)
   const weight = getNum(exercise.weight)
-  const sets = getNum(exercise.sets) > 1 ? getNum(exercise.sets) : ''
-  const reps =
-    getNum(exercise.reps) > 1 ? getNum(exercise.reps) : sets && weight ? 1 : ''
+  const sets = num_sets > 1 ? num_sets : ''
+  const reps = num_reps > 1 ? num_reps : sets && weight ? 1 : ''
   const printout =
     sets && reps && weight
       ? `${sets}(${reps}x${weight})`

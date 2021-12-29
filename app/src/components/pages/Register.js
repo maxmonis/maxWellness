@@ -24,9 +24,9 @@ const Register = ({ history }) => {
     password: '',
     password2: '',
   }
-  const createAccount = () => registerUser({ name, email, password })
+  const submitForm = () => registerUser({ name, email, password })
   const { values, errors, handleChange, handleSubmit, handleBlur } =
-    useValidate(INITIAL_STATE, validateRegister, createAccount)
+    useValidate(INITIAL_STATE, validateRegister, submitForm)
   const { name, email, password, password2 } = values
   useEffect(() => {
     document.title = `maxWellness | Fitness First`

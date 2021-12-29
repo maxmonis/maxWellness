@@ -10,7 +10,7 @@ const AddLift = ({ updateLifts }) => {
       noValidate
       onSubmit={e => {
         e.preventDefault()
-        value && updateLifts(value.trim())
+        if (value) updateLifts(value.trim())
         reset()
       }}>
       <Input

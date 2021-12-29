@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
-const useValidate = (initialValues, validate, fn) => {
+const useValidate = (initialValues, validate, submitForm) => {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [submit, setSubmit] = useState(false)
   useEffect(() => {
     if (submit) {
       if (!Object.keys(errors).length) {
-        fn()
+        submitForm()
       }
       setSubmit(false)
     }
