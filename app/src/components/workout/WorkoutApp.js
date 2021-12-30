@@ -111,7 +111,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client])
   return filteredWorkouts ? (
-    <>
+    <div className='workout-app'>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
           <h2 className='mb-12'>Edit Workout</h2>
@@ -132,7 +132,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       )}
       <h1>{title}</h1>
       <>
-        <div className='workout-app'>
+        <main>
           <section>
             {isFormOpen ? (
               <LiftApp
@@ -168,10 +168,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             updateRoutine={updateRoutine}
             selectExercise={selectExercise}
           />
-        </div>
+        </main>
         <ExerciseHistory workouts={filteredWorkouts} />
       </>
-    </>
+    </div>
   ) : (
     <Spinner />
   )

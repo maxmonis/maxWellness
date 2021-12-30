@@ -10,9 +10,18 @@ const WorkoutFilters = () => {
     clearWorkoutsFilters,
     filteredWorkouts,
   } = useContext(WorkoutContext)
+  const EMPTY_STATE = (
+    <h4 className='mt-24 mb-24'>
+      Workout filters will be displayed here. You'll be able to filter by
+      workout name, workout date, or exercise name.
+    </h4>
+  )
+  if (!workoutsFilters?.workoutNames?.length) {
+    return EMPTY_STATE
+  }
   const { workoutNames, liftNames, newestFirst, workoutDates } = workoutsFilters
   const { startDate, endDate, allDates } = workoutDates
-  return workoutsFilters.workoutNames.length ? (
+  return (
     <>
       <h3 className='mb-24'>Exercise Name</h3>
       {liftNames.map(({ name, checked }) => (
@@ -85,11 +94,6 @@ const WorkoutFilters = () => {
         </button>
       </div>
     </>
-  ) : (
-    <h4 className='mt-24 mb-24'>
-      Workout filters will be displayed here. You'll be able to filter by
-      workout name, workout date, or exercise name.
-    </h4>
   )
 }
 

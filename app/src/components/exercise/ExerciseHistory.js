@@ -19,7 +19,7 @@ const ExerciseHistory = ({ workouts }) => {
   const [displayedRows, setDisplayedRows] = useState(10)
   const getMaxColumns = () => {
     const canFit = Math.floor(window.innerWidth / 150) - 2
-    return canFit < 4 ? 3 : canFit < 6 ? canFit : 6
+    return canFit < 4 ? 3 : canFit < 5 ? canFit : 5
   }
   const [maxColumns, setMaxColumns] = useState(
     typeof window !== 'undefined' && getMaxColumns()

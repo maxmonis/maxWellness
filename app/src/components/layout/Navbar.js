@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import AuthContext from '../../context/auth/authContext'
 import ClientContext from '../../context/client/clientContext'
 import MenuDrawer from './MenuDrawer'
+import SideNav from './SideNav'
 
 const Navbar = props => {
   const {
@@ -24,31 +25,44 @@ const Navbar = props => {
     // eslint-disable-next-line
   }, [user])
   return (
-    <nav>
-      <header>
-        {isDrawerOpen && (
-          <MenuDrawer
-            dark={dark}
-            toggleDark={toggleDark}
-            showBackground={showBackground}
-            toggleBackground={toggleBackground}
-            toggleDrawer={toggleDrawer}
-          />
-        )}
-        {isAuthenticated && (
-          <>
-            <button className='hover-underline m-12' onClick={toggleDrawer}>
-              Menu
-            </button>
-            <button
-              className='hover-underline m-12'
-              onClick={() => logUserOut()}>
-              Logout
-            </button>
-          </>
-        )}
-      </header>
-    </nav>
+    <>
+      {isAuthenticated && (
+        <SideNav
+          dark={dark}
+          toggleDark={toggleDark}
+          showBackground={showBackground}
+          toggleBackground={toggleBackground}
+          toggleDrawer={toggleDrawer}
+        />
+      )}
+      <nav>
+        <header>
+          {isDrawerOpen && (
+            <MenuDrawer
+              dark={dark}
+              toggleDark={toggleDark}
+              showBackground={showBackground}
+              toggleBackground={toggleBackground}
+              toggleDrawer={toggleDrawer}
+            />
+          )}
+          {isAuthenticated && (
+            <>
+              <button
+                className='hover-underline m-12 hide-gt-1200'
+                onClick={toggleDrawer}>
+                Menu
+              </button>
+              <button
+                className='hover-underline m-12'
+                onClick={() => logUserOut()}>
+                Logout
+              </button>
+            </>
+          )}
+        </header>
+      </nav>
+    </>
   )
 }
 

@@ -46,7 +46,8 @@ code {
   --base-index: 0;
   --tooltip-index: calc(var(--base-index) + 1);
   --navbar-index: calc(var(--tooltip-index) + 1);
-  --overlay-index: calc(var(--navbar-index) + 1);
+  --sidenav-index: calc(var(--navbar-index) + 1);
+  --overlay-index: calc(var(--sidenav-index) + 1);
   --alert-index: calc(var(--overlay-index) + 1);
 
   --border-radius: 6px;
