@@ -9,7 +9,6 @@ const StatsApp = ({
   editWorkout,
   updateRoutine,
   selectExercise,
-  toggleExerciseHistory,
 }) => {
   const [display, setDisplay] = useState('workouts')
   const [workoutsIndex, setWorkoutsIndex] = useState(0)
@@ -30,16 +29,14 @@ const StatsApp = ({
   }
   return (
     <>
-      <section className='show-gt-992 mr-12 ml-12'>
+      <section className='show-gt-992'>
         <div className='flex-row center mb-12'>
           <button
             className={workoutsIndex ? '' : 'opacity-0 cursor-default'}
             onClick={() => decrement('workouts')}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='pointer ml-20 mr-20' onClick={toggleExerciseHistory}>
-            Workouts
-          </h3>
+          <h3 className='ml-20 mr-20'>Workouts</h3>
           <button
             className={
               workoutsIndex < workouts.length - 3
@@ -58,7 +55,7 @@ const StatsApp = ({
           workoutsIndex={workoutsIndex}
         />
       </section>
-      <section className='show-gt-992 mr-12 ml-12'>
+      <section className='show-gt-992'>
         <div className='flex-row center mb-12'>
           <button
             className={recordsIndex ? '' : 'opacity-0 cursor-default'}
@@ -82,7 +79,7 @@ const StatsApp = ({
           recordsIndex={recordsIndex}
         />
       </section>
-      <section className='hide-gt-992 mr-12 ml-12'>
+      <section className='hide-gt-992'>
         <div className='flex-row center mb-12'>
           <button
             className={

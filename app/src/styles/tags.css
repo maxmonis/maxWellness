@@ -25,6 +25,7 @@ button:disabled {
 footer {
   bottom: 5px;
   left: 0;
+  margin-top: 48px;
   right: 0;
   position: absolute;
 }

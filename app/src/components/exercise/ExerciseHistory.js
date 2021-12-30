@@ -3,7 +3,7 @@ import organizeRoutine from '../../functions/organizeRoutine'
 import { formatDate } from '../../functions/helpers'
 import useToggle from '../../hooks/useToggle'
 
-const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
+const ExerciseHistory = ({ workouts }) => {
   const lifts = {}
   for (const { routine } of workouts) {
     for (const { lift } of routine) {
@@ -19,7 +19,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
   const [displayedRows, setDisplayedRows] = useState(10)
   const getMaxColumns = () => {
     const canFit = Math.floor(window.innerWidth / 150) - 2
-    return canFit < 2 ? 1 : canFit < 5 ? canFit : 5
+    return canFit < 4 ? 3 : canFit < 6 ? canFit : 6
   }
   const [maxColumns, setMaxColumns] = useState(
     typeof window !== 'undefined' && getMaxColumns()
@@ -50,16 +50,16 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
   const decrement = () =>
     horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
   return (
-    <div className='exercise-history'>
-      {workouts.length ? (
-        <div>
+    <div className='exercise-history show-gt-568'>
+      {workouts.length > 0 && (
+        <div className='mb-12'>
           <button
             className={horizontalIndex ? '' : 'opacity-0 cursor-default'}
             onClick={decrement}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='pointer mr-20 ml-20' onClick={toggleExerciseHistory}>
-            Workouts
+          <h3 className='mr-20 ml-20 pointer' onClick={toggleSort}>
+            Exercise History
           </h3>
           <button
             className={canIncrement ? '' : 'opacity-0 cursor-default'}
@@ -67,13 +67,6 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
             <h3>{'->'}</h3>
           </button>
         </div>
-      ) : (
-        <>
-          <h4 className='m-20'>No workouts to display yet</h4>
-          <button className='btn-3' onClick={toggleExerciseHistory}>
-            New Workout
-          </button>
-        </>
       )}
       {sortByDate ? (
         <div>
@@ -83,7 +76,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
           ].map(({ routine, date, id }) => (
             <div key={id || 'id'}>
               <div className='exercise-history-head'>
-                {date ? <h3 onClick={toggleSort}>{formatDate(date)}</h3> : null}
+                {date ? <h3>{formatDate(date)}</h3> : null}
               </div>
               {sortedLifts.map(({ lift }) => (
                 <div className='exercise-history-item' key={lift}>
@@ -107,7 +100,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
         </div>
       ) : (
         <>
-          <div onClick={toggleSort}>
+          <div>
             {[
               {},
               ...sortedLifts.slice(
@@ -116,7 +109,7 @@ const ExerciseHistory = ({ workouts, toggleExerciseHistory }) => {
               ),
             ].map(({ lift }) => (
               <div key={lift || 'id'}>
-                <div onClick={toggleSort} className='exercise-history-head'>
+                <div className='exercise-history-head'>
                   {lift ? <h3>{lift}</h3> : null}
                 </div>
                 {workouts

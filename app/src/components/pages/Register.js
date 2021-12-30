@@ -35,7 +35,7 @@ const Register = ({ history }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='page auth'>
+    <div className='page'>
       <h1>Welcome!</h1>
       <h4>Create your free account</h4>
       <form noValidate onSubmit={handleSubmit}>
