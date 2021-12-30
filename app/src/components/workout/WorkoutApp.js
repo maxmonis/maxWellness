@@ -7,11 +7,16 @@ import AlertContext from '../../context/alert/alertContext'
 import WorkoutContext from '../../context/workout/workoutContext'
 import useClientState from '../../hooks/useClientState'
 import useToggle from '../../hooks/useToggle'
-import { Modal, Spinner } from '../layout/UI'
+import { ActionableAlert, Modal, Spinner } from '../layout/UI'
 
 const WorkoutApp = ({ selectedClient, updateClient }) => {
   const { setAlert } = useContext(AlertContext)
-  const { setAllWorkouts, filteredWorkouts } = useContext(WorkoutContext)
+  const {
+    setAllWorkouts,
+    filteredWorkouts,
+    appliedFilterCount,
+    clearWorkoutsFilters,
+  } = useContext(WorkoutContext)
   const {
     client,
     routine,
@@ -131,6 +136,20 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
         </Modal>
       )}
       <h1>{title}</h1>
+      {appliedFilterCount > 0 && (
+        <ActionableAlert
+          text={
+            filteredWorkouts.length
+              ? `${appliedFilterCount} filter${
+                  appliedFilterCount === 1 ? '' : 's'
+                } applied`
+              : 'No Results'
+          }
+          btnText='Reset Filters'
+          handleClick={clearWorkoutsFilters}
+          classes={filteredWorkouts.length ? '' : 'critical'}
+        />
+      )}
       <>
         <main>
           <section>

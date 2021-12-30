@@ -10,6 +10,7 @@ const WorkoutState = ({ children }) => {
     editingWorkout: null,
     allWorkouts: null,
     filteredWorkouts: [],
+    appliedFilterCount: 0,
     loading: true,
     error: null,
   }
@@ -20,6 +21,7 @@ const WorkoutState = ({ children }) => {
     editingWorkout,
     allWorkouts,
     filteredWorkouts,
+    appliedFilterCount,
     loading,
     error,
   } = state
@@ -88,6 +90,7 @@ const WorkoutState = ({ children }) => {
         editingWorkout,
         allWorkouts,
         filteredWorkouts,
+        appliedFilterCount,
         loading,
         error,
         getWorkouts,

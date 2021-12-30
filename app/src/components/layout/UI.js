@@ -1,5 +1,14 @@
 import React from 'react'
 
+export const ActionableAlert = ({ text, btnText, handleClick, classes }) => {
+  return (
+    <div className={`actionable-alert ${classes || ''}`}>
+      <h3>{text}</h3>
+      <button onClick={handleClick}>{btnText}</button>
+    </div>
+  )
+}
+
 export const Checkbox = ({ label, bool, toggle }) => (
   <label className='checkbox'>
     {label}

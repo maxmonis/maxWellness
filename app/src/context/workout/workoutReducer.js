@@ -62,6 +62,7 @@ export default (state, action) => {
         workoutsFilters: generateWorkoutsFilters(payload),
         allWorkouts: payload,
         filteredWorkouts: [...payload].reverse(),
+        appliedFilterCount: 0,
       }
     case 'UPDATE_WORKOUTS_FILTER':
       const updatedFilters = updateWorkoutsFilter(payload)
@@ -69,12 +70,14 @@ export default (state, action) => {
         ...state,
         workoutsFilters: updatedFilters,
         filteredWorkouts: filterWorkouts(updatedFilters),
+        appliedFilterCount: getFilterCount(updatedFilters),
       }
     case 'CLEAR_WORKOUTS_FILTERS':
       return {
         ...state,
         filteredWorkouts: [...state.allWorkouts].reverse(),
         workoutsFilters: generateWorkoutsFilters(state.allWorkouts),
+        appliedFilterCount: 0,
       }
     default:
       return state
@@ -192,5 +195,18 @@ export default (state, action) => {
       .filter(workout => workout?.routine?.length)
     // ...and factor the user's chronology preference into our return value.
     return newestFirst ? filteredWorkouts.reverse() : filteredWorkouts
+  }
+
+  function getFilterCount(filters) {
+    let count = 0
+    if (!filters?.workoutDates) return count
+    const { liftNames, workoutNames, workoutDates } = filters
+    const { allDates, startDate, endDate } = workoutDates
+    if (startDate !== allDates[0] || endDate !== allDates[allDates.length - 1])
+      count++
+    for (const { checked } of [...liftNames, ...workoutNames]) {
+      if (checked) count++
+    }
+    return count
   }
 }

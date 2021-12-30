@@ -9,6 +9,7 @@ const WorkoutFilters = () => {
     updateWorkoutsFilter,
     clearWorkoutsFilters,
     filteredWorkouts,
+    appliedFilterCount,
   } = useContext(WorkoutContext)
   const EMPTY_STATE = (
     <h4 className='mt-24 mb-24'>
@@ -89,9 +90,11 @@ const WorkoutFilters = () => {
         {!filteredWorkouts.length && (
           <h4 className='red mb-8'>No results for these filters</h4>
         )}
-        <button className='btn-2' onClick={clearWorkoutsFilters}>
-          Reset Filters
-        </button>
+        {appliedFilterCount > 0 && (
+          <button className='btn-2' onClick={clearWorkoutsFilters}>
+            Reset Filters
+          </button>
+        )}
       </div>
     </>
   )
