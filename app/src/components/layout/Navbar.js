@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import AuthContext from '../../context/auth/authContext'
 import ClientContext from '../../context/client/clientContext'
 import MenuDrawer from './MenuDrawer'
@@ -21,7 +22,11 @@ const Navbar = props => {
     // eslint-disable-next-line
   }, [])
   useEffect(() => {
-    user ? getClients() : clearClients()
+    if (user) getClients()
+    else {
+      clearClients()
+      toggleDrawer(false)
+    }
     // eslint-disable-next-line
   }, [user])
   return (
@@ -33,6 +38,7 @@ const Navbar = props => {
           showBackground={showBackground}
           toggleBackground={toggleBackground}
           toggleDrawer={toggleDrawer}
+          logUserOut={logUserOut}
         />
       )}
       <nav>
@@ -44,6 +50,7 @@ const Navbar = props => {
               showBackground={showBackground}
               toggleBackground={toggleBackground}
               toggleDrawer={toggleDrawer}
+              logUserOut={logUserOut}
             />
           )}
           {isAuthenticated && (
@@ -53,11 +60,13 @@ const Navbar = props => {
                 onClick={toggleDrawer}>
                 Menu
               </button>
-              <button
-                className='hover-underline m-12'
-                onClick={() => logUserOut()}>
-                Logout
-              </button>
+              <Link to='/'>
+                <img
+                  className='m-8 border'
+                  src='/favicon-32x32.png'
+                  alt='maxWellness'
+                />
+              </Link>
             </>
           )}
         </header>

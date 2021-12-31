@@ -10,6 +10,7 @@ const MenuDrawer = ({
   toggleDark,
   toggleBackground,
   toggleDrawer,
+  logUserOut,
 }) => {
   const menuOptions = ['Filters', 'Clients']
   const [selectedMenu, selectMenu] = useState(menuOptions[0])
@@ -45,6 +46,9 @@ const MenuDrawer = ({
           </Link>
         </section>
       )}
+      <button className='hover-underline mt-48' onClick={() => logUserOut()}>
+        Logout
+      </button>
     </Drawer>
   )
 }

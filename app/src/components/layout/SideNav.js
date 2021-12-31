@@ -4,7 +4,13 @@ import Roster from '../roster/Roster'
 import { Switch } from '../layout/UI'
 import WorkoutFilters from './WorkoutFilters'
 
-const SideNav = ({ dark, showBackground, toggleDark, toggleBackground }) => {
+const SideNav = ({
+  dark,
+  showBackground,
+  toggleDark,
+  toggleBackground,
+  logUserOut,
+}) => {
   const menuOptions = ['Filters', 'Clients']
   const [selectedMenu, selectMenu] = useState(menuOptions[0])
   return (
@@ -37,6 +43,9 @@ const SideNav = ({ dark, showBackground, toggleDark, toggleBackground }) => {
           </Link>
         </section>
       )}
+      <button className='hover-underline mt-48' onClick={() => logUserOut()}>
+        Logout
+      </button>
     </div>
   )
 }
