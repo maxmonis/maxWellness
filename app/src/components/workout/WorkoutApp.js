@@ -32,10 +32,12 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [workouts])
   const [records, setRecords] = useState([])
+  const [filteredRecords, setFilteredRecords] = useState([])
   useEffect(() => {
-    setRecords(filteredWorkouts ? getRecords(filteredWorkouts) : [])
+    setRecords(workouts ? getRecords(workouts) : [])
+    setFilteredRecords(filteredWorkouts ? getRecords(filteredWorkouts) : [])
     // eslint-disable-next-line
-  }, [filteredWorkouts])
+  }, [workouts, filteredWorkouts])
   const getRecords = workouts => {
     const records = []
     for (const { routine } of workouts) {
@@ -181,7 +183,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           </section>
           <StatsApp
             workouts={filteredWorkouts}
-            records={records}
+            records={filteredRecords}
             updateWorkouts={updateWorkouts}
             editWorkout={editWorkout}
             updateRoutine={updateRoutine}
