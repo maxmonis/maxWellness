@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import RecordList from './RecordList'
 import WorkoutList from '../stats/WorkoutList'
+import workoutContext from '../../context/workout/workoutContext'
 
 const StatsApp = ({
   workouts,
@@ -10,6 +11,7 @@ const StatsApp = ({
   updateRoutine,
   selectExercise,
 }) => {
+  const { appliedFilterCount } = useContext(workoutContext)
   const [display, setDisplay] = useState('workouts')
   const [workoutsIndex, setWorkoutsIndex] = useState(0)
   const [recordsIndex, setRecordsIndex] = useState(0)
@@ -27,6 +29,10 @@ const StatsApp = ({
       setRecordsIndex(recordsIndex - 5)
     }
   }
+  useEffect(() => {
+    setWorkoutsIndex(0)
+    setRecordsIndex(0)
+  }, [appliedFilterCount])
   return (
     <>
       <section className='show-gt-992'>
