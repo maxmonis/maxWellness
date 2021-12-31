@@ -147,7 +147,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
                 } applied`
               : 'No Results'
           }
-          btnText='Reset Filters'
+          btnText='Clear Filters'
           handleClick={clearWorkoutsFilters}
           classes={filteredWorkouts.length ? '' : 'critical'}
         />

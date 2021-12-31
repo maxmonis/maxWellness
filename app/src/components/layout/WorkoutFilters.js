@@ -92,7 +92,7 @@ const WorkoutFilters = () => {
         )}
         {appliedFilterCount > 0 && (
           <button className='btn-2' onClick={clearWorkoutsFilters}>
-            Reset Filters
+            Clear Filters
           </button>
         )}
       </div>

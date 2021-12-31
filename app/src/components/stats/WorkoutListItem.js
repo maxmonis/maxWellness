@@ -49,12 +49,12 @@ const WorkoutListItem = ({
             </button>
           </Modal>
         )}
-        <h3>
+        <h3 onClick={() => toggleMenu(workout.id)} className='pointer'>
           {`${name} - `}
           {formatDate(date)}
         </h3>
         <section className='mb-4'>
-          <ul onClick={() => toggleMenu(workout.id)}>
+          <ul>
             {organizedRoutine.map(exercise => (
               <li key={exercise.id}>
                 <h4>{`${exercise.lift}: ${exercise.printout}`}</h4>

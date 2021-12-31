@@ -59,6 +59,11 @@
   cursor: not-allowed;
 }
 
+.dark .btn-1,
+.dark .btn-2 {
+  border-color: transparent;
+}
+
 /* -------------------------------------------------- */
 
 /* Tooltip */
