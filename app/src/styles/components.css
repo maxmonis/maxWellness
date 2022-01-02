@@ -216,7 +216,7 @@
   position: fixed;
   top: 0;
   width: 300px;
-  z-index: var(--sidenav-index);
+  z-index: var(--navbar-index);
 }
 
 .workout-app {
@@ -234,7 +234,6 @@
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
-    grid-gap: 16px;
     margin: 0 auto;
     padding: 0 12px;
   }

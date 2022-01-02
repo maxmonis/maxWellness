@@ -29,10 +29,10 @@ const Navbar = props => {
     }
     // eslint-disable-next-line
   }, [user])
-  return (
+  return isAuthenticated ? (
     <>
-      {isAuthenticated && (
-        <SideNav
+      {isDrawerOpen && (
+        <MenuDrawer
           dark={dark}
           toggleDark={toggleDark}
           showBackground={showBackground}
@@ -43,36 +43,28 @@ const Navbar = props => {
       )}
       <nav>
         <header>
-          {isDrawerOpen && (
-            <MenuDrawer
-              dark={dark}
-              toggleDark={toggleDark}
-              showBackground={showBackground}
-              toggleBackground={toggleBackground}
-              toggleDrawer={toggleDrawer}
-              logUserOut={logUserOut}
+          <button className='hover-underline m-12' onClick={toggleDrawer}>
+            Menu
+          </button>
+          <Link to='/'>
+            <img
+              className='m-8 border'
+              src='/favicon-32x32.png'
+              alt='maxWellness'
             />
-          )}
-          {isAuthenticated && (
-            <>
-              <button
-                className='hover-underline m-12'
-                onClick={toggleDrawer}>
-                Menu
-              </button>
-              <Link to='/'>
-                <img
-                  className='m-8 border'
-                  src='/favicon-32x32.png'
-                  alt='maxWellness'
-                />
-              </Link>
-            </>
-          )}
+          </Link>
         </header>
       </nav>
+      <SideNav
+        dark={dark}
+        toggleDark={toggleDark}
+        showBackground={showBackground}
+        toggleBackground={toggleBackground}
+        toggleDrawer={toggleDrawer}
+        logUserOut={logUserOut}
+      />
     </>
-  )
+  ) : null
 }
 
 export default Navbar

@@ -61,9 +61,10 @@ input::placeholder {
 
 nav {
   background: var(--background);
+  border-bottom: 1px solid var(--color);
   color: var(--color);
-  position: fixed;
   height: max-content;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: var(--navbar-index);
