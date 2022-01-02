@@ -36,7 +36,7 @@ const LiftRecords = ({ records, lift, setExercise }) => {
                   key={exercise.id}
                   onClick={() => setExercise(exercise)}
                   title={getTitle(exercise)}>
-                  <h3 className='m-8'>{exercise.printout}</h3>
+                  <h4>{exercise.printout}</h4>
                 </button>
               ))}
           </div>

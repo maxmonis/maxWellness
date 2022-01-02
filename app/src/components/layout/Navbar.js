@@ -56,7 +56,7 @@ const Navbar = props => {
           {isAuthenticated && (
             <>
               <button
-                className='hover-underline m-12 hide-gt-1200'
+                className='hover-underline m-12'
                 onClick={toggleDrawer}>
                 Menu
               </button>

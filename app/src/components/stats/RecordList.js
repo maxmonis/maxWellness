@@ -33,13 +33,13 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
         const { id, lift, printout, becameRecord, surpassed } = exercise
         return (
           <section className='mb-20' key={id}>
-            <h3 className='record' onClick={() => selectExercise(exercise)}>
+            <h4 className='record' onClick={() => selectExercise(exercise)}>
               {lift}: {printout}
-            </h3>
-            <h4>
+            </h4>
+            <span>
               {formatDate(becameRecord)}
               {surpassed && ` - ${formatDate(surpassed)}`}
-            </h4>
+            </span>
           </section>
         )
       })}
