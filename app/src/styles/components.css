@@ -89,36 +89,35 @@
 .exercise-history {
   margin-bottom: 48px;
   padding: 0;
+  text-align: center;
 }
 .exercise-history > div {
   align-items: center;
   display: flex;
   justify-content: center;
   min-width: max-content;
-  text-align: left;
 }
 
 .exercise-history-item {
   border: 1px solid var(--color);
-  height: 32px;
-  min-width: 130px;
+  height: 36px;
+  min-width: 160px;
   overflow: scroll;
 }
 .exercise-history-head,
-.exercise-history-item > h3 {
+.exercise-history-item > span {
   display: flex;
   flex-direction: column;
-  margin: auto 0;
-  max-height: 28px;
-  max-width: 130px;
+  margin: auto;
+  max-height: 32px;
+  max-width: 160px;
   overflow-y: scroll;
-  padding: 0 8px;
+  padding: 4px 8px;
 }
 .exercise-history-head {
   margin: unset;
-  min-height: 28px;
+  min-height: 32px;
   padding: unset;
-  text-align: center;
 }
 
 .intro-text {

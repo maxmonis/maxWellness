@@ -18,8 +18,8 @@ const ExerciseHistory = ({ workouts }) => {
   const [sortByDate, toggleSort] = useToggle(true)
   const [displayedRows, setDisplayedRows] = useState(10)
   const getMaxColumns = () => {
-    const canFit = Math.floor(window.innerWidth / 150) - 2
-    return canFit < 4 ? 3 : canFit < 5 ? canFit : 5
+    const canFit = Math.floor(window.innerWidth / 160) - 2
+    return canFit < 3 ? 2 : canFit < 4 ? canFit : 4
   }
   const [maxColumns, setMaxColumns] = useState(
     typeof window !== 'undefined' && getMaxColumns()
@@ -76,7 +76,7 @@ const ExerciseHistory = ({ workouts }) => {
           ].map(({ routine, date, id }) => (
             <div key={id || 'id'}>
               <div className='exercise-history-head'>
-                {date ? <h3>{formatDate(date)}</h3> : null}
+                {date ? <span>{formatDate(date)}</span> : null}
               </div>
               {sortedLifts.map(({ lift }) => (
                 <div className='exercise-history-item' key={lift}>
@@ -84,14 +84,14 @@ const ExerciseHistory = ({ workouts }) => {
                     organizeRoutine(
                       routine.filter(exercise => exercise.lift === lift)
                     ).map(exercise => (
-                      <h3 key={exercise.id}>
+                      <span key={exercise.id}>
                         {exercise.printout.split(' ').map((printout, i) => (
                           <span key={printout + i}>{printout}</span>
                         ))}
-                      </h3>
+                      </span>
                     ))
                   ) : (
-                    <h3>{lift}</h3>
+                    <span>{lift}</span>
                   )}
                 </div>
               ))}
@@ -110,24 +110,24 @@ const ExerciseHistory = ({ workouts }) => {
             ].map(({ lift }) => (
               <div key={lift || 'id'}>
                 <div className='exercise-history-head'>
-                  {lift ? <h3>{lift}</h3> : null}
+                  {lift ? <span>{lift}</span> : null}
                 </div>
                 {workouts
                   .slice(0, displayedRows)
-                  .map(({ routine, date, name, id }) => (
+                  .map(({ routine, date, id }) => (
                     <div className='exercise-history-item' key={id}>
                       {lift ? (
                         organizeRoutine(
                           routine.filter(exercise => exercise.lift === lift)
                         ).map(exercise => (
-                          <h3 key={exercise.id}>
+                          <span key={exercise.id}>
                             {exercise.printout.split(' ').map((printout, i) => (
                               <span key={printout + i}>{printout}</span>
                             ))}
-                          </h3>
+                          </span>
                         ))
                       ) : (
-                        <h3>{formatDate(date)}</h3>
+                        <span>{formatDate(date)}</span>
                       )}
                     </div>
                   ))}
