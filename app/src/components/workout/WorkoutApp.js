@@ -190,7 +190,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             selectExercise={selectExercise}
           />
         </main>
-        <ExerciseHistory workouts={filteredWorkouts} />
+        <ExerciseHistory
+          workouts={filteredWorkouts}
+          appliedFilterCount={appliedFilterCount}
+        />
       </>
     </div>
   ) : (

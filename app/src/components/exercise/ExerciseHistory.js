@@ -3,7 +3,7 @@ import organizeRoutine from '../../functions/organizeRoutine'
 import { formatDate } from '../../functions/helpers'
 import useToggle from '../../hooks/useToggle'
 
-const ExerciseHistory = ({ workouts }) => {
+const ExerciseHistory = ({ workouts, appliedFilterCount }) => {
   const lifts = {}
   for (const { routine } of workouts) {
     for (const { lift } of routine) {
@@ -35,7 +35,7 @@ const ExerciseHistory = ({ workouts }) => {
   const [horizontalIndex, setHorizontalIndex] = useState(0)
   useEffect(() => {
     setHorizontalIndex(0)
-  }, [sortByDate])
+  }, [sortByDate, appliedFilterCount])
   const [canIncrement, setCanIncrement] = useState(false)
   useEffect(() => {
     setCanIncrement(
