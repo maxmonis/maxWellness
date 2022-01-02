@@ -31,11 +31,11 @@
 .checkbox {
   cursor: pointer;
   display: block;
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 18px;
   margin-bottom: 16px;
   max-width: fit-content;
-  padding-left: 36px;
+  padding-left: 28px;
   position: relative;
   text-align: left;
   -webkit-user-select: none;
@@ -51,11 +51,11 @@
 }
 .checkmark {
   background: var(--white);
-  height: 20px;
+  height: 18px;
   left: 0;
   position: absolute;
   top: 0;
-  width: 20px;
+  width: 18px;
 }
 .checkbox:hover input ~ .checkmark {
   background: var(--blue1);
@@ -81,8 +81,8 @@
   border: solid var(--white);
   border-width: 0 3px 3px 0;
   height: 9px;
-  left: 4px;
-  top: 0px;
+  left: 3px;
+  top: -1px;
   transform: rotate(45deg);
   width: 5px;
   -webkit-transform: rotate(45deg);
@@ -268,9 +268,9 @@ input:not(:focus):valid + .floating-label,
 }
 .switch {
   display: inline-block;
-  height: 34px;
+  height: 24px;
   position: relative;
-  width: 60px;
+  width: 42px;
 }
 .switch input {
   height: 0;
@@ -280,7 +280,7 @@ input:not(:focus):valid + .floating-label,
 .slider {
   background: var(--grey1);
   bottom: 0;
-  border-radius: 34px;
+  border-radius: 24px;
   cursor: pointer;
   left: 0;
   position: absolute;
@@ -292,14 +292,14 @@ input:not(:focus):valid + .floating-label,
 .slider:before {
   background: var(--white);
   border-radius: 50%;
-  bottom: 4px;
+  bottom: 3px;
   content: '';
-  height: 26px;
-  left: 4px;
+  height: 18px;
+  left: 3px;
   position: absolute;
   transition: 0.4s;
   -webkit-transition: 0.4s;
-  width: 26px;
+  width: 18px;
 }
 input:checked + .slider {
   background: var(--blue3);
@@ -311,7 +311,7 @@ input:focus + .slider {
   box-shadow: 0 0 1px var(--blue2);
 }
 input:checked + .slider:before {
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+  -webkit-transform: translateX(18px);
 }
