@@ -34,7 +34,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   const [records, setRecords] = useState([])
   const [filteredRecords, setFilteredRecords] = useState([])
   useEffect(() => {
-    setRecords(workouts ? getRecords(workouts) : [])
+    setRecords(workouts ? [...getRecords(workouts)].reverse() : [])
     setFilteredRecords(filteredWorkouts ? getRecords(filteredWorkouts) : [])
     // eslint-disable-next-line
   }, [workouts, filteredWorkouts])
