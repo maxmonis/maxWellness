@@ -143,14 +143,17 @@
 }
 .lift-records div {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 4px;
   padding: 0 12px;
   width: 200px;
 }
 .lift-records button {
-  margin: 4px 0 8px;
+  margin: 4px 8px 8px;
   max-width: max-content;
+}
+.lift-records h4 {
+  white-space: normal;
 }
 
 .lift-app span {
