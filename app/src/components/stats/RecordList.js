@@ -65,10 +65,10 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
                 <h3>
                   {lift}: {printout}
                 </h3>
-                <h4 className='mb-12'>
+                <span className='mb-12'>
                   {becameRecord}
                   {surpassed ? ` - ${surpassed}` : null}
-                </h4>
+                </span>
               </div>
             )
           )}

@@ -65,10 +65,8 @@ const WorkoutList = ({
                 <div key={i}>
                   <h3>Chest and Back - {date}</h3>
                   <ul>
-                    <li>
-                      <h4>Bench Press: {bench}</h4>
-                      <h4>Deadlift: {deadlift}</h4>
-                    </li>
+                    <li>Bench Press: {bench}</li>
+                    <li>Deadlift: {deadlift}</li>
                   </ul>
                 </div>
               ))}
