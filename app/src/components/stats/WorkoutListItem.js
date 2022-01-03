@@ -30,11 +30,15 @@ const WorkoutListItem = ({
   ${exercise.lift}: ${exercise.printout}`
   )}
   `
-  const handleClick = () => {
+  const handleCopyClick = () => {
     updateRoutine(routine)
     if (navigator.clipboard) navigator.clipboard.writeText(CLIPBOARD_TEXT)
     toggleMenu(id)
     setAlert('Workout Copied', 'success')
+  }
+  const handleEditClick = () => {
+    toggleMenu(id)
+    editWorkout(workout)
   }
   return (
     routine.length > 0 && (
@@ -63,12 +67,10 @@ const WorkoutListItem = ({
           </ul>
           {menuID === workout.id && (
             <>
-              <button className='btn-3' onClick={handleClick}>
+              <button className='btn-3' onClick={handleCopyClick}>
                 Copy
               </button>
-              <button
-                className='mt-16 mr-20 ml-20'
-                onClick={() => editWorkout(workout)}>
+              <button className='mt-16 mr-20 ml-20' onClick={handleEditClick}>
                 Edit
               </button>
               <button className='red' onClick={toggleDeleteModal}>
