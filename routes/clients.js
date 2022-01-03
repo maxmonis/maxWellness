@@ -44,13 +44,23 @@ router.post(
 )
 
 router.put('/:id', auth, async (req, res) => {
-  const { name, email, phone, isActive, lifts, workouts, records } = req.body
+  const {
+    name,
+    email,
+    phone,
+    isActive,
+    lifts,
+    workoutNames,
+    workouts,
+    records,
+  } = req.body
   const clientFields = {}
   clientFields.isActive = isActive
   if (name) clientFields.name = name
   if (email) clientFields.email = email
   if (phone) clientFields.phone = phone
   if (lifts) clientFields.lifts = lifts
+  if (workoutNames) clientFields.workoutNames = workoutNames
   if (workouts) clientFields.workouts = workouts
   if (records) clientFields.records = records
   try {

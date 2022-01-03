@@ -3,12 +3,12 @@ import useInputState from '../../hooks/useInputState'
 import useToggle from '../../hooks/useToggle'
 import { strInput } from '../../functions/helpers'
 
-const Lift = ({ lift, updateLifts }) => {
+const CurrentOption = ({ option, updateOptions }) => {
   const [isEditing, toggle] = useToggle(false)
-  const [value, handleChange] = useInputState(lift)
+  const [value, handleChange] = useInputState(option)
   const handleSubmit = e => {
     e.preventDefault()
-    updateLifts(value.trim(), lift)
+    updateOptions(value.trim(), option)
     toggle()
   }
   return (
@@ -23,12 +23,12 @@ const Lift = ({ lift, updateLifts }) => {
           />
         </form>
       ) : (
-        <span aria-label={`Edit ${lift}`} onClick={toggle}>
-          {lift}
+        <span aria-label={`Edit ${option}`} onClick={toggle}>
+          {option}
         </span>
       )}
     </li>
   )
 }
 
-export default Lift
+export default CurrentOption

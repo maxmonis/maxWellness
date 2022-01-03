@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import EditWorkout from './EditWorkout'
 import StatsApp from '../stats/StatsApp'
-import LiftApp from '../lift/LiftApp'
+import UpdateOptions from '../option/UpdateOptions'
 import ExerciseHistory from '../exercise/ExerciseHistory'
 import AlertContext from '../../context/alert/alertContext'
 import WorkoutContext from '../../context/workout/workoutContext'
@@ -24,9 +24,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     updateRoutine,
     updateEditingRoutine,
     updateLifts,
+    updateWorkoutNames,
     updateWorkouts,
   } = useClientState(selectedClient)
-  const { lifts, workouts, name } = client
+  const { lifts, workouts, name, workoutNames } = client
   useEffect(() => {
     setAllWorkouts(workouts ? workouts : null)
     // eslint-disable-next-line
@@ -56,25 +57,23 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   const [exercise, setExercise] = useState(DEFAULT_EXERCISE)
   const [editingExercise, setEditingExercise] = useState(DEFAULT_EXERCISE)
   const DEFAULT_WORKOUT = {
-    name: '',
+    name: workoutNames[0],
     date: new Date().toISOString().slice(0, 10),
   }
   const [workout, setWorkout] = useState(DEFAULT_WORKOUT)
   const [editingWorkout, setEditingWorkout] = useState(null)
-  const [isFormOpen, toggleLiftForm] = useToggle(false)
+  const [isEditingLifts, toggleLiftForm] = useToggle(false)
   const handleChange = e => {
     const { name, value } = e.target
-    if (['name', 'date'].includes(name)) {
+    if (['name', 'date'].includes(name))
       editingWorkout
         ? setEditingWorkout({ ...editingWorkout, [name]: value })
         : setWorkout({ ...workout, [name]: value })
-    } else if (value === '#') {
-      toggleLiftForm()
-    } else {
+    else if (value === '#liftName') toggleLiftForm()
+    else
       editingWorkout
         ? setEditingExercise({ ...editingExercise, [name]: value })
         : setExercise({ ...exercise, [name]: value })
-    }
   }
   const selectExercise = exercise => {
     if (editingWorkout) {
@@ -89,9 +88,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     if (workout) {
       setEditingWorkout(workout)
       updateEditingRoutine(workout.routine)
-    } else {
-      setEditingWorkout(null)
-    }
+    } else setEditingWorkout(null)
   }
   const saveWorkout = () => {
     if (editingWorkout) {
@@ -129,11 +126,23 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             routine={editingRoutine}
             workouts={workouts}
             records={records}
+            workoutNames={workoutNames}
             handleChange={handleChange}
             saveWorkout={saveWorkout}
             updateRoutine={updateEditingRoutine}
             selectExercise={selectExercise}
             setExercise={setEditingExercise}
+            updateWorkoutNames={updateWorkoutNames}
+          />
+        </Modal>
+      )}
+      {isEditingLifts && (
+        <Modal handleClose={toggleLiftForm}>
+          <UpdateOptions
+            options={lifts}
+            updateOptions={updateLifts}
+            toggleOptionForm={toggleLiftForm}
+            optionName='Exercise Name'
           />
         </Modal>
       )}
@@ -155,31 +164,23 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       <>
         <main>
           <section>
-            {isFormOpen ? (
-              <LiftApp
-                lifts={lifts}
-                updateLifts={updateLifts}
-                toggleLiftForm={toggleLiftForm}
-              />
-            ) : (
-              <>
-                <h3>New Workout</h3>
-                <EditWorkout
-                  exercise={exercise}
-                  workout={workout}
-                  lifts={lifts}
-                  routine={routine}
-                  workouts={workouts}
-                  records={records}
-                  handleChange={handleChange}
-                  saveWorkout={saveWorkout}
-                  updateRoutine={updateRoutine}
-                  selectExercise={selectExercise}
-                  setExercise={setExercise}
-                  isNewWorkout
-                />
-              </>
-            )}
+            <h3>New Workout</h3>
+            <EditWorkout
+              exercise={exercise}
+              workout={workout}
+              lifts={lifts}
+              routine={routine}
+              workouts={workouts}
+              records={records}
+              workoutNames={workoutNames}
+              handleChange={handleChange}
+              saveWorkout={saveWorkout}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
+              setExercise={setExercise}
+              updateWorkoutNames={updateWorkoutNames}
+              isNewWorkout
+            />
           </section>
           <StatsApp
             workouts={filteredWorkouts}

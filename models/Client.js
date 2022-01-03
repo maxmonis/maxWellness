@@ -26,6 +26,10 @@ const ClientSchema = mongoose.Schema({
     type: [],
     default: ['Bench Press', 'Deadlift', 'Squat'],
   },
+  workoutNames: {
+    type: [],
+    default: ['Full Body', 'Upper Body', 'Lower Body'],
+  },
   workouts: {
     type: [],
     default: [],

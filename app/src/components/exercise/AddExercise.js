@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import LiftRecords from '../lift/LiftRecords'
+import LiftRecords from '../stats/LiftRecords'
 import { Input } from '../layout/UI'
 import { numInput } from '../../functions/helpers'
 
@@ -46,7 +46,7 @@ const AddExercise = ({
           </option>
         ))}
         {isNewWorkout && (
-          <option key='#' value='#'>
+          <option key='#liftName' value='#liftName'>
             {'<<< Edit Exercises >>>'}
           </option>
         )}

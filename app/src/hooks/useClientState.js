@@ -3,6 +3,7 @@ import eliminateRedundancy from '../functions/eliminateRedundancy'
 import updateLifts from '../functions/updateLifts'
 import updateRoutine from '../functions/updateRoutine'
 import updateWorkouts from '../functions/updateWorkouts'
+import updateWorkoutNames from '../functions/updateWorkoutNames'
 
 const useClientState = initialClient => {
   const [client, setClient] = useState(initialClient)
@@ -26,15 +27,22 @@ const useClientState = initialClient => {
       ),
     updateLifts: (newName, oldName) => {
       const updated = updateLifts(newName, oldName, client, routine)
-      if (updated) {
-        if (updated.length) {
-          setClient({ ...client, lifts: updated })
-        } else {
+      if (updated)
+        if (updated.length) setClient({ ...client, lifts: updated })
+        else {
           saveRoutine(updated.routine)
           const { lifts, workouts, records } = updated
           setClient({ ...client, lifts, workouts, records })
         }
-      }
+    },
+    updateWorkoutNames: (newName, oldName) => {
+      const updated = updateWorkoutNames(newName, oldName, client)
+      if (updated)
+        if (updated.length) setClient({ ...client, workoutNames: updated })
+        else {
+          const { workoutNames, workouts } = updated
+          setClient({ ...client, workoutNames, workouts })
+        }
     },
     updateWorkouts: value => {
       const { workouts, records } = updateWorkouts(value, client.workouts)

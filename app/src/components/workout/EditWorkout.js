@@ -14,6 +14,8 @@ const EditWorkout = ({
   updateRoutine,
   selectExercise,
   setExercise,
+  workoutNames,
+  updateWorkoutNames,
   isNewWorkout,
 }) => {
   return (
@@ -38,6 +40,9 @@ const EditWorkout = ({
         handleChange={handleChange}
         saveWorkout={saveWorkout}
         updateRoutine={updateRoutine}
+        workoutNames={workoutNames}
+        updateWorkoutNames={updateWorkoutNames}
+        isNewWorkout={isNewWorkout}
       />
     </>
   )
