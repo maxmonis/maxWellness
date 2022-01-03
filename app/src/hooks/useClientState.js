@@ -31,8 +31,8 @@ const useClientState = initialClient => {
         if (updated.length) setClient({ ...client, lifts: updated })
         else {
           saveRoutine(updated.routine)
-          const { lifts, workouts, records } = updated
-          setClient({ ...client, lifts, workouts, records })
+          const { lifts, workouts } = updated
+          setClient({ ...client, lifts, workouts })
         }
     },
     updateWorkoutNames: (newName, oldName) => {
@@ -45,8 +45,8 @@ const useClientState = initialClient => {
         }
     },
     updateWorkouts: value => {
-      const { workouts, records } = updateWorkouts(value, client.workouts)
-      setClient({ ...client, workouts, records })
+      const workouts = updateWorkouts(value, client.workouts)
+      setClient({ ...client, workouts })
     },
   }
 }

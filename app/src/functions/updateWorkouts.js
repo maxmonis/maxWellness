@@ -27,8 +27,8 @@ const updateWorkouts = (value, workouts) =>
 function saveWorkouts(pendingWorkouts, workouts = [], records = []) {
   // If no more pending workouts remain...
   if (!pendingWorkouts.length) {
-    // ...return an Object with the updated workouts and records.
-    return { workouts, records }
+    // ...return the updated workouts.
+    return workouts
   }
   // Otherwise remove the first pending workout...
   const workout = pendingWorkouts.shift()

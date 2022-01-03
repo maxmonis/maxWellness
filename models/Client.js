@@ -34,10 +34,6 @@ const ClientSchema = mongoose.Schema({
     type: [],
     default: [],
   },
-  records: {
-    type: [],
-    default: [],
-  },
 })
 
 module.exports = mongoose.model('client', ClientSchema)

@@ -1,7 +1,7 @@
 import { alphabetize } from './helpers'
 
 const updateLifts = (newName, oldName, client, routine) => {
-  const { lifts, workouts, records } = client
+  const { lifts, workouts } = client
   // If a name has been replaced with an empty string and there are at least two lifts left...
   return oldName && !newName && lifts.length > 1
     ? // ...we delete the name.
@@ -23,7 +23,6 @@ const updateLifts = (newName, oldName, client, routine) => {
         ...workout,
         routine: mapName(workout.routine),
       })),
-      records: mapName(records),
       routine: mapName(routine),
     }
   }
