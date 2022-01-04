@@ -16,6 +16,8 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     filteredWorkouts,
     appliedFilterCount,
     clearWorkoutsFilters,
+    records,
+    filteredRecords,
   } = useContext(WorkoutContext)
   const {
     client,
@@ -29,25 +31,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   } = useClientState(selectedClient)
   const { lifts, workouts, name, workoutNames } = client
   useEffect(() => {
-    setAllWorkouts(workouts ? workouts : null)
+    setAllWorkouts(workouts || null)
     // eslint-disable-next-line
   }, [workouts])
-  const [records, setRecords] = useState([])
-  const [filteredRecords, setFilteredRecords] = useState([])
-  useEffect(() => {
-    setRecords(workouts ? [...getRecords(workouts)].reverse() : [])
-    setFilteredRecords(filteredWorkouts ? getRecords(filteredWorkouts) : [])
-    // eslint-disable-next-line
-  }, [workouts, filteredWorkouts])
-  const getRecords = workouts => {
-    const records = []
-    for (const { routine } of workouts) {
-      for (const exercise of routine) {
-        if (exercise.becameRecord) records.push(exercise)
-      }
-    }
-    return records
-  }
   const DEFAULT_EXERCISE = {
     lift: lifts[0],
     sets: '',

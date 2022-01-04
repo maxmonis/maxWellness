@@ -57,25 +57,31 @@ export default (state, action) => {
         error: payload,
       }
     case 'SET_ALL_WORKOUTS':
+      const records = getRecords(payload)
       return {
         ...state,
         workoutsFilters: generateWorkoutsFilters(payload),
         allWorkouts: payload,
         filteredWorkouts: [...payload].reverse(),
+        records,
+        filteredRecords: records,
         appliedFilterCount: 0,
       }
     case 'UPDATE_WORKOUTS_FILTER':
       const updatedFilters = updateWorkoutsFilter(payload)
+      const filteredWorkouts = filterWorkouts(updatedFilters)
       return {
         ...state,
         workoutsFilters: updatedFilters,
-        filteredWorkouts: filterWorkouts(updatedFilters),
+        filteredWorkouts,
+        filteredRecords: [...getRecords(filteredWorkouts)].reverse(),
         appliedFilterCount: getFilterCount(updatedFilters),
       }
     case 'CLEAR_WORKOUTS_FILTERS':
       return {
         ...state,
         filteredWorkouts: [...state.allWorkouts].reverse(),
+        filteredRecords: state.records,
         workoutsFilters: generateWorkoutsFilters(state.allWorkouts),
         appliedFilterCount: 0,
       }
@@ -195,6 +201,16 @@ export default (state, action) => {
       .filter(workout => workout?.routine?.length)
     // ...and factor the user's chronology preference into our return value.
     return newestFirst ? filteredWorkouts.reverse() : filteredWorkouts
+  }
+
+  function getRecords(workouts) {
+    const records = []
+    for (const { routine } of workouts) {
+      for (const exercise of routine) {
+        if (exercise.becameRecord) records.unshift(exercise)
+      }
+    }
+    return records
   }
 
   function getFilterCount(filters) {
