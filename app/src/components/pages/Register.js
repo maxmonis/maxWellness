@@ -77,11 +77,11 @@ const Register = ({ history }) => {
         <button className='btn-1 mb-16' type='submit'>
           Create Account
         </button>
+        <h5>Already a member?</h5>
+        <Link to='login'>
+          <button className='btn-2 mt-4'>Sign in</button>
+        </Link>
       </form>
-      <h5>Already a member?</h5>
-      <Link to='login'>
-        <button className='btn-2 mt-4'>Sign in</button>
-      </Link>
     </div>
   )
 }

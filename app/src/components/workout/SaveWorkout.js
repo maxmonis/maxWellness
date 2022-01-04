@@ -94,7 +94,7 @@ const SaveWorkout = ({
                   </li>
                 ))}
               </ul>
-              <button className='btn-1 mr-8' type='submit'>
+              <button className='btn-1 mr-12' type='submit'>
                 Confirm
               </button>
               <button onClick={toggleForm}>Cancel</button>

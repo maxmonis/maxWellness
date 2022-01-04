@@ -56,11 +56,11 @@ const Login = ({ history }) => {
         <button className='btn-1 mb-16' type='submit'>
           Access Account
         </button>
+        <h5>Need an account?</h5>
+        <Link to='register'>
+          <button className='btn-2 mt-4'>Get started</button>
+        </Link>
       </form>
-      <h5>Need an account?</h5>
-      <Link to='register'>
-        <button className='btn-2 mt-4'>Get started</button>
-      </Link>
       <Quote />
     </div>
   )
