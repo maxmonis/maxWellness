@@ -27,6 +27,7 @@ export function strInput(string) {
 }
 
 export function formatDate(date) {
+  if (typeof date !== 'string') return ''
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const months = [
     'Jan',
