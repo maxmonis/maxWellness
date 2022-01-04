@@ -54,7 +54,7 @@ const SaveWorkout = ({
                 options={workoutNames}
                 updateOptions={updateWorkoutNames}
                 toggleOptionForm={toggleNameEdit}
-                optionName={'Workout Name'}
+                optionName={'Workout'}
               />
             </>
           ) : (
@@ -73,7 +73,7 @@ const SaveWorkout = ({
                 ))}
                 {isNewWorkout && (
                   <option key='#workoutName' value='#workoutName'>
-                    {'<<< Edit Workout Names >>>'}
+                    {'<<< Add/Edit >>>'}
                   </option>
                 )}
               </select>
@@ -104,7 +104,7 @@ const SaveWorkout = ({
       )}
       {routine.length > 0 && (
         <>
-          <button className='btn-1 mr-8' onClick={toggleForm} type='button'>
+          <button className='btn-1 mr-12' onClick={toggleForm} type='button'>
             Save Workout
           </button>
           <button onClick={() => updateRoutine()}>Clear</button>

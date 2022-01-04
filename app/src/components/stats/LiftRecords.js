@@ -22,9 +22,7 @@ const LiftRecords = ({ records, lift, setExercise }) => {
       ) : (
         <>
           <button
-            className={
-              horizontalIndex > 2 ? 'mr-12' : 'mr-12 opacity-0 cursor-default'
-            }
+            className={horizontalIndex > 2 ? '' : 'opacity-0 cursor-default'}
             onClick={decrement}>
             <h3>{'<-'}</h3>
           </button>
@@ -43,8 +41,8 @@ const LiftRecords = ({ records, lift, setExercise }) => {
           <button
             className={
               horizontalIndex < liftRecords.length
-                ? 'ml-12'
-                : 'ml-12 opacity-0 cursor-default'
+                ? ''
+                : 'opacity-0 cursor-default'
             }
             onClick={increment}>
             <h3>{'->'}</h3>

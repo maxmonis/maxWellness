@@ -12,9 +12,9 @@ const Exercise = ({ exercise, index, selectExercise }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           onClick={handleClick}>
-          <h3>
+          <h4>
             {lift}: {printout}
-          </h3>
+          </h4>
         </li>
       )}
     </Draggable>

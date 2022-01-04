@@ -47,7 +47,7 @@ const AddExercise = ({
         ))}
         {isNewWorkout && (
           <option key='#liftName' value='#liftName'>
-            {'<<< Edit Exercises >>>'}
+            {'<<< Add/Edit >>>'}
           </option>
         )}
       </select>
@@ -80,7 +80,7 @@ const AddExercise = ({
             handleChange={handleChange}
           />
         </div>
-        <button className='btn-2 mr-8' type='submit'>
+        <button className='btn-2 mr-12' type='submit'>
           Enter Exercise
         </button>
         {(sets || reps || weight) && <button onClick={reset}>Reset</button>}

@@ -5,9 +5,10 @@
 /* Button */
 
 .btn-1, .btn-2 {
+  border: 2px solid transparent;
   border-radius: 10px;
   margin: unset;
-  padding: 8px 12px;
+  padding: 4px 12px;
 }
 
 .btn-1:not(:disabled) {
@@ -26,18 +27,16 @@
 
 .btn-2:not(:disabled) {
   background: var(--white);
-  border: 2px solid var(--blue2);
+  border-color: var(--blue2);
   color: var(--blue2);
 }
 .btn-2:focus:not(:disabled) {
   background: var(--white);
-  border: 2px solid var(--blue3);
 }
 .btn-2:hover:not(:disabled) {
   background: var(--blue1);
 }
 .btn-2:active:not(:disabled) {
-  border: 2px solid var(--blue3);
   color: var(--blue3);
 }
 .btn-2:focus {

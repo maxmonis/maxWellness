@@ -142,7 +142,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             options={lifts}
             updateOptions={updateLifts}
             toggleOptionForm={toggleLiftForm}
-            optionName='Exercise Name'
+            optionName='Exercise'
           />
         </Modal>
       )}
