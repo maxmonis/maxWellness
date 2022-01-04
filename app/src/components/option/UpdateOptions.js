@@ -1,6 +1,6 @@
 import React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import CurrentOption from './CurrentOption'
+import OptionListItem from './OptionListItem'
 import AddOption from './AddOption'
 
 const UpdateOptions = ({
@@ -10,14 +10,14 @@ const UpdateOptions = ({
   optionName,
 }) => {
   return (
-    <div className='lift-app'>
+    <div className='update-options'>
       <h2>{optionName}s</h2>
       <AddOption updateOptions={updateOptions} optionName={optionName} />
       <ul>
         <TransitionGroup>
           {options.map(option => (
             <CSSTransition key={option} timeout={500} classNames='fade'>
-              <CurrentOption option={option} updateOptions={updateOptions} />
+              <OptionListItem option={option} updateOptions={updateOptions} />
             </CSSTransition>
           ))}
         </TransitionGroup>

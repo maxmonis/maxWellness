@@ -157,12 +157,12 @@
   white-space: normal;
 }
 
-.lift-app span {
+.update-options span {
   line-height: 32px;
   margin: 0 auto;
   max-width: max-content;
 }
-.lift-app .input-container {
+.update-options .input-container {
   margin: 12px auto;
 }
 
