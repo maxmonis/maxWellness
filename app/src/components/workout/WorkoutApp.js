@@ -171,6 +171,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           <StatsApp
             workouts={filteredWorkouts}
             records={filteredRecords}
+            appliedFilterCount={appliedFilterCount}
             updateWorkouts={updateWorkouts}
             editWorkout={editWorkout}
             updateRoutine={updateRoutine}

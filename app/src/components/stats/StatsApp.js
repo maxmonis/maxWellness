@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import RecordList from './RecordList'
 import WorkoutList from '../stats/WorkoutList'
-import workoutContext from '../../context/workout/workoutContext'
 
 const StatsApp = ({
   workouts,
   records,
+  appliedFilterCount,
   updateWorkouts,
   editWorkout,
   updateRoutine,
   selectExercise,
 }) => {
-  const { appliedFilterCount } = useContext(workoutContext)
   const [display, setDisplay] = useState('workouts')
   const [workoutsIndex, setWorkoutsIndex] = useState(0)
   const [recordsIndex, setRecordsIndex] = useState(0)
