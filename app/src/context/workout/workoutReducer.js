@@ -215,11 +215,11 @@ export default (state, action) => {
 
   function getFilterCount(filters) {
     let count = 0
-    if (!filters?.workoutDates) return count
+    if (!filters?.workoutDates?.allDates?.length) return count
     const { liftNames, workoutNames, workoutDates } = filters
     const { allDates, startDate, endDate } = workoutDates
-    if (startDate !== allDates[0] || endDate !== allDates[allDates.length - 1])
-      count++
+    if (startDate !== allDates[0]) count++
+    if (endDate !== allDates[allDates.length - 1]) count++
     for (const { checked } of [...liftNames, ...workoutNames]) {
       if (checked) count++
     }
