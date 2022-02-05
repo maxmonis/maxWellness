@@ -1,11 +1,5 @@
-.show-gt-568 {
-  display: none;
-}
-
-.show-gt-992 {
-  display: none;
-}
-
+.show-gt-568, 
+.show-gt-992, 
 .show-gt-1200 {
   display: none;
 }
@@ -20,7 +14,6 @@
   .hide-gt-992 {
     display: none;
   }
-
   .show-gt-992 {
     display: block;
   }
@@ -30,7 +23,6 @@
   .hide-gt-1200 {
     display: none;
   }
-
   .show-gt-1200 {
     display: block;
   }
