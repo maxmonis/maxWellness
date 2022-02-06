@@ -41,14 +41,15 @@ const Navbar = props => {
           logUserOut={logUserOut}
         />
       )}
-      <nav>
+      <nav className='main-nav'>
         <header>
           <button className='hover-underline m-12' onClick={toggleDrawer}>
             Menu
           </button>
+          <h1 className='show-gt-568'>maxWellness</h1>
           <Link to='/'>
             <img
-              className='m-8 border'
+              className='border'
               src='/favicon-32x32.png'
               alt='maxWellness'
             />

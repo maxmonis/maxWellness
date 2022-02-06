@@ -19,7 +19,7 @@
 
 .app {
   --background: var(--white);
-  --color: var(--grey3);
+  --color: var(--blue4);
   background: var(--background);
   color: var(--color);
   font-weight: 500;
@@ -28,13 +28,12 @@
   padding: 72px 0 96px;
   position: relative;
   text-align: center;
-  text-shadow: none;
   transition: 0.8s;
   -webkit-transition: 0.8s;
   width: 100%;
 }
 .app.dark {
-  --background: var(--grey3);
+  --background: var(--blue4);
   --color: var(--white);
 }
 .app.show-bg {
@@ -55,8 +54,6 @@
       rgba(0, 0, 0, 0.7)
     ),
     url('/background.jpg');
-  text-shadow: -1px -1px 0 var(--grey3), 1px -1px 0 var(--grey3),
-    -1px 1px 0 var(--grey3), 1px 1px 0 var(--grey3);
 }
 
 .background-blur-overlay {
@@ -157,6 +154,18 @@
   white-space: normal;
 }
 
+.main-nav img {
+  margin: 10px 12px 6px 0;
+}
+.main-nav h1 {
+  position: absolute; 
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: fit-content;
+}
+
 .update-options span {
   line-height: 32px;
   margin: 0 auto;
@@ -241,6 +250,9 @@
 @media (min-width: 1200px) {
   .workout-app {
     margin-left: 280px;
+  }
+  .main-nav h1 {
+    left: 280px;
   }
   .workout-app > main {
     padding: 0;

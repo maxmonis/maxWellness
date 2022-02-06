@@ -132,8 +132,8 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1 className={name[0] === '#' ? null : 'p-12'}>
-        {name[0] === '#' ? null : title}
+      <h1 className='p-12'>
+        {title}
       </h1>
       {appliedFilterCount > 0 && (
         <ActionableAlert
