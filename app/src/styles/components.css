@@ -84,7 +84,7 @@
 }
 
 .exercise-history {
-  margin: 12px 0 48px;
+  margin: 48px 0;
   padding: 0;
   text-align: center;
 }
@@ -125,6 +125,9 @@
 }
 .intro-text > div {
   margin-top: 20px;
+}
+.intro-text p {
+  text-align: left;
 }
 
 .lift-records {
@@ -237,13 +240,13 @@
 .workout-app > main {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 36px 16px;
   margin: 16px auto 0;
   padding: 0 16px;
 }
 
 .workout-app > main > section {
-  margin: 0 auto 36px;
+  margin: 0 auto;
   width: 280px;
 }
 
@@ -253,8 +256,5 @@
   }
   .main-nav h1 {
     left: 280px;
-  }
-  .workout-app > main {
-    padding: 0;
   }
 }

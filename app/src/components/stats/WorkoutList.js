@@ -63,7 +63,7 @@ const WorkoutList = ({
             <>
               {EXAMPLE_WORKOUTS.map(({ date, bench, deadlift }, i) => (
                 <div key={i}>
-                  <h3>Chest and Back - {date}</h3>
+                  <h4>Chest and Back - {date}</h4>
                   <ul>
                     <li>Bench Press: {bench}</li>
                     <li>Deadlift: {deadlift}</li>
@@ -73,7 +73,7 @@ const WorkoutList = ({
             </>
           ) : (
             <button
-              className='btn-3 mt-12'
+              className='btn-3 mt-24'
               onClick={() => setShowExamples(true)}>
               See Examples
             </button>

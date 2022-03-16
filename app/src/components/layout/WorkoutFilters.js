@@ -12,7 +12,7 @@ const WorkoutFilters = () => {
     appliedFilterCount,
   } = useContext(WorkoutContext)
   const EMPTY_STATE = (
-    <div className='mb-24'>
+    <div className='mb-24 text-left'>
       Workout filters will be displayed here. You'll be able to filter by
       workout name, workout date, or exercise name.
     </div>

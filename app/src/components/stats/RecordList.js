@@ -54,7 +54,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
         {showExamples ? 'For example:' : ''}
       </p>
       {!showExamples ? (
-        <button className='btn-3 mt-12' onClick={() => setShowExamples(true)}>
+        <button className='btn-3 mt-24' onClick={() => setShowExamples(true)}>
           See Examples
         </button>
       ) : (
@@ -62,9 +62,9 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
           {EXAMPLE_RECORDS.map(
             ({ lift, printout, becameRecord, surpassed }, i) => (
               <div key={i}>
-                <h3>
+                <h4>
                   {lift}: {printout}
-                </h3>
+                </h4>
                 <span className='mb-12'>
                   {becameRecord}
                   {surpassed ? ` - ${surpassed}` : null}
