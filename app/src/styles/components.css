@@ -82,6 +82,17 @@
 .exercise-app h4 {
   max-width: 30ch;
 }
+.exercise-app ul {
+  width: 100%;
+}
+.exercise-app li {
+  align-items: center;
+  display: flex;
+  gap: 8px 0;
+  justify-content: space-between;
+  padding: 4px 0;
+  text-align: left;
+}
 
 .exercise-history {
   margin: 48px 0;
@@ -161,12 +172,16 @@
   margin: 10px 12px 6px 0;
 }
 .main-nav h1 {
-  position: absolute; 
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   width: fit-content;
+}
+.main-nav svg {
+  height: 24px;
+  width: 24px;
 }
 
 .update-options span {

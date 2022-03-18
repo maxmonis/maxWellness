@@ -4,6 +4,8 @@ import AuthContext from '../../context/auth/authContext'
 import ClientContext from '../../context/client/clientContext'
 import MenuDrawer from './MenuDrawer'
 import SideNav from './SideNav'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = props => {
   const {
@@ -43,8 +45,8 @@ const Navbar = props => {
       )}
       <nav className='main-nav'>
         <header>
-          <button className='hover-underline m-12' onClick={toggleDrawer}>
-            Menu
+          <button className='m-12' onClick={toggleDrawer}>
+            <FontAwesomeIcon icon={faBars} />
           </button>
           <h1 className='show-gt-568'>maxWellness</h1>
           <Link to='/'>
