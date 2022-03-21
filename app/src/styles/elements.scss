@@ -4,43 +4,49 @@
 
 /* Button */
 
-.btn-1, .btn-2 {
+@mixin btn {
   border: 2px solid transparent;
   border-radius: 10px;
   margin: unset;
   padding: 4px 12px;
 }
 
-.btn-1:not(:disabled) {
-  background: var(--blue2);
-  color: var(--white);
-}
-.btn-1:hover:not(:disabled) {
-  background: var(--blue3);
-}
-.btn-1:active:not(:disabled) {
-  color: var(--blue1);
-}
-.btn-1:focus {
-  box-shadow: var(--glow);
+.btn-1 {
+  @include btn;
+  &:not(:disabled) {
+    background: var(--blue2);
+    color: var(--white);
+  }
+  &:hover:not(:disabled) {
+    background: var(--blue3);
+  }
+  &:active:not(:disabled) {
+    color: var(--blue1);
+  }
+  &:focus {
+    box-shadow: var(--glow);
+  }
 }
 
-.btn-2:not(:disabled) {
-  background: var(--white);
-  border-color: var(--blue2);
-  color: var(--blue2);
-}
-.btn-2:focus:not(:disabled) {
-  background: var(--white);
-}
-.btn-2:hover:not(:disabled) {
-  background: var(--blue1);
-}
-.btn-2:active:not(:disabled) {
-  color: var(--blue3);
-}
-.btn-2:focus {
-  box-shadow: var(--glow);
+.btn-2 {
+  @include btn;
+  &:not(:disabled) {
+    background: var(--white);
+    border-color: var(--blue2);
+    color: var(--blue2);
+  }
+  &:focus:not(:disabled) {
+    background: var(--white);
+  }
+  &:hover:not(:disabled) {
+    background: var(--blue1);
+  }
+  &:active:not(:disabled) {
+    color: var(--blue3);
+  }
+  &:focus {
+    box-shadow: var(--glow);
+  }
 }
 
 .btn-3 {
