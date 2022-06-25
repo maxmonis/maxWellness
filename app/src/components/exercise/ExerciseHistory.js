@@ -19,7 +19,7 @@ const ExerciseHistory = ({ workouts, appliedFilterCount }) => {
   const [displayedRows, setDisplayedRows] = useState(10)
   const getMaxColumns = () => {
     const canFit = Math.floor(window.innerWidth / 160) - 2
-    return canFit < 3 ? 2 : canFit < 4 ? canFit : 4
+    return canFit < 2 ? 1 : canFit < 4 ? canFit : 4
   }
   const [maxColumns, setMaxColumns] = useState(
     typeof window !== 'undefined' && getMaxColumns()
@@ -50,7 +50,7 @@ const ExerciseHistory = ({ workouts, appliedFilterCount }) => {
   const decrement = () =>
     horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
   return (
-    <div className='exercise-history show-gt-568'>
+    <div className='exercise-history'>
       {workouts.length > 0 && (
         <div className='mb-12'>
           <button
