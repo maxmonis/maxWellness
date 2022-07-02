@@ -58,7 +58,7 @@ const ExerciseHistory = ({ workouts, appliedFilterCount }) => {
             onClick={decrement}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='mr-20 ml-20 pointer' onClick={toggleSort}>
+          <h3 className='mx-20 pointer' onClick={toggleSort}>
             Exercise History
           </h3>
           <button

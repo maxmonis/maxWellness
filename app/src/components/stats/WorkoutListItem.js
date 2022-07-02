@@ -42,7 +42,7 @@ const WorkoutListItem = ({
   }
   return (
     routine.length > 0 && (
-      <div className='mb-24 pb-4'>
+      <div className='mb-24'>
         {showDeleteModal && (
           <Modal handleClose={toggleDeleteModal}>
             <h2>Delete Workout?</h2>
@@ -70,7 +70,7 @@ const WorkoutListItem = ({
               <button className='btn-3' onClick={handleCopyClick}>
                 Copy
               </button>
-              <button className='mt-16 mr-20 ml-20' onClick={handleEditClick}>
+              <button className='mt-16 mx-20' onClick={handleEditClick}>
                 Edit
               </button>
               <button className='red' onClick={toggleDeleteModal}>

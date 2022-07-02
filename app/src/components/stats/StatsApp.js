@@ -41,7 +41,7 @@ const StatsApp = ({
             onClick={() => decrement('workouts')}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='ml-20 mr-20'>Workouts</h3>
+          <h3 className='mx-20'>Workouts</h3>
           <button
             className={
               workoutsIndex < workouts.length - 3
@@ -67,7 +67,7 @@ const StatsApp = ({
             onClick={() => decrement('records')}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='ml-20 mr-20'>Records</h3>
+          <h3 className='mx-20'>Records</h3>
           <button
             onClick={() => increment('records')}
             className={

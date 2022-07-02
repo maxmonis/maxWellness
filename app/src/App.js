@@ -16,8 +16,7 @@ import useToggle from './hooks/useToggle'
 
 const App = () => {
   const [dark, toggleDark] = useToggle(
-    window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
+    window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
   )
   const [isDrawerOpen, toggleDrawer] = useToggle(false)
   const [showBackground, toggleBackground] = useToggle(true)

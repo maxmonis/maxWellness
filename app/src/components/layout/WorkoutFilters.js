@@ -86,7 +86,7 @@ const WorkoutFilters = () => {
             </option>
           ))}
       </select>
-      <div className='mt-24 mb-24'>
+      <div className='my-24'>
         {!filteredWorkouts.length && (
           <h4 className='red mb-8'>No results for these filters</h4>
         )}

@@ -21,7 +21,7 @@ const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
   }
   return (
     <form className='pb-12' onSubmit={handleSubmit}>
-      <h4 className='mt-12 mb-12'>Permanently delete {name}?</h4>
+      <h4 className='my-12'>Permanently delete {name}?</h4>
       <h5>
         All associated data will be lost forever and this action cannot be
         undone. Confirm the name of the client you wish to delete in order to

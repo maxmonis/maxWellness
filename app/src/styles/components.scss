@@ -18,8 +18,6 @@
 }
 
 .app {
-  --background: var(--white);
-  --color: var(--blue4);
   background: var(--background);
   color: var(--color);
   font-weight: 500;
@@ -32,7 +30,7 @@
   -webkit-transition: 0.8s;
   width: 100%;
   &.dark {
-    --background: var(--blue4);
+    --background: var(--black);
     --color: var(--white);
   }
   &.show-bg {
@@ -146,7 +144,7 @@
   display: flex;
   flex: row;
   justify-content: center;
-  margin: 8px auto 12px;
+  margin: 12px auto 16px;
   overflow-x: hidden;
   white-space: nowrap;
   button {
