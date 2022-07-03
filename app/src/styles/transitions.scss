@@ -6,10 +6,10 @@
 
 .fade-enter {
   opacity: 0;
-}
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
+  &-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
 }
 .fade-exit-active {
   opacity: 0;
@@ -23,11 +23,11 @@
 .slide-enter {
   position: fixed;
   transform: translate(100%);
-}
-.slide-enter-active {
-  position: fixed;
-  transition: transform 350ms ease-in;
-  transform: translate(0);
+  &-active {
+    position: fixed;
+    transition: transform 350ms ease-in;
+    transform: translate(0);
+  }
 }
 .slide-exit-active {
   position: fixed;
@@ -42,11 +42,11 @@
 .slide-in-enter {
   position: fixed;
   transform: translateX(-100%);
-}
-.slide-in-enter-active {
-  position: fixed;
-  transition: transform 200ms ease-in;
-  transform: translateX(0);
+  &-active {
+    position: fixed;
+    transition: transform 200ms ease-in;
+    transform: translateX(0);
+  }
 }
 .slide-in-exit-active {
   position: fixed;

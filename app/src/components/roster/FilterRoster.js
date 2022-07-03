@@ -23,7 +23,7 @@ const FilterRoster = () => {
         type='text'
         placeholder='Filter clients...'
         onChange={handleChange}
-        className='m-8'
+        className='m-2'
       />
     </form>
   )

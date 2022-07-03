@@ -74,12 +74,12 @@ const Register = ({ history }) => {
           label='Confirm Password'
           error={errors.password2}
         />
-        <button className='btn-1 mb-16' type='submit'>
+        <button className='btn-1 mb-4' type='submit'>
           Create Account
         </button>
         <h5>Already a member?</h5>
         <Link to='login'>
-          <button className='btn-2 mt-4'>Sign in</button>
+          <button className='btn-2 mt-1'>Sign in</button>
         </Link>
       </form>
     </div>

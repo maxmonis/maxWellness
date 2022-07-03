@@ -61,7 +61,7 @@ const SaveWorkout = ({
             <form onSubmit={handleSubmit} noValidate>
               <h2>Save Workout</h2>
               <select
-                className='mt-12'
+                className='mt-3'
                 name='name'
                 value={name}
                 onBlur={handleBlur}
@@ -87,14 +87,14 @@ const SaveWorkout = ({
                 error={errors.date}
                 persistentLabel
               />
-              <ul className='mb-24'>
+              <ul className='mb-6'>
                 {organizeRoutine(routine).map(({ id, lift, printout }) => (
                   <li key={id}>
                     <h4>{`${lift}: ${printout}`}</h4>
                   </li>
                 ))}
               </ul>
-              <button className='btn-1 mr-12' type='submit'>
+              <button className='btn-1 mr-3' type='submit'>
                 Confirm
               </button>
               <button onClick={toggleForm}>Cancel</button>
@@ -104,7 +104,7 @@ const SaveWorkout = ({
       )}
       {routine.length > 0 && (
         <>
-          <button className='btn-1 mr-12' onClick={toggleForm} type='button'>
+          <button className='btn-1 mr-3' onClick={toggleForm} type='button'>
             Save Workout
           </button>
           <button onClick={() => updateRoutine()}>Clear</button>

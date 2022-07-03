@@ -52,13 +52,13 @@ const ExerciseHistory = ({ workouts, appliedFilterCount }) => {
   return (
     <div className='exercise-history'>
       {workouts.length > 0 && (
-        <div className='mb-12'>
+        <div className='mb-3'>
           <button
             className={horizontalIndex ? '' : 'opacity-0 cursor-default'}
             onClick={decrement}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='mx-20 pointer' onClick={toggleSort}>
+          <h3 className='mx-5 cursor-pointer' onClick={toggleSort}>
             Exercise History
           </h3>
           <button
@@ -137,7 +137,7 @@ const ExerciseHistory = ({ workouts, appliedFilterCount }) => {
           {workouts.length > displayedRows && (
             <div>
               <button
-                className='btn-3 m-20'
+                className='btn-3 m-5'
                 onClick={() => setDisplayedRows(displayedRows + 10)}>
                 Load More
               </button>

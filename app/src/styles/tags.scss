@@ -13,14 +13,13 @@ button {
   max-width: fit-content;
   outline: none;
   text-decoration: none;
+  &:disabled {
+    color: var(--grey2);
+    cursor: not-allowed;
+  }
 }
 button {
   text-transform: uppercase;
-}
-a:disabled,
-button:disabled {
-  color: var(--grey2);
-  cursor: not-allowed;
 }
 
 footer {
@@ -45,16 +44,16 @@ input {
   outline: none;
   padding: 4px 8px;
   width: 200px;
-}
-input:hover {
-  background: var(--blue1);
-}
-input:focus {
-  border: 2px solid var(--blue2);
-  box-shadow: var(--glow);
-}
-input::placeholder {
-  color: var(--grey1);
+  &:hover {
+    background: var(--blue1);
+  }
+  &:focus {
+    border: 2px solid var(--blue2);
+    box-shadow: var(--glow);
+  }
+  &::placeholder {
+    color: var(--grey1);
+  }
 }
 .dark input {
   border-color: transparent;
@@ -86,16 +85,16 @@ select {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-}
-select:hover {
-  background: var(--blue1);
-}
-select:focus {
-  border: 2px solid var(--blue2);
-  box-shadow: var(--glow);
-}
-select:active {
-  border: 2px solid var(--blue3);
+  &:hover {
+    background: var(--blue1);
+  }
+  &:focus {
+    border: 2px solid var(--blue2);
+    box-shadow: var(--glow);
+  }
+  &:active {
+    border: 2px solid var(--blue3);
+  }
 }
 .dark select {
   border-color: transparent;

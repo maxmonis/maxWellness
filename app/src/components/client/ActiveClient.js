@@ -26,7 +26,7 @@ const ActiveClient = ({
       {optionsShown && (
         <div>
           <button onClick={handleEdit}>Edit</button>
-          <button className='red mt-4 ml-20' onClick={handleDeactivate}>
+          <button className='red mt-1 ml-5' onClick={handleDeactivate}>
             Remove
           </button>
         </div>

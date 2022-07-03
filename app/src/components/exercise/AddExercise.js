@@ -35,11 +35,7 @@ const AddExercise = ({
   }, [reps, weight])
   return (
     <>
-      <select
-        className='mt-12'
-        name='lift'
-        value={lift}
-        onChange={handleChange}>
+      <select className='mt-3' name='lift' value={lift} onChange={handleChange}>
         {lifts.map(lift => (
           <option key={lift} value={lift}>
             {lift}
@@ -80,7 +76,7 @@ const AddExercise = ({
             handleChange={handleChange}
           />
         </div>
-        <button className='btn-2 mr-12' type='submit'>
+        <button className='btn-2 mr-3' type='submit'>
           Enter Exercise
         </button>
         {(sets || reps || weight) && <button onClick={reset}>Reset</button>}

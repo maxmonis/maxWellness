@@ -45,7 +45,7 @@ const Navbar = props => {
       )}
       <nav className='main-nav'>
         <header>
-          <button className='m-12' onClick={toggleDrawer}>
+          <button className='m-3' onClick={toggleDrawer}>
             <FontAwesomeIcon icon={faBars} />
           </button>
           <h1 className='show-gt-568'>maxWellness</h1>

@@ -22,7 +22,7 @@ const UpdateOptions = ({
           ))}
         </TransitionGroup>
       </ul>
-      <button className='btn-2 mt-24' onClick={toggleOptionForm}>
+      <button className='btn-2 mt-6' onClick={toggleOptionForm}>
         Done Editing
       </button>
     </div>

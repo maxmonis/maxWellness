@@ -104,7 +104,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     <div className='workout-app'>
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
-          <h2 className='mb-12'>Edit Workout</h2>
+          <h2 className='mb-3'>Edit Workout</h2>
           <EditWorkout
             exercise={editingExercise}
             workout={editingWorkout}
@@ -132,9 +132,7 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
           />
         </Modal>
       )}
-      <h1 className='p-12'>
-        {title}
-      </h1>
+      <h1 className='p-3'>{title}</h1>
       {appliedFilterCount > 0 && (
         <ActionableAlert
           text={

@@ -35,13 +35,13 @@ const StatsApp = ({
   return (
     <>
       <section className='show-gt-992'>
-        <div className='flex-row center mb-12'>
+        <div className='flex-row center mb-3'>
           <button
             className={workoutsIndex ? '' : 'opacity-0 cursor-default'}
             onClick={() => decrement('workouts')}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='mx-20'>Workouts</h3>
+          <h3 className='mx-5'>Workouts</h3>
           <button
             className={
               workoutsIndex < workouts.length - 3
@@ -61,13 +61,13 @@ const StatsApp = ({
         />
       </section>
       <section className='show-gt-992'>
-        <div className='flex-row center mb-12'>
+        <div className='flex-row center mb-3'>
           <button
             className={recordsIndex ? '' : 'opacity-0 cursor-default'}
             onClick={() => decrement('records')}>
             <h3>{'<-'}</h3>
           </button>
-          <h3 className='mx-20'>Records</h3>
+          <h3 className='mx-5'>Records</h3>
           <button
             onClick={() => increment('records')}
             className={
@@ -85,13 +85,13 @@ const StatsApp = ({
         />
       </section>
       <section className='hide-gt-992'>
-        <div className='flex-row center mb-12'>
+        <div className='flex-row center mb-3'>
           <button
             className={
               (display === 'workouts' && workoutsIndex) ||
               (display === 'records' && recordsIndex)
-                ? 'mr-20'
-                : 'mr-20 opacity-0 cursor-default'
+                ? 'mr-5'
+                : 'mr-5 opacity-0 cursor-default'
             }
             onClick={() => decrement(display)}>
             <h3>{'<-'}</h3>
@@ -99,7 +99,9 @@ const StatsApp = ({
           <h3>
             <span
               className={
-                display === 'workouts' ? 'pointer underline' : 'pointer'
+                display === 'workouts'
+                  ? 'cursor-pointer underline'
+                  : 'cursor-pointer'
               }
               onClick={() => setDisplay('workouts')}>
               Workouts
@@ -107,7 +109,9 @@ const StatsApp = ({
             &nbsp;|&nbsp;
             <span
               className={
-                display === 'records' ? 'pointer underline' : 'pointer'
+                display === 'records'
+                  ? 'cursor-pointer underline'
+                  : 'cursor-pointer'
               }
               onClick={() => setDisplay('records')}>
               Records
@@ -117,8 +121,8 @@ const StatsApp = ({
             className={
               (display === 'workouts' && workoutsIndex < workouts.length - 3) ||
               (display === 'records' && recordsIndex < records.length - 5)
-                ? 'ml-20'
-                : 'ml-20 opacity-0 cursor-default'
+                ? 'ml-5'
+                : 'ml-5 opacity-0 cursor-default'
             }
             onClick={() => increment(display)}>
             <h3>{'->'}</h3>

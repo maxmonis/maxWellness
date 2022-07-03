@@ -42,22 +42,22 @@ const WorkoutListItem = ({
   }
   return (
     routine.length > 0 && (
-      <div className='mb-24'>
+      <div className='mb-6'>
         {showDeleteModal && (
           <Modal handleClose={toggleDeleteModal}>
             <h2>Delete Workout?</h2>
-            <h5 className='mt-8 mb-24'>This action cannot be undone</h5>
+            <h5 className='mt-2 mb-6'>This action cannot be undone</h5>
             <button onClick={toggleDeleteModal}>Cancel</button>
-            <button className='red ml-20' onClick={handleDelete}>
+            <button className='red ml-5' onClick={handleDelete}>
               Delete
             </button>
           </Modal>
         )}
-        <h4 onClick={() => toggleMenu(workout.id)} className='pointer'>
+        <h4 onClick={() => toggleMenu(workout.id)} className='cursor-pointer'>
           {`${name} - `}
           {formatDate(date)}
         </h4>
-        <section className='mb-4'>
+        <section className='mb-1'>
           <ul>
             {organizedRoutine.map(exercise => (
               <li key={exercise.id}>
@@ -70,7 +70,7 @@ const WorkoutListItem = ({
               <button className='btn-3' onClick={handleCopyClick}>
                 Copy
               </button>
-              <button className='mt-16 mx-20' onClick={handleEditClick}>
+              <button className='mt-4 mx-5' onClick={handleEditClick}>
                 Edit
               </button>
               <button className='red' onClick={toggleDeleteModal}>

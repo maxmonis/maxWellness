@@ -53,12 +53,12 @@ const Login = ({ history }) => {
           label='Password'
           error={errors.password}
         />
-        <button className='btn-1 mb-16' type='submit'>
+        <button className='btn-1 mb-4' type='submit'>
           Access Account
         </button>
         <h5>Need an account?</h5>
         <Link to='register'>
-          <button className='btn-2 mt-4'>Get started</button>
+          <button className='btn-2 mt-1'>Get started</button>
         </Link>
       </form>
       <Quote />

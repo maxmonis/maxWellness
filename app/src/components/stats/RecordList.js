@@ -32,7 +32,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
       {records.slice(recordsIndex, recordsIndex + 5).map(exercise => {
         const { id, lift, printout, becameRecord, surpassed } = exercise
         return (
-          <section className='mb-20' key={id}>
+          <section className='mb-5' key={id}>
             <h4 className='record' onClick={() => selectExercise(exercise)}>
               {lift}: {printout}
             </h4>
@@ -54,7 +54,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
         {showExamples ? 'For example:' : ''}
       </p>
       {!showExamples ? (
-        <button className='btn-3 mt-24' onClick={() => setShowExamples(true)}>
+        <button className='btn-3 mt-6' onClick={() => setShowExamples(true)}>
           See Examples
         </button>
       ) : (
@@ -65,7 +65,7 @@ const RecordList = ({ records, selectExercise, recordsIndex }) => {
                 <h4>
                   {lift}: {printout}
                 </h4>
-                <span className='mb-12'>
+                <span className='mb-3'>
                   {becameRecord}
                   {surpassed ? ` - ${surpassed}` : null}
                 </span>

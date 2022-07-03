@@ -16,7 +16,7 @@ const MenuDrawer = ({
   const [selectedMenu, selectMenu] = useState(menuOptions[0])
   return (
     <Drawer handleClose={toggleDrawer}>
-      <header className='mb-16 p-0 pb-16 border-b'>
+      <header className='mb-4 p-0 pb-4 border-b'>
         {menuOptions.map(option => (
           <button
             key={option}
@@ -40,13 +40,13 @@ const MenuDrawer = ({
         <section>
           <Roster toggleDrawer={toggleDrawer} />
           <Link to='/'>
-            <button className='btn-2 mt-24' onClick={toggleDrawer}>
+            <button className='btn-2 mt-6' onClick={toggleDrawer}>
               My Workouts
             </button>
           </Link>
         </section>
       )}
-      <button className='hover-underline mt-48' onClick={() => logUserOut()}>
+      <button className='hover-underline mt-12' onClick={() => logUserOut()}>
         Logout
       </button>
     </Drawer>

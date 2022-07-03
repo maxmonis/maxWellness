@@ -73,7 +73,7 @@ const WorkoutList = ({
             </>
           ) : (
             <button
-              className='btn-3 mt-24'
+              className='btn-3 mt-6'
               onClick={() => setShowExamples(true)}>
               See Examples
             </button>

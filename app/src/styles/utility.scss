@@ -4,16 +4,10 @@
 
 /* Cursor */
 
-.cursor-auto {
-  cursor: auto;
-}
-
-.cursor-default {
-  cursor: default;
-}
-
-.pointer {
-  cursor: pointer;
+@each $cursorType in 'auto', 'default', 'pointer' {
+  .cursor-#{$cursorType} {
+    cursor: #{$cursorType};
+  }
 }
 
 /* -------------------------------------------------- */

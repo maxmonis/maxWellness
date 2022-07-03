@@ -50,7 +50,7 @@ const Roster = ({ toggleDrawer }) => {
             <TransitionGroup>
               {sorted.map(client => (
                 <CSSTransition timeout={500} classNames='fade' key={client._id}>
-                  <li className='border-b p-12'>
+                  <li className='border-b p-3'>
                     <Client client={client} toggleDrawer={toggleDrawer} />
                   </li>
                 </CSSTransition>
@@ -58,7 +58,7 @@ const Roster = ({ toggleDrawer }) => {
             </TransitionGroup>
           </ul>
           {clients.length < 21 && (
-            <button className='btn-1 mt-16 mb-12' onClick={openForm}>
+            <button className='btn-1 mt-4 mb-3' onClick={openForm}>
               Add New Client
             </button>
           )}

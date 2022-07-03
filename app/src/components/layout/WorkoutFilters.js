@@ -12,7 +12,7 @@ const WorkoutFilters = () => {
     appliedFilterCount,
   } = useContext(WorkoutContext)
   const EMPTY_STATE = (
-    <div className='mb-24 text-left'>
+    <div className='mb-6 text-left'>
       Workout filters will be displayed here. You'll be able to filter by
       workout name, workout date, or exercise name.
     </div>
@@ -24,7 +24,7 @@ const WorkoutFilters = () => {
   const { startDate, endDate, allDates } = workoutDates
   return (
     <>
-      <h3 className='mb-24'>Exercise Name</h3>
+      <h3 className='mb-6'>Exercise Name</h3>
       {liftNames.map(({ name, checked }) => (
         <Checkbox
           key={name}
@@ -35,7 +35,7 @@ const WorkoutFilters = () => {
           }
         />
       ))}
-      <h3 className='mt-36 mb-24'>Workout Name</h3>
+      <h3 className='mt-9 mb-6'>Workout Name</h3>
       {workoutNames.map(({ name, checked }) => (
         <Checkbox
           key={name}
@@ -46,14 +46,14 @@ const WorkoutFilters = () => {
           }
         />
       ))}
-      <h3 className='mt-36 mb-24'>Workout Date</h3>
+      <h3 className='mt-9 mb-6'>Workout Date</h3>
       <Checkbox
         label='Show newest first'
         bool={newestFirst}
         toggle={() => updateWorkoutsFilter({ type: 'chronology' })}
       />
       <select
-        className='mt-8'
+        className='mt-2'
         value={startDate}
         onChange={e =>
           updateWorkoutsFilter({
@@ -69,7 +69,7 @@ const WorkoutFilters = () => {
             </option>
           ))}
       </select>
-      <h5 className='m-4'>to</h5>
+      <h5 className='m-1'>to</h5>
       <select
         value={endDate}
         onChange={e =>
@@ -86,9 +86,9 @@ const WorkoutFilters = () => {
             </option>
           ))}
       </select>
-      <div className='my-24'>
+      <div className='my-6'>
         {!filteredWorkouts.length && (
-          <h4 className='red mb-8'>No results for these filters</h4>
+          <h4 className='red mb-2'>No results for these filters</h4>
         )}
         {appliedFilterCount > 0 && (
           <button className='btn-2' onClick={clearWorkoutsFilters}>
