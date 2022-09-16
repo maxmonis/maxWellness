@@ -1,6 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
   "name": "max-wellness",
   "builds": [{ "src": "server.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/server.js" }]
+  "routes": [{ "src": "/(.*)", "dest": "server.js" }]
 }
