@@ -1,58 +1,45 @@
-import uuid from 'uuid/v4';
-import updateRecords from './updateRecords';
+import uuid from 'uuid/v4'
+import updateRecords from './updateRecords'
+import { chronologize } from './helpers'
 
 const updateWorkouts = (value, workouts) =>
   saveWorkouts(
+    // If the value we were passed is a string...
     typeof value === 'string'
-      ? workouts.filter((workout) => workout.id !== value)
-      : value.id && workouts.some((workout) => workout.id === value.id)
-      ? chronologize(
-          workouts.map((workout) =>
-            workout.id === value.id
-              ? { ...value, fullDate: getFullDate(value.date) }
-              : workout
-          )
+      ? // ...it's the ID of a workout selected for deletion.
+        workouts.filter(workout => workout.id !== value)
+      : // If it has the same ID as one of the workouts...
+      value.id && workouts.some(workout => workout.id === value.id)
+      ? // ...it's an updated version of that workout.
+        chronologize(
+          workouts.map(workout => (workout.id === value.id ? value : workout))
         )
-      : chronologize([
+      : // By default we append the new workout we were passed to the array.
+        chronologize([
           ...workouts,
           {
             ...value,
             id: uuid(),
-            fullDate: getFullDate(value.date),
           },
         ])
-  );
+  )
 
-function saveWorkouts(pending, workouts = [], records = []) {
-  if (!pending.length) return { workouts, records };
-  const workout = pending.shift();
-  const updated = updateRecords(workout, records);
-  return saveWorkouts(pending, [...workouts, workout], updated);
+function saveWorkouts(pendingWorkouts, workouts = [], records = []) {
+  // If no more pending workouts remain...
+  if (!pendingWorkouts.length) {
+    // ...return the updated workouts.
+    return workouts
+  }
+  // Otherwise remove the first pending workout...
+  const workout = pendingWorkouts.shift()
+  // ...and update the personal records...
+  const updated = updateRecords(workout, records)
+  // ...before calling this same method again with the updated workouts and records.
+  return saveWorkouts(
+    pendingWorkouts,
+    [...workouts, updated.workout],
+    updated.records
+  )
 }
 
-function chronologize(array) {
-  return array.sort((a, b) => {
-    const dateA = parseInt(a.date.replace(/-/g, ''));
-    const dateB = parseInt(b.date.replace(/-/g, ''));
-    return dateA - dateB;
-  });
-}
-
-function getFullDate(date) {
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  const weekday = days[new Date(`${date.replace(/-/g, '/')}`).getDay()];
-  const year = date.slice(2, 4);
-  const month = parseInt(date.slice(5, 7));
-  const day = parseInt(date.slice(8));
-  return `${weekday} ${month}/${day}/${year}`;
-}
-
-export default updateWorkouts;
+export default updateWorkouts

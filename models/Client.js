@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ClientSchema = mongoose.Schema({
   user: {
@@ -26,14 +26,14 @@ const ClientSchema = mongoose.Schema({
     type: [],
     default: ['Bench Press', 'Deadlift', 'Squat'],
   },
+  workoutNames: {
+    type: [],
+    default: ['Full Body', 'Upper Body', 'Lower Body'],
+  },
   workouts: {
     type: [],
     default: [],
   },
-  records: {
-    type: [],
-    default: [],
-  },
-});
+})
 
-module.exports = mongoose.model('client', ClientSchema);
+module.exports = mongoose.model('client', ClientSchema)

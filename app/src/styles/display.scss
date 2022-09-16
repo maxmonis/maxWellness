@@ -1,0 +1,29 @@
+.show-gt-568, 
+.show-gt-992, 
+.show-gt-1200 {
+  display: none;
+}
+
+@media (min-width: 568px) {
+  .show-gt-568 {
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  .hide-gt-992 {
+    display: none;
+  }
+  .show-gt-992 {
+    display: block;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hide-gt-1200 {
+    display: none;
+  }
+  .show-gt-1200 {
+    display: block;
+  }
+}

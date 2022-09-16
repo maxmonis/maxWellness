@@ -1,48 +1,38 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import ClearIcon from '@material-ui/icons/Clear';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import useToggle from '../../hooks/useToggle'
 
 const ActiveClient = ({
   name,
   id,
-  toggle,
+  toggleDrawer,
   handleEdit,
   handleDeactivate,
 }) => {
-  const [optionsShown, setOptionsShown] = useState(false);
-  const showOptions = () => setOptionsShown(true);
-  const hideOptions = () => setOptionsShown(false);
+  const [optionsShown, toggleOptions] = useToggle(false)
   return (
-    <div onMouseEnter={showOptions} onMouseLeave={hideOptions}>
-      <ListItem>
-        {optionsShown ? (
-          <Link className='link' to={id} style={{ margin: '0 auto' }}>
-            <Button color='primary' onClick={toggle}>
-              {name}
-            </Button>
-          </Link>
-        ) : (
-          <Button color='default' onClick={toggle} style={{ margin: '0 auto' }}>
+    <div
+      onMouseEnter={() => toggleOptions(true)}
+      onMouseLeave={() => toggleOptions(false)}>
+      {optionsShown ? (
+        <Link to={id} title='Workouts'>
+          <button className='hover-underline' onClick={toggleDrawer}>
             {name}
-          </Button>
-        )}
-      </ListItem>
+          </button>
+        </Link>
+      ) : (
+        <button onClick={toggleDrawer}>{name}</button>
+      )}
       {optionsShown && (
         <div>
-          <IconButton color='inherit' onClick={handleEdit}>
-            <EditIcon aria-label='Edit' />
-          </IconButton>
-          <IconButton color='inherit' onClick={handleDeactivate}>
-            <ClearIcon aria-label='Deactivate' />
-          </IconButton>
+          <button onClick={handleEdit}>Edit</button>
+          <button className='red mt-1 ml-5' onClick={handleDeactivate}>
+            Remove
+          </button>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ActiveClient;
+export default ActiveClient

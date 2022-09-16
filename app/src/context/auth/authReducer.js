@@ -1,5 +1,5 @@
 export default (state, action) => {
-  const { type, payload } = action;
+  const { type, payload } = action
   switch (type) {
     case 'USER_LOADED':
       return {
@@ -7,21 +7,21 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: payload,
-      };
+      }
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':
-      localStorage.setItem('token', payload.token);
+      localStorage.setItem('maxWellness_token', payload.token)
       return {
         ...state,
         ...payload,
         isAuthenticated: true,
         loading: false,
-      };
+      }
     case 'AUTH_ERROR':
     case 'LOG_USER_OUT':
     case 'LOGIN_FAILURE':
     case 'REGISTER_FAILURE':
-      localStorage.removeItem('token');
+      localStorage.removeItem('maxWellness_token')
       return {
         ...state,
         token: null,
@@ -29,10 +29,10 @@ export default (state, action) => {
         loading: false,
         user: null,
         error: payload,
-      };
+      }
     case 'CLEAR_ERRORS':
-      return { ...state, error: null };
+      return { ...state, error: null }
     default:
-      return state;
+      return state
   }
-};
+}

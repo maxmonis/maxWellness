@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const UserSchema = mongoose.Schema({
   name: {
@@ -19,6 +19,10 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+  lifts: {
+    type: [],
+    default: ['Bench Press', 'Deadlift', 'Squat'],
+  },
+})
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('user', UserSchema)

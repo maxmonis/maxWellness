@@ -1,84 +1,73 @@
-import React, { useContext, useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Roster from '../roster/Roster';
-import AuthContext from '../../context/auth/authContext';
-import ClientContext from '../../context/client/clientContext';
-import useToggle from '../../hooks/useToggle';
+import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import AuthContext from '../../context/auth/authContext'
+import ClientContext from '../../context/client/clientContext'
+import MenuDrawer from './MenuDrawer'
+import SideNav from './SideNav'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-const Navbar = () => {
-  const { isAuthenticated, logUserOut, loadUser, user } = useContext(
-    AuthContext
-  );
-  const { getClients, clearClients } = useContext(ClientContext);
-  const [isDrawerOpen, toggle] = useToggle(false);
-  const handleLogout = () => {
-    toggle();
-    logUserOut();
-  };
+const Navbar = props => {
+  const {
+    dark,
+    showBackground,
+    toggleDark,
+    toggleBackground,
+    isDrawerOpen,
+    toggleDrawer,
+  } = props
+  const { isAuthenticated, logUserOut, loadUser, user } =
+    useContext(AuthContext)
+  const { getClients, clearClients } = useContext(ClientContext)
   useEffect(() => {
-    loadUser();
+    loadUser()
     // eslint-disable-next-line
-  }, []);
+  }, [])
   useEffect(() => {
-    user ? getClients() : clearClients();
+    if (user) getClients()
+    else {
+      clearClients()
+      toggleDrawer(false)
+    }
     // eslint-disable-next-line
-  }, [user]);
-  const authLinks = (
-    <Fragment>
-      <IconButton color='inherit' onClick={toggle}>
-        <MenuIcon />
-      </IconButton>
-      <Link to='/' className='link'>
-        <Button color='inherit'>{user ? user.name : 'Workouts'}</Button>
-      </Link>
-    </Fragment>
-  );
-  const guestLinks = (
-    <Fragment>
-      <Link to='login' className='link'>
-        <Button color='inherit'>Login</Button>
-      </Link>
-      <Link to='register' className='link'>
-        <Button color='inherit'>Register</Button>
-      </Link>
-    </Fragment>
-  );
-  return (
-    <Fragment>
-      <AppBar position='static' style={{ backgroundColor: '#101010' }}>
-        <Toolbar>{isAuthenticated ? authLinks : guestLinks}</Toolbar>
-      </AppBar>
-      <Typography variant='h2'>maxWellness</Typography>
-      <Drawer open={isDrawerOpen} onClose={toggle}>
-        <div className='drawer'>
-          <AppBar position='static' style={{ backgroundColor: '#101010' }}>
-            <Toolbar>
-              <Button onClick={handleLogout} color='inherit'>
-                Logout
-              </Button>
-              <IconButton
-                onClick={toggle}
-                color='inherit'
-                style={{ margin: 'auto 0 auto auto' }}
-              >
-                <ChevronLeftIcon />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-          <Typography variant='h3'>Roster</Typography>
-          <Roster toggle={toggle} />
-        </div>
-      </Drawer>
-    </Fragment>
-  );
-};
+  }, [user])
+  return isAuthenticated ? (
+    <>
+      {isDrawerOpen && (
+        <MenuDrawer
+          dark={dark}
+          toggleDark={toggleDark}
+          showBackground={showBackground}
+          toggleBackground={toggleBackground}
+          toggleDrawer={toggleDrawer}
+          logUserOut={logUserOut}
+        />
+      )}
+      <nav className='main-nav'>
+        <header>
+          <button className='m-3' onClick={toggleDrawer}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+          <h1 className='show-gt-568'>maxWellness</h1>
+          <Link to='/'>
+            <img
+              className='border'
+              src='/favicon-32x32.png'
+              alt='maxWellness'
+            />
+          </Link>
+        </header>
+      </nav>
+      <SideNav
+        dark={dark}
+        toggleDark={toggleDark}
+        showBackground={showBackground}
+        toggleBackground={toggleBackground}
+        toggleDrawer={toggleDrawer}
+        logUserOut={logUserOut}
+      />
+    </>
+  ) : null
+}
 
-export default Navbar;
+export default Navbar

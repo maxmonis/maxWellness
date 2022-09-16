@@ -1,58 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-import { standardize, strInput } from '../../functions/helpers';
-import useInputState from '../../hooks/useInputState';
+import React, { useState, useEffect, useContext } from 'react'
+import { standardize, strInput } from '../../functions/helpers'
+import useInputState from '../../hooks/useInputState'
+import AlertContext from '../../context/alert/alertContext'
 
-const DeleteClient = ({ name, toggle, handleDelete }) => {
-  const [value, handleChange] = useInputState('');
-  const [isMatch, setIsMatch] = useState(false);
+const DeleteClient = ({ name, toggleMenu, handleDelete }) => {
+  const { setAlert } = useContext(AlertContext)
+  const [value, handleChange] = useInputState('')
+  const [isMatch, setIsMatch] = useState(false)
   useEffect(() => {
-    standardize(value).includes(standardize(name))
-      ? setIsMatch(true)
-      : setIsMatch(false);
+    setIsMatch(standardize(value).includes(standardize(name)))
     // eslint-disable-next-line
-  }, [value]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  }, [value])
+  const handleSubmit = e => {
+    e.preventDefault()
     if (isMatch) {
-      toggle();
-      handleDelete();
+      toggleMenu()
+      handleDelete()
+      setAlert('Client Deleted', 'success')
     }
-  };
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <DialogTitle>Permanently delete {name}?</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          All associated data will be lost forever and this action cannot be
-          undone. Confirm the name of the client you wish to delete in order to
-          proceed.
-        </DialogContentText>
-        <TextField
-          value={strInput(value)}
-          variant='outlined'
-          placeholder='Confirm Name...'
-          onChange={handleChange}
-          autoFocus
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={toggle}>Cancel</Button>
-        {isMatch ? (
-          <Button type='submit' color='primary'>
-            Delete
-          </Button>
-        ) : (
-          <Button disabled>Delete</Button>
-        )}
-      </DialogActions>
+    <form className='pb-3' onSubmit={handleSubmit}>
+      <h4 className='my-3'>Permanently delete {name}?</h4>
+      <h5>
+        All associated data will be lost forever and this action cannot be
+        undone. Confirm the name of the client you wish to delete in order to
+        proceed.
+      </h5>
+      <input
+        className='m-3'
+        value={strInput(value)}
+        placeholder='Confirm Name...'
+        onChange={handleChange}
+      />
+      <div>
+        <button onClick={toggleMenu} type='button'>
+          Cancel
+        </button>
+        <button className='red ml-5' type='submit' disabled={!isMatch}>
+          Delete
+        </button>
+      </div>
     </form>
-  );
-};
+  )
+}
 
-export default DeleteClient;
+export default DeleteClient

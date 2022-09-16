@@ -1,11 +1,9 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-const useToggle = (initialState) => {
-  const [state, setState] = useState(initialState);
-  const toggle = () => {
-    setState(!state);
-  };
-  return [state, toggle];
-};
+const useToggle = initialState => {
+  const [state, setState] = useState(initialState)
+  const toggle = bool => setState(typeof bool === 'boolean' ? bool : !state)
+  return [state, toggle]
+}
 
-export default useToggle;
+export default useToggle

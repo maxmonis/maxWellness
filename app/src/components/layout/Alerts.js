@@ -1,12 +1,19 @@
-import React, { useContext } from 'react';
-import AlertContext from '../../context/alert/alertContext';
+import React, { useContext } from 'react'
+import AlertContext from '../../context/alert/alertContext'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const Alerts = () => {
-  const { alerts } = useContext(AlertContext);
+  const { alerts } = useContext(AlertContext)
   return (
-    alerts.length > 0 &&
-    alerts.map((alert) => <h4 key={alert.id}>{alert.msg}</h4>)
-  );
-};
+    <TransitionGroup>
+      {alerts.length > 0 &&
+        alerts.map(alert => (
+          <CSSTransition classNames='slide-in' key={alert.id} timeout={200}>
+            <h4 className={`alert ${alert.type || ''}`}>{alert.msg}</h4>
+          </CSSTransition>
+        ))}
+    </TransitionGroup>
+  )
+}
 
-export default Alerts;
+export default Alerts

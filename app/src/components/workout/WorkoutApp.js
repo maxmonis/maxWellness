@@ -1,112 +1,192 @@
-import React, { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
-import NewWorkout from './NewWorkout';
-import StatsApp from '../stats/StatsApp';
-import LiftApp from '../lift/LiftApp';
-import useClientState from '../../hooks/useClientState';
-import useToggle from '../../hooks/useToggle';
+import React, { useState, useEffect, useContext } from 'react'
+import EditWorkout from './EditWorkout'
+import StatsApp from '../stats/StatsApp'
+import UpdateOptions from '../option/UpdateOptions'
+import ExerciseHistory from '../exercise/ExerciseHistory'
+import AlertContext from '../../context/alert/alertContext'
+import WorkoutContext from '../../context/workout/workoutContext'
+import useClientState from '../../hooks/useClientState'
+import useToggle from '../../hooks/useToggle'
+import { ActionableAlert, Modal, Spinner } from '../layout/UI'
 
 const WorkoutApp = ({ selectedClient, updateClient }) => {
+  const { setAlert } = useContext(AlertContext)
+  const {
+    setAllWorkouts,
+    filteredWorkouts,
+    appliedFilterCount,
+    clearWorkoutsFilters,
+    records,
+    filteredRecords,
+  } = useContext(WorkoutContext)
   const {
     client,
     routine,
+    editingRoutine,
     updateRoutine,
+    updateEditingRoutine,
     updateLifts,
+    updateWorkoutNames,
     updateWorkouts,
-  } = useClientState(selectedClient);
-  const { lifts, workouts, records, name } = client;
-  const defaultExercise = {
+  } = useClientState(selectedClient)
+  const { lifts, workouts, name, workoutNames } = client
+  useEffect(() => {
+    setAllWorkouts(workouts || null)
+    // eslint-disable-next-line
+  }, [workouts])
+  const DEFAULT_EXERCISE = {
     lift: lifts[0],
     sets: '',
     reps: '',
     weight: '',
-  };
-  const [exercise, setExercise] = useState(defaultExercise);
-  const defaultWorkout = {
-    name: '',
+  }
+  const [exercise, setExercise] = useState(DEFAULT_EXERCISE)
+  const [editingExercise, setEditingExercise] = useState(DEFAULT_EXERCISE)
+  const DEFAULT_WORKOUT = {
+    name: workoutNames[0],
     date: new Date().toISOString().slice(0, 10),
-  };
-  const [workout, setWorkout] = useState(defaultWorkout);
-  const [editingWorkout, setEditingWorkout] = useState(null);
-  const [isFormOpen, toggle] = useToggle(false);
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    if (id === 'name' || id === 'date') {
+  }
+  const [workout, setWorkout] = useState(DEFAULT_WORKOUT)
+  const [editingWorkout, setEditingWorkout] = useState(null)
+  const [isEditingLifts, toggleLiftForm] = useToggle(false)
+  const handleChange = e => {
+    const { name, value } = e.target
+    if (['name', 'date'].includes(name))
       editingWorkout
-        ? setEditingWorkout({ ...editingWorkout, [id]: value })
-        : setWorkout({ ...workout, [id]: value });
+        ? setEditingWorkout({ ...editingWorkout, [name]: value })
+        : setWorkout({ ...workout, [name]: value })
+    else if (value === '#liftName') toggleLiftForm()
+    else
+      editingWorkout
+        ? setEditingExercise({ ...editingExercise, [name]: value })
+        : setExercise({ ...exercise, [name]: value })
+  }
+  const selectExercise = exercise => {
+    if (editingWorkout) {
+      setEditingExercise(exercise)
+      updateEditingRoutine(exercise.id)
     } else {
-      value === '#' ? toggle() : setExercise({ ...exercise, [id]: value });
+      setExercise(exercise)
+      updateRoutine(exercise.id)
     }
-  };
-  const selectExercise = (exercise) => {
-    setExercise(exercise);
-    updateRoutine(exercise.id);
-  };
-  const selectWorkout = (workout) => {
+  }
+  const editWorkout = workout => {
     if (workout) {
-      setEditingWorkout(workout);
-      updateRoutine(workout.routine);
-    } else {
-      setEditingWorkout(null);
-    }
-  };
+      setEditingWorkout(workout)
+      updateEditingRoutine(workout.routine)
+    } else setEditingWorkout(null)
+  }
   const saveWorkout = () => {
-    const updated = editingWorkout
-      ? { ...editingWorkout, routine }
-      : { ...workout, routine };
-    updateWorkouts(updated);
-    setExercise(defaultExercise);
-    setWorkout(defaultWorkout);
-    setEditingWorkout(null);
-    updateRoutine([]);
-  };
-  const title = name[0] === '#' ? name.slice(2) : name;
+    if (editingWorkout) {
+      updateWorkouts({ ...editingWorkout, routine: editingRoutine })
+      setEditingExercise(DEFAULT_EXERCISE)
+      setEditingWorkout(null)
+      updateEditingRoutine([])
+      setAlert('Workout Updated', 'success')
+    } else {
+      updateWorkouts({ ...workout, routine })
+      setExercise(DEFAULT_EXERCISE)
+      setWorkout(DEFAULT_WORKOUT)
+      updateRoutine()
+      setAlert('Workout Saved', 'success')
+    }
+  }
+  const title = name[0] === '#' ? name.slice(2) : name
   useEffect(() => {
-    document.title = `maxWellness | ${title}`;
+    document.title = `maxWellness | ${title}`
     // eslint-disable-next-line
-  }, []);
+  }, [])
   useEffect(() => {
-    updateClient(client);
+    updateClient(client)
     // eslint-disable-next-line
-  }, [client]);
-  return (
-    <div className='container'>
-      <Typography variant='h3'>{title}</Typography>
-      <Grid container direction='row'>
-        <Grid item xs={12} md={workouts.length ? 6 : 12}>
-          <Dialog open={isFormOpen} onClose={toggle}>
-            <LiftApp lifts={lifts} updateLifts={updateLifts} />
-          </Dialog>
-          <NewWorkout
-            exercise={exercise}
-            workout={editingWorkout ? editingWorkout : workout}
+  }, [client])
+  return filteredWorkouts ? (
+    <div className='workout-app'>
+      {editingWorkout && (
+        <Modal handleClose={() => editWorkout(null)}>
+          <h2 className='mb-3'>Edit Workout</h2>
+          <EditWorkout
+            exercise={editingExercise}
+            workout={editingWorkout}
             lifts={lifts}
-            routine={routine}
+            routine={editingRoutine}
             workouts={workouts}
+            records={records}
+            workoutNames={workoutNames}
             handleChange={handleChange}
             saveWorkout={saveWorkout}
-            updateRoutine={updateRoutine}
+            updateRoutine={updateEditingRoutine}
             selectExercise={selectExercise}
-            setExercise={setExercise}
+            setExercise={setEditingExercise}
+            updateWorkoutNames={updateWorkoutNames}
           />
-        </Grid>
-        {workouts.length > 0 && (
-          <Grid item xs={12} md={6}>
-            <StatsApp
+        </Modal>
+      )}
+      {isEditingLifts && (
+        <Modal handleClose={toggleLiftForm}>
+          <UpdateOptions
+            options={lifts}
+            updateOptions={updateLifts}
+            toggleOptionForm={toggleLiftForm}
+            optionName='Exercise'
+          />
+        </Modal>
+      )}
+      <h1 className='p-3'>{title}</h1>
+      {appliedFilterCount > 0 && (
+        <ActionableAlert
+          text={
+            filteredWorkouts.length
+              ? `${appliedFilterCount} filter${
+                  appliedFilterCount === 1 ? '' : 's'
+                } applied`
+              : 'No Results'
+          }
+          btnText='Clear Filters'
+          handleClick={clearWorkoutsFilters}
+          classes={filteredWorkouts.length ? '' : 'critical'}
+        />
+      )}
+      <>
+        <main>
+          <section>
+            <h3>New Workout</h3>
+            <EditWorkout
+              exercise={exercise}
+              workout={workout}
+              lifts={lifts}
+              routine={routine}
               workouts={workouts}
               records={records}
-              updateWorkouts={updateWorkouts}
-              selectWorkout={selectWorkout}
-              editingWorkout={editingWorkout}
+              workoutNames={workoutNames}
+              handleChange={handleChange}
+              saveWorkout={saveWorkout}
+              updateRoutine={updateRoutine}
+              selectExercise={selectExercise}
+              setExercise={setExercise}
+              updateWorkoutNames={updateWorkoutNames}
+              isNewWorkout
             />
-          </Grid>
-        )}
-      </Grid>
+          </section>
+          <StatsApp
+            workouts={filteredWorkouts}
+            records={filteredRecords}
+            appliedFilterCount={appliedFilterCount}
+            updateWorkouts={updateWorkouts}
+            editWorkout={editWorkout}
+            updateRoutine={updateRoutine}
+            selectExercise={selectExercise}
+          />
+        </main>
+        <ExerciseHistory
+          workouts={filteredWorkouts}
+          appliedFilterCount={appliedFilterCount}
+        />
+      </>
     </div>
-  );
-};
+  ) : (
+    <Spinner />
+  )
+}
 
-export default WorkoutApp;
+export default WorkoutApp

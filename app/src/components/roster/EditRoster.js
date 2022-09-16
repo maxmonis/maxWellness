@@ -1,70 +1,64 @@
-import React, { useState, useContext } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { strInput } from '../../functions/helpers';
-import ClientContext from '../../context/client/clientContext';
+import React, { useState, useContext } from 'react'
+import { Input } from '../layout/UI'
+import { strInput, numInput } from '../../functions/helpers'
+import ClientContext from '../../context/client/clientContext'
+import AlertContext from '../../context/alert/alertContext'
 
 const EditRoster = ({ reset }) => {
-  const { addClient, updateClient, editingClient } = useContext(ClientContext);
+  const { addClient, updateClient, editingClient } = useContext(ClientContext)
+  const { setAlert } = useContext(AlertContext)
   const defaultClient = {
     name: '',
     email: '',
     phone: '',
-  };
-  const initialClient = editingClient ? editingClient : defaultClient;
-  const [client, setClient] = useState(initialClient);
-  const { name, email, phone } = client;
-  const handleChange = (e) => {
-    setClient({ ...client, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!editingClient) {
-      addClient(client);
+  }
+  const initialClient = editingClient ? editingClient : defaultClient
+  const [client, setClient] = useState(initialClient)
+  const { name, email, phone } = client
+  const [error, setError] = useState(null)
+  const handleChange = e =>
+    setClient({ ...client, [e.target.name]: e.target.value })
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (name) {
+      editingClient ? updateClient(client) : addClient(client)
+      setError(null)
+      reset()
+      setAlert(editingClient ? 'Client Updated' : 'Client Added', 'success')
     } else {
-      updateClient(client);
+      setError('Name is required')
     }
-    reset();
-  };
+  }
   return (
-    <div>
-      <Typography variant='h6'>
-        {editingClient ? 'Edit Client' : 'New Client'}
-      </Typography>
-      <form className='form' onSubmit={handleSubmit}>
-        <TextField
-          type='text'
-          placeholder='Name'
-          name='name'
-          value={strInput(name)}
-          onChange={handleChange}
-          autoFocus
-          required
-        />
-        <TextField
-          type='text'
-          placeholder='Email'
-          name='email'
-          value={email}
-          onChange={handleChange}
-        />
-        <TextField
-          type='text'
-          placeholder='Phone'
-          name='phone'
-          value={phone}
-          onChange={handleChange}
-        />
-        <div>
-          <Button onClick={reset}>Cancel</Button>
-          <Button color='primary' type='submit'>
-            Save
-          </Button>
-        </div>
-      </form>
-    </div>
-  );
-};
+    <form onSubmit={handleSubmit} noValidate className='client-form'>
+      <h3>{editingClient ? 'Edit Client' : 'New Client'}</h3>
+      <Input
+        label='Name'
+        name='name'
+        value={strInput(name)}
+        handleChange={handleChange}
+        error={error}
+      />
+      <Input
+        label='Email'
+        name='email'
+        value={email}
+        handleChange={handleChange}
+      />
+      <Input
+        label='Phone'
+        name='phone'
+        value={numInput(phone)}
+        handleChange={handleChange}
+      />
+      <button onClick={reset} type='button'>
+        Cancel
+      </button>
+      <button className='btn-3 ml-5' type='submit'>
+        Save
+      </button>
+    </form>
+  )
+}
 
-export default EditRoster;
+export default EditRoster

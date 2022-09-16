@@ -1,0 +1,59 @@
+/* Basic styles */
+
+/* -------------------------------------------------- */
+
+/* Cursor */
+
+@each $cursorType in 'auto', 'default', 'pointer' {
+  .cursor-#{$cursorType} {
+    cursor: #{$cursorType};
+  }
+}
+
+/* -------------------------------------------------- */
+
+/* Layout */
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.display-none {
+  display: none;
+}
+
+.flex-row {
+  display: flex;
+  flex: row;
+}
+
+.full-size {
+  height: 100%;
+  width: 100%;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+/* -------------------------------------------------- */
+
+/* Text */
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.red {
+  color: var(--red);
+}
+
+.text-left {
+  text-align: left;
+}
+
+.underline,
+.hover-underline:hover {
+  text-decoration: underline;
+}
