@@ -1,6 +1,6 @@
-import React from 'react'
-import { DragDropContext } from 'react-beautiful-dnd'
-import ExerciseList from './ExerciseList'
+import React from "react"
+import { DragDropContext } from "react-beautiful-dnd"
+import ExerciseList from "./ExerciseList"
 
 const ExerciseApp = ({ routine, updateRoutine, selectExercise }) => {
   const handleDragEnd = result => {
@@ -13,7 +13,7 @@ const ExerciseApp = ({ routine, updateRoutine, selectExercise }) => {
     }
   }
   return (
-    <div className='exercise-app'>
+    <div className="exercise-app">
       {routine.length > 0 ? (
         <DragDropContext onDragEnd={handleDragEnd}>
           <ExerciseList routine={routine} selectExercise={selectExercise} />

@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import eliminateRedundancy from '../functions/eliminateRedundancy'
-import updateLifts from '../functions/updateLifts'
-import updateRoutine from '../functions/updateRoutine'
-import updateWorkouts from '../functions/updateWorkouts'
-import updateWorkoutNames from '../functions/updateWorkoutNames'
+import { useState } from "react"
+import eliminateRedundancy from "../functions/eliminateRedundancy"
+import updateLifts from "../functions/updateLifts"
+import updateRoutine from "../functions/updateRoutine"
+import updateWorkouts from "../functions/updateWorkouts"
+import updateWorkoutNames from "../functions/updateWorkoutNames"
 
 const useClientState = initialClient => {
   const [client, setClient] = useState(initialClient)
@@ -23,7 +23,7 @@ const useClientState = initialClient => {
       saveRoutine(eliminateRedundancy(updateRoutine(value, routine))),
     updateEditingRoutine: value =>
       setEditingRoutine(
-        eliminateRedundancy(updateRoutine(value, editingRoutine))
+        eliminateRedundancy(updateRoutine(value, editingRoutine)),
       ),
     updateLifts: (newName, oldName) => {
       const updated = updateLifts(newName, oldName, client, routine)

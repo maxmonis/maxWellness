@@ -1,4 +1,4 @@
-import { alphabetize } from './helpers'
+import { alphabetize } from "./helpers"
 
 const updateLifts = (newName, oldName, client, routine) => {
   const { lifts, workouts } = client
@@ -17,7 +17,7 @@ const updateLifts = (newName, oldName, client, routine) => {
   function updateName() {
     return {
       lifts: alphabetize(
-        lifts.map(lift => (lift === oldName ? newName : lift))
+        lifts.map(lift => (lift === oldName ? newName : lift)),
       ),
       workouts: workouts.map(workout => ({
         ...workout,
@@ -30,7 +30,7 @@ const updateLifts = (newName, oldName, client, routine) => {
   // Map a new (updated) lift name onto exercises with the old name.
   function mapName(exercises) {
     return exercises.map(exercise =>
-      exercise.lift === oldName ? { ...exercise, lift: newName } : exercise
+      exercise.lift === oldName ? { ...exercise, lift: newName } : exercise,
     )
   }
 }

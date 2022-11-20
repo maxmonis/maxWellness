@@ -9,7 +9,7 @@ const organizeRoutine = (routine = []) => {
         printout,
       }
       if (becameRecord) {
-        exercise.printout += '*'
+        exercise.printout += "*"
       }
       updatedRoutine.push(exercise)
     } else {

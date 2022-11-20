@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { getDate } from '../../functions/helpers'
-import WorkoutListItem from './WorkoutListItem'
+import React, { useState } from "react"
+import { getDate } from "../../functions/helpers"
+import WorkoutListItem from "./WorkoutListItem"
 
 const WorkoutList = ({
   workouts,
@@ -15,18 +15,18 @@ const WorkoutList = ({
   const EXAMPLE_WORKOUTS = [
     {
       date: getDate(),
-      bench: '3(12x135)*',
-      deadlift: '3(10x235)',
+      bench: "3(12x135)*",
+      deadlift: "3(10x235)",
     },
     {
       date: getDate(-2),
-      bench: '3(10x135)',
-      deadlift: '3(10x235)*',
+      bench: "3(10x135)",
+      deadlift: "3(10x235)*",
     },
     {
       date: getDate(-4),
-      bench: '3(10x135)*',
-      deadlift: '3(10x225)*',
+      bench: "3(10x135)*",
+      deadlift: "3(10x225)*",
     },
   ]
   return (
@@ -51,13 +51,13 @@ const WorkoutList = ({
           </div>
         </>
       ) : (
-        <div className='intro-text'>
+        <div className="intro-text">
           <p>
             Workouts will be displayed here. We recommend giving them names
             which describe the focus of that routine (eg. full body, chest and
             back, legs, etc.) since you'll then be able to filter your workouts
-            by name. New personal records will be flagged with an asterisk.{' '}
-            {showExamples ? 'For example:' : ''}
+            by name. New personal records will be flagged with an asterisk.{" "}
+            {showExamples ? "For example:" : ""}
           </p>
           {showExamples ? (
             <>
@@ -73,7 +73,7 @@ const WorkoutList = ({
             </>
           ) : (
             <button
-              className='btn-3 mt-6'
+              className="btn-3 mt-6"
               onClick={() => setShowExamples(true)}>
               See Examples
             </button>

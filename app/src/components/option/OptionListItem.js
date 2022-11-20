@@ -1,7 +1,7 @@
-import React from 'react'
-import useInputState from '../../hooks/useInputState'
-import useToggle from '../../hooks/useToggle'
-import { strInput } from '../../functions/helpers'
+import React from "react"
+import useInputState from "../../hooks/useInputState"
+import useToggle from "../../hooks/useToggle"
+import { strInput } from "../../functions/helpers"
 
 const CurrentOption = ({ option, updateOptions }) => {
   const [isEditing, toggle] = useToggle(false)

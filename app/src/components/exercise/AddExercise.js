@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import LiftRecords from '../stats/LiftRecords'
-import { Input } from '../layout/UI'
-import { numInput } from '../../functions/helpers'
+import React, { useEffect, useState } from "react"
+import LiftRecords from "../stats/LiftRecords"
+import { Input } from "../layout/UI"
+import { numInput } from "../../functions/helpers"
 
 const AddExercise = ({
   lifts,
@@ -26,7 +26,7 @@ const AddExercise = ({
     }
   }
   const reset = () => {
-    setExercise({ ...exercise, sets: '', reps: '', weight: '' })
+    setExercise({ ...exercise, sets: "", reps: "", weight: "" })
     setError(false)
   }
   useEffect(() => {
@@ -35,15 +35,15 @@ const AddExercise = ({
   }, [reps, weight])
   return (
     <>
-      <select className='mt-3' name='lift' value={lift} onChange={handleChange}>
+      <select className="mt-3" name="lift" value={lift} onChange={handleChange}>
         {lifts.map(lift => (
           <option key={lift} value={lift}>
             {lift}
           </option>
         ))}
         {isNewWorkout && (
-          <option key='#liftName' value='#liftName'>
-            {'<<< Add/Edit >>>'}
+          <option key="#liftName" value="#liftName">
+            {"<<< Add/Edit >>>"}
           </option>
         )}
       </select>
@@ -53,34 +53,34 @@ const AddExercise = ({
         setExercise={setExercise}
       />
       <form onSubmit={handleSubmit} noValidate>
-        <div className='new-exercise-inputs'>
+        <div className="new-exercise-inputs">
           <Input
-            name='sets'
-            label='Sets'
-            type='number'
+            name="sets"
+            label="Sets"
+            type="number"
             value={numInput(sets)}
             handleChange={handleChange}
           />
           <Input
-            name='reps'
-            label='Reps'
-            type='number'
+            name="reps"
+            label="Reps"
+            type="number"
             value={numInput(reps)}
             handleChange={handleChange}
           />
           <Input
-            name='weight'
-            label='Weight'
-            type='number'
+            name="weight"
+            label="Weight"
+            type="number"
             value={numInput(weight)}
             handleChange={handleChange}
           />
         </div>
-        <button className='btn-2 mr-3' type='submit'>
+        <button className="btn-2 mr-3" type="submit">
           Enter Exercise
         </button>
         {(sets || reps || weight) && <button onClick={reset}>Reset</button>}
-        {error && <p className='red'>Invalid exercise</p>}
+        {error && <p className="red">Invalid exercise</p>}
       </form>
     </>
   )

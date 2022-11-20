@@ -1,4 +1,4 @@
-import { alphabetize } from './helpers'
+import { alphabetize } from "./helpers"
 
 const updateWorkoutNames = (newName, oldName, client) => {
   const { workoutNames, workouts } = client
@@ -20,7 +20,7 @@ const updateWorkoutNames = (newName, oldName, client) => {
   function updateName() {
     return {
       workoutNames: alphabetize(
-        workoutNames.map(name => (name === oldName ? newName : name))
+        workoutNames.map(name => (name === oldName ? newName : name)),
       ),
       workouts: workouts.map(workout =>
         workout.name === oldName
@@ -28,7 +28,7 @@ const updateWorkoutNames = (newName, oldName, client) => {
               ...workout,
               name: newName,
             }
-          : workout
+          : workout,
       ),
     }
   }

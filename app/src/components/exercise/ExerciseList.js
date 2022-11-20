@@ -1,10 +1,10 @@
-import React from 'react'
-import { Droppable } from 'react-beautiful-dnd'
-import Exercise from './Exercise'
+import React from "react"
+import { Droppable } from "react-beautiful-dnd"
+import Exercise from "./Exercise"
 
 const ExerciseList = ({ routine, selectExercise }) => {
   return (
-    <Droppable droppableId='ExerciseList'>
+    <Droppable droppableId="ExerciseList">
       {provided => (
         <ul ref={provided.innerRef} {...provided.droppableProps}>
           {routine.map((exercise, index) => (

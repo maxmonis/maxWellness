@@ -1,62 +1,62 @@
-import { alphabetize } from '../../functions/helpers'
+import { alphabetize } from "../../functions/helpers"
 
 export default (state, action) => {
   const { type, payload } = action
   switch (type) {
-    case 'GET_WORKOUTS':
+    case "GET_WORKOUTS":
       return {
         ...state,
         workouts: payload,
         loading: false,
       }
-    case 'ADD_WORKOUT':
+    case "ADD_WORKOUT":
       return {
         ...state,
         workouts: [...state.workouts, payload],
         loading: false,
       }
-    case 'UPDATE_WORKOUT':
+    case "UPDATE_WORKOUT":
       return {
         ...state,
         workouts: state.workouts.map(workout =>
-          workout._id === payload._id ? payload : workout
+          workout._id === payload._id ? payload : workout,
         ),
         loading: false,
       }
-    case 'DELETE_WORKOUT':
+    case "DELETE_WORKOUT":
       return {
         ...state,
         workouts: state.workouts.filter(workout => workout._id !== payload),
         loading: false,
       }
-    case 'CLEAR_WORKOUTS':
+    case "CLEAR_WORKOUTS":
       return {
         ...state,
         workouts: [],
         filteredWorkouts: [],
         error: null,
       }
-    case 'SET_EDITING_WORKOUT':
+    case "SET_EDITING_WORKOUT":
       return {
         ...state,
         editingWorkout: payload,
       }
-    case 'CLEAR_EDITING_WORKOUT':
+    case "CLEAR_EDITING_WORKOUT":
       return {
         ...state,
         editingWorkout: null,
       }
-    case 'CLEAR_FILTERED_WORKOUTS':
+    case "CLEAR_FILTERED_WORKOUTS":
       return {
         ...state,
         filteredWorkouts: [],
       }
-    case 'WORKOUT_ERROR':
+    case "WORKOUT_ERROR":
       return {
         ...state,
         error: payload,
       }
-    case 'SET_ALL_WORKOUTS':
+    case "SET_ALL_WORKOUTS":
       const records = getRecords(payload)
       return {
         ...state,
@@ -67,7 +67,7 @@ export default (state, action) => {
         filteredRecords: records,
         appliedFilterCount: 0,
       }
-    case 'UPDATE_WORKOUTS_FILTER':
+    case "UPDATE_WORKOUTS_FILTER":
       const updatedFilters = updateWorkoutsFilter(payload)
       const filteredWorkouts = filterWorkouts(updatedFilters)
       return {
@@ -77,7 +77,7 @@ export default (state, action) => {
         filteredRecords: [...getRecords(filteredWorkouts)].reverse(),
         appliedFilterCount: getFilterCount(updatedFilters),
       }
-    case 'CLEAR_WORKOUTS_FILTERS':
+    case "CLEAR_WORKOUTS_FILTERS":
       return {
         ...state,
         filteredWorkouts: [...state.allWorkouts].reverse(),
@@ -124,23 +124,23 @@ export default (state, action) => {
     const { workoutNames, workoutDates, liftNames, newestFirst } =
       workoutsFilters
     switch (type) {
-      case 'workoutName':
+      case "workoutName":
         return {
           ...workoutsFilters,
           workoutNames: workoutNames.map(workout =>
             workout.name === clicked
               ? { ...workout, checked: !workout.checked }
-              : workout
+              : workout,
           ),
         }
-      case 'liftName':
+      case "liftName":
         return {
           ...workoutsFilters,
           liftNames: liftNames.map(lift =>
-            lift.name === clicked ? { ...lift, checked: !lift.checked } : lift
+            lift.name === clicked ? { ...lift, checked: !lift.checked } : lift,
           ),
         }
-      case 'startDate':
+      case "startDate":
         return {
           ...workoutsFilters,
           workoutDates: {
@@ -148,7 +148,7 @@ export default (state, action) => {
             startDate: clicked,
           },
         }
-      case 'endDate':
+      case "endDate":
         return {
           ...workoutsFilters,
           workoutDates: {
@@ -156,7 +156,7 @@ export default (state, action) => {
             endDate: clicked,
           },
         }
-      case 'chronology':
+      case "chronology":
         return {
           ...workoutsFilters,
           newestFirst: !newestFirst,
@@ -191,11 +191,11 @@ export default (state, action) => {
                 ? workout.routine
                 : workout.routine.filter(
                     ({ lift }) =>
-                      liftNames.find(({ name }) => name === lift).checked
+                      liftNames.find(({ name }) => name === lift).checked,
                   ),
             }
           : // Otherwise we map this workout to null to filter it out.
-            null
+            null,
       )
       // Then we filter out any workouts whose routines are now empty...
       .filter(workout => workout?.routine?.length)

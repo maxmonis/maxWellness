@@ -1,4 +1,4 @@
-import createNewExercise from './createNewExercise'
+import createNewExercise from "./createNewExercise"
 
 const eliminateRedundancy = routine => {
   const updatedRoutine = routine.length ? [routine[0]] : []

@@ -1,19 +1,19 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const config = require('config')
-const { check, validationResult } = require('express-validator')
-const User = require('../models/User')
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const config = require("config")
+const { check, validationResult } = require("express-validator")
+const User = require("../models/User")
 
 router.post(
-  '/',
+  "/",
   [
-    check('name', 'Please add a name').not().isEmpty(),
-    check('email', 'Please include a valid email').isEmail(),
+    check("name", "Please add a name").not().isEmpty(),
+    check("email", "Please include a valid email").isEmail(),
     check(
-      'password',
-      'Please enter a password with at least six characters'
+      "password",
+      "Please enter a password with at least six characters",
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
@@ -25,7 +25,7 @@ router.post(
     try {
       let user = await User.findOne({ email })
       if (user) {
-        res.status(400).send('User already exists')
+        res.status(400).send("User already exists")
       }
       user = new User({
         name,
@@ -42,20 +42,20 @@ router.post(
       }
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        config.get("jwtSecret"),
         {
           expiresIn: 3600,
         },
         (err, token) => {
           if (err) throw err
           res.json({ token })
-        }
+        },
       )
     } catch (err) {
       console.error(err.message)
-      res.status(500).send('Server Error')
+      res.status(500).send("Server Error")
     }
-  }
+  },
 )
 
 module.exports = router

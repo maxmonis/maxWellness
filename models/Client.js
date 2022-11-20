@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
 const ClientSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    ref: "user",
   },
   name: {
     type: String,
@@ -12,11 +12,11 @@ const ClientSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    default: '',
+    default: "",
   },
   phone: {
     type: String,
-    default: '',
+    default: "",
   },
   isActive: {
     type: Boolean,
@@ -24,11 +24,11 @@ const ClientSchema = mongoose.Schema({
   },
   lifts: {
     type: [],
-    default: ['Bench Press', 'Deadlift', 'Squat'],
+    default: ["Bench Press", "Deadlift", "Squat"],
   },
   workoutNames: {
     type: [],
-    default: ['Full Body', 'Upper Body', 'Lower Body'],
+    default: ["Full Body", "Upper Body", "Lower Body"],
   },
   workouts: {
     type: [],
@@ -36,4 +36,4 @@ const ClientSchema = mongoose.Schema({
   },
 })
 
-module.exports = mongoose.model('client', ClientSchema)
+module.exports = mongoose.model("client", ClientSchema)

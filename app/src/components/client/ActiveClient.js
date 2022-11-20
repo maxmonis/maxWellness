@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import useToggle from '../../hooks/useToggle'
+import React from "react"
+import { Link } from "react-router-dom"
+import useToggle from "../../hooks/useToggle"
 
 const ActiveClient = ({
   name,
@@ -15,8 +15,8 @@ const ActiveClient = ({
       onMouseEnter={() => toggleOptions(true)}
       onMouseLeave={() => toggleOptions(false)}>
       {optionsShown ? (
-        <Link to={id} title='Workouts'>
-          <button className='hover-underline' onClick={toggleDrawer}>
+        <Link to={id} title="Workouts">
+          <button className="hover-underline" onClick={toggleDrawer}>
             {name}
           </button>
         </Link>
@@ -26,7 +26,7 @@ const ActiveClient = ({
       {optionsShown && (
         <div>
           <button onClick={handleEdit}>Edit</button>
-          <button className='red mt-1 ml-5' onClick={handleDeactivate}>
+          <button className="red mt-1 ml-5" onClick={handleDeactivate}>
             Remove
           </button>
         </div>

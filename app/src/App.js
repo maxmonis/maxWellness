@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import Alerts from './components/layout/Alerts'
-import Home from './components/pages/Home'
-import Login from './components/pages/Login'
-import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
-import PrivateRoute from './components/pages/PrivateRoute'
-import Register from './components/pages/Register'
-import AlertState from './context/alert/AlertState'
-import AuthState from './context/auth/AuthState'
-import ClientState from './context/client/ClientState'
-import WorkoutState from './context/workout/WorkoutState'
-import useToggle from './hooks/useToggle'
+import React, { useEffect } from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { CSSTransition, TransitionGroup } from "react-transition-group"
+import Alerts from "./components/layout/Alerts"
+import Home from "./components/pages/Home"
+import Login from "./components/pages/Login"
+import Navbar from "./components/layout/Navbar"
+import Footer from "./components/layout/Footer"
+import PrivateRoute from "./components/pages/PrivateRoute"
+import Register from "./components/pages/Register"
+import AlertState from "./context/alert/AlertState"
+import AuthState from "./context/auth/AuthState"
+import ClientState from "./context/client/ClientState"
+import WorkoutState from "./context/workout/WorkoutState"
+import useToggle from "./hooks/useToggle"
 
 const App = () => {
   const [dark, toggleDark] = useToggle(
-    window.matchMedia?.('(prefers-color-scheme: dark)')?.matches
+    window.matchMedia?.("(prefers-color-scheme: dark)")?.matches,
   )
   const [isDrawerOpen, toggleDrawer] = useToggle(false)
   const [showBackground, toggleBackground] = useToggle(true)
@@ -33,7 +33,7 @@ const App = () => {
     saveBgPreference(showBackground)
     // eslint-disable-next-line
   }, [showBackground])
-  const LOCAL_STORAGE_KEY = 'max_wellness_'
+  const LOCAL_STORAGE_KEY = "max_wellness_"
   const DARK_KEY = `${LOCAL_STORAGE_KEY}prefers_dark`
   const BG_KEY = `${LOCAL_STORAGE_KEY}prefers_bg`
   const saveDarkPreference = bool =>
@@ -42,14 +42,14 @@ const App = () => {
     window.localStorage.setItem(BG_KEY, JSON.stringify(bool))
   const getSavedPreferences = () => {
     const darkSetting = JSON.parse(window.localStorage.getItem(DARK_KEY))
-    if (typeof darkSetting === 'boolean') toggleDark(darkSetting)
+    if (typeof darkSetting === "boolean") toggleDark(darkSetting)
     const bgSetting = JSON.parse(window.localStorage.getItem(BG_KEY))
-    if (typeof bgSetting === 'boolean') toggleBackground(bgSetting)
+    if (typeof bgSetting === "boolean") toggleBackground(bgSetting)
   }
   return (
     <div
-      className={`app ${dark ? 'dark' : ''}
-        ${showBackground ? 'show-bg' : ''}`}>
+      className={`app ${dark ? "dark" : ""}
+        ${showBackground ? "show-bg" : ""}`}>
       <AuthState>
         <ClientState>
           <WorkoutState>
@@ -68,13 +68,13 @@ const App = () => {
                     <TransitionGroup>
                       <CSSTransition
                         key={location.key}
-                        classNames='slide'
+                        classNames="slide"
                         timeout={350}>
                         <Switch location={location}>
-                          <Route exact path='/login' component={Login} />
-                          <Route exact path='/register' component={Register} />
-                          <PrivateRoute exact path='/' component={Home} />
-                          <PrivateRoute path='/:id' component={Home} />
+                          <Route exact path="/login" component={Login} />
+                          <Route exact path="/register" component={Register} />
+                          <PrivateRoute exact path="/" component={Home} />
+                          <PrivateRoute path="/:id" component={Home} />
                         </Switch>
                       </CSSTransition>
                     </TransitionGroup>

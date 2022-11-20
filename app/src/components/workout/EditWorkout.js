@@ -1,7 +1,7 @@
-import React from 'react'
-import AddExercise from '../exercise/AddExercise'
-import ExerciseApp from '../exercise/ExerciseApp'
-import SaveWorkout from './SaveWorkout'
+import React from "react"
+import AddExercise from "../exercise/AddExercise"
+import ExerciseApp from "../exercise/ExerciseApp"
+import SaveWorkout from "./SaveWorkout"
 
 const EditWorkout = ({
   exercise,

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react'
-import EditWorkout from './EditWorkout'
-import StatsApp from '../stats/StatsApp'
-import UpdateOptions from '../option/UpdateOptions'
-import ExerciseHistory from '../exercise/ExerciseHistory'
-import AlertContext from '../../context/alert/alertContext'
-import WorkoutContext from '../../context/workout/workoutContext'
-import useClientState from '../../hooks/useClientState'
-import useToggle from '../../hooks/useToggle'
-import { ActionableAlert, Modal, Spinner } from '../layout/UI'
+import React, { useState, useEffect, useContext } from "react"
+import EditWorkout from "./EditWorkout"
+import StatsApp from "../stats/StatsApp"
+import UpdateOptions from "../option/UpdateOptions"
+import ExerciseHistory from "../exercise/ExerciseHistory"
+import AlertContext from "../../context/alert/alertContext"
+import WorkoutContext from "../../context/workout/workoutContext"
+import useClientState from "../../hooks/useClientState"
+import useToggle from "../../hooks/useToggle"
+import { ActionableAlert, Modal, Spinner } from "../layout/UI"
 
 const WorkoutApp = ({ selectedClient, updateClient }) => {
   const { setAlert } = useContext(AlertContext)
@@ -36,9 +36,9 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   }, [workouts])
   const DEFAULT_EXERCISE = {
     lift: lifts[0],
-    sets: '',
-    reps: '',
-    weight: '',
+    sets: "",
+    reps: "",
+    weight: "",
   }
   const [exercise, setExercise] = useState(DEFAULT_EXERCISE)
   const [editingExercise, setEditingExercise] = useState(DEFAULT_EXERCISE)
@@ -51,11 +51,11 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
   const [isEditingLifts, toggleLiftForm] = useToggle(false)
   const handleChange = e => {
     const { name, value } = e.target
-    if (['name', 'date'].includes(name))
+    if (["name", "date"].includes(name))
       editingWorkout
         ? setEditingWorkout({ ...editingWorkout, [name]: value })
         : setWorkout({ ...workout, [name]: value })
-    else if (value === '#liftName') toggleLiftForm()
+    else if (value === "#liftName") toggleLiftForm()
     else
       editingWorkout
         ? setEditingExercise({ ...editingExercise, [name]: value })
@@ -82,16 +82,16 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
       setEditingExercise(DEFAULT_EXERCISE)
       setEditingWorkout(null)
       updateEditingRoutine([])
-      setAlert('Workout Updated', 'success')
+      setAlert("Workout Updated", "success")
     } else {
       updateWorkouts({ ...workout, routine })
       setExercise(DEFAULT_EXERCISE)
       setWorkout(DEFAULT_WORKOUT)
       updateRoutine()
-      setAlert('Workout Saved', 'success')
+      setAlert("Workout Saved", "success")
     }
   }
-  const title = name[0] === '#' ? name.slice(2) : name
+  const title = name[0] === "#" ? name.slice(2) : name
   useEffect(() => {
     document.title = `maxWellness | ${title}`
     // eslint-disable-next-line
@@ -101,10 +101,10 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
     // eslint-disable-next-line
   }, [client])
   return filteredWorkouts ? (
-    <div className='workout-app'>
+    <div className="workout-app">
       {editingWorkout && (
         <Modal handleClose={() => editWorkout(null)}>
-          <h2 className='mb-3'>Edit Workout</h2>
+          <h2 className="mb-3">Edit Workout</h2>
           <EditWorkout
             exercise={editingExercise}
             workout={editingWorkout}
@@ -128,23 +128,23 @@ const WorkoutApp = ({ selectedClient, updateClient }) => {
             options={lifts}
             updateOptions={updateLifts}
             toggleOptionForm={toggleLiftForm}
-            optionName='Exercise'
+            optionName="Exercise"
           />
         </Modal>
       )}
-      <h1 className='p-3'>{title}</h1>
+      <h1 className="p-3">{title}</h1>
       {appliedFilterCount > 0 && (
         <ActionableAlert
           text={
             filteredWorkouts.length
               ? `${appliedFilterCount} filter${
-                  appliedFilterCount === 1 ? '' : 's'
+                  appliedFilterCount === 1 ? "" : "s"
                 } applied`
-              : 'No Results'
+              : "No Results"
           }
-          btnText='Clear Filters'
+          btnText="Clear Filters"
           handleClick={clearWorkoutsFilters}
-          classes={filteredWorkouts.length ? '' : 'critical'}
+          classes={filteredWorkouts.length ? "" : "critical"}
         />
       )}
       <>

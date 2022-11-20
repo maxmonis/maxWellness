@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
-import ActiveClient from './ActiveClient'
-import InactiveClient from './InactiveClient'
-import ClientContext from '../../context/client/clientContext'
+import React, { useContext } from "react"
+import ActiveClient from "./ActiveClient"
+import InactiveClient from "./InactiveClient"
+import ClientContext from "../../context/client/clientContext"
 
 const Client = ({ client, toggleDrawer }) => {
   const { deleteClient, updateClient, setEditingClient } =

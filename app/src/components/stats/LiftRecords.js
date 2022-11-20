@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { formatDate } from '../../functions/helpers'
+import React, { useState, useEffect } from "react"
+import { formatDate } from "../../functions/helpers"
 
 const LiftRecords = ({ records, lift, setExercise }) => {
   const liftRecords = records.filter(record => record.lift === lift)
@@ -16,15 +16,15 @@ const LiftRecords = ({ records, lift, setExercise }) => {
     setHorizontalIndex(2)
   }, [lift])
   return (
-    <div className='lift-records'>
+    <div className="lift-records">
       {!liftRecords.length ? (
         <h4>{lift} records will be displayed here</h4>
       ) : (
         <>
           <button
-            className={horizontalIndex > 2 ? '' : 'opacity-0 cursor-default'}
+            className={horizontalIndex > 2 ? "" : "opacity-0 cursor-default"}
             onClick={decrement}>
-            <h3>{'<-'}</h3>
+            <h3>{"<-"}</h3>
           </button>
           <div>
             {liftRecords
@@ -41,11 +41,11 @@ const LiftRecords = ({ records, lift, setExercise }) => {
           <button
             className={
               horizontalIndex < liftRecords.length
-                ? ''
-                : 'opacity-0 cursor-default'
+                ? ""
+                : "opacity-0 cursor-default"
             }
             onClick={increment}>
-            <h3>{'->'}</h3>
+            <h3>{"->"}</h3>
           </button>
         </>
       )}

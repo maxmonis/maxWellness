@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import AuthContext from '../../context/auth/authContext'
-import ClientContext from '../../context/client/clientContext'
-import MenuDrawer from './MenuDrawer'
-import SideNav from './SideNav'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import React, { useContext, useEffect } from "react"
+import { Link } from "react-router-dom"
+import AuthContext from "../../context/auth/authContext"
+import ClientContext from "../../context/client/clientContext"
+import MenuDrawer from "./MenuDrawer"
+import SideNav from "./SideNav"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBars } from "@fortawesome/free-solid-svg-icons"
 
 const Navbar = props => {
   const {
@@ -43,17 +43,17 @@ const Navbar = props => {
           logUserOut={logUserOut}
         />
       )}
-      <nav className='main-nav'>
+      <nav className="main-nav">
         <header>
-          <button className='m-3' onClick={toggleDrawer}>
+          <button className="m-3" onClick={toggleDrawer}>
             <FontAwesomeIcon icon={faBars} />
           </button>
-          <h1 className='show-gt-568'>maxWellness</h1>
-          <Link to='/'>
+          <h1 className="show-gt-568">maxWellness</h1>
+          <Link to="/">
             <img
-              className='border'
-              src='/favicon-32x32.png'
-              alt='maxWellness'
+              className="border"
+              src="/favicon-32x32.png"
+              alt="maxWellness"
             />
           </Link>
         </header>

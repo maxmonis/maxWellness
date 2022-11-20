@@ -1,27 +1,27 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const config = require('config')
-const { check, validationResult } = require('express-validator')
-const auth = require('../middleware/auth')
-const User = require('../models/User')
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const config = require("config")
+const { check, validationResult } = require("express-validator")
+const auth = require("../middleware/auth")
+const User = require("../models/User")
 
-router.get('/', auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password')
+    const user = await User.findById(req.user.id).select("-password")
     res.json(user)
   } catch (err) {
     console.error(err.message)
-    res.status(500).send('Server error')
+    res.status(500).send("Server error")
   }
 })
 
 router.post(
-  '/',
+  "/",
   [
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Please enter a password').exists(),
+    check("email", "Please include a valid email").isEmail(),
+    check("password", "Please enter a password").exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -32,11 +32,11 @@ router.post(
     try {
       const user = await User.findOne({ email })
       if (!user) {
-        return res.status(400).send('Invalid Credentials')
+        return res.status(400).send("Invalid Credentials")
       }
       const isMatch = await bcrypt.compare(password, user.password)
       if (!isMatch) {
-        return res.status(400).send('Invalid Credentials')
+        return res.status(400).send("Invalid Credentials")
       }
       const payload = {
         user: {
@@ -45,20 +45,20 @@ router.post(
       }
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        config.get("jwtSecret"),
         {
           expiresIn: 3600,
         },
         (err, token) => {
           if (err) throw err
           res.json({ token })
-        }
+        },
       )
     } catch (err) {
       console.error(err.message)
-      res.status(500).send('Server Error')
+      res.status(500).send("Server Error")
     }
-  }
+  },
 )
 
 module.exports = router

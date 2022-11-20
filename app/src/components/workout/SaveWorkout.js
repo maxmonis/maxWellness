@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Input, Modal } from '../layout/UI'
-import UpdateOptions from '../option/UpdateOptions'
-import organizeRoutine from '../../functions/organizeRoutine'
-import useToggle from '../../hooks/useToggle'
+import React, { useState, useEffect } from "react"
+import { Input, Modal } from "../layout/UI"
+import UpdateOptions from "../option/UpdateOptions"
+import organizeRoutine from "../../functions/organizeRoutine"
+import useToggle from "../../hooks/useToggle"
 
 const SaveWorkout = ({
   name,
@@ -29,16 +29,16 @@ const SaveWorkout = ({
         setErrors(INITIAL_ERRORS)
         saveWorkout()
       } else {
-        const nameError = !name ? 'Workout name is required' : null
+        const nameError = !name ? "Workout name is required" : null
         const dateError = !isDateValid
-          ? 'Date must be in format yyyy-mm-dd'
+          ? "Date must be in format yyyy-mm-dd"
           : null
         setErrors({ name: nameError, date: dateError })
       }
     }
   }
   const handleSelection = e =>
-    e.target.value === '#workoutName' ? toggleNameEdit() : handleChange(e)
+    e.target.value === "#workoutName" ? toggleNameEdit() : handleChange(e)
   const handleBlur = () => name && setErrors({ ...errors, name: null })
   useEffect(() => {
     if (routine.length === 0) toggleForm(false)
@@ -54,15 +54,15 @@ const SaveWorkout = ({
                 options={workoutNames}
                 updateOptions={updateWorkoutNames}
                 toggleOptionForm={toggleNameEdit}
-                optionName={'Workout'}
+                optionName={"Workout"}
               />
             </>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
               <h2>Save Workout</h2>
               <select
-                className='mt-3'
-                name='name'
+                className="mt-3"
+                name="name"
                 value={name}
                 onBlur={handleBlur}
                 onChange={handleSelection}>
@@ -72,29 +72,29 @@ const SaveWorkout = ({
                   </option>
                 ))}
                 {isNewWorkout && (
-                  <option key='#workoutName' value='#workoutName'>
-                    {'<<< Add/Edit >>>'}
+                  <option key="#workoutName" value="#workoutName">
+                    {"<<< Add/Edit >>>"}
                   </option>
                 )}
               </select>
-              {errors.name && <p className='input-error'>{errors.name}</p>}
+              {errors.name && <p className="input-error">{errors.name}</p>}
               <Input
-                name='date'
-                label='Workout Date'
-                type='date'
+                name="date"
+                label="Workout Date"
+                type="date"
                 value={date}
                 handleChange={handleChange}
                 error={errors.date}
                 persistentLabel
               />
-              <ul className='mb-6'>
+              <ul className="mb-6">
                 {organizeRoutine(routine).map(({ id, lift, printout }) => (
                   <li key={id}>
                     <h4>{`${lift}: ${printout}`}</h4>
                   </li>
                 ))}
               </ul>
-              <button className='btn-1 mr-3' type='submit'>
+              <button className="btn-1 mr-3" type="submit">
                 Confirm
               </button>
               <button onClick={toggleForm}>Cancel</button>
@@ -104,7 +104,7 @@ const SaveWorkout = ({
       )}
       {routine.length > 0 && (
         <>
-          <button className='btn-1 mr-3' onClick={toggleForm} type='button'>
+          <button className="btn-1 mr-3" onClick={toggleForm} type="button">
             Save Workout
           </button>
           <button onClick={() => updateRoutine()}>Clear</button>

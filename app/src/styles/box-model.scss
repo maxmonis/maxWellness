@@ -30,20 +30,27 @@ $sizes: (
   $border: 1px solid var(--color);
   border: $border;
   border-radius: var(--border-radius);
-  @each $sideKey, $sideValue in $sides {
+
+  @each $sideKey,
+  $sideValue in $sides {
     &-#{$sideKey} {
       border-#{$sideValue}: $border;
     }
   }
 }
 
-@each $spaceKey, $spaceValue in $spaces {
-  @each $sizeKey, $sizeValue in $sizes {
+@each $spaceKey,
+$spaceValue in $spaces {
+
+  @each $sizeKey,
+  $sizeValue in $sizes {
     .#{$spaceKey} {
       &-#{$sizeKey} {
         #{$spaceValue}: #{$sizeValue};
       }
-      @each $sideKey, $sideValue in $sides {
+
+      @each $sideKey,
+      $sideValue in $sides {
         &#{$sideKey}-#{$sizeKey} {
           #{$spaceValue}-#{$sideValue}: #{$sizeValue};
         }

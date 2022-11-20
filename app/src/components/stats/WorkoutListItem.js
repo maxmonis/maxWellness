@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import organizeRoutine from '../../functions/organizeRoutine'
-import useToggle from '../../hooks/useToggle'
-import AlertContext from '../../context/alert/alertContext'
-import { formatDate } from '../../functions/helpers'
-import { Modal } from '../layout/UI'
+import React, { useContext } from "react"
+import organizeRoutine from "../../functions/organizeRoutine"
+import useToggle from "../../hooks/useToggle"
+import AlertContext from "../../context/alert/alertContext"
+import { formatDate } from "../../functions/helpers"
+import { Modal } from "../layout/UI"
 
 const WorkoutListItem = ({
   workout,
@@ -18,7 +18,7 @@ const WorkoutListItem = ({
   const [showDeleteModal, toggleDeleteModal] = useToggle(false)
   const handleDelete = () => {
     updateWorkouts(id)
-    setAlert('Workout Deleted', 'success')
+    setAlert("Workout Deleted", "success")
     toggleDeleteModal()
   }
   const organizedRoutine = organizeRoutine(routine)
@@ -27,14 +27,14 @@ const WorkoutListItem = ({
   ${formatDate(date)}
   ${organizedRoutine.map(
     exercise => `
-  ${exercise.lift}: ${exercise.printout}`
+  ${exercise.lift}: ${exercise.printout}`,
   )}
   `
   const handleCopyClick = () => {
     updateRoutine(routine)
     if (navigator.clipboard) navigator.clipboard.writeText(CLIPBOARD_TEXT)
     toggleMenu(id)
-    setAlert('Workout Copied', 'success')
+    setAlert("Workout Copied", "success")
   }
   const handleEditClick = () => {
     toggleMenu(id)
@@ -42,22 +42,22 @@ const WorkoutListItem = ({
   }
   return (
     routine.length > 0 && (
-      <div className='mb-6'>
+      <div className="mb-6">
         {showDeleteModal && (
           <Modal handleClose={toggleDeleteModal}>
             <h2>Delete Workout?</h2>
-            <h5 className='mt-2 mb-6'>This action cannot be undone</h5>
+            <h5 className="mt-2 mb-6">This action cannot be undone</h5>
             <button onClick={toggleDeleteModal}>Cancel</button>
-            <button className='red ml-5' onClick={handleDelete}>
+            <button className="red ml-5" onClick={handleDelete}>
               Delete
             </button>
           </Modal>
         )}
-        <h4 onClick={() => toggleMenu(workout.id)} className='cursor-pointer'>
+        <h4 onClick={() => toggleMenu(workout.id)} className="cursor-pointer">
           {`${name} - `}
           {formatDate(date)}
         </h4>
-        <section className='mb-1'>
+        <section className="mb-1">
           <ul>
             {organizedRoutine.map(exercise => (
               <li key={exercise.id}>
@@ -67,13 +67,13 @@ const WorkoutListItem = ({
           </ul>
           {menuID === workout.id && (
             <>
-              <button className='btn-3' onClick={handleCopyClick}>
+              <button className="btn-3" onClick={handleCopyClick}>
                 Copy
               </button>
-              <button className='mt-4 mx-5' onClick={handleEditClick}>
+              <button className="mt-4 mx-5" onClick={handleEditClick}>
                 Edit
               </button>
-              <button className='red' onClick={toggleDeleteModal}>
+              <button className="red" onClick={toggleDeleteModal}>
                 Delete
               </button>
             </>

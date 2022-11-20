@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useRef } from 'react'
-import ClientContext from '../../context/client/clientContext'
+import React, { useContext, useEffect, useRef } from "react"
+import ClientContext from "../../context/client/clientContext"
 
 const FilterRoster = () => {
   const { filterClients, clearFilteredClients, filteredClients } =
     useContext(ClientContext)
-  const text = useRef('')
+  const text = useRef("")
   useEffect(() => {
-    if (!filteredClients.length) text.current.value = ''
+    if (!filteredClients.length) text.current.value = ""
   })
   const handleChange = e => {
-    text.current.value = text.current.value.replace(/[^a-z]/gi, '')
-    if (text.current.value !== '') {
+    text.current.value = text.current.value.replace(/[^a-z]/gi, "")
+    if (text.current.value !== "") {
       filterClients(e.target.value)
     } else {
       clearFilteredClients()
@@ -20,10 +20,10 @@ const FilterRoster = () => {
     <form onSubmit={e => e.preventDefault()}>
       <input
         ref={text}
-        type='text'
-        placeholder='Filter clients...'
+        type="text"
+        placeholder="Filter clients..."
         onChange={handleChange}
-        className='m-2'
+        className="m-2"
       />
     </form>
   )
