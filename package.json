@@ -9,6 +9,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "concurrently \"yarn:serve\" \"cd app && yarn start\"",
+    "devsetup": "yarn install && cd app && yarn install",
     "start": "node server.js",
     "serve": "nodemon server.js",
     "heroku-postbuild": "cd app && yarn install && yarn build"
