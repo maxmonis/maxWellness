@@ -8,11 +8,11 @@
   },
   "main": "server.js",
   "scripts": {
+    "build": "yarn install && cd app && yarn install && yarn build",
     "dev": "concurrently \"yarn:serve\" \"cd app && yarn start\"",
     "devsetup": "yarn install && cd app && yarn install",
     "start": "node server.js",
-    "serve": "nodemon server.js",
-    "heroku-postbuild": "cd app && yarn install && yarn build"
+    "serve": "nodemon server.js"
   },
   "keywords": [],
   "author": "Max Monis",
