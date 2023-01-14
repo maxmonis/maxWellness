@@ -1,16 +1,12 @@
 # maxWellness
 
+https://max-wellness.onrender.com/
+
 Allows personal trainers to track their workouts and those of their clients.
 
-I built this project entirely by myself, and this is probably at least the tenth
-iteration. Working on it is the main way I taught myself to code before landing
-my first job as a frontend dev and I'm very fond of it, although there's
-certainly room for improvement.
-
-The infrastructure is set up for deployment on `Heroku`, but it is no longer
-active since their free tier was removed. I'm keeping this repo because it was a
-ton of work and is my baby. If I create v2 of this project I'll link to that
-repo in this readMe once it's ready.
+I built this project entirely by myself, and working on it is the main way I
+taught myself to code before landing my first job as a frontend dev. I'm working
+on v2 of this project and that repo can also be found on my github.
 
 ---
 
@@ -121,4 +117,18 @@ To create a production build of the app:
 ```
 cd app
 yarn build
+```
+
+## Deployment
+
+Install all server and client dependencies:
+
+```
+yarn build
+```
+
+Start the server:
+
+```
+yarn start
 ```
