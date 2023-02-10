@@ -4,7 +4,7 @@ const path = require("path")
 
 const app = express()
 
-connectDB()
+const PORT = process.env.PORT || 5000
 
 app.use(express.json({ extended: false }))
 
@@ -19,10 +19,10 @@ if (process.env.NODE_ENV === "production") {
   )
 }
 
-const PORT = process.env.PORT || 5000
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`)
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`)
+  })
 })
 
 module.exports = app

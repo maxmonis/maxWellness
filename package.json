@@ -1,22 +1,5 @@
 {
-  "name": "max-wellness",
-  "description": "MERN stack fitness tracker",
-  "version": "0.1.0",
-  "engines": {
-    "node": "14.x",
-    "yarn": "1.x"
-  },
-  "main": "server.js",
-  "scripts": {
-    "build": "yarn install && cd app && yarn install && yarn build",
-    "dev": "concurrently \"yarn:serve\" \"cd app && yarn start\"",
-    "devsetup": "yarn install && cd app && yarn install",
-    "start": "node server.js",
-    "serve": "nodemon server.js"
-  },
-  "keywords": [],
   "author": "Max Monis",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.2.6",
@@ -25,8 +8,25 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.2"
   },
+  "description": "MERN stack fitness tracker",
   "devDependencies": {
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.2"
-  }
+  },
+  "engines": {
+    "node": "14.x",
+    "yarn": "1.x"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "server.js",
+  "name": "max-wellness",
+  "scripts": {
+    "build": "yarn && cd app && yarn && yarn build",
+    "dev": "concurrently \"yarn serve\" \"cd app && yarn start\"",
+    "devsetup": "yarn && cd app && yarn",
+    "serve": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "version": "1.1.0"
 }
