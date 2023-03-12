@@ -1,12 +1,11 @@
 # maxWellness
 
-https://max-wellness.onrender.com/
-
 Allows personal trainers to track their workouts and those of their clients.
 
-I built this project entirely by myself, and working on it is the main way I
-taught myself to code before landing my first job as a frontend dev. I'm working
-on v2 of this project and that repo can also be found on my github.
+I built this website entirely by myself, and creating it is the main way I
+taught myself to code before landing my first job as a frontend dev.
+
+I've begun work on [v2 of this project](https://github.com/maxmonis/max-wellness.com).
 
 ---
 
@@ -71,6 +70,10 @@ an example:
 
 <img width="858" alt="Screen Shot 2022-11-27 at 11 45 03 AM" src="https://user-images.githubusercontent.com/51540371/204148682-502dc3ce-16bd-4b16-a2fc-6963a9f9b2a7.png">
 
+NOTE: I'll need to whitelist your IP address to allow you to access the database, so please feel free to reach out 😊
+
+Alternatively, you can [set up your own database on MongoDB](https://www.mongodb.com/basics/create-database) and use that URI.
+
 ---
 
 ## Development
@@ -103,9 +106,6 @@ yarn start
 
 ## Production build
 
-Note the `heroku-postbuild` script for building and deploying the server and
-client together.
-
 To start the server in production mode:
 
 ```
@@ -121,7 +121,10 @@ yarn build
 
 ## Deployment
 
-Install all server and client dependencies:
+Note the `build` and `start` scripts in the root `package.json` for building and deploying the server and
+client together on [render.com](https://render.com/).
+
+Install all server and client dependencies, then build the application:
 
 ```
 yarn build
