@@ -1,0 +1,16 @@
+.slide-in-enter {
+  position: fixed;
+  transform: translateX(-100%);
+}
+
+.slide-in-enter-active {
+  position: fixed;
+  transition: transform 200ms ease-in;
+  transform: translateX(0);
+}
+
+.slide-in-exit-active {
+  position: fixed;
+  transition: transform 200ms ease-in;
+  transform: translateX(-100%);
+}

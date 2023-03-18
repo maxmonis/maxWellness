@@ -1,6 +1,67 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type {AppProps} from "next/app"
+import {Source_Sans_Pro} from "next/font/google"
+import Head from "next/head"
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import {config} from "@fortawesome/fontawesome-svg-core"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import {QueryClient, QueryClientProvider} from "react-query"
+
+import Alerts from "~/components/Alerts"
+import {AuthContextProvider} from "~/context/AuthContext"
+import {AlertContextProvider} from "~/context/AlertContext"
+import "~/styles/globals.css"
+import "~/styles/transitions.css"
+
+config.autoAddCss = false
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+})
+
+const font = Source_Sans_Pro({subsets: ["latin"], weight: ["400", "700"]})
+
+export default function App({Component, pageProps}: AppProps) {
+  return (
+    <>
+      <Head>
+        <meta name="description" content="Workout tracker" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <AlertContextProvider>
+          <AuthContextProvider>
+            <main className={`${font.className} text-slate-300`}>
+              <Component {...pageProps} />
+            </main>
+            <Alerts />
+          </AuthContextProvider>
+        </AlertContextProvider>
+      </QueryClientProvider>
+    </>
+  )
 }
