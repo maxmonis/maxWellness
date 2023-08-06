@@ -14,12 +14,12 @@ import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
-import {useQueryClient} from "react-query"
 
 import Page from "~/components/Page"
 import {useAlerts} from "~/context/AlertContext"
 import {logOut} from "~/firebase/client"
 import useSession from "~/hooks/useSession"
+import useUpdateProfile from "~/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/resources/models"
 
 export default function SettingsPage() {
@@ -39,7 +39,17 @@ export default function SettingsPage() {
 
 function SettingsApp({profile}: {profile: Profile}) {
   const {showAlert} = useAlerts()
-  const queryClient = useQueryClient()
+
+  const updateProfile = useUpdateProfile({
+    onMutate: () => setSubmitting(true),
+    onSettled: () => setSubmitting(false),
+    onSuccess() {
+      showAlert({
+        text: "Settings updated",
+        type: "success",
+      })
+    },
+  })
 
   const [liftNames, setLiftNames] = React.useState(profile.liftNames)
   const [workoutNames, setWorkoutNames] = React.useState(profile.workoutNames)
@@ -219,29 +229,14 @@ function SettingsApp({profile}: {profile: Profile}) {
       return
     }
 
-    setSubmitting(true)
-    try {
-      await fetch("/api/profile", {
-        body: JSON.stringify({
-          ...profile,
-          liftNames: liftNamesRef.current.map(({id, text}) => ({id, text})),
-          workoutNames: workoutNamesRef.current.map(({id, text}) => ({
-            id,
-            text,
-          })),
-        }),
-        method: "PUT",
-      })
-      showAlert({
-        text: "Settings updated",
-        type: "success",
-      })
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setSubmitting(false)
-      invalidateQueries()
-    }
+    updateProfile({
+      ...profile,
+      liftNames: liftNamesRef.current.map(({id, text}) => ({id, text})),
+      workoutNames: workoutNamesRef.current.map(({id, text}) => ({
+        id,
+        text,
+      })),
+    })
   }
 
   function onChange({
@@ -321,23 +316,6 @@ function SettingsApp({profile}: {profile: Profile}) {
         ),
       )
     }
-  }
-
-  function invalidateQueries() {
-    queryClient.invalidateQueries({
-      predicate: ({queryKey}) => {
-        if (queryKey[0] !== "session") {
-          return false
-        }
-        const params = queryKey[1]
-        if (typeof params === "object" && params !== null) {
-          if ("userId" in params && params.userId !== profile.userId) {
-            return false
-          }
-        }
-        return true
-      },
-    })
   }
 }
 

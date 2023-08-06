@@ -1,7 +1,7 @@
 import {useQuery} from "react-query"
 
 import {useAuth} from "~/context/AuthContext"
-import {Session} from "~/resources/models"
+import {sessionService} from "~/services/SessionService"
 
 export default function useSession() {
   const [user] = useAuth()
@@ -15,8 +15,8 @@ export default function useSession() {
   return res
 }
 
-async function loadSession(userId?: string): Promise<Session | undefined> {
+function loadSession(userId?: string) {
   if (userId) {
-    return fetch(`/api/session/${userId}`).then(res => res.json())
+    return sessionService.getSession(userId)
   }
 }

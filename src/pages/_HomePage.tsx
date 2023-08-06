@@ -23,13 +23,15 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd"
-import {useQueryClient} from "react-query"
 
 import {Checkbox} from "~/components/CTA"
 import Page from "~/components/Page"
 import WorkoutsTable from "~/components/WorkoutsTable"
+import useAddWorkout from "~/hooks/useAddWorkout"
+import useDeleteWorkout from "~/hooks/useDeleteWorkout"
 import useSession from "~/hooks/useSession"
 import useUpdateEvent from "~/hooks/useUpdateEvent"
+import useUpdateWorkout from "~/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/resources/models"
 import {getDate} from "~/utils/parsers"
 import {localRoutine} from "~/utils/storage"
@@ -66,7 +68,21 @@ function HomeApp({filters, profile, workouts}: Session) {
   const {liftNames, userId, workoutNames} = profile
 
   const {showAlert, setPersistentAlert} = useAlerts()
-  const queryClient = useQueryClient()
+
+  const getConfig = (action: "deleted" | "saved" | "updated") => ({
+    onMutate: () => setSubmitting(true),
+    onSettled: () => setSubmitting(false),
+    onSuccess() {
+      resetState()
+      showAlert({
+        text: `Workout ${action}`,
+        type: "success",
+      })
+    },
+  })
+  const addWorkout = useAddWorkout(getConfig("saved"))
+  const deleteWorkout = useDeleteWorkout(getConfig("deleted"))
+  const updateWorkout = useUpdateWorkout(getConfig("updated"))
 
   const defaultValues = {
     date: today,
@@ -795,20 +811,7 @@ function HomeApp({filters, profile, workouts}: Session) {
     if (submitting) {
       return
     }
-    setSubmitting(true)
-
-    try {
-      await fetch(`/api/workouts/${id}`, {method: "DELETE"})
-      showAlert({
-        text: "Workout deleted",
-        type: "success",
-      })
-      invalidateQueries()
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setSubmitting(false)
-    }
+    deleteWorkout(id)
   }
 
   function handleFiltersClick() {
@@ -858,23 +861,6 @@ ${groupExercisesByLift(workout.routine)
     return workoutNames.find(({id}) => id === nameId)?.text ?? ""
   }
 
-  function invalidateQueries() {
-    queryClient.invalidateQueries({
-      predicate: ({queryKey}) => {
-        if (queryKey[0] !== "session") {
-          return false
-        }
-        const params = queryKey[1]
-        if (typeof params === "object" && params !== null) {
-          if ("userId" in params && params.userId !== userId) {
-            return false
-          }
-        }
-        return true
-      },
-    })
-  }
-
   function showWorkoutError(text: string) {
     setWorkoutError(text)
     setTimeout(() => {
@@ -912,21 +898,10 @@ ${groupExercisesByLift(workout.routine)
     }
 
     setSubmitting(true)
-    try {
-      await fetch("/api/workouts", {
-        body: JSON.stringify(editingWorkout ? {...newWorkout, id} : newWorkout),
-        method: editingWorkout ? "PUT" : "POST",
-      })
-      showAlert({
-        text: `Workout ${editingWorkout ? "updated" : "saved"}`,
-        type: "success",
-      })
-      resetState()
-      invalidateQueries()
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setSubmitting(false)
+    if (id) {
+      updateWorkout({...newWorkout, id})
+    } else {
+      addWorkout(newWorkout)
     }
   }
 
