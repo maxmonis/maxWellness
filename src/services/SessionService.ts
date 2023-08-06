@@ -7,6 +7,9 @@ class SessionService extends RequestService {
     super("api/session")
   }
 
+  /**
+   * @returns the session which corresponds to a user's ID
+   */
   getSession(userId: string) {
     return this.get<Session>({route: userId})
   }

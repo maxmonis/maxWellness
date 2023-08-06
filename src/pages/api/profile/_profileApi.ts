@@ -5,6 +5,9 @@ import {Profile, Workout} from "~/resources/models"
 import {extractErrorMessage} from "~/utils/parsers"
 import {isProfile} from "~/utils/validators"
 
+/**
+ * Handles requests to update the user's profile
+ */
 export default async function profileApi(
   req: NextApiRequest,
   res: NextApiResponse,

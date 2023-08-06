@@ -6,6 +6,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Page from "~/components/Page"
 import {useAuth} from "~/context/AuthContext"
 
+/**
+ * Text and GIFs showing how to use the app
+ */
 export default function InfoPage() {
   const [user] = useAuth()
 

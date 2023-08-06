@@ -17,6 +17,10 @@ import {Profile, Workout} from "~/resources/models"
 import {getDateText} from "~/utils/parsers"
 import {getPrintout, groupExercisesByLift} from "~/utils/workout"
 
+/**
+ * Displays workout exercises and dates in a table view
+ * which can be filtered and/or have its axes toggled
+ */
 export default function WorkoutsTable({
   filteredWorkouts,
   clearFilters,
@@ -272,6 +276,9 @@ export default function WorkoutsTable({
     </div>
   )
 
+  /**
+   * Gets the text which corresponds to a lift ID
+   */
   function getLiftName(liftId: string) {
     return profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
   }

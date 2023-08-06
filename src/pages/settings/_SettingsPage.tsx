@@ -22,6 +22,9 @@ import useSession from "~/hooks/useSession"
 import useUpdateProfile from "~/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/resources/models"
 
+/**
+ * Allows the user to manage the names of workouts and exercises
+ */
 export default function SettingsPage() {
   const [session, loading, error] = useSession()
 
@@ -211,6 +214,9 @@ function SettingsApp({profile}: {profile: Profile}) {
     </div>
   )
 
+  /**
+   * Saves the profile unless it is unchanged
+   */
   async function saveChanges() {
     if (submitting) {
       return
@@ -239,6 +245,9 @@ function SettingsApp({profile}: {profile: Profile}) {
     })
   }
 
+  /**
+   * Handles updates to the form inputs, sanitizing the values
+   */
   function onChange({
     target: {name, value},
   }: React.ChangeEvent<HTMLInputElement>) {
@@ -250,6 +259,9 @@ function SettingsApp({profile}: {profile: Profile}) {
     }
   }
 
+  /**
+   * Saves a lift name unless it is a duplicate
+   */
   function handleLiftSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (
@@ -272,6 +284,9 @@ function SettingsApp({profile}: {profile: Profile}) {
     }
   }
 
+  /**
+   * Saves a workout name unless it is a duplicate
+   */
   function handleWorkoutSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (
@@ -294,6 +309,9 @@ function SettingsApp({profile}: {profile: Profile}) {
     }
   }
 
+  /**
+   * Handles deleted or updated workout names
+   */
   function updateWorkoutNames(newText: string, workoutName: EditableName) {
     if (!newText && workoutName.canDelete && workoutNames.length > 1) {
       setWorkoutNames(workoutNames.filter(({id}) => id !== workoutName.id))
@@ -306,6 +324,9 @@ function SettingsApp({profile}: {profile: Profile}) {
     }
   }
 
+  /**
+   * Handles deleted or updated lift names
+   */
   function updateLiftNames(newText: string, liftName: EditableName) {
     if (!newText && liftName.canDelete && liftNames.length > 1) {
       setLiftNames(liftNames.filter(({id}) => id !== liftName.id))
@@ -319,6 +340,9 @@ function SettingsApp({profile}: {profile: Profile}) {
   }
 }
 
+/**
+ * Allows the user to edit and delete a lift/workout name
+ */
 function EditableListItem({
   editableName,
   editableNameList,
@@ -407,12 +431,18 @@ function EditableListItem({
     </li>
   )
 
+  /**
+   * Handles form updates, sanitizing the value
+   */
   function onChange({target: {value}}: React.ChangeEvent<HTMLInputElement>) {
     if (!value || /^[A-Za-z ]+$/.test(value)) {
       setNewText(value.trimStart().replace(/\s/, " "))
     }
   }
 
+  /**
+   * Cancels editing if the user presses the escape key
+   */
   function onKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Escape") {
       setEditing(false)
@@ -420,6 +450,9 @@ function EditableListItem({
     }
   }
 
+  /**
+   * Attempts to save the user's changes
+   */
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (isDuplicate) {
@@ -432,6 +465,9 @@ function EditableListItem({
     setEditing(false)
   }
 
+  /**
+   * Deletes the name (if allowed)
+   */
   function handleDelete() {
     if (editableName.canDelete && editableNameList.length > 1) {
       updateOptions("", editableName)
@@ -440,12 +476,18 @@ function EditableListItem({
     }
   }
 
+  /**
+   * Resets the component
+   */
   function handleReset() {
     setEditing(false)
     setNewText(editableName.text)
   }
 }
 
+/**
+ * Evaluates whether text exists in a list of names (case insensitive)
+ */
 function isTextAlreadyInList(newText: string, allNames: EditableName[]) {
   return allNames.some(
     ({text}) =>

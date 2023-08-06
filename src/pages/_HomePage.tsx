@@ -49,6 +49,9 @@ const month = (now.getMonth() + 1).toString().padStart(2, "0")
 const day = now.getDate().toString().padStart(2, "0")
 const today = [year, month, day].join("-")
 
+/**
+ * Landing page which allows user to view and manage workouts
+ */
 export default function HomePage() {
   const [session, loading, error] = useSession()
 
@@ -739,6 +742,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     </div>
   )
 
+  /**
+   * Handles form change events, ensuring valid values
+   */
   function onChange({
     target: {inputMode, name, value},
   }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -755,6 +761,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     setValues({...values, [name]: value})
   }
 
+  /**
+   * Attempts to add the current exercise to the routine
+   */
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const exercise = createNewExercise(values)
@@ -765,6 +774,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     }
   }
 
+  /**
+   * Shows an error for a short interval
+   */
   function showError(text: string) {
     setErrorMsg(text)
     setTimeout(() => {
@@ -772,6 +784,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     }, 3000)
   }
 
+  /**
+   * Handles changes to the routine to ensure it is valid and keep data in sync
+   */
   function updateRoutine(newRoutine: Workout["routine"]) {
     const routine = eliminateRedundancy(newRoutine)
     if (!editingWorkout) {
@@ -781,6 +796,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     setView("create")
   }
 
+  /**
+   * Copies the name and routine of a workout, also copying it to clipboard
+   */
   function copyWorkout(workout: Workout) {
     const copiedRoutine = workout.routine.map(exercise => ({
       ...exercise,
@@ -791,14 +809,23 @@ function HomeApp({filters, profile, workouts}: Session) {
     copyToClipboard(workout)
   }
 
+  /**
+   * Adds a new exercise to the routine
+   */
   function addExercise(newExercise: Exercise) {
     updateRoutine([...routine, newExercise])
   }
 
+  /**
+   * Removes an exercise from the routine
+   */
   function deleteExercise(exerciseId: string) {
     updateRoutine(routine.filter(({id}) => id !== exerciseId))
   }
 
+  /**
+   * Handles the user dropping an exercise after dragging it
+   */
   function handleDragEnd({destination, source, draggableId}: DropResult) {
     if (destination && destination.index !== source.index) {
       const exerciseIds = routine.map(({id}) => id)
@@ -817,10 +844,16 @@ function HomeApp({filters, profile, workouts}: Session) {
     }
   }
 
+  /**
+   * Asks the user if they're sure they'd like to delete a workout
+   */
   function handleDeleteClick(id: string) {
     setDeletingId(id)
   }
 
+  /**
+   * Deletes a workout
+   */
   async function handleDelete(id: string) {
     if (submitting) {
       return
@@ -828,6 +861,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     deleteWorkout(id)
   }
 
+  /**
+   * Toggles the filters section
+   */
   function handleFiltersClick() {
     if (view === "filters") {
       setView(editingWorkout ? "create" : "list")
@@ -836,6 +872,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     }
   }
 
+  /**
+   * Toggles the new workout section
+   */
   function handleNewWorkoutClick() {
     if (view === "create" && !editingWorkout) {
       setView("list")
@@ -844,6 +883,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     }
   }
 
+  /**
+   * Clears everything to return to default state
+   */
   function resetState() {
     updateRoutine(localRoutine.get() ?? [])
     setValues(defaultValues)
@@ -851,6 +893,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     setView("list")
   }
 
+  /**
+   * Copies a workout to the clipboard
+   */
   function copyToClipboard(workout: Workout) {
     navigator.clipboard?.writeText(
       `${getWorkoutName(workout.nameId)}
@@ -867,14 +912,23 @@ ${groupExercisesByLift(workout.routine)
     )
   }
 
+  /**
+   * Gets the lift name which corresponds to an ID
+   */
   function getLiftName(liftId: string) {
     return liftNames.find(({id}) => id === liftId)?.text ?? ""
   }
 
+  /**
+   * Gets the workout name which corresponds to an ID
+   */
   function getWorkoutName(nameId: string) {
     return workoutNames.find(({id}) => id === nameId)?.text ?? ""
   }
 
+  /**
+   * Briefly shows an error
+   */
   function showWorkoutError(text: string) {
     setWorkoutError(text)
     setTimeout(() => {
@@ -882,6 +936,9 @@ ${groupExercisesByLift(workout.routine)
     }, 3000)
   }
 
+  /**
+   * Saves the workout the user has been creating or editing
+   */
   async function handleSave() {
     if (submitting) {
       return
@@ -919,12 +976,18 @@ ${groupExercisesByLift(workout.routine)
     }
   }
 
+  /**
+   * Clears all the workout filters, displaying all workouts
+   */
   function clearFilters() {
     setAppliedFilters(filters)
     setFilteredWorkouts(workouts)
     setPersistentAlert(null)
   }
 
+  /**
+   * Toggles or updates the value of a workouts filter after a user event
+   */
   function updateWorkoutsFilter(
     clickedFilter: string,
     filterType: "nameId" | "liftId" | "startDate" | "endDate" | "chronology",
@@ -955,6 +1018,9 @@ ${groupExercisesByLift(workout.routine)
       })
     }
 
+    /**
+     * Updates the workout filters based on a user action
+     */
     function updateFilters() {
       const {nameIds, workoutDates, liftIds, newestFirst} = appliedFilters
       switch (filterType) {
@@ -1002,6 +1068,9 @@ ${groupExercisesByLift(workout.routine)
       }
     }
 
+    /**
+     * @returns the number of filters which the user has applied
+     */
     function countAppliedFilters() {
       let count = 0
       if (updatedFilters.workoutDates.allDates.length === 0) {
@@ -1022,6 +1091,9 @@ ${groupExercisesByLift(workout.routine)
       return count
     }
 
+    /**
+     * @returns a list of workouts which reflect the current filters (if any)
+     */
     function filterWorkouts() {
       const {workoutDates, nameIds, liftIds, newestFirst} = updatedFilters
       const filteredWorkouts = workouts

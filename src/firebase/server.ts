@@ -16,10 +16,16 @@ if (admin.apps.length === 0) {
 
 const db = admin.firestore()
 
+/**
+ * Deletes a workout from the database using its ID
+ */
 export function deleteWorkout(id: string) {
   return db.collection("workouts").doc(id).delete()
 }
 
+/**
+ * Loads the corresponding profile for a user ID
+ */
 export async function getUserProfile(userId: string) {
   const {
     docs: [doc],
@@ -32,6 +38,9 @@ export async function getUserProfile(userId: string) {
   }
 }
 
+/**
+ * Loads the corresponding workouts for a user ID
+ */
 export async function getUserWorkouts(userId: string) {
   const {docs} = await db
     .collection("workouts")
@@ -45,6 +54,9 @@ export async function getUserWorkouts(userId: string) {
   }
 }
 
+/**
+ * Saves a workout to the database
+ */
 export function saveWorkout(workout: UnsavedWorkout) {
   const [year, month, day] = workout.date.split("T")[0].split("-").map(Number)
 
@@ -57,6 +69,9 @@ export function saveWorkout(workout: UnsavedWorkout) {
   })
 }
 
+/**
+ * Updates the user's profile in the database
+ */
 export function updateProfile({id, ...profile}: Profile) {
   return db
     .collection("profile")
@@ -68,6 +83,9 @@ export function updateProfile({id, ...profile}: Profile) {
     })
 }
 
+/**
+ * Updates a workout in the database
+ */
 export function updateWorkout({id, ...workout}: Workout) {
   const [year, month, day] = workout.date.split("T")[0].split("-").map(Number)
 

@@ -2,6 +2,9 @@ import {useQueryClient} from "react-query"
 
 import {useAuth} from "~/context/AuthContext"
 
+/**
+ * @returns a function which invalidates the user's session query
+ */
 export default function useInvalidateSession() {
   const [user] = useAuth()
   const queryClient = useQueryClient()

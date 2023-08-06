@@ -1,5 +1,9 @@
 import React from "react"
 
+/**
+ * Calls a callback if a text value does not change
+ * for at least the duration of a delay in ms
+ */
 export default function useDebounce(
   value: string,
   callback: () => void,

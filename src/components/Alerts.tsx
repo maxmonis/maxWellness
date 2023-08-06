@@ -16,11 +16,16 @@ const textColors = {
   success: "text-green-500",
 }
 
+/**
+ * Can display one or more temporary toast alerts and/or a persistent alert
+ */
 export default function Alerts() {
   const {alerts, persistentAlert} = useAlerts()
 
   return (
     <>
+      {/* temporary alerts slide in and out using an animation, and are
+      automatically removed from the UI after 200 ms */}
       <TransitionGroup>
         {alerts.map(({id, text, type}) => (
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
@@ -32,6 +37,8 @@ export default function Alerts() {
           </CSSTransition>
         ))}
       </TransitionGroup>
+
+      {/* the persistent alert appears until it is removed from context */}
       {persistentAlert && (
         <div className="fixed bottom-0 left-0 w-screen flex justify-center gap-4">
           <div className="px-4 py-2 w-screen flex items-center justify-end gap-4 bg-black border-t border-slate-700 max-w-2xl sm:border-x">

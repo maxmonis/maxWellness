@@ -6,6 +6,9 @@ import {extractErrorMessage} from "~/utils/parsers"
 import {validateAuthForm} from "~/utils/validators"
 import {resetPassword} from "~/firebase/client"
 
+/**
+ * Can send a password reset email to a user
+ */
 export default function ResetPasswordPage() {
   const [values, setValues] = React.useState({
     email: "",
@@ -74,6 +77,9 @@ export default function ResetPasswordPage() {
     </Page>
   )
 
+  /**
+   * Handles changes to inputs and updates validation error accordingly
+   */
   function onChange({
     target: {name, value},
   }: React.ChangeEvent<HTMLInputElement>) {
@@ -81,6 +87,9 @@ export default function ResetPasswordPage() {
     setInputErrors({})
   }
 
+  /**
+   * Attempts to send a password recovery email to the provided address
+   */
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (submitting) {
@@ -107,6 +116,9 @@ export default function ResetPasswordPage() {
     }
   }
 
+  /**
+   * Displays an error for a set interval
+   */
   function handleError(error: unknown) {
     setAuthError(extractErrorMessage(error))
     setTimeout(() => {

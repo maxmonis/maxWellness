@@ -3,6 +3,9 @@ import {useQuery} from "react-query"
 import {useAuth} from "~/context/AuthContext"
 import {sessionService} from "~/services/SessionService"
 
+/**
+ * @returns a tuple with the session, loading status, and error (if any)
+ */
 export default function useSession() {
   const [user] = useAuth()
   const userId = user?.uid

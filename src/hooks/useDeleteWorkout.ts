@@ -4,6 +4,9 @@ import {workoutService} from "~/services/WorkoutService"
 
 import useInvalidateSession from "./useInvalidateSession"
 
+/**
+ * @returns a function for deleting a workout
+ */
 export default function useDeleteWorkout({
   onSettled,
   ...callbacks

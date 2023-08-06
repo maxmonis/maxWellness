@@ -4,6 +4,9 @@ import {profileService} from "~/services/ProfileService"
 
 import useInvalidateSession from "./useInvalidateSession"
 
+/**
+ * @returns a function for updating a user's profile
+ */
 export default function useUpdateProfile({
   onSettled,
   ...callbacks

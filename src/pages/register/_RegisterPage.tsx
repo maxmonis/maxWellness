@@ -8,6 +8,9 @@ import {signUp} from "~/firebase/client"
 import {extractErrorMessage} from "~/utils/parsers"
 import {validateAuthForm} from "~/utils/validators"
 
+/**
+ * Allows new users to create an account with Google or email/password
+ */
 export default function Register() {
   const router = useRouter()
 
@@ -104,6 +107,9 @@ export default function Register() {
     </Page>
   )
 
+  /**
+   * Handles changes to inputs and updates validation error accordingly
+   */
   function onChange({
     target: {name, value},
   }: React.ChangeEvent<HTMLInputElement>) {
@@ -111,6 +117,9 @@ export default function Register() {
     setInputErrors({})
   }
 
+  /**
+   * Attempts to register a new user using their email and password
+   */
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (submitting) {
@@ -137,6 +146,9 @@ export default function Register() {
     }
   }
 
+  /**
+   * Displays a registration error for a set interval
+   */
   function handleError(error: unknown) {
     setAuthError(extractErrorMessage(error))
     setTimeout(() => {

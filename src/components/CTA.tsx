@@ -3,6 +3,9 @@ import {useRouter} from "next/router"
 
 import {googleLogin} from "~/firebase/client"
 
+/**
+ * Displays a toggleable checkbox element
+ */
 export function Checkbox({
   checked,
   onChange,
@@ -29,6 +32,11 @@ export function Checkbox({
   )
 }
 
+/**
+ * Opens a modal which prompts the user for their Google
+ * credentials, then logs them in (if they've created an
+ * account with us) or creates a new account for them (if not)
+ */
 export function GoogleButton({
   handleError,
   setSubmitting,
@@ -59,6 +67,9 @@ export function GoogleButton({
     </button>
   )
 
+  /**
+   * Attempts to log the user in using their Google credentials
+   */
   async function onClick() {
     if (submitting) return
     setSubmitting(true)

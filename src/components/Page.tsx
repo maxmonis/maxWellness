@@ -6,6 +6,11 @@ import {useAuth} from "~/context/AuthContext"
 import useSession from "~/hooks/useSession"
 import {extractErrorMessage} from "~/utils/parsers"
 
+/**
+ * Displays a page of content or its loading state,
+ * also redirecting automatically if necessary when
+ * a page requires the user to be logged in or out
+ */
 export default function Page({
   children,
   component,
@@ -103,12 +108,18 @@ export default function Page({
     </>
   )
 
+  /**
+   * Redirects to the route it receives
+   */
   function handleRedirect(route: `/${string}`) {
     setRedirect(true)
     router.replace(route)
   }
 }
 
+/**
+ * Memoized background image for select pages
+ */
 const Wallpaper = React.memo(function Wallpaper() {
   const [error, setError] = React.useState(false)
 

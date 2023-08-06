@@ -8,6 +8,9 @@ import {logIn} from "~/firebase/client"
 import {extractErrorMessage} from "~/utils/parsers"
 import {validateAuthForm} from "~/utils/validators"
 
+/**
+ * Allows existing users to log in using Google or email/password
+ */
 export default function LoginPage() {
   const router = useRouter()
 
@@ -90,6 +93,9 @@ export default function LoginPage() {
     </Page>
   )
 
+  /**
+   * Handles changes to inputs and updates validation error accordingly
+   */
   function onChange({
     target: {name, value},
   }: React.ChangeEvent<HTMLInputElement>) {
@@ -97,6 +103,9 @@ export default function LoginPage() {
     setInputErrors({})
   }
 
+  /**
+   * Attempts to log the user in using their email and password
+   */
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (submitting) {
@@ -123,6 +132,9 @@ export default function LoginPage() {
     }
   }
 
+  /**
+   * Displays a login error for a set interval
+   */
   function handleError(error: unknown) {
     setAuthError(extractErrorMessage(error))
     setTimeout(() => {

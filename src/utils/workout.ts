@@ -3,6 +3,9 @@ import {nanoid} from "nanoid"
 import {Exercise} from "~/resources/models"
 import {getPositiveInt} from "~/utils/parsers"
 
+/**
+ * @returns a new exercise if possible, or null if not
+ */
 export function createNewExercise(exerciseData: {
   liftId: string
   reps: string | number
@@ -28,6 +31,11 @@ export function createNewExercise(exerciseData: {
   return newExercise
 }
 
+/**
+ * @returns the routine but updated to remove any consecutive
+ * instances of the same number of reps with the same weight,
+ * for example: `2(8x50), 3(8x50) -> 5(8x50)`
+ */
 export function eliminateRedundancy(routine: Exercise[]) {
   const updatedRoutine: typeof routine = []
   for (const exercise of routine) {
@@ -51,6 +59,11 @@ export function eliminateRedundancy(routine: Exercise[]) {
   return updatedRoutine
 }
 
+/**
+ * @returns text which reflects the lift, sets, and reps
+ * of an exercise, along with asterisks indicating whether
+ * it was a personal record and whether that record stands
+ */
 export function getPrintout({
   recordEndDate,
   recordStartDate,
@@ -76,6 +89,10 @@ export function getPrintout({
   )
 }
 
+/**
+ * @returns an array of lists where each list is comprised of
+ * consecutive exercises in the routine with the same lift ID
+ */
 export function groupExercisesByLift(routine: Exercise[]) {
   const organizedRoutine: Exercise[][] = []
   for (const exercise of routine) {

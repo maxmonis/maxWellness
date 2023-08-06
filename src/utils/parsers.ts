@@ -1,5 +1,8 @@
 import {hasChars, hasMessage} from "~/utils/validators"
 
+/**
+ * Attempts to extract an error message, returning a default one if not
+ */
 export function extractErrorMessage(error: unknown) {
   if (hasChars(error)) return error
   if (hasMessage(error)) return error.message

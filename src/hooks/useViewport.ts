@@ -1,5 +1,8 @@
 import React from "react"
 
+/**
+ * @returns the width of the window in px, updated on resize
+ */
 export default function useViewport() {
   const [width, setWidth] = React.useState(window.innerWidth)
 

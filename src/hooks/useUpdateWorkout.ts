@@ -4,6 +4,9 @@ import {workoutService} from "~/services/WorkoutService"
 
 import useInvalidateSession from "./useInvalidateSession"
 
+/**
+ * @returns a function for updating a workout
+ */
 export default function useUpdateWorkout({
   onSettled,
   ...callbacks

@@ -6,6 +6,9 @@ import {extractErrorMessage} from "~/utils/parsers"
 import {generateSession} from "~/utils/session"
 import {hasChars} from "~/utils/validators"
 
+/**
+ * Handles requests to load the current session
+ */
 export default async function sessionApi(
   req: NextApiRequest,
   res: NextApiResponse,

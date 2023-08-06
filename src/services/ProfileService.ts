@@ -7,6 +7,9 @@ class ProfileService extends RequestService {
     super("api/profile")
   }
 
+  /**
+   * Updates a user's profile in the database
+   */
   updateProfile(profile: Profile) {
     return this.put({body: profile})
   }
