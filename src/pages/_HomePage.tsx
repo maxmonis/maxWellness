@@ -494,7 +494,18 @@ function HomeApp({filters, profile, workouts}: Session) {
                         )}
                       </div>
                       <div className="flex justify-center w-full mt-4 text-red-500">
-                        <button onClick={resetState}>Discard Changes</button>
+                        {editingWorkout ? (
+                          <button onClick={resetState}>Discard Changes</button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              updateRoutine([])
+                              resetState()
+                            }}
+                          >
+                            Discard
+                          </button>
+                        )}
                       </div>
                     </div>
                   )}
