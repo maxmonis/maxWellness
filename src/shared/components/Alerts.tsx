@@ -4,6 +4,8 @@ import {TransitionGroup, CSSTransition} from "react-transition-group"
 
 import {useAlerts} from "~/shared/context/AlertContext"
 
+import {Button} from "./CTA"
+
 const bgColors = {
   danger: "bg-red-100 dark:bg-red-700 border-red-700 border",
   information: "bg-blue-100 dark:bg-blue-700 border-blue-700 border",
@@ -24,8 +26,8 @@ export default function Alerts() {
 
   return (
     <>
-      {/* temporary alerts slide in and out using an animation, and are
-      automatically removed from the UI after 200 ms */}
+      {/* temporary alerts slide in and out using an animation,
+      and are automatically removed from the UI after 200 ms */}
       <TransitionGroup>
         {alerts.map(({id, text, type}) => (
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
@@ -48,13 +50,9 @@ export default function Alerts() {
           <div className="px-4 py-2 w-screen flex items-center justify-end gap-4 border-t bg-slate-50 dark:bg-black border-slate-700 max-w-2xl sm:border-x">
             <p className="font-bold">{persistentAlert.text}</p>
             {persistentAlert.actions?.map(({onClick, text}) => (
-              <button
-                className="py-1 px-2 rounded-md border"
-                key={text}
-                {...{onClick}}
-              >
+              <Button key={text} variant="secondary" {...{onClick}}>
                 {text}
-              </button>
+              </Button>
             ))}
           </div>
         </div>

@@ -3,6 +3,7 @@ import Link from "next/link"
 import {faGear, faHome} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
+import {Button} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
 
@@ -239,9 +240,9 @@ export default function InfoPage() {
               </p>
               <div className="flex w-full justify-center">
                 <Link href={user ? "/" : "/register"}>
-                  <button className="flex flex-grow justify-center px-4 py-2 border rounded text-blue-300 border-blue-300">
+                  <Button className="flex-grow" variant="primary">
                     {user ? "New Workout" : "Sign Up"}
-                  </button>
+                  </Button>
                 </Link>
               </div>
             </div>

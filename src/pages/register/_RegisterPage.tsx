@@ -3,7 +3,7 @@ import Link from "next/link"
 import {useRouter} from "next/router"
 
 import {signUp} from "~/firebase/client"
-import {GoogleButton} from "~/shared/components/CTA"
+import {Button, GoogleButton} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import {extractErrorMessage} from "~/shared/utils/parsers"
 import {validateAuthForm} from "~/shared/utils/validators"
@@ -87,12 +87,9 @@ export default function Register() {
               <p className="text-red-500 text-sm">{inputErrors.password2}</p>
             )}
           </div>
-          <button
-            className="px-4 py-2 border rounded w-full text-blue-300 border-blue-300"
-            type="submit"
-          >
+          <Button className="w-full" type="submit" variant="primary">
             Create Account
-          </button>
+          </Button>
           <GoogleButton {...{handleError, submitting, setSubmitting}} />
           <div className="flex gap-4 center-align justify-center">
             <div className="flex flex-wrap gap-x-2">

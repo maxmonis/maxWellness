@@ -23,7 +23,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd"
 
-import {Checkbox, UserMenu} from "~/shared/components/CTA"
+import {Button, Checkbox, UserMenu} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import WorkoutsTable from "~/shared/components/WorkoutsTable"
 import {useAlerts} from "~/shared/context/AlertContext"
@@ -164,7 +164,7 @@ function HomeApp({filters, profile, workouts}: Session) {
           <FontAwesomeIcon
             aria-label="Add a new workout"
             icon={faCirclePlus}
-            className="text-blue-400"
+            className="text-blue-500"
             cursor="pointer"
             onClick={handleNewWorkoutClick}
             size="xl"
@@ -356,15 +356,16 @@ function HomeApp({filters, profile, workouts}: Session) {
                         </div>
                         <div className="mt-2">
                           <div className="flex items-center gap-3 justify-between">
-                            <button
-                              className="flex flex-grow justify-center py-2 border rounded text-blue-300 border-blue-300"
+                            <Button
+                              className="flex-grow"
                               type="submit"
+                              variant="secondary"
                             >
                               Enter
-                            </button>
+                            </Button>
                             {(reps || sets || weight) && (
-                              <button
-                                className="mx-auto text-blue-300"
+                              <Button
+                                className="mx-auto"
                                 onClick={() =>
                                   setValues({
                                     ...defaultValues,
@@ -376,11 +377,13 @@ function HomeApp({filters, profile, workouts}: Session) {
                                 type="button"
                               >
                                 Clear
-                              </button>
+                              </Button>
                             )}
                           </div>
                           {errorMsg && (
-                            <p className="text-red-500 text-sm">{errorMsg}</p>
+                            <p className="text-red-500 text-sm text-center">
+                              {errorMsg}
+                            </p>
                           )}
                         </div>
                       </form>
@@ -475,39 +478,44 @@ function HomeApp({filters, profile, workouts}: Session) {
                           />
                         </div>
                         <div className="flex items-center gap-3 mt-2 justify-between">
-                          <button
-                            className="flex flex-grow justify-center py-2 border rounded text-blue-300 border-blue-300"
+                          <Button
+                            className="flex-grow"
                             onClick={handleSave}
-                            type="button"
+                            variant="primary"
                           >
                             Save
-                          </button>
+                          </Button>
                           {routine.length > 0 && (
-                            <button
-                              className="mx-auto text-blue-300"
+                            <Button
+                              className="mx-auto"
                               type="button"
                               onClick={() => updateRoutine([])}
                             >
                               Reset
-                            </button>
+                            </Button>
                           )}
                         </div>
                         {workoutError && (
-                          <p className="text-red-500 text-sm">{workoutError}</p>
+                          <p className="text-red-500 text-sm text-center">
+                            {workoutError}
+                          </p>
                         )}
                       </div>
-                      <div className="flex justify-center w-full mt-4 text-red-500">
+                      <div className="flex justify-center w-full mt-4">
                         {editingWorkout ? (
-                          <button onClick={resetState}>Discard Changes</button>
+                          <Button onClick={resetState} variant="danger">
+                            Discard Changes
+                          </Button>
                         ) : (
-                          <button
+                          <Button
                             onClick={() => {
                               updateRoutine([])
                               resetState()
                             }}
+                            variant="danger"
                           >
                             Discard
-                          </button>
+                          </Button>
                         )}
                       </div>
                     </div>
@@ -653,15 +661,15 @@ function HomeApp({filters, profile, workouts}: Session) {
                               view !== "list" ? "pt-6 sm:flex-col" : "flex-col"
                             }`}
                           >
-                            <button
-                              className="text-red-500"
+                            <Button
                               onClick={() => handleDelete(workout.id)}
+                              variant="danger"
                             >
                               Delete
-                            </button>
-                            <button onClick={() => setDeletingId(null)}>
+                            </Button>
+                            <Button onClick={() => setDeletingId(null)}>
                               Cancel
-                            </button>
+                            </Button>
                           </div>
                         ) : (
                           <div
@@ -719,12 +727,9 @@ function HomeApp({filters, profile, workouts}: Session) {
                         <p className="text-lg font-bold text-red-500">
                           No results
                         </p>
-                        <button
-                          className="py-1 px-2 mt-2 rounded-md border"
-                          onClick={clearFilters}
-                        >
+                        <Button onClick={clearFilters} variant="secondary">
                           Clear Filters
-                        </button>
+                        </Button>
                       </div>
                     ) : (
                       <p>You haven't added any workouts yet</p>

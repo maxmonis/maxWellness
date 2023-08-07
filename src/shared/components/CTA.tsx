@@ -19,6 +19,38 @@ import useOutsideClick from "../hooks/useOutsideClick"
 import useKeypress from "../hooks/useKeypress"
 
 /**
+ * A basic button which reflects its style variant (if any)
+ */
+export function Button({
+  children,
+  className,
+  type,
+  variant,
+  ...props
+}: React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> & {variant?: "primary" | "secondary" | "danger"}) {
+  return (
+    <button
+      className={`flex justify-center text-lg outline-none rounded-lg ${
+        variant === "primary"
+          ? "px-4 py-1 bg-blue-500 text-white hover:bg-blue-600"
+          : variant === "secondary"
+          ? "px-4 py-1 border bg-white text-blue-400 border-blue-400 hover:bg-blue-100 hover:text-blue-500 hover:border-blue-500"
+          : variant === "danger"
+          ? "text-red-500 hover:text-red-600"
+          : "text-blue-400 hover:text-blue-500"
+      } ${className}`}
+      type={type ?? "button"}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}
+
+/**
  * Displays a toggleable checkbox element
  */
 export function Checkbox({

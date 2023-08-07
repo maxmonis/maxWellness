@@ -18,7 +18,7 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import useSession from "~/shared/hooks/useSession"
 import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/resources/models"
-import {UserMenu} from "~/shared/components/CTA"
+import {Button, UserMenu} from "~/shared/components/CTA"
 
 /**
  * Allows the user to manage the names of workouts and exercises
@@ -120,12 +120,13 @@ function SettingsApp({profile}: {profile: Profile}) {
                     </p>
                   ) : (
                     <div className="flex justify-center">
-                      <button
-                        className="text-lg mt-3 px-2 py-1 w-fit border rounded-xl text-blue-300 border-blue-300"
+                      <Button
+                        className="mt-3 w-fit"
                         type="submit"
+                        variant="secondary"
                       >
                         Add Name
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </>
@@ -176,12 +177,13 @@ function SettingsApp({profile}: {profile: Profile}) {
                     </p>
                   ) : (
                     <div className="flex justify-center">
-                      <button
-                        className="text-lg mt-3 px-2 py-1 w-fit border rounded-xl text-blue-300 border-blue-300"
+                      <Button
+                        className="mt-3 w-fit"
                         type="submit"
+                        variant="secondary"
                       >
                         Add Name
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </>
@@ -370,21 +372,19 @@ function EditableListItem({
               {isDuplicate ? (
                 <p className="text-red-500 text-center mt-1">Duplicate name</p>
               ) : newText ? (
-                <button
-                  className="text-lg px-2 py-1 mt-3 w-fit border rounded-xl text-blue-300 border-blue-300"
+                <Button
+                  className="mt-3 w-fit"
                   type="submit"
+                  variant="secondary"
                 >
                   Update Name
-                </button>
+                </Button>
               ) : editableName.canDelete ? (
-                <button
-                  className="text-lg px-2 py-1 mt-3 w-fit border rounded-xl text-red-500 border-red-500"
-                  type="submit"
-                >
+                <Button className="mt-3 w-fit" type="submit" variant="danger">
                   Delete Name
-                </button>
+                </Button>
               ) : (
-                <p className="text-red-500 text-center mt-1">
+                <p className="text-red-500 text-center mt-1 text-sm">
                   Name cannot be deleted
                 </p>
               )}

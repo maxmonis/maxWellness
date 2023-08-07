@@ -16,7 +16,7 @@ import useViewport from "~/shared/hooks/useViewport"
 import {Profile, Workout} from "~/shared/resources/models"
 import {getDateText} from "~/shared/utils/parsers"
 import {getPrintout, groupExercisesByLift} from "~/shared/utils/workout"
-import {UserMenu} from "./CTA"
+import {Button, UserMenu} from "./CTA"
 
 /**
  * Displays workout exercises and dates in a table view
@@ -259,12 +259,13 @@ export default function WorkoutsTable({
                 <div className="flex flex-col gap-6 w-full p-6">
                   <div>
                     <p className="text-lg font-bold text-red-500">No results</p>
-                    <button
-                      className="py-1 px-2 mt-2 rounded-md border"
+                    <Button
+                      className="mt-2"
                       onClick={clearFilters}
+                      variant="danger"
                     >
                       Clear Filters
-                    </button>
+                    </Button>
                   </div>
                 </div>
               )}
