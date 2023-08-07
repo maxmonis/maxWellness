@@ -1,7 +1,7 @@
 import {nanoid} from "nanoid"
 
-import {Exercise} from "~/resources/models"
-import {getPositiveInt} from "~/utils/parsers"
+import {Exercise} from "~/shared/resources/models"
+import {getPositiveInt} from "~/shared/utils/parsers"
 
 /**
  * @returns a new exercise if possible, or null if not

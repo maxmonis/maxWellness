@@ -2,11 +2,11 @@ import React from "react"
 import Link from "next/link"
 import {useRouter} from "next/router"
 
-import {GoogleButton} from "~/components/CTA"
-import Page from "~/components/Page"
 import {signUp} from "~/firebase/client"
-import {extractErrorMessage} from "~/utils/parsers"
-import {validateAuthForm} from "~/utils/validators"
+import {GoogleButton} from "~/shared/components/CTA"
+import Page from "~/shared/components/Page"
+import {extractErrorMessage} from "~/shared/utils/parsers"
+import {validateAuthForm} from "~/shared/utils/validators"
 
 /**
  * Allows new users to create an account with Google or email/password

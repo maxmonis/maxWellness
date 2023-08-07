@@ -1,8 +1,8 @@
 import admin from "firebase-admin"
 import omit from "lodash/omit"
 
-import {Profile, UnsavedWorkout, Workout} from "~/resources/models"
-import {isProfile, isWorkout} from "~/utils/validators"
+import {Profile, UnsavedWorkout, Workout} from "~/shared/resources/models"
+import {isProfile, isWorkout} from "~/shared/utils/validators"
 
 if (admin.apps.length === 0) {
   admin.initializeApp({

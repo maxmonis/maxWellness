@@ -1,4 +1,4 @@
-import {hasChars, hasMessage, isEmail} from "~/utils/validators"
+import {hasChars, hasMessage, isEmail} from "~/shared/utils/validators"
 
 describe("isEmail", () => {
   test("returns true for emails", () => {

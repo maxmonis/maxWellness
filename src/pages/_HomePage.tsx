@@ -24,24 +24,24 @@ import {
   DropResult,
 } from "react-beautiful-dnd"
 
-import {Checkbox} from "~/components/CTA"
-import Page from "~/components/Page"
-import WorkoutsTable from "~/components/WorkoutsTable"
-import {useAlerts} from "~/context/AlertContext"
-import useAddWorkout from "~/hooks/useAddWorkout"
-import useDeleteWorkout from "~/hooks/useDeleteWorkout"
-import useSession from "~/hooks/useSession"
-import useUpdateEvent from "~/hooks/useUpdateEvent"
-import useUpdateWorkout from "~/hooks/useUpdateWorkout"
-import {Exercise, Session, Workout} from "~/resources/models"
-import {getDateText} from "~/utils/parsers"
-import LocalStorage from "~/utils/storage"
+import {Checkbox} from "~/shared/components/CTA"
+import Page from "~/shared/components/Page"
+import WorkoutsTable from "~/shared/components/WorkoutsTable"
+import {useAlerts} from "~/shared/context/AlertContext"
+import useAddWorkout from "~/shared/hooks/useAddWorkout"
+import useDeleteWorkout from "~/shared/hooks/useDeleteWorkout"
+import useSession from "~/shared/hooks/useSession"
+import useUpdateEvent from "~/shared/hooks/useUpdateEvent"
+import useUpdateWorkout from "~/shared/hooks/useUpdateWorkout"
+import {Exercise, Session, Workout} from "~/shared/resources/models"
+import {getDateText} from "~/shared/utils/parsers"
+import LocalStorage from "~/shared/utils/storage"
 import {
   getPrintout,
   groupExercisesByLift,
   createNewExercise,
   eliminateRedundancy,
-} from "~/utils/workout"
+} from "~/shared/utils/workout"
 
 const now = new Date()
 const year = now.getFullYear()

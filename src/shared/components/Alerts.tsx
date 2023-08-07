@@ -2,7 +2,7 @@ import React from "react"
 
 import {TransitionGroup, CSSTransition} from "react-transition-group"
 
-import {useAlerts} from "~/context/AlertContext"
+import {useAlerts} from "~/shared/context/AlertContext"
 
 const bgColors = {
   danger: "bg-red-700",

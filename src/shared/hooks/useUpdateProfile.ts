@@ -1,13 +1,13 @@
 import {useMutation} from "react-query"
 
-import {workoutService} from "~/services/WorkoutService"
+import {profileService} from "~/shared/services/ProfileService"
 
 import useInvalidateSession from "./useInvalidateSession"
 
 /**
- * @returns a function for deleting a workout
+ * @returns a function for updating a user's profile
  */
-export default function useDeleteWorkout({
+export default function useUpdateProfile({
   onSettled,
   ...callbacks
 }: {
@@ -17,8 +17,8 @@ export default function useDeleteWorkout({
 
   const {mutate} = useMutation({
     ...callbacks,
-    mutationFn: (...args: Parameters<typeof workoutService.deleteWorkout>) =>
-      workoutService.deleteWorkout(...args),
+    mutationFn: (...args: Parameters<typeof profileService.updateProfile>) =>
+      profileService.updateProfile(...args),
     onSettled() {
       invalidateSession()
       onSettled?.()

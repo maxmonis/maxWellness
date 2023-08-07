@@ -15,12 +15,12 @@ import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
 
-import Page from "~/components/Page"
-import {useAlerts} from "~/context/AlertContext"
+import Page from "~/shared/components/Page"
+import {useAlerts} from "~/shared/context/AlertContext"
 import {logOut} from "~/firebase/client"
-import useSession from "~/hooks/useSession"
-import useUpdateProfile from "~/hooks/useUpdateProfile"
-import {EditableName, Profile} from "~/resources/models"
+import useSession from "~/shared/hooks/useSession"
+import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
+import {EditableName, Profile} from "~/shared/resources/models"
 
 /**
  * Allows the user to manage the names of workouts and exercises

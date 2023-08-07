@@ -6,11 +6,11 @@ import {config} from "@fortawesome/fontawesome-svg-core"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import {QueryClient, QueryClientProvider} from "react-query"
 
-import Alerts from "~/components/Alerts"
-import {AuthContextProvider} from "~/context/AuthContext"
-import {AlertContextProvider} from "~/context/AlertContext"
-import "~/styles/globals.css"
-import "~/styles/transitions.css"
+import Alerts from "~/shared/components/Alerts"
+import {AuthContextProvider} from "~/shared/context/AuthContext"
+import {AlertContextProvider} from "~/shared/context/AlertContext"
+import "~/shared/styles/globals.css"
+import "~/shared/styles/transitions.css"
 
 config.autoAddCss = false
 

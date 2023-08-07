@@ -12,10 +12,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-import useViewport from "~/hooks/useViewport"
-import {Profile, Workout} from "~/resources/models"
-import {getDateText} from "~/utils/parsers"
-import {getPrintout, groupExercisesByLift} from "~/utils/workout"
+import useViewport from "~/shared/hooks/useViewport"
+import {Profile, Workout} from "~/shared/resources/models"
+import {getDateText} from "~/shared/utils/parsers"
+import {getPrintout, groupExercisesByLift} from "~/shared/utils/workout"
 
 /**
  * Displays workout exercises and dates in a table view

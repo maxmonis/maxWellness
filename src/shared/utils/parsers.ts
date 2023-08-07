@@ -1,4 +1,4 @@
-import {hasChars, hasMessage} from "~/utils/validators"
+import {hasChars, hasMessage} from "~/shared/utils/validators"
 
 /**
  * Attempts to extract an error message, returning a default one if not

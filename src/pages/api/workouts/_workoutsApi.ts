@@ -1,8 +1,8 @@
 import {NextApiRequest, NextApiResponse} from "next"
 
 import {deleteWorkout, saveWorkout, updateWorkout} from "~/firebase/server"
-import {extractErrorMessage} from "~/utils/parsers"
-import {hasChars, isUnsavedWorkout, isWorkout} from "~/utils/validators"
+import {extractErrorMessage} from "~/shared/utils/parsers"
+import {hasChars, isUnsavedWorkout, isWorkout} from "~/shared/utils/validators"
 
 /**
  * Handles requests to add, update, or remove a workout

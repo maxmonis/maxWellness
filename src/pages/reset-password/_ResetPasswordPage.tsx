@@ -1,9 +1,9 @@
 import React from "react"
 import Link from "next/link"
 
-import Page from "~/components/Page"
-import {extractErrorMessage} from "~/utils/parsers"
-import {validateAuthForm} from "~/utils/validators"
+import Page from "~/shared/components/Page"
+import {extractErrorMessage} from "~/shared/utils/parsers"
+import {validateAuthForm} from "~/shared/utils/validators"
 import {resetPassword} from "~/firebase/client"
 
 /**

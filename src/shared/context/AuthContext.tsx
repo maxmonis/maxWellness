@@ -2,7 +2,7 @@ import React from "react"
 
 import {onAuthStateChanged, User} from "firebase/auth"
 
-import Page from "~/components/Page"
+import Page from "~/shared/components/Page"
 import {auth} from "~/firebase/client"
 
 const AuthContext = React.createContext<[User | null, boolean]>([null, true])

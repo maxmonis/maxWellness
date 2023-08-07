@@ -2,9 +2,9 @@ import React from "react"
 import Head from "next/head"
 import {useRouter} from "next/router"
 
-import {useAuth} from "~/context/AuthContext"
-import useSession from "~/hooks/useSession"
-import {extractErrorMessage} from "~/utils/parsers"
+import {useAuth} from "~/shared/context/AuthContext"
+import useSession from "~/shared/hooks/useSession"
+import {extractErrorMessage} from "~/shared/utils/parsers"
 
 /**
  * Displays a page of content or its loading state,

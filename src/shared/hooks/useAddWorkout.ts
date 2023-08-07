@@ -1,13 +1,13 @@
 import {useMutation} from "react-query"
 
-import {workoutService} from "~/services/WorkoutService"
+import {workoutService} from "~/shared/services/WorkoutService"
 
 import useInvalidateSession from "./useInvalidateSession"
 
 /**
- * @returns a function for updating a workout
+ * @returns a function for adding a new workout
  */
-export default function useUpdateWorkout({
+export default function useAddWorkout({
   onSettled,
   ...callbacks
 }: {
@@ -17,8 +17,8 @@ export default function useUpdateWorkout({
 
   const {mutate} = useMutation({
     ...callbacks,
-    mutationFn: (...args: Parameters<typeof workoutService.updateWorkout>) =>
-      workoutService.updateWorkout(...args),
+    mutationFn: (...args: Parameters<typeof workoutService.saveWorkout>) =>
+      workoutService.saveWorkout(...args),
     onSettled() {
       invalidateSession()
       onSettled?.()

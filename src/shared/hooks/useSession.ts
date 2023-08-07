@@ -1,7 +1,7 @@
 import {useQuery} from "react-query"
 
-import {useAuth} from "~/context/AuthContext"
-import {sessionService} from "~/services/SessionService"
+import {useAuth} from "~/shared/context/AuthContext"
+import {sessionService} from "~/shared/services/SessionService"
 
 /**
  * @returns a tuple with the session, loading status, and error (if any)

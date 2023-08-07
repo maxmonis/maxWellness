@@ -3,8 +3,8 @@ import Link from "next/link"
 import {faGear, faHome} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-import Page from "~/components/Page"
-import {useAuth} from "~/context/AuthContext"
+import Page from "~/shared/components/Page"
+import {useAuth} from "~/shared/context/AuthContext"
 
 /**
  * Text and GIFs showing how to use the app
