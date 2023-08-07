@@ -21,7 +21,7 @@ const months = [
   "Nov",
   "Dec",
 ]
-export function getDate(date: string) {
+export function getDateText(date: string) {
   const [year, month, day] = date.split("T")[0].split("-").map(Number)
   const weekday = days[new Date(year, month - 1, day).getDay()]
   return (

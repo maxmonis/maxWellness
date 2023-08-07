@@ -27,21 +27,21 @@ import {
 import {Checkbox} from "~/components/CTA"
 import Page from "~/components/Page"
 import WorkoutsTable from "~/components/WorkoutsTable"
+import {useAlerts} from "~/context/AlertContext"
 import useAddWorkout from "~/hooks/useAddWorkout"
 import useDeleteWorkout from "~/hooks/useDeleteWorkout"
 import useSession from "~/hooks/useSession"
 import useUpdateEvent from "~/hooks/useUpdateEvent"
 import useUpdateWorkout from "~/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/resources/models"
-import {getDate} from "~/utils/parsers"
-import {localRoutine} from "~/utils/storage"
+import {getDateText} from "~/utils/parsers"
+import LocalStorage from "~/utils/storage"
 import {
   getPrintout,
   groupExercisesByLift,
   createNewExercise,
   eliminateRedundancy,
 } from "~/utils/workout"
-import {useAlerts} from "~/context/AlertContext"
 
 const now = new Date()
 const year = now.getFullYear()
@@ -66,6 +66,9 @@ export default function HomePage() {
 
 function HomeApp({filters, profile, workouts}: Session) {
   const {liftNames, userId, workoutNames} = profile
+  const localRoutine = new LocalStorage<Workout["routine"]>(
+    `wip-routine_${userId}`,
+  )
 
   const {showAlert, setPersistentAlert} = useAlerts()
 
@@ -99,7 +102,7 @@ function HomeApp({filters, profile, workouts}: Session) {
   const [workoutError, setWorkoutError] = React.useState("")
 
   const [routine, setRoutine] = React.useState<Workout["routine"]>(
-    localRoutine.get(userId) ?? [],
+    localRoutine.get() ?? [],
   )
 
   const [deletingId, setDeletingId] = React.useState<null | string>(null)
@@ -568,7 +571,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                   : undefined
                               }
                             >
-                              {getDate(workout.date)}
+                              {getDateText(workout.date)}
                             </span>
                           </h5>
                         </div>
@@ -772,7 +775,7 @@ function HomeApp({filters, profile, workouts}: Session) {
   function updateRoutine(newRoutine: Workout["routine"]) {
     const routine = eliminateRedundancy(newRoutine)
     if (!editingWorkout) {
-      localRoutine.set(routine, userId)
+      localRoutine.set(routine)
     }
     setRoutine(routine)
     setView("create")
@@ -842,7 +845,7 @@ function HomeApp({filters, profile, workouts}: Session) {
   }
 
   function resetState() {
-    updateRoutine(localRoutine.get(userId) ?? [])
+    updateRoutine(localRoutine.get() ?? [])
     setValues(defaultValues)
     setEditingWorkout(null)
     setView("list")
@@ -851,7 +854,7 @@ function HomeApp({filters, profile, workouts}: Session) {
   function copyToClipboard(workout: Workout) {
     navigator.clipboard?.writeText(
       `${getWorkoutName(workout.nameId)}
-${getDate(workout.date)}
+${getDateText(workout.date)}
 ${groupExercisesByLift(workout.routine)
   .map(
     exerciseList =>

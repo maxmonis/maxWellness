@@ -2,19 +2,6 @@ import React from "react"
 
 import {nanoid} from "nanoid"
 
-interface Alert {
-  id: string
-  text: string
-  type: "danger" | "information" | "success"
-}
-
-interface PersistentAlert extends Omit<Alert, "id"> {
-  actions?: {
-    onClick: () => void
-    text: string
-  }[]
-}
-
 const AlertContext = React.createContext<{
   alerts: Alert[]
   persistentAlert: PersistentAlert | null
@@ -62,3 +49,16 @@ export const AlertContextProvider = ({
 }
 
 function returnVoid() {}
+
+interface Alert {
+  id: string
+  text: string
+  type: "danger" | "information" | "success"
+}
+
+interface PersistentAlert extends Omit<Alert, "id"> {
+  actions?: {
+    onClick: () => void
+    text: string
+  }[]
+}

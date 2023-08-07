@@ -1,6 +1,6 @@
 import {nanoid} from "nanoid"
 
-import {Exercise, Workout} from "~/resources/models"
+import {Exercise} from "~/resources/models"
 import {getPositiveInt} from "~/utils/parsers"
 
 export function createNewExercise(exerciseData: {
@@ -28,7 +28,7 @@ export function createNewExercise(exerciseData: {
   return newExercise
 }
 
-export function eliminateRedundancy(routine: Workout["routine"]) {
+export function eliminateRedundancy(routine: Exercise[]) {
   const updatedRoutine: typeof routine = []
   for (const exercise of routine) {
     const previousExercise = updatedRoutine.at(-1)
@@ -76,8 +76,8 @@ export function getPrintout({
   )
 }
 
-export function groupExercisesByLift(routine: Workout["routine"]) {
-  const organizedRoutine: Workout["routine"][] = []
+export function groupExercisesByLift(routine: Exercise[]) {
+  const organizedRoutine: Exercise[][] = []
   for (const exercise of routine) {
     const previous = organizedRoutine.at(-1)
     if (previous && previous[0].liftId === exercise.liftId) {

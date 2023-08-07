@@ -7,10 +7,6 @@ class WorkoutService extends RequestService {
     super("api/workouts")
   }
 
-  getWorkouts() {
-    return this.get()
-  }
-
   saveWorkout(workout: UnsavedWorkout) {
     return this.post({body: workout})
   }

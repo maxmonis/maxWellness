@@ -1,6 +1,10 @@
 import React from "react"
 
-export default function useDebounce(value: string, delay = 300) {
+export default function useDebounce(
+  value: string,
+  callback: () => void,
+  delay = 300,
+) {
   const [debouncedValue, setDebouncedValue] = React.useState(value)
 
   React.useEffect(() => {
@@ -13,5 +17,6 @@ export default function useDebounce(value: string, delay = 300) {
     }
   }, [value, delay])
 
-  return debouncedValue
+  //eslint-disable-next-line
+  React.useEffect(callback, [debouncedValue])
 }

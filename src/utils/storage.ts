@@ -1,30 +1,19 @@
-enum Key {
-  routine = "wip-routine",
-}
-
-class LocalStorage {
-  private readonly baseKey: string
-
-  constructor(baseKey: Key) {
-    this.baseKey = `max-wellness_${baseKey}`
+export default class LocalStorage<T> {
+  private readonly key: string
+  constructor(key: string) {
+    this.key = `max-wellness_${key}`
   }
 
-  get<T>(extraKey = ""): T | null {
-    const item = localStorage.getItem(this.getKey(extraKey))
+  get(): T | null {
+    const item = localStorage.getItem(this.key)
     return item ? JSON.parse(item) : null
   }
 
-  remove(extraKey = "") {
-    localStorage.removeItem(this.getKey(extraKey))
+  remove() {
+    localStorage.removeItem(this.key)
   }
 
-  set<T>(item: T, extraKey = "") {
-    localStorage.setItem(this.getKey(extraKey), JSON.stringify(item))
-  }
-
-  protected getKey(extraKey: string) {
-    return [this.baseKey, extraKey].join("_")
+  set(item: T) {
+    localStorage.setItem(this.key, JSON.stringify(item))
   }
 }
-
-export const localRoutine = new LocalStorage(Key.routine)

@@ -56,6 +56,7 @@ export function saveWorkout(workout: UnsavedWorkout) {
     ),
   })
 }
+
 export function updateProfile({id, ...profile}: Profile) {
   return db
     .collection("profile")

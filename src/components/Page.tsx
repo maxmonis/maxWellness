@@ -103,7 +103,7 @@ export default function Page({
     </>
   )
 
-  function handleRedirect(route: string) {
+  function handleRedirect(route: `/${string}`) {
     setRedirect(true)
     router.replace(route)
   }
@@ -121,15 +121,11 @@ const Wallpaper = React.memo(function Wallpaper() {
         "https://www.pexels.com/photo/barbell-on-the-floor-1552252/"
       }
       className="h-screen w-screen fixed object-cover z-[-1] top-0 left-0"
+      onError={() => setError(true)}
       src={
         "https://user-images.githubusercontent.com/51540371/" +
         "202918612-e2daf207-d8fc-45db-827e-8b44aff1b07b.jpg"
       }
-      {...{onError}}
     />
   )
-
-  function onError() {
-    setError(true)
-  }
 })

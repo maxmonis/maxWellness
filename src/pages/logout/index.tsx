@@ -6,9 +6,7 @@ import {logOut} from "~/firebase/client"
 export default function LogOut() {
   const router = useRouter()
 
-  logOut().finally(() => {
-    router.replace("/login")
-  })
+  logOut().finally(() => router.replace("/login"))
 
   return <Page loading loadingText="Logging out..." />
 }

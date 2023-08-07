@@ -14,7 +14,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 import useViewport from "~/hooks/useViewport"
 import {Profile, Workout} from "~/resources/models"
-import {getDate} from "~/utils/parsers"
+import {getDateText} from "~/utils/parsers"
 import {getPrintout, groupExercisesByLift} from "~/utils/workout"
 
 export default function WorkoutsTable({
@@ -25,10 +25,12 @@ export default function WorkoutsTable({
   profile,
 }: {
   filteredWorkouts: Workout[]
-  clearFilters: () => void
-  handleFiltersClick: () => void
-  hideWorkoutsTable: () => void
   profile: Profile
+} & {
+  [key in
+    | "clearFilters"
+    | "handleFiltersClick"
+    | "hideWorkoutsTable"]: () => void
 }) {
   const width = useViewport()
 
@@ -86,7 +88,7 @@ export default function WorkoutsTable({
             aria-label="Reverse x and y axes of table"
             cursor="pointer"
             icon={faRotate}
-            onClick={toggleSort}
+            onClick={() => setSortByDate(!sortByDate)}
             size="xl"
           />
           <Link aria-label="Go to the info page" href="/info">
@@ -107,7 +109,9 @@ export default function WorkoutsTable({
                     ? "cursor-pointer"
                     : "cursor-default opacity-0"
                 }
-                onClick={decrement}
+                onClick={() =>
+                  horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
+                }
                 icon={faArrowLeft}
                 size="lg"
               />
@@ -120,7 +124,9 @@ export default function WorkoutsTable({
                 className={
                   canIncrement ? "cursor-pointer" : "cursor-default opacity-0"
                 }
-                onClick={increment}
+                onClick={() =>
+                  canIncrement && setHorizontalIndex(horizontalIndex + 1)
+                }
                 icon={faArrowRight}
                 size="lg"
               />
@@ -146,7 +152,7 @@ export default function WorkoutsTable({
                                 className="text-lg py-2 px-4 shadow-sm shadow-slate-700 whitespace-nowrap"
                                 key={workout.id}
                               >
-                                {getDate(workout.date)}
+                                {getDateText(workout.date)}
                               </th>
                             ))
                         : sortedLifts
@@ -211,7 +217,7 @@ export default function WorkoutsTable({
                             key={workout.id}
                           >
                             <td className="text-lg py-2 px-4 whitespace-nowrap">
-                              {getDate(workout.date)}
+                              {getDateText(workout.date)}
                             </td>
                             {sortedLifts
                               .slice(
@@ -268,17 +274,5 @@ export default function WorkoutsTable({
 
   function getLiftName(liftId: string) {
     return profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
-  }
-
-  function toggleSort() {
-    setSortByDate(!sortByDate)
-  }
-
-  function increment() {
-    canIncrement && setHorizontalIndex(horizontalIndex + 1)
-  }
-
-  function decrement() {
-    horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
   }
 }

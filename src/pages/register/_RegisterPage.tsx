@@ -1,12 +1,12 @@
 import React from "react"
 import Link from "next/link"
+import {useRouter} from "next/router"
 
 import {GoogleButton} from "~/components/CTA"
 import Page from "~/components/Page"
 import {signUp} from "~/firebase/client"
-import {validateAuthForm} from "~/utils/validators"
 import {extractErrorMessage} from "~/utils/parsers"
-import {useRouter} from "next/router"
+import {validateAuthForm} from "~/utils/validators"
 
 export default function Register() {
   const router = useRouter()

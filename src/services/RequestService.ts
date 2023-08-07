@@ -12,7 +12,7 @@ export default class RequestService {
    * Makes a GET request. Optionally
    * can include a route and/or params
    */
-  protected get<T>(request?: Request<"GET">) {
+  protected get<T>(request?: Request<"GET" | "DELETE">) {
     return this.makeRequest<T>({method: "GET", ...request})
   }
 
@@ -20,7 +20,7 @@ export default class RequestService {
    * Makes a DELETE request. Optionally
    * can include a route and/or params
    */
-  protected delete<T>(request?: Request<"DELETE">) {
+  protected delete<T>(request?: Request<"GET" | "DELETE">) {
     return this.makeRequest<T>({method: "DELETE", ...request})
   }
 
@@ -28,7 +28,7 @@ export default class RequestService {
    * Makes a POST request. Must include a body
    * and optionally can include a route
    */
-  protected post<T>(request: Request<"POST">) {
+  protected post<T>(request: Request<"POST" | "PUT" | "PATCH">) {
     return this.makeRequest<T>({method: "POST", ...request})
   }
 
@@ -36,7 +36,7 @@ export default class RequestService {
    * Makes a PUT request. Must include a body
    * and optionally can include a route
    */
-  protected put<T>(request: Request<"PUT">) {
+  protected put<T>(request: Request<"POST" | "PUT" | "PATCH">) {
     return this.makeRequest<T>({method: "PUT", ...request})
   }
 
@@ -44,7 +44,7 @@ export default class RequestService {
    * Makes a PATCH request. Must include a body
    * and optionally can include a route
    */
-  protected patch<T>(request: Request<"PATCH">) {
+  protected patch<T>(request: Request<"POST" | "PUT" | "PATCH">) {
     return this.makeRequest<T>({method: "PATCH", ...request})
   }
 
@@ -101,28 +101,13 @@ type BaseRequest = Omit<RequestInit, "body" | "method"> & {
 } /* GET and DELETE have no body, optional params */ & (
     | {
         body?: never
-        method: "GET"
-        params?: object
-      }
-    | {
-        body?: never
-        method: "DELETE"
+        method: "GET" | "DELETE"
         params?: object
       }
     /* POST, PUT, and PATCH have required body, no params */
     | {
         body: object
-        method: "POST"
-        params?: never
-      }
-    | {
-        body: object
-        method: "PUT"
-        params?: never
-      }
-    | {
-        body: object
-        method: "PATCH"
+        method: "POST" | "PUT" | "PATCH"
         params?: never
       }
   )

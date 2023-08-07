@@ -5,25 +5,21 @@ import {profileService} from "~/services/ProfileService"
 import useInvalidateSession from "./useInvalidateSession"
 
 export default function useUpdateProfile({
-  onMutate,
   onSettled,
-  onSuccess,
+  ...callbacks
 }: {
-  onMutate?: () => void
-  onSettled?: () => void
-  onSuccess?: () => void
+  [key in "onMutate" | "onSettled" | "onSuccess"]?: () => void
 } = {}) {
   const invalidateSession = useInvalidateSession()
 
   const {mutate} = useMutation({
+    ...callbacks,
     mutationFn: (...args: Parameters<typeof profileService.updateProfile>) =>
       profileService.updateProfile(...args),
-    onMutate,
     onSettled() {
       invalidateSession()
       onSettled?.()
     },
-    onSuccess,
   })
 
   return mutate
