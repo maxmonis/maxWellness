@@ -1,6 +1,6 @@
 .slide-in-enter {
   position: fixed;
-  transform: translateX(-100%);
+  transform: translateX(100%);
 }
 
 .slide-in-enter-active {
@@ -12,5 +12,5 @@
 .slide-in-exit-active {
   position: fixed;
   transition: transform 200ms ease-in;
-  transform: translateX(-100%);
+  transform: translateX(100%);
 }

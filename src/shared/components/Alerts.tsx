@@ -30,7 +30,7 @@ export default function Alerts() {
         {alerts.map(({id, text, type}) => (
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
             <div
-              className={`px-4 py-2 rounded-lg fixed top-16 left-4 ${bgColors[type]}`}
+              className={`px-4 py-2 rounded-lg fixed top-16 right-4 ${bgColors[type]}`}
             >
               <p>{text}</p>
             </div>
