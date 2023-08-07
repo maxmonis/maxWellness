@@ -77,8 +77,15 @@ export default function Page({
         <title>{`maxWellness | ${title}`}</title>
       </Head>
       {redirect ? null : (
-        <main className="relative overflow-hidden text-slate-300">
-          <div className="min-h-screen min-w-screen flex flex-col justify-between">
+        <main className="relative overflow-hidden">
+          <div
+            className={`min-h-screen min-w-screen flex flex-col justify-between
+          ${
+            mustBeLoggedOut
+              ? ""
+              : "bg-slate-50 dark:bg-black text-slate-700 dark:text-slate-300"
+          }`}
+          >
             {children ?? element ?? (
               <p className="text-lg absolute left-4 top-4">
                 {loading
@@ -91,7 +98,7 @@ export default function Page({
             {mustBeLoggedOut && (
               <>
                 <Wallpaper />
-                <footer className="flex flex-col items-center text-center w-full py-2 gap-4">
+                <footer className="flex flex-col items-center text-center w-full py-2 gap-4 text-slate-300">
                   <a
                     href="https://github.com/maxmonis/"
                     rel="noopener noreferrer"

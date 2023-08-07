@@ -4,6 +4,8 @@ import Head from "next/head"
 
 import {config} from "@fortawesome/fontawesome-svg-core"
 import "@fortawesome/fontawesome-svg-core/styles.css"
+
+import {ThemeProvider} from "next-themes"
 import {QueryClient, QueryClientProvider} from "react-query"
 
 import Alerts from "~/shared/components/Alerts"
@@ -55,9 +57,11 @@ export default function App({Component, pageProps}: AppProps) {
       <QueryClientProvider client={queryClient}>
         <AlertContextProvider>
           <AuthContextProvider>
-            <main className={`${font.className} text-slate-300`}>
-              <Component {...pageProps} />
-            </main>
+            <ThemeProvider attribute="class">
+              <main className={`${font.className}`}>
+                <Component {...pageProps} />
+              </main>
+            </ThemeProvider>
             <Alerts />
           </AuthContextProvider>
         </AlertContextProvider>

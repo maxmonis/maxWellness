@@ -11,7 +11,6 @@ import {
   faTrash,
   faX,
   faCirclePlus,
-  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
@@ -24,7 +23,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd"
 
-import {Checkbox} from "~/shared/components/CTA"
+import {Checkbox, UserMenu} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import WorkoutsTable from "~/shared/components/WorkoutsTable"
 import {useAlerts} from "~/shared/context/AlertContext"
@@ -159,9 +158,9 @@ function HomeApp({filters, profile, workouts}: Session) {
   }
 
   return (
-    <div className="flex justify-center bg-black border-slate-700">
-      <div className="fixed top-0 left-0 w-screen bg-black">
-        <div className="flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-2xl mx-auto sm:border-x">
+    <div className="flex justify-center border-slate-700">
+      <div className="fixed top-0 left-0 w-screen">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-2xl mx-auto sm:border-x">
           <FontAwesomeIcon
             aria-label="Add a new workout"
             icon={faCirclePlus}
@@ -188,15 +187,13 @@ function HomeApp({filters, profile, workouts}: Session) {
               />
             </>
           )}
-          <Link aria-label="Go to the info page" href="/info">
-            <FontAwesomeIcon icon={faInfoCircle} cursor="pointer" size="xl" />
-          </Link>
           <Link aria-label="Go to the settings page" href="/settings">
             <FontAwesomeIcon icon={faGear} cursor="pointer" size="xl" />
           </Link>
+          <UserMenu />
         </div>
         <div
-          className={`flex items-center justify-between border-b py-4 border-slate-700 max-w-2xl mx-auto sm:px-6 sm:border-x ${
+          className={`flex items-center justify-between border-b py-4 border-slate-700 max-w-2xl mx-auto bg-slate-50 dark:bg-black sm:px-6 sm:border-x ${
             view !== "list" ? "px-4" : "px-6"
           }`}
         >

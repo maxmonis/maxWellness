@@ -3,9 +3,7 @@ import Link from "next/link"
 
 import {
   faHome,
-  faInfoCircle,
   faPen,
-  faSignOut,
   faTrash,
   faXmarkSquare,
 } from "@fortawesome/free-solid-svg-icons"
@@ -17,10 +15,10 @@ import {nanoid} from "nanoid"
 
 import Page from "~/shared/components/Page"
 import {useAlerts} from "~/shared/context/AlertContext"
-import {logOut} from "~/firebase/client"
 import useSession from "~/shared/hooks/useSession"
 import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/resources/models"
+import {UserMenu} from "~/shared/components/CTA"
 
 /**
  * Allows the user to manage the names of workouts and exercises
@@ -79,22 +77,13 @@ function SettingsApp({profile}: {profile: Profile}) {
   }, [])
 
   return (
-    <div className="flex justify-center bg-black border-slate-700 h-screen">
-      <div className="fixed top-0 left-0 w-screen bg-black">
+    <div className="flex justify-center border-slate-700 h-screen">
+      <div className="fixed top-0 left-0 w-screen">
         <div className="flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
           <Link aria-label="Go to the home page" href="/">
             <FontAwesomeIcon cursor="pointer" icon={faHome} size="xl" />
           </Link>
-          <Link aria-label="Go to the info page" href="/info">
-            <FontAwesomeIcon icon={faInfoCircle} cursor="pointer" size="xl" />
-          </Link>
-          <FontAwesomeIcon
-            aria-label="Sign out"
-            cursor="pointer"
-            icon={faSignOut}
-            onClick={logOut}
-            size="xl"
-          />
+          <UserMenu />
         </div>
       </div>
       <div className="flex justify-center divide-x divide-slate-700 border-slate-700 pt-16 w-screen max-w-2xl sm:border-x">
@@ -102,7 +91,7 @@ function SettingsApp({profile}: {profile: Profile}) {
           <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
             <h3 className="text-xl">Exercises</h3>
           </div>
-          <div className="flex flex-col bg-black w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+          <div className="flex flex-col w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
             <form onSubmit={handleLiftSubmit}>
               <div className="flex gap-4 items-center justify-center text-lg">
                 <input
@@ -158,7 +147,7 @@ function SettingsApp({profile}: {profile: Profile}) {
           <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
             <h3 className="text-xl">Workouts</h3>
           </div>
-          <div className="flex flex-col bg-black w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+          <div className="flex flex-col w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
             <form onSubmit={handleWorkoutSubmit}>
               <div className="flex gap-4 items-center justify-center text-lg">
                 <input

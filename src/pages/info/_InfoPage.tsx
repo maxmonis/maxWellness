@@ -14,9 +14,9 @@ export default function InfoPage() {
 
   return (
     <Page title="Info">
-      <div className="flex justify-center bg-black border-slate-700">
-        <div className="fixed top-0 left-0 w-screen bg-black">
-          <div className="flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
+      <div className="flex justify-center border-slate-700">
+        <div className="fixed top-0 left-0 w-screen">
+          <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
             <Link
               aria-label={`Go to the ${user ? "home" : "login"} page`}
               href={user ? "/" : "/login"}

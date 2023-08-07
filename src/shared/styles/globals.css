@@ -25,8 +25,16 @@ body {
 }
 
 html {
-  color-scheme: dark;
   font-size: clamp(16px, 2.5vw, 20px);
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark select,
+html.dark input:not([type='checkbox']) {
+  background: #000000;
 }
 
 a {
@@ -48,7 +56,6 @@ input:not([type='checkbox']) {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background: #000000;
   border-radius: 6px;
   border-style: solid;
   border-width: 1px;

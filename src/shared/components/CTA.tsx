@@ -1,7 +1,22 @@
 import React from "react"
+import Image from "next/image"
 import {useRouter} from "next/router"
 
-import {googleLogin} from "~/firebase/client"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {
+  faMoon,
+  faSignOut,
+  faSun,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons"
+
+import {useTheme} from "next-themes"
+
+import {googleLogin, logOut} from "~/firebase/client"
+
+import useSession from "../hooks/useSession"
+import useOutsideClick from "../hooks/useOutsideClick"
+import useKeypress from "../hooks/useKeypress"
 
 /**
  * Displays a toggleable checkbox element
@@ -20,7 +35,7 @@ export function Checkbox({
   return (
     <div className="flex gap-2 items-center">
       <input
-        className="flex flex-shrink-0 cursor-pointer w-4 h-4 text-slate-700 rounded-xl focus:ring-slate-700 focus:ring-2 bg-slate-700 border-slate-600"
+        className="flex flex-shrink-0 cursor-pointer w-4 h-4"
         id={text}
         type="checkbox"
         {...{checked, onChange, value}}
@@ -82,4 +97,78 @@ export function GoogleButton({
       setSubmitting(false)
     }
   }
+}
+
+/**
+ * This menu allows the user to toggle dark mode or log out
+ */
+export function UserMenu() {
+  const [session] = useSession()
+
+  const [open, setOpen] = React.useState(false)
+  const ref = useOutsideClick(() => setOpen(false))
+  useKeypress("Escape", () => setOpen(false))
+
+  return (
+    <div className="relative" {...{ref}}>
+      {session?.profile.photoURL ? (
+        <div
+          className="relative h-7 w-7 rounded-full cursor-pointer"
+          onClick={() => setOpen(!open)}
+        >
+          <Image
+            alt={session.profile.userName}
+            className="rounded-full"
+            fill
+            src={session.profile.photoURL}
+          />
+        </div>
+      ) : (
+        <FontAwesomeIcon
+          aria-label="Toggle menu"
+          className="cursor-pointer"
+          icon={faUser}
+          onClick={() => setOpen(!open)}
+          size="xl"
+        />
+      )}
+      {open && (
+        <dialog className="flex flex-col items-start gap-4 border border-slate-700 absolute top-8 -left-24 p-4 rounded-lg">
+          <DarkModeToggle />
+          <FontAwesomeIcon
+            aria-label="Sign out"
+            cursor="pointer"
+            icon={faSignOut}
+            onClick={logOut}
+            size="lg"
+          />
+        </dialog>
+      )}
+    </div>
+  )
+}
+
+/**
+ * Allows the user to toggle light/dark mode
+ */
+function DarkModeToggle() {
+  const {theme, setTheme} = useTheme()
+  const dark = theme === "dark"
+
+  return (
+    <div className="flex items-center gap-2">
+      <FontAwesomeIcon icon={faSun} />
+      <label className="relative inline-flex items-center cursor-pointer">
+        <input
+          aria-label="Toggle dark mode"
+          checked={dark}
+          className="sr-only peer"
+          onChange={() => setTheme(dark ? "light" : "dark")}
+          type="checkbox"
+        />
+        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+      </label>
+      <FontAwesomeIcon icon={faMoon} />
+    </div>
+  )
 }
