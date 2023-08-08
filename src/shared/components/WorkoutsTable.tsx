@@ -74,7 +74,7 @@ export default function WorkoutsTable({
   return (
     <div className="flex justify-center border-slate-700 h-screen overflow-hidden">
       <div className="fixed top-0 left-0 w-screen z-10">
-        <div className="flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
           <FontAwesomeIcon
             aria-label="View workouts list"
             icon={faList}
@@ -105,7 +105,7 @@ export default function WorkoutsTable({
       <div className="divide-x divide-slate-700 border-slate-700 pt-20 w-screen max-w-2xl sm:border-x max-h-screen overflow-hidden">
         <div className="flex flex-col flex-1 items-center w-full border-b border-slate-700">
           <div className="w-full">
-            <div className="bg-slate-50 dark:bg-black gap-5 flex items-center justify-center pb-4 w-full border-b border-slate-700">
+            <div className="gap-5 flex items-center justify-center pb-4 w-full border-b border-slate-700">
               <FontAwesomeIcon
                 className={
                   horizontalIndex
