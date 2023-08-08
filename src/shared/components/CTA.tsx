@@ -35,9 +35,9 @@ export function Button({
     <button
       className={`flex justify-center text-lg outline-none rounded-lg ${
         variant === "primary"
-          ? "px-4 py-1 bg-blue-500 text-white hover:bg-blue-600"
+          ? "px-4 py-1 font-semibold bg-blue-500 text-white hover:bg-blue-600"
           : variant === "secondary"
-          ? "px-4 py-1 border bg-white text-blue-400 border-blue-400 hover:bg-blue-100 hover:text-blue-500 hover:border-blue-500"
+          ? "px-4 py-1 font-semibold border bg-white text-blue-400 border-blue-400 hover:bg-blue-100 hover:text-blue-500 hover:border-blue-500"
           : variant === "danger"
           ? "text-red-500 hover:text-red-600"
           : "text-blue-400 hover:text-blue-500"

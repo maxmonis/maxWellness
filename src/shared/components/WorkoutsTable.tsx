@@ -105,7 +105,7 @@ export default function WorkoutsTable({
       <div className="divide-x divide-slate-700 border-slate-700 pt-20 w-screen max-w-2xl sm:border-x max-h-screen overflow-hidden">
         <div className="flex flex-col flex-1 items-center w-full border-b border-slate-700">
           <div className="w-full">
-            <div className="gap-5 flex items-center justify-center pb-4 w-full border-b border-slate-700">
+            <div className="bg-slate-50 dark:bg-black gap-5 flex items-center justify-center pb-4 w-full border-b border-slate-700">
               <FontAwesomeIcon
                 className={
                   horizontalIndex

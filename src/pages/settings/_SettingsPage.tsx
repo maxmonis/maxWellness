@@ -79,7 +79,7 @@ function SettingsApp({profile}: {profile: Profile}) {
   return (
     <div className="flex justify-center border-slate-700 h-screen">
       <div className="fixed top-0 left-0 w-screen">
-        <div className="flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
           <Link aria-label="Go to the home page" href="/">
             <FontAwesomeIcon cursor="pointer" icon={faHome} size="xl" />
           </Link>

@@ -545,7 +545,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                     >
                       <div>
                         <div className="mb-6">
-                          <h4 className="text-xl leading-tight">
+                          <h1 className="text-xl leading-tight">
                             <span
                               className={
                                 view === "create" ? "cursor-pointer" : ""
@@ -563,8 +563,8 @@ function HomeApp({filters, profile, workouts}: Session) {
                             >
                               {getWorkoutName(workout.nameId)}
                             </span>
-                          </h4>
-                          <h5 className="text-md leading-tight mt-2">
+                          </h1>
+                          <h2 className="text-md leading-tight mt-2">
                             <span
                               className={
                                 view === "create" ? "cursor-pointer" : ""
@@ -581,7 +581,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                             >
                               {getDateText(workout.date)}
                             </span>
-                          </h5>
+                          </h2>
                         </div>
                         <ul>
                           {groupExercisesByLift(workout.routine).map(
