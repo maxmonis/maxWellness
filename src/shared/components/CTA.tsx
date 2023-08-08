@@ -102,13 +102,15 @@ export function GoogleButton({
       type="button"
       {...{onClick}}
     >
-      <img
+      <Image
         alt="google logo"
         className="mr-3 w-6"
+        height={30}
         src={
           "https://user-images.githubusercontent.com/51540371/" +
           "209448811-2b88004b-4abd-4b68-9944-9d47b350a735.png"
         }
+        width={30}
       />
       Sign in with Google
     </button>

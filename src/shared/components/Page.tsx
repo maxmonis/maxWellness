@@ -1,4 +1,5 @@
 import React from "react"
+import Image from "next/image"
 import Head from "next/head"
 import {useRouter} from "next/router"
 
@@ -133,23 +134,28 @@ export default function Page({
 /**
  * Memoized background image for select pages
  */
-const Wallpaper = React.memo(function Wallpaper() {
+function Wallpaper() {
   const [error, setError] = React.useState(false)
 
   return error ? (
     <></>
   ) : (
-    <img
-      alt={
-        "Barbell on the Floor by Leon Ardho from Pexels: " +
-        "https://www.pexels.com/photo/barbell-on-the-floor-1552252/"
-      }
-      className="h-screen w-screen fixed object-cover z-[-1] top-0 left-0"
-      onError={() => setError(true)}
-      src={
-        "https://user-images.githubusercontent.com/51540371/" +
-        "202918612-e2daf207-d8fc-45db-827e-8b44aff1b07b.jpg"
-      }
-    />
+    <div className="fixed z-[-1] top-0 left-0">
+      <div className="h-screen w-screen relative">
+        <Image
+          alt={
+            "Barbell on the Floor by Leon Ardho from Pexels: " +
+            "https://www.pexels.com/photo/barbell-on-the-floor-1552252/"
+          }
+          className="object-cover"
+          fill
+          onError={() => setError(true)}
+          src={
+            "https://user-images.githubusercontent.com/51540371/" +
+            "202918612-e2daf207-d8fc-45db-827e-8b44aff1b07b.jpg"
+          }
+        />
+      </div>
+    </div>
   )
-})
+}
