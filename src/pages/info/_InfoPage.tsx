@@ -11,7 +11,7 @@ import {useAuth} from "~/shared/context/AuthContext"
  * Text and GIFs showing how to use the app
  */
 export default function InfoPage() {
-  const [user] = useAuth()
+  const user = useAuth()
 
   return (
     <Page title="Info">

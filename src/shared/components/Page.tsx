@@ -57,7 +57,7 @@ export default function Page({
         props?: never
       }
   )) {
-  const [user] = useAuth()
+  const user = useAuth()
   const router = useRouter()
   useSession()
 

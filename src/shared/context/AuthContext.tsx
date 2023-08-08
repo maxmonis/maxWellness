@@ -2,10 +2,11 @@ import React from "react"
 
 import {onAuthStateChanged, User} from "firebase/auth"
 
-import Page from "~/shared/components/Page"
 import {auth} from "~/firebase/client"
 
-const AuthContext = React.createContext<[User | null, boolean]>([null, true])
+import Page from "../components/Page"
+
+const AuthContext = React.createContext<User | null>(null)
 
 export const useAuth = () => React.useContext(AuthContext)
 
@@ -29,7 +30,7 @@ export const AuthContextProvider = ({
   }, [])
 
   return (
-    <AuthContext.Provider value={[user, loading]}>
+    <AuthContext.Provider value={user}>
       {loading ? <Page loading loadingText="Authenticating..." /> : children}
     </AuthContext.Provider>
   )

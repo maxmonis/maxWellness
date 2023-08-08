@@ -7,7 +7,7 @@ import {sessionService} from "~/shared/services/SessionService"
  * @returns a tuple with the session, loading status, and error (if any)
  */
 export default function useSession() {
-  const [user] = useAuth()
+  const user = useAuth()
   const userId = user?.uid
 
   const {data, error, isLoading} = useQuery(["session", {userId}], () =>
