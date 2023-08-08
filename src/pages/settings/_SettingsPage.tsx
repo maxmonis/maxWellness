@@ -29,12 +29,62 @@ export default function SettingsPage() {
   return (
     <Page
       component={SettingsApp}
-      loadingText="Loading settings..."
+      Loader={SettingsLoader}
       mustBeLoggedIn
       props={session && {profile: session.profile}}
       title="Settings"
       {...{error, loading}}
     />
+  )
+}
+
+function SettingsLoader() {
+  return (
+    <div className="flex flex-col items-center h-screen overflow-hidden border-slate-700">
+      <div className="w-screen">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-2xl mx-auto sm:border-x">
+          {Array.from({length: 2}).map((_, i) => (
+            <span
+              className="h-7 w-7 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
+              key={i}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 w-screen min-h-full max-w-2xl sm:border-x">
+        {Array.from({length: 2}).map((_, i) => (
+          <div
+            className="flex flex-col flex-grow items-center w-full overflow-hidden"
+            key={i}
+          >
+            <div className="flex border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
+              <span className="h-7 w-24 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+            </div>
+            <div className="flex flex-col w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+              <div className="flex">
+                <span className="h-9 w-full rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+              </div>
+              <div className="flex flex-col gap-5 h-full pt-6 pb-20">
+                {Array.from({length: i === 0 ? 2 : 1}).map((_, j) => (
+                  <div className="flex flex-col gap-5" key={`${i}${j}`}>
+                    {[24, 20, 20, 24].map(width => (
+                      <div className="flex justify-between items-center">
+                        <span
+                          className={`h-5 w-${width} rounded bg-slate-300 dark:bg-slate-700 animate-pulse`}
+                        />
+                        <div className="flex gap-4">
+                          <span className="h-5 w-5 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 

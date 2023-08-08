@@ -57,12 +57,64 @@ export default function HomePage() {
   return (
     <Page
       component={HomeApp}
-      loadingText="Loading workouts..."
+      Loader={HomeLoader}
       props={session}
       title="Workouts"
       mustBeLoggedIn
       {...{error, loading}}
     />
+  )
+}
+
+function HomeLoader() {
+  return (
+    <div className="flex flex-col items-center h-screen overflow-hidden border-slate-700">
+      <div className="w-screen">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-2xl mx-auto sm:border-x">
+          {Array.from({length: 5}).map((_, i) => (
+            <span
+              className="h-7 w-7 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
+              key={i}
+            />
+          ))}
+        </div>
+        <div className="flex items-center justify-between border-b py-4 px-6 border-slate-700 max-w-2xl mx-auto bg-slate-50 dark:bg-black sm:border-x">
+          <span className="h-7 w-24 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+        </div>
+      </div>
+      <div className="flex justify-center w-screen max-w-2xl sm:border-x border-slate-700">
+        <div className="flex flex-grow h-screen w-full overflow-hidden">
+          <div className="flex flex-col flex-1 w-full">
+            <div className="h-full pb-20 pt-4 px-6">
+              {Array.from({length: 12}).map((_, i) => (
+                <div
+                  key={i}
+                  className={`flex pb-6 border-slate-700 justify-between gap-6 ${
+                    i ? "border-t-2 pt-6" : "pt-2"
+                  }`}
+                >
+                  <div className="flex flex-col">
+                    <span className="h-6 w-40 mb-4 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                    <span className="h-4 w-20 mb-6 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                    <span className="h-5 w-28 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                    <span className="h-5 w-48 my-4 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                    <span className="h-5 w-36 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                  </div>
+                  <div className="flex flex-col items-center justify-evenly gap-y-4">
+                    {Array.from({length: 3}).map((_, j) => (
+                      <span
+                        className="h-6 w-6 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
+                        key={`${i}${j}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

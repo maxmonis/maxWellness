@@ -15,6 +15,7 @@ export default function Page({
   children,
   component,
   error,
+  Loader,
   loading,
   loadingText,
   mustBeLoggedIn,
@@ -35,8 +36,9 @@ export default function Page({
     }
 ) &
   (
-    | {loading: boolean; loadingText?: string}
-    | {loading?: never; loadingText?: never}
+    | {Loader?: never; loading: boolean; loadingText?: string}
+    | {Loader?: React.ElementType; loading: boolean; loadingText?: never}
+    | {Loader?: never; loading?: never; loadingText?: never}
   ) &
   (
     | {
@@ -86,15 +88,19 @@ export default function Page({
               : "bg-slate-50 dark:bg-black text-slate-700 dark:text-slate-300"
           }`}
           >
-            {children ?? element ?? (
-              <p className="text-lg absolute left-4 top-4">
-                {loading
-                  ? loadingText ?? "Loading..."
-                  : error
-                  ? extractErrorMessage(error)
-                  : null}
-              </p>
-            )}
+            {children ??
+              element ??
+              (loading && Loader ? (
+                <Loader />
+              ) : (
+                <p className="text-lg absolute left-4 top-4">
+                  {loading
+                    ? loadingText ?? "Loading..."
+                    : error
+                    ? extractErrorMessage(error)
+                    : null}
+                </p>
+              ))}
             {mustBeLoggedOut && (
               <>
                 <Wallpaper />
