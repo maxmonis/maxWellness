@@ -35,12 +35,12 @@ export function Button({
     <button
       className={`flex justify-center text-lg outline-none rounded-lg ${
         variant === "primary"
-          ? "px-4 py-1 font-semibold bg-blue-500 text-white hover:bg-blue-600"
+          ? "px-4 py-1 font-semibold bg-blue-800 text-white hover:bg-blue-700"
           : variant === "secondary"
-          ? "px-4 py-1 font-semibold border bg-white text-blue-400 border-blue-400 hover:bg-blue-100 hover:text-blue-500 hover:border-blue-500"
+          ? "px-4 py-1 font-semibold border bg-white text-blue-700 border-blue-700 hover:bg-blue-50 hover:text-blue-800 hover:border-blue-800 dark:bg-blue-50 dark:hover:bg-white dark:hover:text-blue-600 dark:hover:border-blue-600"
           : variant === "danger"
-          ? "text-red-500 hover:text-red-600"
-          : "text-blue-400 hover:text-blue-500"
+          ? "text-red-800 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400"
+          : "text-blue-700 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
       } ${className}`}
       type={type ?? "button"}
       {...props}
