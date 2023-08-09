@@ -130,6 +130,9 @@ function HomeApp({filters, profile, workouts}: Session) {
     onMutate: () => setSubmitting(true),
     onSettled: () => setSubmitting(false),
     onSuccess() {
+      if (action === "saved") {
+        updateRoutine([])
+      }
       resetState()
       showAlert({
         text: `Workout ${action}`,
