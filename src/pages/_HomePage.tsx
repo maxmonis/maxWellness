@@ -418,22 +418,20 @@ function HomeApp({filters, profile, workouts}: Session) {
                             >
                               Enter
                             </Button>
-                            {(reps || sets || weight) && (
-                              <Button
-                                className="mx-auto"
-                                onClick={() =>
-                                  setValues({
-                                    ...defaultValues,
-                                    date,
-                                    nameId,
-                                    liftId,
-                                  })
-                                }
-                                type="button"
-                              >
-                                Clear
-                              </Button>
-                            )}
+                            <Button
+                              className="mx-auto"
+                              onClick={() =>
+                                setValues({
+                                  ...defaultValues,
+                                  date,
+                                  nameId,
+                                  liftId,
+                                })
+                              }
+                              type="button"
+                            >
+                              Clear
+                            </Button>
                           </div>
                           {errorMsg && (
                             <p className="text-red-500 text-sm text-center">
@@ -540,15 +538,13 @@ function HomeApp({filters, profile, workouts}: Session) {
                           >
                             Save
                           </Button>
-                          {routine.length > 0 && (
-                            <Button
-                              className="mx-auto"
-                              type="button"
-                              onClick={() => updateRoutine([])}
-                            >
-                              Reset
-                            </Button>
-                          )}
+                          <Button
+                            className="mx-auto"
+                            type="button"
+                            onClick={() => updateRoutine([])}
+                          >
+                            Reset
+                          </Button>
                         </div>
                         {workoutError && (
                           <p className="text-red-500 text-sm text-center">
