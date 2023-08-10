@@ -112,7 +112,7 @@ export function GoogleButton({
         }
         width={30}
       />
-      Sign in with Google
+      Continue with Google
     </button>
   )
 
