@@ -219,38 +219,38 @@ function HomeApp({filters, profile, workouts}: Session) {
           <IconButton
             aria-label="Add a new workout"
             className="text-blue-600 dark:text-blue-400"
-            hideSm
             icon={<FontAwesomeIcon icon={faCirclePlus} size="xl" />}
             onClick={handleNewWorkoutClick}
             side="right"
             text="Create"
+            textClass="max-sm:sr-only"
           />
           {workouts.length > 0 && (
             <>
               <IconButton
                 aria-label="Show workout filters"
-                hideSm
                 icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
                 onClick={handleFiltersClick}
                 side="right"
                 text="Filters"
+                textClass="max-sm:sr-only"
               />
               <IconButton
                 aria-label="View workouts in a table view"
-                hideSm
                 icon={<FontAwesomeIcon icon={faTable} size="xl" />}
                 onClick={() => setView("table")}
                 side="right"
                 text="Table"
+                textClass="max-sm:sr-only"
               />
             </>
           )}
           <Link aria-label="Go to the settings page" href="/settings">
             <IconButton
-              hideSm
               icon={<FontAwesomeIcon icon={faGear} size="xl" />}
               side="right"
               text="Settings"
+              textClass="max-sm:sr-only"
             />
           </Link>
           <UserMenu />
@@ -740,7 +740,6 @@ function HomeApp({filters, profile, workouts}: Session) {
                           >
                             <IconButton
                               aria-label="Copy this workout's name and exercises"
-                              hideSm
                               icon={<FontAwesomeIcon icon={faCopy} size="lg" />}
                               onClick={() =>
                                 copyWorkout(
@@ -750,6 +749,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                               }
                               side="left"
                               text="Copy"
+                              textClass="max-sm:sr-only"
                             />
                             <IconButton
                               aria-label="Edit this workout"
@@ -758,7 +758,6 @@ function HomeApp({filters, profile, workouts}: Session) {
                                   ? "text-blue-600 dark:text-blue-400"
                                   : ""
                               }
-                              hideSm
                               icon={<FontAwesomeIcon icon={faPen} size="lg" />}
                               onClick={() =>
                                 setEditingWorkout(
@@ -771,16 +770,17 @@ function HomeApp({filters, profile, workouts}: Session) {
                               }
                               side="left"
                               text="Edit"
+                              textClass="max-sm:sr-only"
                             />
                             <IconButton
                               aria-label="Delete this workout"
-                              hideSm
                               icon={
                                 <FontAwesomeIcon icon={faTrash} size="lg" />
                               }
                               onClick={() => handleDeleteClick(workout.id)}
                               side="left"
                               text="Delete"
+                              textClass="max-sm:sr-only"
                             />
                           </div>
                         )}

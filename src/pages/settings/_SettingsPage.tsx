@@ -132,10 +132,10 @@ function SettingsApp({profile}: {profile: Profile}) {
         <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
           <Link aria-label="Go to the home page" href="/">
             <IconButton
-              hideSm
               icon={<FontAwesomeIcon icon={faHome} size="xl" />}
               side="right"
               text="Home"
+              textClass="max-sm:sr-only"
             />
           </Link>
           <UserMenu />

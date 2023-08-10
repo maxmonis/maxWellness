@@ -52,7 +52,7 @@ export function Button({
 
 export function IconButton({
   className,
-  hideSm,
+  textClass,
   icon,
   side,
   text,
@@ -63,21 +63,17 @@ export function IconButton({
 > & {
   icon: JSX.Element
 } & (
-    | {hideSm?: boolean; text: string; side: "left" | "right"}
-    | {hideSm?: never; text?: never; side?: never}
+    | {textClass?: string; text: string; side: "left" | "right"}
+    | {textClass?: never; text?: never; side?: never}
   )) {
   return (
     <button
       className={`flex gap-2 items-center cursor-pointer ${className}`}
       {...props}
     >
-      {side === "left" && (
-        <span className={hideSm ? "max-sm:sr-only" : ""}>{text}</span>
-      )}
+      {side === "left" && <span className={textClass}>{text}</span>}
       {icon}
-      {side === "right" && (
-        <span className={hideSm ? "max-sm:sr-only" : ""}>{text}</span>
-      )}
+      {side === "right" && <span className={textClass}>{text}</span>}
     </button>
   )
 }

@@ -76,35 +76,35 @@ export default function WorkoutsTable({
       <div className="fixed top-0 left-0 w-screen z-10">
         <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
           <IconButton
-            hideSm
             icon={<FontAwesomeIcon icon={faList} size="xl" />}
             aria-label="View workouts list"
             onClick={hideWorkoutsTable}
             side="right"
             text="List"
+            textClass="max-sm:sr-only"
           />
           <IconButton
             aria-label="Show workout filters"
-            hideSm
             icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
             onClick={handleFiltersClick}
             side="right"
             text="Filters"
+            textClass="max-sm:sr-only"
           />
           <IconButton
             aria-label="Reverse x and y axes of table"
-            hideSm
             icon={<FontAwesomeIcon icon={faRotate} size="xl" />}
             onClick={() => setSortByDate(!sortByDate)}
             side="right"
             text="Reverse"
+            textClass="max-sm:sr-only"
           />
           <Link aria-label="Go to settings page" href="/settings">
             <IconButton
-              hideSm
               icon={<FontAwesomeIcon icon={faGear} size="xl" />}
               side="right"
               text="Settings"
+              textClass="max-sm:sr-only"
             />
           </Link>
           <UserMenu />
