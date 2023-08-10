@@ -595,7 +595,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                 {filteredWorkouts.length ? (
                   filteredWorkouts.map((workout, i) => (
                     <div
-                      key={i}
+                      key={workout.id}
                       className={`py-6 border-slate-700 justify-between gap-6 sm:gap-10 ${
                         i ? "border-t-2" : ""
                       } ${editingWorkout?.id === workout.id ? "italic" : ""} ${
@@ -790,7 +790,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                 ) : (
                   <div className="my-6">
                     {workouts.length ? (
-                      <div>
+                      <div className="flex gap-4 items-center">
                         <p className="text-lg font-bold text-red-500">
                           No results
                         </p>

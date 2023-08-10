@@ -264,14 +264,10 @@ export default function WorkoutsTable({
                   </tbody>
                 </table>
               ) : (
-                <div className="flex flex-col gap-6 w-full p-6">
-                  <div>
+                <div className="p-6">
+                  <div className="flex gap-4 items-center">
                     <p className="text-lg font-bold text-red-500">No results</p>
-                    <Button
-                      className="mt-2"
-                      onClick={clearFilters}
-                      variant="danger"
-                    >
+                    <Button onClick={clearFilters} variant="secondary">
                       Clear Filters
                     </Button>
                   </div>
