@@ -23,7 +23,7 @@ import {
   DropResult,
 } from "react-beautiful-dnd"
 
-import {Button, Checkbox, UserMenu} from "~/shared/components/CTA"
+import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import WorkoutsTable from "~/shared/components/WorkoutsTable"
 import {useAlerts} from "~/shared/context/AlertContext"
@@ -216,34 +216,42 @@ function HomeApp({filters, profile, workouts}: Session) {
     <div className="flex justify-center border-slate-700">
       <div className="fixed top-0 left-0 w-screen">
         <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-2xl mx-auto sm:border-x">
-          <FontAwesomeIcon
+          <IconButton
             aria-label="Add a new workout"
-            icon={faCirclePlus}
-            className="text-blue-500"
-            cursor="pointer"
+            className="text-blue-600 dark:text-blue-400"
+            hideSm
+            icon={<FontAwesomeIcon icon={faCirclePlus} size="xl" />}
             onClick={handleNewWorkoutClick}
-            size="xl"
+            side="right"
+            text="Create"
           />
           {workouts.length > 0 && (
             <>
-              <FontAwesomeIcon
+              <IconButton
                 aria-label="Show workout filters"
-                cursor="pointer"
-                icon={faFilter}
+                hideSm
+                icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
                 onClick={handleFiltersClick}
-                size="xl"
+                side="right"
+                text="Filters"
               />
-              <FontAwesomeIcon
+              <IconButton
                 aria-label="View workouts in a table view"
-                icon={faTable}
-                cursor="pointer"
+                hideSm
+                icon={<FontAwesomeIcon icon={faTable} size="xl" />}
                 onClick={() => setView("table")}
-                size="xl"
+                side="right"
+                text="Table"
               />
             </>
           )}
           <Link aria-label="Go to the settings page" href="/settings">
-            <FontAwesomeIcon icon={faGear} cursor="pointer" size="xl" />
+            <IconButton
+              hideSm
+              icon={<FontAwesomeIcon icon={faGear} size="xl" />}
+              side="right"
+              text="Settings"
+            />
           </Link>
           <UserMenu />
         </div>
@@ -588,7 +596,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                   filteredWorkouts.map((workout, i) => (
                     <div
                       key={i}
-                      className={`py-6 border-slate-700 justify-between gap-6 ${
+                      className={`py-6 border-slate-700 justify-between gap-6 sm:gap-10 ${
                         i ? "border-t-2" : ""
                       } ${editingWorkout?.id === workout.id ? "italic" : ""} ${
                         view !== "list" ? "sm:flex" : "flex"
@@ -724,31 +732,34 @@ function HomeApp({filters, profile, workouts}: Session) {
                           </div>
                         ) : (
                           <div
-                            className={`flex items-center justify-evenly gap-y-4 ${
+                            className={`flex justify-evenly gap-y-4 ${
                               view !== "list"
-                                ? "mt-8 mb-2 sm:flex-col sm:mt-0 sm:mb-0"
-                                : "flex-col"
+                                ? "items-center mt-8 mb-2 sm:flex-col sm:mt-0 sm:mb-0 sm:items-end"
+                                : "flex-col items-end"
                             }`}
                           >
-                            <FontAwesomeIcon
-                              icon={faCopy}
-                              cursor="pointer"
+                            <IconButton
+                              aria-label="Copy this workout's name and exercises"
+                              hideSm
+                              icon={<FontAwesomeIcon icon={faCopy} size="lg" />}
                               onClick={() =>
                                 copyWorkout(
                                   workouts.find(({id}) => id === workout.id) ??
                                     workout,
                                 )
                               }
-                              size="lg"
+                              side="left"
+                              text="Copy"
                             />
-                            <FontAwesomeIcon
+                            <IconButton
+                              aria-label="Edit this workout"
                               className={
                                 editingWorkout?.id === workout.id
-                                  ? "text-blue-400"
+                                  ? "text-blue-600 dark:text-blue-400"
                                   : ""
                               }
-                              icon={faPen}
-                              cursor="pointer"
+                              hideSm
+                              icon={<FontAwesomeIcon icon={faPen} size="lg" />}
                               onClick={() =>
                                 setEditingWorkout(
                                   editingWorkout?.id === workout.id
@@ -758,13 +769,18 @@ function HomeApp({filters, profile, workouts}: Session) {
                                       ) ?? workout,
                                 )
                               }
-                              size="lg"
+                              side="left"
+                              text="Edit"
                             />
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              cursor="pointer"
+                            <IconButton
+                              aria-label="Delete this workout"
+                              hideSm
+                              icon={
+                                <FontAwesomeIcon icon={faTrash} size="lg" />
+                              }
                               onClick={() => handleDeleteClick(workout.id)}
-                              size="lg"
+                              side="left"
+                              text="Delete"
                             />
                           </div>
                         )}

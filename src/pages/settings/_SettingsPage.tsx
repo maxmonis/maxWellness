@@ -18,7 +18,7 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import useSession from "~/shared/hooks/useSession"
 import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/resources/models"
-import {Button, UserMenu} from "~/shared/components/CTA"
+import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
 
 /**
  * Allows the user to manage the names of workouts and exercises
@@ -131,7 +131,12 @@ function SettingsApp({profile}: {profile: Profile}) {
       <div className="fixed top-0 left-0 w-screen">
         <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
           <Link aria-label="Go to the home page" href="/">
-            <FontAwesomeIcon cursor="pointer" icon={faHome} size="xl" />
+            <IconButton
+              hideSm
+              icon={<FontAwesomeIcon icon={faHome} size="xl" />}
+              side="right"
+              text="Home"
+            />
           </Link>
           <UserMenu />
         </div>

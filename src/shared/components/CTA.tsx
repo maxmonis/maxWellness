@@ -50,6 +50,38 @@ export function Button({
   )
 }
 
+export function IconButton({
+  className,
+  hideSm,
+  icon,
+  side,
+  text,
+  ...props
+}: React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> & {
+  icon: JSX.Element
+} & (
+    | {hideSm?: boolean; text: string; side: "left" | "right"}
+    | {hideSm?: never; text?: never; side?: never}
+  )) {
+  return (
+    <button
+      className={`flex gap-2 items-center cursor-pointer ${className}`}
+      {...props}
+    >
+      {side === "left" && (
+        <span className={hideSm ? "max-sm:sr-only" : ""}>{text}</span>
+      )}
+      {icon}
+      {side === "right" && (
+        <span className={hideSm ? "max-sm:sr-only" : ""}>{text}</span>
+      )}
+    </button>
+  )
+}
+
 /**
  * Displays a toggleable checkbox element
  */
@@ -158,23 +190,26 @@ export function UserMenu() {
           />
         </div>
       ) : (
-        <FontAwesomeIcon
+        <IconButton
+          icon={<FontAwesomeIcon icon={faUser} size="xl" />}
           aria-label="Toggle menu"
-          className="cursor-pointer"
-          icon={faUser}
           onClick={() => setOpen(!open)}
-          size="xl"
         />
       )}
       {open && (
         <dialog className="flex flex-col items-start gap-4 border border-slate-700 absolute top-8 -left-24 p-4 rounded-lg">
           <DarkModeToggle />
-          <FontAwesomeIcon
-            aria-label="Sign out"
-            cursor="pointer"
-            icon={faSignOut}
+          <IconButton
+            icon={
+              <FontAwesomeIcon
+                aria-label="Sign out"
+                icon={faSignOut}
+                size="lg"
+              />
+            }
             onClick={logOut}
-            size="lg"
+            side="right"
+            text="Logout"
           />
         </dialog>
       )}

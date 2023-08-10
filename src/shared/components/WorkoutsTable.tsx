@@ -16,7 +16,7 @@ import useViewport from "~/shared/hooks/useViewport"
 import {Profile, Workout} from "~/shared/resources/models"
 import {getDateText} from "~/shared/utils/parsers"
 import {getPrintout, groupExercisesByLift} from "~/shared/utils/workout"
-import {Button, UserMenu} from "./CTA"
+import {Button, IconButton, UserMenu} from "./CTA"
 
 /**
  * Displays workout exercises and dates in a table view
@@ -75,29 +75,37 @@ export default function WorkoutsTable({
     <div className="flex justify-center border-slate-700 h-screen overflow-hidden">
       <div className="fixed top-0 left-0 w-screen z-10">
         <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
-          <FontAwesomeIcon
+          <IconButton
+            hideSm
+            icon={<FontAwesomeIcon icon={faList} size="xl" />}
             aria-label="View workouts list"
-            icon={faList}
-            cursor="pointer"
             onClick={hideWorkoutsTable}
-            size="xl"
+            side="right"
+            text="List"
           />
-          <FontAwesomeIcon
+          <IconButton
             aria-label="Show workout filters"
-            cursor="pointer"
-            icon={faFilter}
+            hideSm
+            icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
             onClick={handleFiltersClick}
-            size="xl"
+            side="right"
+            text="Filters"
           />
-          <FontAwesomeIcon
+          <IconButton
             aria-label="Reverse x and y axes of table"
-            cursor="pointer"
-            icon={faRotate}
+            hideSm
+            icon={<FontAwesomeIcon icon={faRotate} size="xl" />}
             onClick={() => setSortByDate(!sortByDate)}
-            size="xl"
+            side="right"
+            text="Reverse"
           />
           <Link aria-label="Go to settings page" href="/settings">
-            <FontAwesomeIcon icon={faGear} cursor="pointer" size="xl" />
+            <IconButton
+              hideSm
+              icon={<FontAwesomeIcon icon={faGear} size="xl" />}
+              side="right"
+              text="Settings"
+            />
           </Link>
           <UserMenu />
         </div>
