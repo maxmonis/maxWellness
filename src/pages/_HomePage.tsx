@@ -1,5 +1,4 @@
 import React from "react"
-import Link from "next/link"
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {
@@ -245,14 +244,14 @@ function HomeApp({filters, profile, workouts}: Session) {
               />
             </>
           )}
-          <Link aria-label="Go to the settings page" href="/settings">
-            <IconButton
-              icon={<FontAwesomeIcon icon={faGear} size="xl" />}
-              side="right"
-              text="Settings"
-              textClass="max-sm:sr-only"
-            />
-          </Link>
+          <IconButton
+            aria-label="Go to the settings page"
+            href="/settings"
+            icon={<FontAwesomeIcon icon={faGear} size="xl" />}
+            side="right"
+            text="Settings"
+            textClass="max-sm:sr-only"
+          />
           <UserMenu />
         </div>
         <div
@@ -491,12 +490,13 @@ function HomeApp({filters, profile, workouts}: Session) {
                                               ]),
                                             )}`}
                                           </span>
-                                          <FontAwesomeIcon
-                                            icon={faX}
+                                          <IconButton
+                                            icon={
+                                              <FontAwesomeIcon icon={faX} />
+                                            }
                                             onClick={() =>
                                               deleteExercise(exercise.id)
                                             }
-                                            cursor="pointer"
                                           />
                                         </li>
                                       )}

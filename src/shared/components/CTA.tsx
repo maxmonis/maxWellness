@@ -1,5 +1,6 @@
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import {useRouter} from "next/router"
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -27,13 +28,12 @@ export function Button({
   type,
   variant,
   ...props
-}: React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {variant?: "primary" | "secondary" | "danger"}) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: "primary" | "secondary" | "danger"
+}) {
   return (
     <button
-      className={`flex justify-center text-lg outline-none rounded-lg ${
+      className={`flex justify-center text-lg outline-none rounded-lg focus:ring-2   ${
         variant === "primary"
           ? "px-4 py-1 font-semibold bg-blue-800 text-white hover:bg-blue-700"
           : variant === "secondary"
@@ -52,28 +52,47 @@ export function Button({
 
 export function IconButton({
   className,
+  href,
   textClass,
   icon,
   side,
   text,
+  type,
   ...props
-}: React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  href?: `/${string}`
   icon: JSX.Element
 } & (
     | {textClass?: string; text: string; side: "left" | "right"}
     | {textClass?: never; text?: never; side?: never}
   )) {
-  return (
-    <button
-      className={`flex gap-2 items-center cursor-pointer ${className}`}
-      {...props}
-    >
+  const classes = `flex gap-2 items-center cursor-pointer ${className ?? ""}`
+  const content = (
+    <>
       {side === "left" && <span className={textClass}>{text}</span>}
       {icon}
       {side === "right" && <span className={textClass}>{text}</span>}
+    </>
+  )
+
+  if (href) {
+    return (
+      <Link {...{href}}>
+        <button
+          className={classes}
+          tabIndex={-1}
+          type={type ?? "button"}
+          {...props}
+        >
+          {content}
+        </button>
+      </Link>
+    )
+  }
+
+  return (
+    <button className={classes} type={type ?? "button"} {...props}>
+      {content}
     </button>
   )
 }
@@ -174,21 +193,23 @@ export function UserMenu() {
   return (
     <div className="relative" {...{ref}}>
       {session?.profile.photoURL ? (
-        <div
-          className="relative h-7 w-7 rounded-full cursor-pointer"
+        <IconButton
+          aria-label="Toggle menu"
+          className="relative h-7 w-7 rounded-full"
+          icon={
+            <Image
+              alt={session.profile.userName}
+              className="rounded-full"
+              fill
+              src={session.profile.photoURL}
+            />
+          }
           onClick={() => setOpen(!open)}
-        >
-          <Image
-            alt={session.profile.userName}
-            className="rounded-full"
-            fill
-            src={session.profile.photoURL}
-          />
-        </div>
+        />
       ) : (
         <IconButton
-          icon={<FontAwesomeIcon icon={faUser} size="xl" />}
           aria-label="Toggle menu"
+          icon={<FontAwesomeIcon icon={faUser} size="xl" />}
           onClick={() => setOpen(!open)}
         />
       )}

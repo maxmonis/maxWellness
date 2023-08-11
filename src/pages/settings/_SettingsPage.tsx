@@ -130,14 +130,14 @@ function SettingsApp({profile}: {profile: Profile}) {
     <div className="flex justify-center border-slate-700 h-screen">
       <div className="fixed top-0 left-0 w-screen">
         <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-2xl mx-auto border-slate-700 border-b sm:border-x">
-          <Link aria-label="Go to the home page" href="/">
-            <IconButton
-              icon={<FontAwesomeIcon icon={faHome} size="xl" />}
-              side="right"
-              text="Home"
-              textClass="max-sm:sr-only"
-            />
-          </Link>
+          <IconButton
+            aria-label="Go to the home page"
+            href="/"
+            icon={<FontAwesomeIcon icon={faHome} size="xl" />}
+            side="right"
+            text="Home"
+            textClass="max-sm:sr-only"
+          />
           <UserMenu />
         </div>
       </div>
@@ -156,13 +156,12 @@ function SettingsApp({profile}: {profile: Profile}) {
                   {...{onChange}}
                 />
                 {lift && (
-                  <button
-                    className="hidden sm:block"
+                  <IconButton
+                    aria-label="Clear lift"
+                    className="max-sm:hidden"
+                    icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
                     onClick={() => setValues({...values, lift: ""})}
-                    type="button"
-                  >
-                    <FontAwesomeIcon icon={faXmarkSquare} size="xl" />
-                  </button>
+                  />
                 )}
               </div>
               {lift && (
@@ -213,13 +212,12 @@ function SettingsApp({profile}: {profile: Profile}) {
                   {...{onChange}}
                 />
                 {workout && (
-                  <button
+                  <IconButton
+                    aria-label="Clear workout"
                     className="hidden sm:block"
+                    icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
                     onClick={() => setValues({...values, workout: ""})}
-                    type="button"
-                  >
-                    <FontAwesomeIcon icon={faXmarkSquare} size="xl" />
-                  </button>
+                  />
                 )}
               </div>
               {workout && (
@@ -407,20 +405,14 @@ function EditableListItem({
     <li className="mt-4 flex justify-between gap-4 leading-tight">
       {editing ? (
         <form className="w-full" {...{onSubmit}}>
-          <div className="flex gap-4 items-center justify-center">
+          <div className="flex gap-4 items-center justify-center overflow-visible">
             <input autoFocus value={newText} {...{onChange, onKeyUp}} />
-            <button
-              aria-label="discard"
-              className="hidden sm:block"
+            <IconButton
+              aria-label="Discard changes"
+              className="max-sm:hidden"
+              icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
               onClick={handleReset}
-              type="button"
-            >
-              <FontAwesomeIcon
-                aria-label="cancel"
-                icon={faXmarkSquare}
-                size="xl"
-              />
-            </button>
+            />
           </div>
           {newText !== editableName.text && (
             <div className="flex justify-center mb-2">
@@ -453,19 +445,17 @@ function EditableListItem({
           </span>
           <span className="flex gap-4 items-center justify-center flex-col sm:flex-row">
             {editableName.canDelete && (
-              <FontAwesomeIcon
-                aria-label="delete"
-                className="hidden sm:block"
-                cursor="pointer"
-                icon={faTrash}
+              <IconButton
+                aria-label="Delete name"
+                className="max-sm:hidden"
+                icon={<FontAwesomeIcon icon={faTrash} />}
                 onClick={handleDelete}
               />
             )}
             <span className="flex items-center gap-4">
-              <FontAwesomeIcon
-                aria-label="edit"
-                cursor="pointer"
-                icon={faPen}
+              <IconButton
+                aria-label={`Edit ${newText}`}
+                icon={<FontAwesomeIcon icon={faPen} />}
                 onClick={() => setEditing(true)}
               />
             </span>

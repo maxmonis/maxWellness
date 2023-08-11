@@ -99,14 +99,14 @@ export default function WorkoutsTable({
             text="Reverse"
             textClass="max-sm:sr-only"
           />
-          <Link aria-label="Go to settings page" href="/settings">
-            <IconButton
-              icon={<FontAwesomeIcon icon={faGear} size="xl" />}
-              side="right"
-              text="Settings"
-              textClass="max-sm:sr-only"
-            />
-          </Link>
+          <IconButton
+            aria-label="Go to settings page"
+            href="/settings"
+            icon={<FontAwesomeIcon icon={faGear} size="xl" />}
+            side="right"
+            text="Settings"
+            textClass="max-sm:sr-only"
+          />
           <UserMenu />
         </div>
       </div>
