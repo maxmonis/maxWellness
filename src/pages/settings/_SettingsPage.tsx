@@ -66,9 +66,12 @@ function SettingsLoader() {
               </div>
               <div className="flex flex-col gap-5 h-full pt-6 pb-20">
                 {Array.from({length: i === 0 ? 2 : 1}).map((_, j) => (
-                  <div className="flex flex-col gap-5" key={`${i}${j}`}>
-                    {[24, 20, 20, 24].map(width => (
-                      <div className="flex justify-between items-center">
+                  <div className="flex flex-col gap-5" key={`${i}-${j}`}>
+                    {[24, 20, 20, 24].map((width, k) => (
+                      <div
+                        className="flex justify-between items-center"
+                        key={`${i}-${j}-${k}`}
+                      >
                         <span
                           className={`h-5 w-${width} rounded bg-slate-300 dark:bg-slate-700 animate-pulse`}
                         />
@@ -402,10 +405,10 @@ function EditableListItem({
   const isDuplicate = isTextAlreadyInList(newText, editableNameList)
 
   return (
-    <li className="mt-4 flex justify-between gap-4 leading-tight">
+    <li className="mt-4 flex justify-between gap-4">
       {editing ? (
         <form className="w-full" {...{onSubmit}}>
-          <div className="flex gap-4 items-center justify-center overflow-visible">
+          <div className="flex gap-4 items-center justify-center px-1">
             <input autoFocus value={newText} {...{onChange, onKeyUp}} />
             <IconButton
               aria-label="Discard changes"
@@ -440,7 +443,11 @@ function EditableListItem({
         </form>
       ) : (
         <>
-          <span aria-label={`Edit ${newText}`} onClick={() => setEditing(true)}>
+          <span
+            aria-label={`Edit ${newText}`}
+            className="leading-tight"
+            onClick={() => setEditing(true)}
+          >
             {newText}
           </span>
           <span className="flex gap-4 items-center justify-center flex-col sm:flex-row">

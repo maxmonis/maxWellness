@@ -103,7 +103,7 @@ function HomeLoader() {
                     {Array.from({length: 3}).map((_, j) => (
                       <span
                         className="h-6 w-6 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
-                        key={`${i}${j}`}
+                        key={`${i}-${j}`}
                       />
                     ))}
                   </div>
