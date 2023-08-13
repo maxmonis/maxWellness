@@ -1,8 +1,9 @@
 import React from "react"
-import Link from "next/link"
 
 import {
+  faEllipsis,
   faHome,
+  faMinusCircle,
   faPen,
   faTrash,
   faXmarkSquare,
@@ -14,11 +15,14 @@ import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
 
 import Page from "~/shared/components/Page"
+import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
+import useKeypress from "~/shared/hooks/useKeypress"
+import useOutsideClick from "~/shared/hooks/useOutsideClick"
 import useSession from "~/shared/hooks/useSession"
 import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/resources/models"
-import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
+import useInvalidateSession from "~/shared/hooks/useInvalidateSession"
 
 /**
  * Allows the user to manage the names of workouts and exercises
@@ -93,10 +97,14 @@ function SettingsLoader() {
 
 function SettingsApp({profile}: {profile: Profile}) {
   const {showAlert} = useAlerts()
+  const invalidateSession = useInvalidateSession()
 
   const updateProfile = useUpdateProfile({
     onMutate: () => setSubmitting(true),
-    onSettled: () => setSubmitting(false),
+    onSettled() {
+      invalidateSession()
+      setSubmitting(false)
+    },
     onSuccess() {
       showAlert({
         text: "Settings updated",
@@ -149,7 +157,7 @@ function SettingsApp({profile}: {profile: Profile}) {
           <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
             <h3 className="text-xl">Exercises</h3>
           </div>
-          <div className="flex flex-col w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+          <div className="flex flex-col flex-grow w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
             <form onSubmit={handleLiftSubmit}>
               <div className="flex gap-4 items-center justify-center text-lg">
                 <input
@@ -190,7 +198,21 @@ function SettingsApp({profile}: {profile: Profile}) {
               )}
             </form>
             <ul className="h-full overflow-y-scroll pt-2 pb-20">
-              {sortBy(liftNames, "text").map(liftName => (
+              {sortBy(
+                liftNames.filter(n => !n.isHidden),
+                "text",
+              ).map(liftName => (
+                <EditableListItem
+                  editableName={liftName}
+                  editableNameList={liftNames}
+                  key={liftName.id}
+                  updateOptions={updateLiftNames}
+                />
+              ))}
+              {sortBy(
+                liftNames.filter(({isHidden}) => isHidden),
+                "text",
+              ).map(liftName => (
                 <EditableListItem
                   editableName={liftName}
                   editableNameList={liftNames}
@@ -205,7 +227,7 @@ function SettingsApp({profile}: {profile: Profile}) {
           <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
             <h3 className="text-xl">Workouts</h3>
           </div>
-          <div className="flex flex-col w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+          <div className="flex flex-col flex-grow w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
             <form onSubmit={handleWorkoutSubmit}>
               <div className="flex gap-4 items-center justify-center text-lg">
                 <input
@@ -246,7 +268,21 @@ function SettingsApp({profile}: {profile: Profile}) {
               )}
             </form>
             <ul className="h-full overflow-y-scroll pt-2 pb-20">
-              {sortBy(workoutNames, "text").map(workoutName => (
+              {sortBy(
+                workoutNames.filter(n => !n.isHidden),
+                "text",
+              ).map(workoutName => (
+                <EditableListItem
+                  key={workoutName.id}
+                  editableName={workoutName}
+                  editableNameList={workoutNames}
+                  updateOptions={updateWorkoutNames}
+                />
+              ))}
+              {sortBy(
+                workoutNames.filter(({isHidden}) => isHidden),
+                "text",
+              ).map(workoutName => (
                 <EditableListItem
                   key={workoutName.id}
                   editableName={workoutName}
@@ -284,10 +320,15 @@ function SettingsApp({profile}: {profile: Profile}) {
 
     updateProfile({
       ...profile,
-      liftNames: liftNamesRef.current.map(({id, text}) => ({id, text})),
-      workoutNames: workoutNamesRef.current.map(({id, text}) => ({
+      liftNames: liftNamesRef.current.map(({id, text, isHidden}) => ({
         id,
         text,
+        isHidden,
+      })),
+      workoutNames: workoutNamesRef.current.map(({id, text, isHidden}) => ({
+        id,
+        text,
+        isHidden,
       })),
     })
   }
@@ -359,13 +400,22 @@ function SettingsApp({profile}: {profile: Profile}) {
   /**
    * Handles deleted or updated workout names
    */
-  function updateWorkoutNames(newText: string, workoutName: EditableName) {
-    if (!newText && workoutName.canDelete && workoutNames.length > 1) {
+  function updateWorkoutNames(
+    {text, isHidden}: EditableName,
+    workoutName: EditableName,
+  ) {
+    if (!text && workoutName.canDelete && workoutNames.length > 1) {
       setWorkoutNames(workoutNames.filter(({id}) => id !== workoutName.id))
-    } else if (newText && !isTextAlreadyInList(newText, workoutNames)) {
+    } else if (text && !isTextAlreadyInList(text, workoutNames)) {
       setWorkoutNames(
         workoutNames.map(name =>
-          name.id === workoutName.id ? {...name, text: newText} : name,
+          name.id === workoutName.id ? {...name, text} : name,
+        ),
+      )
+    } else {
+      setWorkoutNames(
+        workoutNames.map(name =>
+          name.id === workoutName.id ? {...name, isHidden} : name,
         ),
       )
     }
@@ -374,13 +424,22 @@ function SettingsApp({profile}: {profile: Profile}) {
   /**
    * Handles deleted or updated lift names
    */
-  function updateLiftNames(newText: string, liftName: EditableName) {
-    if (!newText && liftName.canDelete && liftNames.length > 1) {
+  function updateLiftNames(
+    {text, isHidden}: EditableName,
+    liftName: EditableName,
+  ) {
+    if (!text && liftName.canDelete && liftNames.length > 1) {
       setLiftNames(liftNames.filter(({id}) => id !== liftName.id))
-    } else if (newText && !isTextAlreadyInList(newText, liftNames)) {
+    } else if (text && !isTextAlreadyInList(text, liftNames)) {
       setLiftNames(
         liftNames.map(name =>
-          name.id === liftName.id ? {...name, text: newText} : name,
+          name.id === liftName.id ? {...name, text} : name,
+        ),
+      )
+    } else {
+      setLiftNames(
+        liftNames.map(name =>
+          name.id === liftName.id ? {...name, isHidden} : name,
         ),
       )
     }
@@ -397,15 +456,16 @@ function EditableListItem({
 }: {
   editableName: EditableName
   editableNameList: EditableName[]
-  updateOptions: (newText: string, previousValue: typeof editableName) => void
+  updateOptions: (newValue: EditableName, previousValue: EditableName) => void
 }) {
   const [newText, setNewText] = React.useState(editableName.text)
   const [editing, setEditing] = React.useState(false)
 
   const isDuplicate = isTextAlreadyInList(newText, editableNameList)
+  const canHide = editableNameList.filter(n => !n.isHidden).length > 1
 
   return (
-    <li className="mt-4 flex justify-between gap-4">
+    <li className="mt-4 flex items-center justify-between gap-4">
       {editing ? (
         <form className="w-full" {...{onSubmit}}>
           <div className="flex gap-4 items-center justify-center px-1">
@@ -435,7 +495,7 @@ function EditableListItem({
                 </Button>
               ) : (
                 <p className="text-red-500 text-center mt-1 text-sm">
-                  Name cannot be deleted
+                  Can't delete, used in workout(s)
                 </p>
               )}
             </div>
@@ -445,28 +505,18 @@ function EditableListItem({
         <>
           <span
             aria-label={`Edit ${newText}`}
-            className="leading-tight"
+            className={`leading-tight ${
+              editableName.isHidden ? "line-through" : ""
+            }`}
             onClick={() => setEditing(true)}
           >
             {newText}
           </span>
-          <span className="flex gap-4 items-center justify-center flex-col sm:flex-row">
-            {editableName.canDelete && (
-              <IconButton
-                aria-label="Delete name"
-                className="max-sm:hidden"
-                icon={<FontAwesomeIcon icon={faTrash} />}
-                onClick={handleDelete}
-              />
-            )}
-            <span className="flex items-center gap-4">
-              <IconButton
-                aria-label={`Edit ${newText}`}
-                icon={<FontAwesomeIcon icon={faPen} />}
-                onClick={() => setEditing(true)}
-              />
-            </span>
-          </span>
+          <EditableItemMenu
+            onDeleteClick={handleDelete}
+            onEditClick={() => setEditing(true)}
+            {...{canHide, editableName, newText, onHideClick}}
+          />
         </>
       )}
     </li>
@@ -501,7 +551,7 @@ function EditableListItem({
     } else if (!newText.trim()) {
       handleDelete()
     } else {
-      updateOptions(newText.trim(), editableName)
+      updateOptions({...editableName, text: newText.trim()}, editableName)
     }
     setEditing(false)
   }
@@ -511,9 +561,19 @@ function EditableListItem({
    */
   function handleDelete() {
     if (editableName.canDelete && editableNameList.length > 1) {
-      updateOptions("", editableName)
+      updateOptions({...editableName, text: ""}, editableName)
     } else {
       handleReset()
+    }
+  }
+
+  /**
+   * Updates whether a name is hidden (if possible)
+   */
+  function onHideClick() {
+    const newHidden = !editableName.isHidden
+    if ((canHide && newHidden) || !newHidden) {
+      updateOptions({...editableName, isHidden: newHidden}, editableName)
     }
   }
 
@@ -534,5 +594,78 @@ function isTextAlreadyInList(newText: string, allNames: EditableName[]) {
     ({text}) =>
       text.toLowerCase().replace(/\s/g, "") ===
       newText.toLowerCase().replace(/\s/g, ""),
+  )
+}
+
+/**
+ * Allows the user to update or hide a name,
+ * and also to delete it (if possible)
+ */
+function EditableItemMenu({
+  canHide,
+  editableName: {canDelete, isHidden},
+  newText,
+  onDeleteClick,
+  onEditClick,
+  onHideClick,
+}: {
+  canHide: boolean
+  editableName: EditableName
+  newText: string
+  onDeleteClick: () => void
+  onEditClick: () => void
+  onHideClick: () => void
+}) {
+  const [open, setOpen] = React.useState(false)
+  const ref = useOutsideClick(() => setOpen(false))
+  useKeypress("Escape", () => setOpen(false))
+
+  return (
+    <div className="relative" {...{ref}}>
+      <IconButton
+        aria-label="Toggle menu"
+        className={`p-1 rounded-lg border ${
+          open
+            ? "bg-slate-100 border-slate-300 dark:bg-black"
+            : "border-transparent"
+        }`}
+        icon={<FontAwesomeIcon icon={faEllipsis} size="xl" />}
+        onClick={() => setOpen(!open)}
+      />
+      {open && (
+        <dialog className="z-10 flex flex-col items-start gap-4 border border-slate-700 absolute w-28 top-8 -left-24 p-4 rounded-lg">
+          <IconButton
+            aria-label={`Edit ${newText}`}
+            icon={<FontAwesomeIcon icon={faPen} />}
+            onClick={onEditClick}
+            side="right"
+            text="Edit"
+            textClass="whitespace-nowrap"
+          />
+          {((canHide && !isHidden) || isHidden) && (
+            <IconButton
+              aria-label={`${isHidden ? "Unhide" : "Hide"} ${newText}`}
+              icon={<FontAwesomeIcon icon={faMinusCircle} />}
+              onClick={onHideClick}
+              side="right"
+              text={isHidden ? "Unhide" : "Hide"}
+            />
+          )}
+          {canDelete && (
+            <IconButton
+              icon={
+                <FontAwesomeIcon
+                  aria-label={`Delete ${newText}`}
+                  icon={faTrash}
+                />
+              }
+              onClick={onDeleteClick}
+              side="right"
+              text="Delete"
+            />
+          )}
+        </dialog>
+      )}
+    </div>
   )
 }

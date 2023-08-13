@@ -119,6 +119,14 @@ function HomeLoader() {
 
 function HomeApp({filters, profile, workouts}: Session) {
   const {liftNames, userId, workoutNames} = profile
+  const activeWorkoutNames = sortBy(
+    workoutNames.filter(n => !n.isHidden),
+    "text",
+  )
+  const activeLiftNames = sortBy(
+    liftNames.filter(n => !n.isHidden),
+    "text",
+  )
   const localRoutine = new LocalStorage<Workout["routine"]>(
     `wip-routine_${userId}`,
   )
@@ -145,8 +153,8 @@ function HomeApp({filters, profile, workouts}: Session) {
 
   const defaultValues = {
     date: today,
-    liftId: liftNames[0].id,
-    nameId: workoutNames[0].id,
+    liftId: activeLiftNames[0].id,
+    nameId: activeWorkoutNames[0].id,
     reps: "",
     sets: "",
     weight: "",
@@ -173,6 +181,12 @@ function HomeApp({filters, profile, workouts}: Session) {
   >(workouts.length > 0 ? "list" : "create")
   const [appliedFilters, setAppliedFilters] = React.useState(filters)
   const [filteredWorkouts, setFilteredWorkouts] = React.useState(workouts)
+
+  const [previousFilters, setPreviousFilters] = React.useState(filters)
+  if (previousFilters !== filters) {
+    setPreviousFilters(filters)
+    setAppliedFilters(filters)
+  }
 
   useUpdateEvent(() => {
     if (editingWorkout) {
@@ -383,7 +397,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                             value={liftId}
                             {...{onChange}}
                           >
-                            {sortBy(liftNames, "text").map(({text, id}) => (
+                            {activeLiftNames.map(({text, id}) => (
                               <option key={id} value={id}>
                                 {text}
                               </option>
@@ -521,7 +535,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                             value={nameId}
                             {...{onChange}}
                           >
-                            {sortBy(workoutNames, "text").map(({id, text}) => (
+                            {activeWorkoutNames.map(({id, text}) => (
                               <option key={id} value={id}>
                                 {text}
                               </option>
@@ -593,200 +607,226 @@ function HomeApp({filters, profile, workouts}: Session) {
                 }`}
               >
                 {filteredWorkouts.length ? (
-                  filteredWorkouts.map((workout, i) => (
-                    <div
-                      key={workout.id}
-                      className={`py-6 border-slate-700 justify-between gap-6 sm:gap-10 ${
-                        i ? "border-t-2" : ""
-                      } ${editingWorkout?.id === workout.id ? "italic" : ""} ${
-                        view !== "list" ? "sm:flex" : "flex"
-                      }`}
-                    >
-                      <div>
-                        <div className="mb-6">
-                          <h1 className="text-xl leading-tight">
-                            <span
-                              className={
-                                view === "create" ? "cursor-pointer" : ""
-                              }
-                              onClick={
-                                view === "create"
-                                  ? () => {
-                                      setValues({
-                                        ...values,
-                                        nameId: workout.nameId,
-                                      })
-                                    }
-                                  : undefined
-                              }
-                            >
-                              {getWorkoutName(workout.nameId)}
-                            </span>
-                          </h1>
-                          <h2 className="text-md leading-tight mt-2">
-                            <span
-                              className={
-                                view === "create" ? "cursor-pointer" : ""
-                              }
-                              onClick={
-                                view === "create"
-                                  ? () =>
-                                      setValues({
-                                        ...values,
-                                        date: workout.date.split("T")[0],
-                                      })
-                                  : undefined
-                              }
-                            >
-                              {getDateText(workout.date)}
-                            </span>
-                          </h2>
-                        </div>
-                        <ul>
-                          {groupExercisesByLift(workout.routine).map(
-                            (exerciseList, j) => (
-                              <li key={j} className="flex flex-wrap mt-4">
-                                <span
-                                  className={`leading-tight text-lg ${
-                                    view === "create" ? "cursor-pointer" : ""
-                                  }`}
-                                  onClick={
-                                    view === "create"
-                                      ? () => {
-                                          setValues({
-                                            ...values,
-                                            liftId: exerciseList[0].liftId,
-                                          })
+                  filteredWorkouts.map((workout, i) => {
+                    const workoutName = workoutNames.find(
+                      n => n.id === workout.id,
+                    )
+                    return (
+                      <div
+                        key={workout.id}
+                        className={`py-6 border-slate-700 justify-between gap-6 sm:gap-10 ${
+                          i ? "border-t-2" : ""
+                        } ${
+                          editingWorkout?.id === workout.id ? "italic" : ""
+                        } ${view !== "list" ? "sm:flex" : "flex"}`}
+                      >
+                        <div>
+                          <div className="mb-6">
+                            <h1 className="text-xl leading-tight">
+                              <span
+                                className={
+                                  view === "create" && !workoutName?.isHidden
+                                    ? "cursor-pointer"
+                                    : ""
+                                }
+                                onClick={
+                                  view === "create" && !workoutName?.isHidden
+                                    ? () => {
+                                        setValues({
+                                          ...values,
+                                          nameId: workout.nameId,
+                                        })
+                                      }
+                                    : undefined
+                                }
+                              >
+                                {getWorkoutName(workout.nameId)}
+                              </span>
+                            </h1>
+                            <h2 className="text-md leading-tight mt-2">
+                              <span
+                                className={
+                                  view === "create" ? "cursor-pointer" : ""
+                                }
+                                onClick={
+                                  view === "create"
+                                    ? () =>
+                                        setValues({
+                                          ...values,
+                                          date: workout.date.split("T")[0],
+                                        })
+                                    : undefined
+                                }
+                              >
+                                {getDateText(workout.date)}
+                              </span>
+                            </h2>
+                          </div>
+                          <ul>
+                            {groupExercisesByLift(workout.routine).map(
+                              (exerciseList, j) => {
+                                const [{liftId}] = exerciseList
+                                const liftName = liftNames.find(
+                                  ({id}) => id === liftId,
+                                )
+                                return (
+                                  <li key={j} className="flex flex-wrap mt-4">
+                                    <span
+                                      className={`leading-tight text-lg ${
+                                        view === "create" && !liftName?.isHidden
+                                          ? "cursor-pointer"
+                                          : ""
+                                      }`}
+                                      onClick={
+                                        view === "create" && !liftName?.isHidden
+                                          ? () => {
+                                              setValues({
+                                                ...values,
+                                                liftId,
+                                              })
+                                            }
+                                          : undefined
+                                      }
+                                    >
+                                      {getLiftName(liftId)}:
+                                    </span>
+                                    {exerciseList.map((exercise, k) => (
+                                      <span
+                                        key={k}
+                                        className={`leading-tight text-lg ${
+                                          view === "create" &&
+                                          !liftName?.isHidden
+                                            ? "cursor-pointer"
+                                            : ""
+                                        }`}
+                                        onClick={() =>
+                                          view === "create"
+                                            ? setValues({
+                                                ...values,
+                                                sets: exercise.sets
+                                                  ? exercise.sets.toString()
+                                                  : "",
+                                                reps: exercise.reps
+                                                  ? exercise.reps.toString()
+                                                  : "",
+                                                weight: exercise.weight
+                                                  ? exercise.weight.toString()
+                                                  : "",
+                                              })
+                                            : undefined
                                         }
-                                      : undefined
-                                  }
-                                >
-                                  {getLiftName(exerciseList[0].liftId)}:
-                                </span>
-                                {exerciseList.map((exercise, k) => (
-                                  <span
-                                    key={k}
-                                    className={`leading-tight text-lg ${
-                                      view === "create" ? "cursor-pointer" : ""
-                                    }`}
-                                    onClick={() =>
-                                      view === "create"
-                                        ? setValues({
-                                            ...values,
-                                            sets: exercise.sets
-                                              ? exercise.sets.toString()
-                                              : "",
-                                            reps: exercise.reps
-                                              ? exercise.reps.toString()
-                                              : "",
-                                            weight: exercise.weight
-                                              ? exercise.weight.toString()
-                                              : "",
-                                          })
-                                        : undefined
-                                    }
-                                    onDoubleClick={
-                                      view === "create"
-                                        ? () => {
-                                            setValues({
-                                              ...values,
-                                              liftId: exercise.liftId,
-                                            })
-                                            addExercise({
-                                              ...omit(exercise, [
-                                                "recordStartDate",
-                                                "recordEndDate",
-                                              ]),
-                                              id: nanoid(),
-                                            })
-                                          }
-                                        : undefined
-                                    }
-                                  >
-                                    &nbsp;
-                                    {getPrintout(exercise)}
-                                    {k !== exerciseList.length - 1 && ","}
-                                  </span>
-                                ))}
-                              </li>
-                            ),
-                          )}
-                        </ul>
-                      </div>
-                      <>
-                        {deletingId === workout.id ? (
-                          <div
-                            className={`flex items-center justify-evenly gap-4 ${
-                              view !== "list" ? "pt-6 sm:flex-col" : "flex-col"
-                            }`}
-                          >
-                            <Button
-                              onClick={() => handleDelete(workout.id)}
-                              variant="danger"
+                                        onDoubleClick={
+                                          view === "create" &&
+                                          !liftName?.isHidden
+                                            ? () => {
+                                                setValues({
+                                                  ...values,
+                                                  liftId,
+                                                })
+                                                addExercise({
+                                                  ...omit(exercise, [
+                                                    "recordStartDate",
+                                                    "recordEndDate",
+                                                  ]),
+                                                  id: nanoid(),
+                                                })
+                                              }
+                                            : undefined
+                                        }
+                                      >
+                                        &nbsp;
+                                        {getPrintout(exercise)}
+                                        {k !== exerciseList.length - 1 && ","}
+                                      </span>
+                                    ))}
+                                  </li>
+                                )
+                              },
+                            )}
+                          </ul>
+                        </div>
+                        <>
+                          {deletingId === workout.id ? (
+                            <div
+                              className={`flex items-center justify-evenly gap-4 ${
+                                view !== "list"
+                                  ? "pt-6 sm:flex-col"
+                                  : "flex-col"
+                              }`}
                             >
-                              Delete
-                            </Button>
-                            <Button onClick={() => setDeletingId(null)}>
-                              Cancel
-                            </Button>
-                          </div>
-                        ) : (
-                          <div
-                            className={`flex justify-evenly gap-y-4 ${
-                              view !== "list"
-                                ? "items-center mt-8 mb-2 sm:flex-col sm:mt-0 sm:mb-0 sm:items-end"
-                                : "flex-col items-end"
-                            }`}
-                          >
-                            <IconButton
-                              aria-label="Copy this workout's name and exercises"
-                              icon={<FontAwesomeIcon icon={faCopy} size="lg" />}
-                              onClick={() =>
-                                copyWorkout(
-                                  workouts.find(({id}) => id === workout.id) ??
-                                    workout,
-                                )
-                              }
-                              side="left"
-                              text="Copy"
-                              textClass="max-sm:sr-only"
-                            />
-                            <IconButton
-                              aria-label="Edit this workout"
-                              className={
-                                editingWorkout?.id === workout.id
-                                  ? "text-blue-600 dark:text-blue-400"
-                                  : ""
-                              }
-                              icon={<FontAwesomeIcon icon={faPen} size="lg" />}
-                              onClick={() =>
-                                setEditingWorkout(
+                              <Button
+                                onClick={() => handleDelete(workout.id)}
+                                variant="danger"
+                              >
+                                Delete
+                              </Button>
+                              <Button onClick={() => setDeletingId(null)}>
+                                Cancel
+                              </Button>
+                            </div>
+                          ) : (
+                            <div
+                              className={`flex justify-evenly gap-y-4 ${
+                                view !== "list"
+                                  ? "items-center mt-8 mb-2 sm:flex-col sm:mt-0 sm:mb-0 sm:items-end"
+                                  : "flex-col items-end"
+                              }`}
+                            >
+                              <IconButton
+                                aria-label="Copy this workout's name and exercises"
+                                icon={
+                                  <FontAwesomeIcon icon={faCopy} size="lg" />
+                                }
+                                onClick={() =>
+                                  copyWorkout(
+                                    workouts.find(
+                                      ({id}) => id === workout.id,
+                                    ) ?? workout,
+                                  )
+                                }
+                                side="left"
+                                text="Copy"
+                                textClass="max-sm:sr-only"
+                              />
+                              <IconButton
+                                aria-label="Edit this workout"
+                                className={
                                   editingWorkout?.id === workout.id
-                                    ? null
-                                    : workouts.find(
-                                        ({id}) => id === workout.id,
-                                      ) ?? workout,
-                                )
-                              }
-                              side="left"
-                              text="Edit"
-                              textClass="max-sm:sr-only"
-                            />
-                            <IconButton
-                              aria-label="Delete this workout"
-                              icon={
-                                <FontAwesomeIcon icon={faTrash} size="lg" />
-                              }
-                              onClick={() => handleDeleteClick(workout.id)}
-                              side="left"
-                              text="Delete"
-                              textClass="max-sm:sr-only"
-                            />
-                          </div>
-                        )}
-                      </>
-                    </div>
-                  ))
+                                    ? "text-blue-600 dark:text-blue-400"
+                                    : ""
+                                }
+                                icon={
+                                  <FontAwesomeIcon icon={faPen} size="lg" />
+                                }
+                                onClick={() =>
+                                  setEditingWorkout(
+                                    editingWorkout?.id === workout.id
+                                      ? null
+                                      : workouts.find(
+                                          ({id}) => id === workout.id,
+                                        ) ?? workout,
+                                  )
+                                }
+                                side="left"
+                                text="Edit"
+                                textClass="max-sm:sr-only"
+                              />
+                              <IconButton
+                                aria-label="Delete this workout"
+                                icon={
+                                  <FontAwesomeIcon icon={faTrash} size="lg" />
+                                }
+                                onClick={() => handleDeleteClick(workout.id)}
+                                side="left"
+                                text="Delete"
+                                textClass="max-sm:sr-only"
+                              />
+                            </div>
+                          )}
+                        </>
+                      </div>
+                    )
+                  })
                 ) : (
                   <div className="my-6">
                     {workouts.length ? (

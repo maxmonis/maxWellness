@@ -10,8 +10,12 @@ export function generateSession(profile: Profile, workoutList: Workout[]) {
   const workouts = recursiveChecker(sortBy(workoutList, "date"))
 
   const filters = generateWorkoutsFilters({
-    liftIds: Array.from(liftIds),
-    nameIds: Array.from(nameIds),
+    liftIds: Array.from(liftIds).filter(
+      id => !profile.liftNames.find(n => n.id === id)?.isHidden,
+    ),
+    nameIds: Array.from(nameIds).filter(
+      id => !profile.workoutNames.find(n => n.id === id)?.isHidden,
+    ),
     workoutDates: Array.from(workoutDates),
   })
 
