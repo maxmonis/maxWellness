@@ -385,51 +385,74 @@ function HomeApp({filters, profile, workouts}: Session) {
                       </div>
                     </div>
                   ) : (
-                    <div>
+                    <DragDropContext onDragEnd={handleDragEnd}>
                       <form className="flex flex-col" {...{onSubmit}}>
-                        <div>
-                          <label className="sr-only" htmlFor="exerciseName">
-                            Exercise Name
-                          </label>
-                          <select
-                            id="exerciseName"
-                            name="liftId"
-                            value={liftId}
-                            {...{onChange}}
-                          >
-                            {activeLiftNames.map(({text, id}) => (
-                              <option key={id} value={id}>
-                                {text}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="flex flex-shrink gap-1">
-                          {[
-                            {label: "Sets", name: "sets", value: sets},
-                            {label: "Reps", name: "reps", value: reps},
+                        <Droppable droppableId="SetsRepsWeight">
+                          {(
                             {
-                              label: "Weight",
-                              name: "weight",
-                              value: weight,
+                              droppableProps,
+                              innerRef: droppableRef,
+                              placeholder,
                             },
-                          ].map(({label, ...field}, i) => (
-                            <div key={i}>
-                              <label className="text-sm" htmlFor={label}>
-                                {label}
-                              </label>
-                              <input
-                                autoFocus={i === 0 && routine.length === 0}
-                                className="flex flex-shrink text-center xs:px-3 xs:text-left"
-                                id={label}
-                                inputMode="numeric"
-                                pattern="\d*"
-                                {...{onChange}}
-                                {...field}
-                              />
+                            {isDraggingOver},
+                          ) => (
+                            <div
+                              className={isDraggingOver ? "opacity-50" : ""}
+                              ref={droppableRef}
+                              {...droppableProps}
+                            >
+                              <div>
+                                <label
+                                  className="sr-only"
+                                  htmlFor="exerciseName"
+                                >
+                                  Exercise Name
+                                </label>
+                                <select
+                                  id="exerciseName"
+                                  name="liftId"
+                                  value={liftId}
+                                  {...{onChange}}
+                                >
+                                  {activeLiftNames.map(({text, id}) => (
+                                    <option key={id} value={id}>
+                                      {text}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                              <div className="flex flex-shrink gap-1">
+                                {[
+                                  {label: "Sets", name: "sets", value: sets},
+                                  {label: "Reps", name: "reps", value: reps},
+                                  {
+                                    label: "Weight",
+                                    name: "weight",
+                                    value: weight,
+                                  },
+                                ].map(({label, ...field}, i) => (
+                                  <div key={i}>
+                                    <label className="text-sm" htmlFor={label}>
+                                      {label}
+                                    </label>
+                                    <input
+                                      autoFocus={
+                                        i === 0 && routine.length === 0
+                                      }
+                                      className="flex flex-shrink text-center xs:px-3 xs:text-left"
+                                      id={label}
+                                      inputMode="numeric"
+                                      pattern="\d*"
+                                      {...{onChange}}
+                                      {...field}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="h-0 w-0">{placeholder}</div>
                             </div>
-                          ))}
-                        </div>
+                          )}
+                        </Droppable>
                         <div className="mt-2">
                           <div className="flex items-center gap-3 justify-between">
                             <Button
@@ -463,64 +486,67 @@ function HomeApp({filters, profile, workouts}: Session) {
                       </form>
                       {routine.length > 0 && (
                         <div>
-                          <DragDropContext onDragEnd={handleDragEnd}>
-                            <Droppable droppableId="ExerciseList">
-                              {({
-                                droppableProps,
-                                innerRef: droppableRef,
-                                placeholder,
-                              }) => (
-                                <ul
-                                  className="mt-4"
-                                  ref={droppableRef}
-                                  {...droppableProps}
-                                >
-                                  {routine.map((exercise, i) => (
-                                    <Draggable
-                                      draggableId={exercise.id}
-                                      index={i}
-                                      key={exercise.id}
-                                    >
-                                      {({
+                          <Droppable droppableId="ExerciseList">
+                            {({
+                              droppableProps,
+                              innerRef: droppableRef,
+                              placeholder,
+                            }) => (
+                              <ul
+                                className="mt-4"
+                                ref={droppableRef}
+                                {...droppableProps}
+                              >
+                                {routine.map((exercise, i) => (
+                                  <Draggable
+                                    draggableId={exercise.id}
+                                    index={i}
+                                    key={exercise.id}
+                                  >
+                                    {(
+                                      {
                                         draggableProps,
                                         dragHandleProps,
                                         innerRef: draggableRef,
-                                      }) => (
-                                        <li
-                                          className="flex justify-between items-center py-2 gap-2"
-                                          ref={draggableRef}
-                                          {...draggableProps}
+                                      },
+                                      {draggingOver},
+                                    ) => (
+                                      <li
+                                        className={`flex justify-between items-center py-2 gap-2 ${
+                                          draggingOver === "SetsRepsWeight"
+                                            ? "text-blue-900 bg-white rounded-lg px-2"
+                                            : ""
+                                        }`}
+                                        ref={draggableRef}
+                                        {...draggableProps}
+                                      >
+                                        <span
+                                          className="text-lg leading-tight"
+                                          {...dragHandleProps}
                                         >
-                                          <span
-                                            className="text-lg leading-tight"
-                                            {...dragHandleProps}
-                                          >
-                                            {`${getLiftName(
-                                              exercise.liftId,
-                                            )}: ${getPrintout(
-                                              omit(exercise, [
-                                                "recordEndDate",
-                                                "recordStartDate",
-                                              ]),
-                                            )}`}
-                                          </span>
-                                          <IconButton
-                                            icon={
-                                              <FontAwesomeIcon icon={faX} />
-                                            }
-                                            onClick={() =>
-                                              deleteExercise(exercise.id)
-                                            }
-                                          />
-                                        </li>
-                                      )}
-                                    </Draggable>
-                                  ))}
-                                  {placeholder}
-                                </ul>
-                              )}
-                            </Droppable>
-                          </DragDropContext>
+                                          {`${getLiftName(
+                                            exercise.liftId,
+                                          )}: ${getPrintout(
+                                            omit(exercise, [
+                                              "recordEndDate",
+                                              "recordStartDate",
+                                            ]),
+                                          )}`}
+                                        </span>
+                                        <IconButton
+                                          icon={<FontAwesomeIcon icon={faX} />}
+                                          onClick={() =>
+                                            deleteExercise(exercise.id)
+                                          }
+                                        />
+                                      </li>
+                                    )}
+                                  </Draggable>
+                                ))}
+                                {placeholder}
+                              </ul>
+                            )}
+                          </Droppable>
                         </div>
                       )}
                       <div>
@@ -591,7 +617,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                           </Button>
                         )}
                       </div>
-                    </div>
+                    </DragDropContext>
                   )}
                 </div>
               </div>
@@ -936,21 +962,31 @@ function HomeApp({filters, profile, workouts}: Session) {
    * Handles the user dropping an exercise after dragging it
    */
   function handleDragEnd({destination, source, draggableId}: DropResult) {
-    if (destination && destination.index !== source.index) {
-      const exerciseIds = routine.map(({id}) => id)
+    const exerciseIds = routine.map(({id}) => id)
+    if (destination?.droppableId === "SetsRepsWeight") {
+      const exercise = routine[source.index]
+      exerciseIds.splice(source.index, 1)
+      setValues({
+        ...values,
+        liftId: exercise.liftId ?? activeLiftNames[0].id,
+        sets: exercise.sets ? exercise.sets.toString() : "",
+        reps: exercise.reps ? exercise.reps.toString() : "",
+        weight: exercise.weight ? exercise.weight.toString() : "",
+      })
+    } else if (destination && destination.index !== source.index) {
       exerciseIds.splice(source.index, 1)
       exerciseIds.splice(destination.index, 0, draggableId)
-      const reorderedRoutine = []
-      for (const exerciseId of exerciseIds) {
-        for (const exercise of routine) {
-          if (exercise.id === exerciseId) {
-            reorderedRoutine.push(exercise)
-            break
-          }
+    }
+    const reorderedRoutine = []
+    for (const exerciseId of exerciseIds) {
+      for (const exercise of routine) {
+        if (exercise.id === exerciseId) {
+          reorderedRoutine.push(exercise)
+          break
         }
       }
-      updateRoutine(reorderedRoutine)
     }
+    updateRoutine(reorderedRoutine)
   }
 
   /**
