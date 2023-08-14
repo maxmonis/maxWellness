@@ -188,6 +188,8 @@ function HomeApp({filters, profile, workouts}: Session) {
     setAppliedFilters(filters)
   }
 
+  const [dragging, setDragging] = React.useState(false)
+
   useUpdateEvent(() => {
     if (editingWorkout) {
       updateRoutine(editingWorkout.routine)
@@ -385,9 +387,12 @@ function HomeApp({filters, profile, workouts}: Session) {
                       </div>
                     </div>
                   ) : (
-                    <DragDropContext onDragEnd={handleDragEnd}>
-                      <form className="flex flex-col" {...{onSubmit}}>
-                        <Droppable droppableId="SetsRepsWeight">
+                    <DragDropContext
+                      onDragEnd={handleDragEnd}
+                      onDragStart={() => setDragging(true)}
+                    >
+                      <form className="flex flex-col h-40" {...{onSubmit}}>
+                        <Droppable droppableId="ExerciseForm">
                           {(
                             {
                               droppableProps,
@@ -396,93 +401,113 @@ function HomeApp({filters, profile, workouts}: Session) {
                             },
                             {isDraggingOver},
                           ) => (
-                            <div
-                              className={isDraggingOver ? "opacity-50" : ""}
-                              ref={droppableRef}
-                              {...droppableProps}
-                            >
-                              <div>
-                                <label
-                                  className="sr-only"
-                                  htmlFor="exerciseName"
+                            <div ref={droppableRef} {...droppableProps}>
+                              {dragging ? (
+                                <div
+                                  className={`h-36 p-2 grid place-items-center text-center border-2 border-dashed rounded-lg text-blue-700 border-blue-700 ${
+                                    isDraggingOver
+                                      ? "scale-105 bg-blue-50 text-blue-800 border-blue-800"
+                                      : "bg-white mb-2"
+                                  }`}
                                 >
-                                  Exercise Name
-                                </label>
-                                <select
-                                  id="exerciseName"
-                                  name="liftId"
-                                  value={liftId}
-                                  {...{onChange}}
-                                >
-                                  {activeLiftNames.map(({text, id}) => (
-                                    <option key={id} value={id}>
-                                      {text}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                              <div className="flex flex-shrink gap-1">
-                                {[
-                                  {label: "Sets", name: "sets", value: sets},
-                                  {label: "Reps", name: "reps", value: reps},
-                                  {
-                                    label: "Weight",
-                                    name: "weight",
-                                    value: weight,
-                                  },
-                                ].map(({label, ...field}, i) => (
-                                  <div key={i}>
-                                    <label className="text-sm" htmlFor={label}>
-                                      {label}
+                                  Drop here to edit
+                                </div>
+                              ) : (
+                                <>
+                                  <div>
+                                    <label
+                                      className="sr-only"
+                                      htmlFor="exerciseName"
+                                    >
+                                      Exercise Name
                                     </label>
-                                    <input
-                                      autoFocus={
-                                        i === 0 && routine.length === 0
-                                      }
-                                      className="flex flex-shrink text-center xs:px-3 xs:text-left"
-                                      id={label}
-                                      inputMode="numeric"
-                                      pattern="\d*"
+                                    <select
+                                      id="exerciseName"
+                                      name="liftId"
+                                      value={liftId}
                                       {...{onChange}}
-                                      {...field}
-                                    />
+                                    >
+                                      {activeLiftNames.map(({text, id}) => (
+                                        <option key={id} value={id}>
+                                          {text}
+                                        </option>
+                                      ))}
+                                    </select>
                                   </div>
-                                ))}
-                              </div>
+                                  <div className="flex flex-shrink gap-1">
+                                    {[
+                                      {
+                                        label: "Sets",
+                                        name: "sets",
+                                        value: sets,
+                                      },
+                                      {
+                                        label: "Reps",
+                                        name: "reps",
+                                        value: reps,
+                                      },
+                                      {
+                                        label: "Weight",
+                                        name: "weight",
+                                        value: weight,
+                                      },
+                                    ].map(({label, ...field}, i) => (
+                                      <div key={i}>
+                                        <label
+                                          className="text-sm"
+                                          htmlFor={label}
+                                        >
+                                          {label}
+                                        </label>
+                                        <input
+                                          autoFocus={
+                                            i === 0 && routine.length === 0
+                                          }
+                                          className="flex flex-shrink text-center xs:px-3 xs:text-left"
+                                          id={label}
+                                          inputMode="numeric"
+                                          pattern="\d*"
+                                          {...{onChange}}
+                                          {...field}
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                  <div className="mt-2">
+                                    <div className="flex items-center gap-3 justify-between">
+                                      <Button
+                                        className="flex-grow"
+                                        type="submit"
+                                        variant="secondary"
+                                      >
+                                        Enter
+                                      </Button>
+                                      <Button
+                                        className="mx-auto"
+                                        onClick={() =>
+                                          setValues({
+                                            ...defaultValues,
+                                            date,
+                                            nameId,
+                                            liftId,
+                                          })
+                                        }
+                                      >
+                                        Clear
+                                      </Button>
+                                    </div>
+                                    {errorMsg && (
+                                      <p className="text-red-500 text-sm text-center">
+                                        {errorMsg}
+                                      </p>
+                                    )}
+                                  </div>
+                                </>
+                              )}
                               <div className="h-0 w-0">{placeholder}</div>
                             </div>
                           )}
                         </Droppable>
-                        <div className="mt-2">
-                          <div className="flex items-center gap-3 justify-between">
-                            <Button
-                              className="flex-grow"
-                              type="submit"
-                              variant="secondary"
-                            >
-                              Enter
-                            </Button>
-                            <Button
-                              className="mx-auto"
-                              onClick={() =>
-                                setValues({
-                                  ...defaultValues,
-                                  date,
-                                  nameId,
-                                  liftId,
-                                })
-                              }
-                              type="button"
-                            >
-                              Clear
-                            </Button>
-                          </div>
-                          {errorMsg && (
-                            <p className="text-red-500 text-sm text-center">
-                              {errorMsg}
-                            </p>
-                          )}
-                        </div>
                       </form>
                       {routine.length > 0 && (
                         <div>
@@ -513,8 +538,8 @@ function HomeApp({filters, profile, workouts}: Session) {
                                     ) => (
                                       <li
                                         className={`flex justify-between items-center py-2 gap-2 ${
-                                          draggingOver === "SetsRepsWeight"
-                                            ? "text-blue-900 bg-white rounded-lg px-2"
+                                          draggingOver === "ExerciseForm"
+                                            ? "text-blue-900 border-blue-900 border bg-white rounded-lg px-2"
                                             : ""
                                         }`}
                                         ref={draggableRef}
@@ -533,12 +558,16 @@ function HomeApp({filters, profile, workouts}: Session) {
                                             ]),
                                           )}`}
                                         </span>
-                                        <IconButton
-                                          icon={<FontAwesomeIcon icon={faX} />}
-                                          onClick={() =>
-                                            deleteExercise(exercise.id)
-                                          }
-                                        />
+                                        {draggingOver !== "ExerciseForm" && (
+                                          <IconButton
+                                            icon={
+                                              <FontAwesomeIcon icon={faX} />
+                                            }
+                                            onClick={() =>
+                                              deleteExercise(exercise.id)
+                                            }
+                                          />
+                                        )}
                                       </li>
                                     )}
                                   </Draggable>
@@ -962,8 +991,9 @@ function HomeApp({filters, profile, workouts}: Session) {
    * Handles the user dropping an exercise after dragging it
    */
   function handleDragEnd({destination, source, draggableId}: DropResult) {
+    setDragging(false)
     const exerciseIds = routine.map(({id}) => id)
-    if (destination?.droppableId === "SetsRepsWeight") {
+    if (destination?.droppableId === "ExerciseForm") {
       const exercise = routine[source.index]
       exerciseIds.splice(source.index, 1)
       setValues({
