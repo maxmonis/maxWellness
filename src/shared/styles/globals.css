@@ -24,10 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-html {
-  font-size: clamp(16px, 2.5vw, 20px);
-}
-
 html.dark {
   color-scheme: dark;
 }

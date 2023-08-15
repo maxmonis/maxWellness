@@ -47,7 +47,7 @@ export default function Alerts() {
             textColors[persistentAlert.type]
           }`}
         >
-          <div className="px-4 py-2 w-screen flex items-center justify-end gap-4 border-t bg-slate-50 dark:bg-black border-slate-700 max-w-2xl sm:border-x">
+          <div className="px-4 py-2 w-screen flex items-center justify-end gap-4 border-t bg-slate-50 dark:bg-black border-slate-700 max-w-screen-md md:border-x">
             <p className="font-bold">{persistentAlert.text}</p>
             {persistentAlert.actions?.map(({onClick, text}) => (
               <Button key={text} variant="secondary" {...{onClick}}>
