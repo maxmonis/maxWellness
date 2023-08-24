@@ -5,25 +5,16 @@ import {workoutService} from "~/shared/services/WorkoutService"
 import useInvalidateSession from "./useInvalidateSession"
 
 /**
- * @returns a function for deleting a workout
+ * Attempts to delete a workout from the database
  */
-export default function useDeleteWorkout({
-  onSettled,
-  ...callbacks
-}: {
-  [key in "onMutate" | "onSettled" | "onSuccess"]?: () => void
-} = {}) {
-  const invalidateSession = useInvalidateSession()
+export default function useDeleteWorkout({onSuccess}: {onSuccess: () => void}) {
+  const onSettled = useInvalidateSession()
 
-  const {mutate} = useMutation({
-    ...callbacks,
+  return useMutation({
     mutationFn: (...args: Parameters<typeof workoutService.deleteWorkout>) =>
       workoutService.deleteWorkout(...args),
-    onSettled() {
-      invalidateSession()
-      onSettled?.()
-    },
+    mutationKey: ["session", {type: "delete"}],
+    onSettled,
+    onSuccess,
   })
-
-  return mutate
 }

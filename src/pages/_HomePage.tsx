@@ -28,6 +28,7 @@ import WorkoutsTable from "~/shared/components/WorkoutsTable"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useAddWorkout from "~/shared/hooks/useAddWorkout"
 import useDeleteWorkout from "~/shared/hooks/useDeleteWorkout"
+import useMutating from "~/shared/hooks/useMutating"
 import useSession from "~/shared/hooks/useSession"
 import useUpdateEvent from "~/shared/hooks/useUpdateEvent"
 import useUpdateWorkout from "~/shared/hooks/useUpdateWorkout"
@@ -51,16 +52,17 @@ const today = [year, month, day].join("-")
  * Landing page which allows user to view and manage workouts
  */
 export default function HomePage() {
-  const [session, loading, error] = useSession()
+  const {data, isLoading, error} = useSession()
 
   return (
     <Page
       component={HomeApp}
       Loader={HomeLoader}
-      props={session}
-      title="Workouts"
+      loading={isLoading}
       mustBeLoggedIn
-      {...{error, loading}}
+      props={data}
+      title="Workouts"
+      {...{error}}
     />
   )
 }
@@ -134,8 +136,6 @@ function HomeApp({filters, profile, workouts}: Session) {
   const {showAlert, setPersistentAlert} = useAlerts()
 
   const getConfig = (action: "deleted" | "saved" | "updated") => ({
-    onMutate: () => setSubmitting(true),
-    onSettled: () => setSubmitting(false),
     onSuccess() {
       if (action === "saved") {
         updateRoutine([])
@@ -147,9 +147,10 @@ function HomeApp({filters, profile, workouts}: Session) {
       })
     },
   })
-  const addWorkout = useAddWorkout(getConfig("saved"))
-  const deleteWorkout = useDeleteWorkout(getConfig("deleted"))
-  const updateWorkout = useUpdateWorkout(getConfig("updated"))
+  const {mutate: addWorkout} = useAddWorkout(getConfig("saved"))
+  const {mutate: deleteWorkout} = useDeleteWorkout(getConfig("deleted"))
+  const {mutate: updateWorkout} = useUpdateWorkout(getConfig("updated"))
+  const {mutating} = useMutating({key: "session"})
 
   const defaultValues = {
     date: today,
@@ -171,7 +172,6 @@ function HomeApp({filters, profile, workouts}: Session) {
 
   const [deletingId, setDeletingId] = React.useState<null | string>(null)
 
-  const [submitting, setSubmitting] = React.useState(false)
   const [editingWorkout, setEditingWorkout] = React.useState<Workout | null>(
     null,
   )
@@ -1030,7 +1030,7 @@ function HomeApp({filters, profile, workouts}: Session) {
    * Deletes a workout
    */
   async function handleDelete(id: string) {
-    if (submitting) {
+    if (mutating) {
       return
     }
     deleteWorkout(id)
@@ -1115,7 +1115,7 @@ ${groupExercisesByLift(workout.routine)
    * Saves the workout the user has been creating or editing
    */
   async function handleSave() {
-    if (submitting) {
+    if (mutating) {
       return
     }
     if (!date) {
@@ -1143,7 +1143,6 @@ ${groupExercisesByLift(workout.routine)
       }
     }
 
-    setSubmitting(true)
     if (id) {
       updateWorkout({...newWorkout, id})
     } else {

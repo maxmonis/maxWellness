@@ -5,25 +5,16 @@ import {workoutService} from "~/shared/services/WorkoutService"
 import useInvalidateSession from "./useInvalidateSession"
 
 /**
- * @returns a function for adding a new workout
+ * Attempts to save a new workout to the database
  */
-export default function useAddWorkout({
-  onSettled,
-  ...callbacks
-}: {
-  [key in "onMutate" | "onSettled" | "onSuccess"]?: () => void
-} = {}) {
-  const invalidateSession = useInvalidateSession()
+export default function useAddWorkout({onSuccess}: {onSuccess: () => void}) {
+  const onSettled = useInvalidateSession()
 
-  const {mutate} = useMutation({
-    ...callbacks,
+  return useMutation({
     mutationFn: (...args: Parameters<typeof workoutService.saveWorkout>) =>
       workoutService.saveWorkout(...args),
-    onSettled() {
-      invalidateSession()
-      onSettled?.()
-    },
+    mutationKey: ["session", {type: "add"}],
+    onSettled,
+    onSuccess,
   })
-
-  return mutate
 }

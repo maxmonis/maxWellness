@@ -184,7 +184,7 @@ export function GoogleButton({
  * This menu allows the user to toggle dark mode or log out
  */
 export function UserMenu() {
-  const [session] = useSession()
+  const {data: session} = useSession()
 
   const [open, setOpen] = React.useState(false)
   const ref = useOutsideClick(() => setOpen(false))

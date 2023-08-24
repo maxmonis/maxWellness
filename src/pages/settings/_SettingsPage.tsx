@@ -18,26 +18,27 @@ import Page from "~/shared/components/Page"
 import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useKeypress from "~/shared/hooks/useKeypress"
+import useMutating from "~/shared/hooks/useMutating"
 import useOutsideClick from "~/shared/hooks/useOutsideClick"
 import useSession from "~/shared/hooks/useSession"
 import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/resources/models"
-import useInvalidateSession from "~/shared/hooks/useInvalidateSession"
 
 /**
  * Allows the user to manage the names of workouts and exercises
  */
 export default function SettingsPage() {
-  const [session, loading, error] = useSession()
+  const {data, isLoading, error} = useSession()
 
   return (
     <Page
       component={SettingsApp}
       Loader={SettingsLoader}
+      loading={isLoading}
       mustBeLoggedIn
-      props={session && {profile: session.profile}}
+      props={data && {profile: data.profile}}
       title="Settings"
-      {...{error, loading}}
+      {...{error}}
     />
   )
 }
@@ -97,14 +98,8 @@ function SettingsLoader() {
 
 function SettingsApp({profile}: {profile: Profile}) {
   const {showAlert} = useAlerts()
-  const invalidateSession = useInvalidateSession()
 
-  const updateProfile = useUpdateProfile({
-    onMutate: () => setSubmitting(true),
-    onSettled() {
-      invalidateSession()
-      setSubmitting(false)
-    },
+  const {mutate: updateProfile} = useUpdateProfile({
     onSuccess() {
       showAlert({
         text: "Settings updated",
@@ -112,11 +107,11 @@ function SettingsApp({profile}: {profile: Profile}) {
       })
     },
   })
+  const {mutating} = useMutating({key: "session"})
 
   const [liftNames, setLiftNames] = React.useState(profile.liftNames)
   const [workoutNames, setWorkoutNames] = React.useState(profile.workoutNames)
 
-  const [submitting, setSubmitting] = React.useState(false)
   const [values, setValues] = React.useState({lift: "", workout: ""})
   const {lift, workout} = values
 
@@ -300,8 +295,8 @@ function SettingsApp({profile}: {profile: Profile}) {
   /**
    * Saves the profile unless it is unchanged
    */
-  async function saveChanges() {
-    if (submitting) {
+  function saveChanges() {
+    if (mutating) {
       return
     }
 

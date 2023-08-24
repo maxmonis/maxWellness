@@ -4,18 +4,16 @@ import {useAuth} from "~/shared/context/AuthContext"
 import {sessionService} from "~/shared/services/SessionService"
 
 /**
- * @returns a tuple with the session, loading status, and error (if any)
+ * Attempts to load the current session
  */
 export default function useSession() {
   const user = useAuth()
   const userId = user?.uid
 
-  const {data, error, isLoading} = useQuery(["session", {userId}], () =>
-    loadSession(userId),
-  )
-
-  const res: [typeof data, boolean, unknown] = [data, isLoading, error]
-  return res
+  return useQuery({
+    queryFn: () => loadSession(userId),
+    queryKey: ["session", {userId}],
+  })
 }
 
 function loadSession(userId?: string) {

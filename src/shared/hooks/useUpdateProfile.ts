@@ -5,25 +5,16 @@ import {profileService} from "~/shared/services/ProfileService"
 import useInvalidateSession from "./useInvalidateSession"
 
 /**
- * @returns a function for updating a user's profile
+ * Attempts to update a user's profile in the database
  */
-export default function useUpdateProfile({
-  onSettled,
-  ...callbacks
-}: {
-  [key in "onMutate" | "onSettled" | "onSuccess"]?: () => void
-} = {}) {
-  const invalidateSession = useInvalidateSession()
+export default function useUpdateProfile({onSuccess}: {onSuccess: () => void}) {
+  const onSettled = useInvalidateSession()
 
-  const {mutate} = useMutation({
-    ...callbacks,
+  return useMutation({
     mutationFn: (...args: Parameters<typeof profileService.updateProfile>) =>
       profileService.updateProfile(...args),
-    onSettled() {
-      invalidateSession()
-      onSettled?.()
-    },
+    mutationKey: ["session", {type: "profile"}],
+    onSettled,
+    onSuccess,
   })
-
-  return mutate
 }
