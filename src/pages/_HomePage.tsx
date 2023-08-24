@@ -129,9 +129,7 @@ function HomeApp({filters, profile, workouts}: Session) {
     liftNames.filter(n => !n.isHidden),
     "text",
   )
-  const localRoutine = new LocalStorage<Workout["routine"]>(
-    `wip-routine_${userId}`,
-  )
+  const localRoutine = new LocalStorage(`wip-routine_${userId}`)
 
   const {showAlert, setPersistentAlert} = useAlerts()
 

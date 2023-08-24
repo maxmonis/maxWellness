@@ -1,6 +1,11 @@
-export default class LocalStorage<T> {
+import {Workout} from "../resources/models"
+
+export default class LocalStorage<
+  K extends `wip-routine_${string}`,
+  T extends Workout["routine"],
+> {
   private readonly key: string
-  constructor(key: string) {
+  constructor(key: K) {
     this.key = `max-wellness_${key}`
   }
 
@@ -9,11 +14,11 @@ export default class LocalStorage<T> {
     return item ? JSON.parse(item) : null
   }
 
-  remove() {
-    localStorage.removeItem(this.key)
-  }
-
   set(item: T) {
     localStorage.setItem(this.key, JSON.stringify(item))
+  }
+
+  remove() {
+    localStorage.removeItem(this.key)
   }
 }
