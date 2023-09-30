@@ -9,8 +9,8 @@ import {ThemeProvider} from "next-themes"
 import {QueryClient, QueryClientProvider} from "react-query"
 
 import Alerts from "~/shared/components/Alerts"
-import {AuthContextProvider} from "~/shared/context/AuthContext"
 import {AlertContextProvider} from "~/shared/context/AlertContext"
+import {AuthContextProvider} from "~/shared/context/AuthContext"
 import "~/shared/styles/globals.css"
 import "~/shared/styles/transitions.css"
 

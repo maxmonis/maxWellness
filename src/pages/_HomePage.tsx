@@ -1,7 +1,7 @@
 import React from "react"
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {
+  faCirclePlus,
   faCopy,
   faFilter,
   faGear,
@@ -9,17 +9,17 @@ import {
   faTable,
   faTrash,
   faX,
-  faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
 import {
   DragDropContext,
-  Droppable,
   Draggable,
   DropResult,
+  Droppable,
 } from "react-beautiful-dnd"
 
 import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
@@ -36,10 +36,10 @@ import {Exercise, Session, Workout} from "~/shared/resources/models"
 import {getDateText} from "~/shared/utils/parsers"
 import LocalStorage from "~/shared/utils/storage"
 import {
-  getPrintout,
-  groupExercisesByLift,
   createNewExercise,
   eliminateRedundancy,
+  getPrintout,
+  groupExercisesByLift,
 } from "~/shared/utils/workout"
 
 const now = new Date()
@@ -69,42 +69,42 @@ export default function HomePage() {
 
 function HomeLoader() {
   return (
-    <div className="flex flex-col items-center h-screen overflow-hidden border-slate-700">
+    <div className="flex h-screen flex-col items-center overflow-hidden border-slate-700">
       <div className="w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-xl xl:border-x mx-auto">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
           {Array.from({length: 5}).map((_, i) => (
             <span
-              className="h-7 w-7 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
+              className="h-7 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700"
               key={i}
             />
           ))}
         </div>
-        <div className="flex items-center justify-between border-b py-4 px-6 border-slate-700 max-w-screen-xl xl:border-x mx-auto bg-slate-50 dark:bg-black">
-          <span className="h-7 w-24 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+        <div className="mx-auto flex max-w-screen-xl items-center justify-between border-b border-slate-700 bg-slate-50 py-4 px-6 dark:bg-black xl:border-x">
+          <span className="h-7 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         </div>
       </div>
-      <div className="flex justify-center w-screen max-w-screen-xl xl:border-x border-slate-700">
-        <div className="flex flex-grow h-screen w-full overflow-hidden">
-          <div className="flex flex-col flex-1 w-full">
-            <div className="h-full pb-20 pt-4 px-6">
+      <div className="flex w-screen max-w-screen-xl justify-center border-slate-700 xl:border-x">
+        <div className="flex h-screen w-full flex-grow overflow-hidden">
+          <div className="flex w-full flex-1 flex-col">
+            <div className="h-full px-6 pb-20 pt-4">
               {Array.from({length: 12}).map((_, i) => (
                 <div
                   key={i}
-                  className={`flex pb-6 border-slate-700 justify-between gap-6 ${
+                  className={`flex justify-between gap-6 border-slate-700 pb-6 ${
                     i ? "border-t-2 pt-6" : "pt-2"
                   }`}
                 >
                   <div className="flex flex-col">
-                    <span className="h-6 w-40 mb-4 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
-                    <span className="h-4 w-20 mb-6 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
-                    <span className="h-5 w-28 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
-                    <span className="h-5 w-48 my-4 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
-                    <span className="h-5 w-36 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                    <span className="mb-4 h-6 w-40 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                    <span className="mb-6 h-4 w-20 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                    <span className="h-5 w-28 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                    <span className="my-4 h-5 w-48 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+                    <span className="h-5 w-36 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                   </div>
                   <div className="flex flex-col items-center justify-evenly gap-y-4">
                     {Array.from({length: 3}).map((_, j) => (
                       <span
-                        className="h-6 w-6 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
+                        className="h-6 w-6 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700"
                         key={`${i}-${j}`}
                       />
                     ))}
@@ -209,6 +209,7 @@ function HomeApp({filters, profile, workouts}: Session) {
     return () => {
       setPersistentAlert(null)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (view === "table") {
@@ -228,7 +229,7 @@ function HomeApp({filters, profile, workouts}: Session) {
   return (
     <div className="flex justify-center border-slate-700">
       <div className="fixed top-0 left-0 w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-xl xl:border-x mx-auto">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
           <IconButton
             aria-label="Add a new workout"
             className="text-blue-600 dark:text-blue-400"
@@ -269,11 +270,11 @@ function HomeApp({filters, profile, workouts}: Session) {
           <UserMenu />
         </div>
         <div
-          className={`flex items-center justify-between border-b py-4 border-slate-700 max-w-screen-xl xl:border-x mx-auto bg-slate-50 dark:bg-black sm:px-6 ${
+          className={`mx-auto flex max-w-screen-xl items-center justify-between border-b border-slate-700 bg-slate-50 py-4 dark:bg-black sm:px-6 xl:border-x ${
             view !== "list" ? "px-4" : "px-6"
           }`}
         >
-          <h1 className="text-xl text-center">
+          <h1 className="text-center text-xl">
             {view === "create"
               ? `${editingWorkout ? "Editing" : "New"} Workout`
               : view === "filters"
@@ -282,12 +283,12 @@ function HomeApp({filters, profile, workouts}: Session) {
           </h1>
         </div>
       </div>
-      <div className="flex justify-center w-screen max-w-screen-xl xl:border-x pt-28 border-slate-700">
+      <div className="flex w-screen max-w-screen-xl justify-center border-slate-700 pt-28 xl:border-x">
         {view !== "list" && (
-          <div className="flex flex-grow h-screen">
-            <div className="flex flex-col border-r border-slate-700 max-w-7xl w-40 xs:w-56 sm:w-64 md:w-80 lg:w-96">
+          <div className="flex h-screen flex-grow">
+            <div className="flex w-40 max-w-7xl flex-col border-r border-slate-700 xs:w-56 sm:w-64 md:w-80 lg:w-96">
               <div className="overflow-hidden">
-                <div className="overflow-y-auto h-full pt-10 pb-20 px-4 sm:px-6">
+                <div className="h-full overflow-y-auto px-4 pt-10 pb-20 sm:px-6">
                   {view === "filters" ? (
                     <div>
                       <h4 className="text-xl">Exercise Name</h4>
@@ -333,7 +334,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                           text={"Newest First"}
                           value={"chronology"}
                         />
-                        <div className="flex flex-col gap-3 mt-3">
+                        <div className="mt-3 flex flex-col gap-3">
                           <div>
                             <label htmlFor="startDate">Start date:</label>
                             <input
@@ -389,7 +390,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                       onDragEnd={handleDragEnd}
                       onDragStart={() => setDragging(true)}
                     >
-                      <form className="flex flex-col h-40" {...{onSubmit}}>
+                      <form className="flex h-40 flex-col" {...{onSubmit}}>
                         <Droppable droppableId="ExerciseForm">
                           {(
                             {
@@ -402,10 +403,10 @@ function HomeApp({filters, profile, workouts}: Session) {
                             <div ref={droppableRef} {...droppableProps}>
                               {dragging ? (
                                 <div
-                                  className={`h-36 p-2 grid place-items-center text-center border-2 border-dashed rounded-lg text-blue-700 border-blue-700 ${
+                                  className={`grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700 ${
                                     isDraggingOver
-                                      ? "scale-105 bg-blue-50 text-blue-800 border-blue-800"
-                                      : "bg-white mb-2"
+                                      ? "scale-105 border-blue-800 bg-blue-50 text-blue-800"
+                                      : "mb-2 bg-white"
                                   }`}
                                 >
                                   Drop here to edit
@@ -472,7 +473,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                     ))}
                                   </div>
                                   <div className="mt-2">
-                                    <div className="flex items-center gap-3 justify-between">
+                                    <div className="flex items-center justify-between gap-3">
                                       <Button
                                         className="flex-grow"
                                         type="submit"
@@ -497,7 +498,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                       )}
                                     </div>
                                     {errorMsg && (
-                                      <p className="text-red-500 text-sm text-center">
+                                      <p className="text-center text-sm text-red-500">
                                         {errorMsg}
                                       </p>
                                     )}
@@ -537,9 +538,9 @@ function HomeApp({filters, profile, workouts}: Session) {
                                       {draggingOver},
                                     ) => (
                                       <li
-                                        className={`flex justify-between items-center py-2 gap-2 ${
+                                        className={`flex items-center justify-between gap-2 py-2 ${
                                           draggingOver === "ExerciseForm"
-                                            ? "text-blue-900 border-blue-900 border bg-white rounded-lg px-2"
+                                            ? "rounded-lg border border-blue-900 bg-white px-2 text-blue-900"
                                             : ""
                                         }`}
                                         ref={draggableRef}
@@ -607,7 +608,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                             {...{onChange}}
                           />
                         </div>
-                        <div className="flex items-center gap-3 mt-2 justify-between">
+                        <div className="mt-2 flex items-center justify-between gap-3">
                           <Button
                             className="flex-grow"
                             onClick={handleSave}
@@ -626,12 +627,12 @@ function HomeApp({filters, profile, workouts}: Session) {
                           )}
                         </div>
                         {workoutError && (
-                          <p className="text-red-500 text-sm text-center">
+                          <p className="text-center text-sm text-red-500">
                             {workoutError}
                           </p>
                         )}
                       </div>
-                      <div className="flex justify-center w-full mt-4">
+                      <div className="mt-4 flex w-full justify-center">
                         {editingWorkout ? (
                           <Button onClick={resetState} variant="danger">
                             Discard Changes
@@ -655,11 +656,11 @@ function HomeApp({filters, profile, workouts}: Session) {
             </div>
           </div>
         )}
-        <div className="flex flex-grow h-screen w-full">
-          <div className="flex flex-col flex-1 w-full">
+        <div className="flex h-screen w-full flex-grow">
+          <div className="flex w-full flex-1 flex-col">
             <div className="overflow-hidden">
               <div
-                className={`overflow-y-auto overflow-x-hidden h-full pb-20 pt-4 ${
+                className={`h-full overflow-y-auto overflow-x-hidden pb-20 pt-4 ${
                   view !== "list" ? "px-4 sm:px-6" : "px-6"
                 }`}
               >
@@ -671,7 +672,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                     return (
                       <div
                         key={workout.id}
-                        className={`py-6 border-slate-700 justify-between gap-6 sm:gap-10 ${
+                        className={`justify-between gap-6 border-slate-700 py-6 sm:gap-10 ${
                           i ? "border-t-2" : ""
                         } ${
                           editingWorkout?.id === workout.id ? "italic" : ""
@@ -700,7 +701,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                 {getWorkoutName(workout.nameId)}
                               </span>
                             </h1>
-                            <h2 className="text-md leading-tight mt-2">
+                            <h2 className="text-md mt-2 leading-tight">
                               <span
                                 className={
                                   view === "create" ? "cursor-pointer" : ""
@@ -727,9 +728,9 @@ function HomeApp({filters, profile, workouts}: Session) {
                                   ({id}) => id === liftId,
                                 )
                                 return (
-                                  <li key={j} className="flex flex-wrap mt-4">
+                                  <li key={j} className="mt-4 flex flex-wrap">
                                     <span
-                                      className={`leading-tight text-lg ${
+                                      className={`text-lg leading-tight ${
                                         view === "create" && !liftName?.isHidden
                                           ? "cursor-pointer"
                                           : ""
@@ -750,7 +751,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                     {exerciseList.map((exercise, k) => (
                                       <span
                                         key={k}
-                                        className={`leading-tight text-lg ${
+                                        className={`text-lg leading-tight ${
                                           view === "create" &&
                                           !liftName?.isHidden
                                             ? "cursor-pointer"
@@ -825,7 +826,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                             <div
                               className={`flex justify-evenly gap-y-4 ${
                                 view !== "list"
-                                  ? "items-center mt-8 mb-2 sm:flex-col sm:mt-0 sm:mb-0 sm:items-end"
+                                  ? "mt-8 mb-2 items-center sm:mt-0 sm:mb-0 sm:flex-col sm:items-end"
                                   : "flex-col items-end"
                               }`}
                             >
@@ -887,7 +888,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                 ) : (
                   <div className="my-6">
                     {workouts.length ? (
-                      <div className="flex gap-4 items-center">
+                      <div className="flex items-center gap-4">
                         <p className="text-lg font-bold text-red-500">
                           No results
                         </p>
@@ -896,7 +897,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                         </Button>
                       </div>
                     ) : (
-                      <p>You haven't added any workouts yet</p>
+                      <p>You haven&apos;t added any workouts yet</p>
                     )}
                   </div>
                 )}

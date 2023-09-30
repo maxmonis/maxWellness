@@ -1,6 +1,4 @@
-import React from "react"
-
-import {TransitionGroup, CSSTransition} from "react-transition-group"
+import {CSSTransition, TransitionGroup} from "react-transition-group"
 
 import {useAlerts} from "~/shared/context/AlertContext"
 
@@ -32,7 +30,7 @@ export default function Alerts() {
         {alerts.map(({id, text, type}) => (
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
             <div
-              className={`px-4 py-2 rounded-lg fixed top-16 right-4 ${bgColors[type]}`}
+              className={`fixed top-16 right-4 rounded-lg px-4 py-2 ${bgColors[type]}`}
             >
               <p>{text}</p>
             </div>
@@ -43,11 +41,11 @@ export default function Alerts() {
       {/* the persistent alert appears until it is removed from context */}
       {persistentAlert && (
         <div
-          className={`fixed bottom-0 left-0 w-screen flex justify-center gap-4 ${
+          className={`fixed bottom-0 left-0 flex w-screen justify-center gap-4 ${
             textColors[persistentAlert.type]
           }`}
         >
-          <div className="px-4 py-2 w-screen flex items-center justify-end gap-4 border-t bg-slate-50 dark:bg-black border-slate-700 max-w-screen-xl xl:border-x">
+          <div className="flex w-screen max-w-screen-xl items-center justify-end gap-4 border-t border-slate-700 bg-slate-50 px-4 py-2 dark:bg-black xl:border-x">
             <p className="font-bold">{persistentAlert.text}</p>
             {persistentAlert.actions?.map(({onClick, text}) => (
               <Button key={text} variant="secondary" {...{onClick}}>

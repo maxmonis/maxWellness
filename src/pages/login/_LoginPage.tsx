@@ -1,6 +1,6 @@
-import React from "react"
 import Link from "next/link"
 import {useRouter} from "next/router"
+import React from "react"
 
 import {logIn} from "~/firebase/client"
 import {Button, GoogleButton} from "~/shared/components/CTA"
@@ -29,27 +29,27 @@ export default function LoginPage() {
 
   return (
     <Page mustBeLoggedOut title="Login">
-      <div className="flex flex-col items-center py-10 px-4 h-full w-full">
+      <div className="flex h-full w-full flex-col items-center py-10 px-4">
         <form
-          className="flex flex-col items-start max-w-xs w-full gap-6 border rounded-md p-6 bg-black text-slate-300"
+          className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-black p-6 text-slate-300"
           {...{onSubmit}}
         >
-          {authError && <p className="text-red-500 text-md">{authError}</p>}
+          {authError && <p className="text-md text-red-500">{authError}</p>}
           <div className="w-full">
             <input
-              className="px-3 py-2 rounded w-full"
+              className="w-full rounded px-3 py-2"
               name="email"
               placeholder="Email"
               value={email}
               {...{onChange}}
             />
             {inputErrors.email && (
-              <p className="text-red-500 text-sm">{inputErrors.email}</p>
+              <p className="text-sm text-red-500">{inputErrors.email}</p>
             )}
           </div>
           <div className="w-full">
             <input
-              className="px-3 py-2 rounded w-full"
+              className="w-full rounded px-3 py-2"
               name="password"
               placeholder="Password"
               type="password"
@@ -57,7 +57,7 @@ export default function LoginPage() {
               {...{onChange}}
             />
             {inputErrors.password && (
-              <p className="text-red-500 text-sm">{inputErrors.password}</p>
+              <p className="text-sm text-red-500">{inputErrors.password}</p>
             )}
           </div>
           <Button className="w-full" type="submit" variant="primary">
@@ -67,17 +67,17 @@ export default function LoginPage() {
           <div className="flex flex-col items-start gap-2">
             <div>
               <Link
-                className="hover:underline text-blue-300"
+                className="text-blue-300 hover:underline"
                 href="/reset-password"
               >
                 Forgot Password
               </Link>
             </div>
-            <div className="flex gap-4 center-align justify-center">
+            <div className="center-align flex justify-center gap-4">
               <div className="flex flex-wrap gap-x-2">
                 <p className="whitespace-nowrap">Need an account?</p>
                 <Link
-                  className="hover:underline text-blue-300"
+                  className="text-blue-300 hover:underline"
                   href="/register"
                 >
                   Register

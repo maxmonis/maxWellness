@@ -13,5 +13,6 @@ export default function useUpdateEvent(callback: () => void, deps: unknown[]) {
     } else {
       mounted.current = true
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }

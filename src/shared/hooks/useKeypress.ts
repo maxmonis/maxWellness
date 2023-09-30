@@ -6,6 +6,7 @@ export default function useKeypress(key: string, callback: () => void) {
     return () => {
       window.removeEventListener("keyup", handleKeyup)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function handleKeyup(e: KeyboardEvent) {

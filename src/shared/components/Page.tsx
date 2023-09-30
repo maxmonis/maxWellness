@@ -1,7 +1,7 @@
-import React from "react"
-import Image from "next/image"
 import Head from "next/head"
+import Image from "next/image"
 import {useRouter} from "next/router"
+import React from "react"
 
 import {useAuth} from "~/shared/context/AuthContext"
 import useSession from "~/shared/hooks/useSession"
@@ -70,6 +70,7 @@ export default function Page({
     } else if (!user && mustBeLoggedIn) {
       handleRedirect("/login")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const element = props && React.createElement(component, props)
@@ -82,11 +83,11 @@ export default function Page({
       {redirect ? null : (
         <main className="relative overflow-hidden">
           <div
-            className={`min-h-screen min-w-screen flex flex-col justify-between
+            className={`min-w-screen flex min-h-screen flex-col justify-between
           ${
             mustBeLoggedOut
               ? ""
-              : "bg-slate-50 dark:bg-black text-slate-700 dark:text-slate-300"
+              : "bg-slate-50 text-slate-700 dark:bg-black dark:text-slate-300"
           }`}
           >
             {children ??
@@ -94,7 +95,7 @@ export default function Page({
               (loading && Loader ? (
                 <Loader />
               ) : (
-                <p className="text-lg absolute left-4 top-4">
+                <p className="absolute left-4 top-4 text-lg">
                   {loading
                     ? loadingText ?? "Loading..."
                     : error
@@ -105,7 +106,7 @@ export default function Page({
             {mustBeLoggedOut && (
               <>
                 <Wallpaper />
-                <footer className="flex flex-col items-center text-center w-full py-2 gap-4 text-slate-300">
+                <footer className="flex w-full flex-col items-center gap-4 py-2 text-center text-slate-300">
                   <a
                     href="https://github.com/maxmonis/"
                     rel="noopener noreferrer"
@@ -140,8 +141,8 @@ function Wallpaper() {
   return error ? (
     <></>
   ) : (
-    <div className="fixed z-[-1] top-0 left-0">
-      <div className="h-screen w-screen relative">
+    <div className="fixed top-0 left-0 z-[-1]">
+      <div className="relative h-screen w-screen">
         <Image
           alt={
             "Barbell on the Floor by Leon Ardho from Pexels: " +

@@ -14,8 +14,8 @@ import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
 
-import Page from "~/shared/components/Page"
 import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
+import Page from "~/shared/components/Page"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useKeypress from "~/shared/hooks/useKeypress"
 import useMutating from "~/shared/hooks/useMutating"
@@ -45,43 +45,43 @@ export default function SettingsPage() {
 
 function SettingsLoader() {
   return (
-    <div className="flex flex-col items-center h-screen overflow-hidden border-slate-700">
+    <div className="flex h-screen flex-col items-center overflow-hidden border-slate-700">
       <div className="w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-xl xl:border-x mx-auto">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
           {Array.from({length: 2}).map((_, i) => (
             <span
-              className="h-7 w-7 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
+              className="h-7 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700"
               key={i}
             />
           ))}
         </div>
       </div>
-      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 w-screen min-h-full max-w-screen-xl xl:border-x">
+      <div className="flex min-h-full w-screen max-w-screen-xl justify-center divide-x divide-slate-700 border-slate-700 xl:border-x">
         {Array.from({length: 2}).map((_, i) => (
           <div
-            className="flex flex-col flex-grow items-center w-full overflow-hidden"
+            className="flex w-full flex-grow flex-col items-center overflow-hidden"
             key={i}
           >
-            <div className="flex border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
-              <span className="h-7 w-24 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+            <div className="flex w-full border-b border-slate-700 py-4 px-4 sm:px-6">
+              <span className="h-7 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
             </div>
-            <div className="flex flex-col w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+            <div className="flex w-full flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
               <div className="flex">
-                <span className="h-9 w-full rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
               </div>
-              <div className="flex flex-col gap-5 h-full pt-6 pb-20">
+              <div className="flex h-full flex-col gap-5 pt-6 pb-20">
                 {Array.from({length: i === 0 ? 2 : 1}).map((_, j) => (
                   <div className="flex flex-col gap-5" key={`${i}-${j}`}>
                     {[24, 20, 20, 24].map((width, k) => (
                       <div
-                        className="flex justify-between items-center"
+                        className="flex items-center justify-between"
                         key={`${i}-${j}-${k}`}
                       >
                         <span
-                          className={`h-5 w-${width} rounded bg-slate-300 dark:bg-slate-700 animate-pulse`}
+                          className={`h-5 w-${width} animate-pulse rounded bg-slate-300 dark:bg-slate-700`}
                         />
                         <div className="flex gap-4">
-                          <span className="h-5 w-5 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse" />
+                          <span className="h-5 w-5 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
                         </div>
                       </div>
                     ))}
@@ -130,12 +130,13 @@ function SettingsApp({profile}: {profile: Profile}) {
     return () => {
       saveChanges()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className="flex justify-center border-slate-700 h-screen">
+    <div className="flex h-screen justify-center border-slate-700">
       <div className="fixed top-0 left-0 w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-xl xl:border-x mx-auto border-slate-700 border-b">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
           <IconButton
             aria-label="Go to the home page"
             href="/"
@@ -147,14 +148,14 @@ function SettingsApp({profile}: {profile: Profile}) {
           <UserMenu />
         </div>
       </div>
-      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 pt-16 w-screen max-w-screen-xl xl:border-x">
-        <div className="flex flex-col flex-grow items-center w-full overflow-hidden">
-          <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
+      <div className="flex w-screen max-w-screen-xl justify-center divide-x divide-slate-700 border-slate-700 pt-16 xl:border-x">
+        <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
+          <div className="w-full border-b border-slate-700 py-4 px-4 sm:px-6">
             <h3 className="text-xl">Exercises</h3>
           </div>
-          <div className="flex flex-col flex-grow w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+          <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
             <form onSubmit={handleLiftSubmit}>
-              <div className="flex gap-4 items-center justify-center text-lg">
+              <div className="flex items-center justify-center gap-4 text-lg">
                 <input
                   name="lift"
                   value={lift}
@@ -175,7 +176,7 @@ function SettingsApp({profile}: {profile: Profile}) {
                   {liftNames.some(
                     ({text}) => text.toLowerCase() === lift.toLowerCase(),
                   ) ? (
-                    <p className="text-red-500 text-center mt-1">
+                    <p className="mt-1 text-center text-red-500">
                       Duplicate name
                     </p>
                   ) : (
@@ -218,13 +219,13 @@ function SettingsApp({profile}: {profile: Profile}) {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col flex-grow items-center w-full overflow-hidden">
-          <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
+        <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
+          <div className="w-full border-b border-slate-700 py-4 px-4 sm:px-6">
             <h3 className="text-xl">Workouts</h3>
           </div>
-          <div className="flex flex-col flex-grow w-full justify-center pt-6 px-4 sm:px-6 overflow-hidden">
+          <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
             <form onSubmit={handleWorkoutSubmit}>
-              <div className="flex gap-4 items-center justify-center text-lg">
+              <div className="flex items-center justify-center gap-4 text-lg">
                 <input
                   name="workout"
                   value={workout}
@@ -245,7 +246,7 @@ function SettingsApp({profile}: {profile: Profile}) {
                   {workoutNames.some(
                     ({text}) => text.toLowerCase() === workout.toLowerCase(),
                   ) ? (
-                    <p className="text-red-500 text-center mt-1">
+                    <p className="mt-1 text-center text-red-500">
                       Duplicate name
                     </p>
                   ) : (
@@ -463,7 +464,7 @@ function EditableListItem({
     <li className="mt-4 flex items-center justify-between gap-4">
       {editing ? (
         <form className="w-full" {...{onSubmit}}>
-          <div className="flex gap-4 items-center justify-center px-1">
+          <div className="flex items-center justify-center gap-4 px-1">
             <input autoFocus value={newText} {...{onChange, onKeyUp}} />
             <IconButton
               aria-label="Discard changes"
@@ -473,9 +474,9 @@ function EditableListItem({
             />
           </div>
           {newText !== editableName.text && (
-            <div className="flex justify-center mb-2">
+            <div className="mb-2 flex justify-center">
               {isDuplicate ? (
-                <p className="text-red-500 text-center mt-1">Duplicate name</p>
+                <p className="mt-1 text-center text-red-500">Duplicate name</p>
               ) : newText ? (
                 <Button
                   className="mt-3 w-fit"
@@ -489,8 +490,8 @@ function EditableListItem({
                   Delete Name
                 </Button>
               ) : (
-                <p className="text-red-500 text-center mt-1 text-sm">
-                  Can't delete, used in workout(s)
+                <p className="mt-1 text-center text-sm text-red-500">
+                  Can&apos;t delete, used in workout(s)
                 </p>
               )}
             </div>
@@ -619,16 +620,16 @@ function EditableItemMenu({
     <div className="relative" {...{ref}}>
       <IconButton
         aria-label="Toggle menu"
-        className={`p-1 rounded-lg border ${
+        className={`rounded-lg border p-1 ${
           open
-            ? "bg-slate-100 border-slate-300 dark:bg-black"
+            ? "border-slate-300 bg-slate-100 dark:bg-black"
             : "border-transparent"
         }`}
         icon={<FontAwesomeIcon icon={faEllipsis} size="xl" />}
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="z-10 flex flex-col items-start gap-4 border border-slate-700 absolute w-28 top-8 -left-24 p-4 rounded-lg">
+        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
           <IconButton
             aria-label={`Edit ${newText}`}
             icon={<FontAwesomeIcon icon={faPen} />}

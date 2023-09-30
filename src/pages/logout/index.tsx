@@ -1,7 +1,7 @@
 import {useRouter} from "next/router"
 
-import Page from "~/shared/components/Page"
 import {logOut} from "~/firebase/client"
+import Page from "~/shared/components/Page"
 
 /**
  * Hidden route to end the current session

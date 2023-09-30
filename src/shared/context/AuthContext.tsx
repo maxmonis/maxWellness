@@ -25,6 +25,7 @@ export const AuthContextProvider = ({
     return () => {
       unsubscribe()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

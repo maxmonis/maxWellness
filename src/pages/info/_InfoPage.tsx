@@ -1,9 +1,10 @@
 import Link from "next/link"
 
-import {faGear, faHome} from "@fortawesome/free-solid-svg-icons"
+import {faHome} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-import {Button} from "~/shared/components/CTA"
+import Image from "next/image"
+import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
 
@@ -16,24 +17,24 @@ export default function InfoPage() {
   return (
     <Page title="Info">
       <div className="flex justify-center border-slate-700">
-        <div className="fixed top-0 left-0 w-screen">
-          <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-xl xl:border-x mx-auto border-slate-700 border-b">
-            <Link
+        <div className="fixed top-0 left-0 z-10 w-screen">
+          <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
+            <IconButton
               aria-label={`Go to the ${user ? "home" : "login"} page`}
               href={user ? "/" : "/login"}
-            >
-              <FontAwesomeIcon cursor="pointer" icon={faHome} size="xl" />
-            </Link>
-            {user && (
-              <Link aria-label="Go to the settings page" href="/settings">
-                <FontAwesomeIcon icon={faGear} cursor="pointer" size="xl" />
-              </Link>
-            )}
+              icon={
+                <FontAwesomeIcon cursor="pointer" icon={faHome} size="xl" />
+              }
+              text="Home"
+              textClass="max-sm:sr-only"
+              side="right"
+            />
+            <UserMenu />
           </div>
         </div>
-        <div className="flex flex-col border-slate-700 pt-16 pb-20 w-screen h-screen max-w-screen-xl xl:border-x overflow-y-auto">
-          <div className="border-slate-700 border-b px-4 py-6 sm:px-6">
-            <h2 className="text-xl mb-4">Table of Contents</h2>
+        <div className="flex h-screen w-screen max-w-screen-xl flex-col overflow-y-auto border-slate-700 pt-16 pb-20 xl:border-x">
+          <div className="border-b border-slate-700 px-4 py-6 text-center sm:px-6">
+            <h2 className="mb-4 text-xl">Table of Contents</h2>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
@@ -73,177 +74,198 @@ export default function InfoPage() {
               </li>
             </ul>
           </div>
-          <div className="flex flex-col gap-6 divide-y divide-slate-700 mx-4 sm:mx-6">
-            <div className="flex flex-col gap-4 pt-6" id="creating-workouts">
-              <h3 className="text-xl">Creating Workouts</h3>
-              <p>
-                To create a new workout, navigate to the home screen by clicking
-                the house icon in the navbar. You can then add exercises by
-                selecting their name, sets, reps, and weight. You can drag and
-                drop exercises to reorder them, and clicking the x icon next to
-                an exercise will delete it. When you've finished adding
-                exercises, select a name and date for your workout and click
-                "Save".
-              </p>
-              <img
-                alt="GIF of a new workout being added"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230690627-0599b38c-85b7-49ea-9bd5-e8c647ff26ad.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                Each exercise must include a weight or at least one rep. This is
-                because you could do 10 bodyweight squats or you could squat 315
-                pounds one time, but you can't do zero reps with zero weight.
-              </p>
+          <div className="mx-4 flex flex-col gap-6 divide-y divide-slate-700 sm:mx-6">
+            <div id="creating-workouts">
+              <div className="mx-auto flex max-w-sm flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl">Creating Workouts</h3>
+                <p>
+                  To create a new workout, navigate to the home screen by
+                  clicking the house icon in the navbar. You can then add
+                  exercises by selecting their name, sets, reps, and weight. You
+                  can drag and drop exercises to reorder them, and clicking the
+                  x icon next to an exercise will delete it. When you&apos;ve
+                  finished adding exercises, select a name and date for your
+                  workout and click &quot;Save&quot;.
+                </p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of a new workout being added"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230690627-0599b38c-85b7-49ea-9bd5-e8c647ff26ad.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  Each exercise must include a weight or at least one rep. This
+                  is because you could do 10 bodyweight squats or you could
+                  squat 315 pounds one time, but you can&apos;t do zero reps
+                  with zero weight.
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-4 pt-6" id="managing-names">
-              <h3 className="text-xl">Managing Names</h3>
-              <p>
-                To edit the names you use for your exercises and workouts,
-                navigate to the settings page by clicking the gear icon in the
-                navbar. You can then update the existing names and/or add new
-                ones.
-              </p>
-              <img
-                alt="GIF of exercise and workout names being updated"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230690802-aec0e203-8250-487d-9681-f08e28342681.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                Names must be unique and can be deleted unless they're currently
-                included in any workout(s). Your changes will be saved when you
-                navigate away from the settings page, and your workout(s) will
-                be updated accordingly.
-              </p>
+            <div id="managing-names">
+              <div className="mx-auto flex max-w-sm flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl">Managing Names</h3>
+                <p>
+                  To edit the names you use for your exercises and workouts,
+                  navigate to the settings page by clicking the gear icon in the
+                  navbar. You can then update the existing names and/or add new
+                  ones.
+                </p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of exercise and workout names being updated"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230690802-aec0e203-8250-487d-9681-f08e28342681.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  Names must be unique and can be deleted unless they&apos;re
+                  currently included in any workout(s). Your changes will be
+                  saved when you navigate away from the settings page, and your
+                  workout(s) will be updated accordingly.
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-4 pt-6" id="updating-workouts">
-              <h3 className="text-xl">Updating Workouts</h3>
-              <p>
-                To edit an existing workout, click its pencil icon. You can then
-                update the name, date, and/or exercise(s). You can cancel by
-                clicking the "Discard Changes" button or by clicking the pencil
-                icon again. Click save when you're satisfied with your updates.
-              </p>
-              <img
-                alt="GIF of a workout being updated"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230691111-c505c6b2-ab1b-4476-b27b-ee4d62c88288.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                The copy icon of each workout copies its name and exercises into
-                the new workout, and also copies that workout's name, date, and
-                exercises to your clipboard. The trash can icon allows you to
-                delete a workout. It will ask you for confirmation in case you
-                clicked it accidentally, but please note that once completed
-                this action cannot be undone.
-              </p>
-              <img
-                alt="GIF of a workout being copied, then deleted"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230691774-48637151-85d6-423b-9f2e-bcf94751f344.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                Personal records will be indicated with asterisks (one indicates
-                that the record has been broken, two means it's still your
-                record). These records will be automatically refreshed any time
-                you add, edit, or remove a workout.
-              </p>
+            <div id="updating-workouts">
+              <div className="mx-auto flex max-w-sm flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl">Updating Workouts</h3>
+                <p>
+                  To edit an existing workout, click its pencil icon. You can
+                  then update the name, date, and/or exercise(s). You can cancel
+                  by clicking the &quot;Discard Changes&quot; button or by
+                  clicking the pencil icon again. Click save when you&apos;re
+                  satisfied with your updates.
+                </p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of a workout being updated"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230691111-c505c6b2-ab1b-4476-b27b-ee4d62c88288.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  The copy icon of each workout copies its name and exercises
+                  into the new workout, and also copies that workout&apos;s
+                  name, date, and exercises to your clipboard. The trash can
+                  icon allows you to delete a workout. It will ask you for
+                  confirmation in case you clicked it accidentally, but please
+                  note that once completed this action cannot be undone.
+                </p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of a workout being copied, then deleted"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230691774-48637151-85d6-423b-9f2e-bcf94751f344.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  Personal records will be indicated with asterisks (one
+                  indicates that the record has been broken, two means it&apos;s
+                  still your record). These records will be automatically
+                  refreshed any time you add, edit, or remove a workout.
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col gap-4 pt-6" id="tips-and-tricks">
-              <h3 className="text-xl">Tips and Tricks</h3>
-              <p>Click a workout's name to copy it:</p>
-              <img
-                alt="GIF of a workout's name being copied"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230772260-8b134ba2-8c6d-4bbc-8acb-97fd520955b6.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>Click a workout's date to copy it:</p>
-              <img
-                alt="GIF of a workout's date being copied"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230772411-fc69b061-3206-4535-bbd0-58faf2ef8981.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>Click an exercise's name to copy it:</p>
-              <img
-                alt="GIF of an exercise's name being copied"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230772556-2523a7be-04ae-4a8d-b0fd-4ca697e46def.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                Click an exercise's printout to copy its sets, reps, and weight:
-              </p>
-              <img
-                alt="GIF of an exercise's sets, reps, and weight being copied"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230772780-16415706-a661-4f4f-bc04-ece6557a3500.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                Double click an exercise's printout to add it to the current
-                workout:
-              </p>
-              <img
-                alt="GIF of an exercise being added to the workout"
-                className="border border-slate-700"
-                src={
-                  "https://user-images.githubusercontent.com/51540371/" +
-                  "230772980-9ed89152-b06b-4950-8734-2d2a68cc4c14.gif"
-                }
-                height="100%"
-                width="100%"
-              />
-              <p>
-                The navbar allows you to apply filters to the workouts list
-                and/or to view your workouts in a table sorted by date or
-                exercise name. If you ever need help you can always return to
-                this information page by clicking the "i" icon in the navbar.
-                That's all you need to know, time to add some workouts!
-              </p>
-              <div className="flex w-full justify-center">
-                <Link href={user ? "/" : "/register"}>
-                  <Button className="flex-grow" variant="primary">
-                    {user ? "New Workout" : "Sign Up"}
-                  </Button>
-                </Link>
+            <div id="tips-and-tricks">
+              <div className="mx-auto flex max-w-sm flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl">Tips and Tricks</h3>
+                <p>Click a workout&apos;s name to copy it:</p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of a workout's name being copied"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230772260-8b134ba2-8c6d-4bbc-8acb-97fd520955b6.gif"
+                    }
+                  />
+                </div>
+                <p>Click a workout&apos;s date to copy it:</p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of a workout's date being copied"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230772411-fc69b061-3206-4535-bbd0-58faf2ef8981.gif"
+                    }
+                  />
+                </div>
+                <p>Click an exercise&apos;s name to copy it:</p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of an exercise's name being copied"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230772556-2523a7be-04ae-4a8d-b0fd-4ca697e46def.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  Click an exercise&apos;s printout to copy its sets, reps, and
+                  weight:
+                </p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of an exercise's sets, reps, and weight being copied"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230772780-16415706-a661-4f4f-bc04-ece6557a3500.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  Double click an exercise&apos;s printout to add it to the
+                  current workout:
+                </p>
+                <div className="relative h-96">
+                  <Image
+                    alt="GIF of an exercise being added to the workout"
+                    className="object-contain"
+                    fill
+                    src={
+                      "https://user-images.githubusercontent.com/51540371/" +
+                      "230772980-9ed89152-b06b-4950-8734-2d2a68cc4c14.gif"
+                    }
+                  />
+                </div>
+                <p>
+                  The navbar allows you to apply filters to the workouts list
+                  and/or to view your workouts in a table sorted by date or
+                  exercise name. If you ever need help you can always return to
+                  this information page by clicking the &quot;i&quot; icon in
+                  the navbar. That&apos;s all you need to know, time to add some
+                  workouts!
+                </p>
+                <div className="flex w-full justify-center">
+                  <Link href={user ? "/" : "/register"}>
+                    <Button className="flex-grow" variant="primary">
+                      {user ? "New Workout" : "Sign Up"}
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

@@ -1,23 +1,23 @@
-import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {useRouter} from "next/router"
+import React from "react"
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {
   faMoon,
   faSignOut,
   faSun,
   faUser,
 } from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 import {useTheme} from "next-themes"
 
 import {googleLogin, logOut} from "~/firebase/client"
 
-import useSession from "../hooks/useSession"
-import useOutsideClick from "../hooks/useOutsideClick"
 import useKeypress from "../hooks/useKeypress"
+import useOutsideClick from "../hooks/useOutsideClick"
+import useSession from "../hooks/useSession"
 
 /**
  * A basic button which reflects its style variant (if any)
@@ -33,11 +33,11 @@ export function Button({
 }) {
   return (
     <button
-      className={`flex justify-center text-lg outline-none rounded-lg focus:ring-2   ${
+      className={`flex justify-center rounded-lg text-lg outline-none focus:ring-2   ${
         variant === "primary"
-          ? "px-4 py-1 font-semibold bg-blue-800 text-white hover:bg-blue-700"
+          ? "bg-blue-800 px-4 py-1 font-semibold text-white hover:bg-blue-700"
           : variant === "secondary"
-          ? "px-4 py-1 font-semibold border bg-white text-blue-700 border-blue-700 hover:bg-blue-50 hover:text-blue-800 hover:border-blue-800 dark:bg-blue-50 dark:hover:bg-white dark:hover:text-blue-600 dark:hover:border-blue-600"
+          ? "border border-blue-700 bg-white px-4 py-1 font-semibold text-blue-700 hover:border-blue-800 hover:bg-blue-50 hover:text-blue-800 dark:bg-blue-50 dark:hover:border-blue-600 dark:hover:bg-white dark:hover:text-blue-600"
           : variant === "danger"
           ? "text-red-800 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400"
           : "text-blue-700 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
@@ -112,14 +112,14 @@ export function Checkbox({
   value: string
 }) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-2">
       <input
-        className="flex flex-shrink-0 cursor-pointer w-4 h-4"
+        className="flex h-4 w-4 flex-shrink-0 cursor-pointer"
         id={text}
         type="checkbox"
         {...{checked, onChange, value}}
       />
-      <label className="cursor-pointer text-md leading-none" htmlFor={text}>
+      <label className="text-md cursor-pointer leading-none" htmlFor={text}>
         {text}
       </label>
     </div>
@@ -144,7 +144,7 @@ export function GoogleButton({
 
   return (
     <button
-      className="p-2 border rounded bg-white text-black w-full flex items-center justify-center"
+      className="flex w-full items-center justify-center rounded border bg-white p-2 text-black"
       disabled={submitting}
       type="button"
       {...{onClick}}
@@ -214,7 +214,7 @@ export function UserMenu() {
         />
       )}
       {open && (
-        <dialog className="flex flex-col items-start gap-4 border border-slate-700 absolute top-8 -left-24 p-4 rounded-lg">
+        <dialog className="absolute top-8 -left-24 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
           <DarkModeToggle />
           <IconButton
             icon={
@@ -244,15 +244,15 @@ function DarkModeToggle() {
   return (
     <div className="flex items-center gap-2">
       <FontAwesomeIcon icon={faSun} />
-      <label className="relative inline-flex items-center cursor-pointer">
+      <label className="relative inline-flex cursor-pointer items-center">
         <input
           aria-label="Toggle dark mode"
           checked={dark}
-          className="sr-only peer"
+          className="peer sr-only"
           onChange={() => setTheme(dark ? "light" : "dark")}
           type="checkbox"
         />
-        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+        <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800" />
       </label>
       <FontAwesomeIcon icon={faMoon} />
     </div>

@@ -1,11 +1,11 @@
-import React from "react"
 import Link from "next/link"
+import React from "react"
 
+import {resetPassword} from "~/firebase/client"
 import {Button} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"
 import {extractErrorMessage} from "~/shared/utils/parsers"
 import {validateAuthForm} from "~/shared/utils/validators"
-import {resetPassword} from "~/firebase/client"
 
 /**
  * Can send a password reset email to a user
@@ -26,43 +26,43 @@ export default function ResetPasswordPage() {
 
   return (
     <Page mustBeLoggedOut title="Reset Password">
-      <div className="flex flex-col items-center py-10 px-4 h-full w-full text-left">
+      <div className="flex h-full w-full flex-col items-center py-10 px-4 text-left">
         {emailSent ? (
-          <div className="flex flex-col items-start max-w-xs w-full gap-4 border rounded-md p-6 bg-black text-slate-300">
+          <div className="flex w-full max-w-xs flex-col items-start gap-4 rounded-md border bg-black p-6 text-slate-300">
             <h3 className="text-3xl">Email Sent</h3>
             <p>
               Please check {email} for instructions on resetting your password
             </p>
-            <Link className="hover:underline text-blue-300" href="/login">
+            <Link className="text-blue-300 hover:underline" href="/login">
               Return to Login
             </Link>
           </div>
         ) : (
           <form
-            className="flex flex-col items-start max-w-xs w-full gap-6 border rounded-md p-6 bg-black text-slate-300"
+            className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-black p-6 text-slate-300"
             {...{onSubmit}}
           >
-            {authError && <p className="text-red-500 text-md">{authError}</p>}
+            {authError && <p className="text-md text-red-500">{authError}</p>}
             <div className="w-full">
               <input
-                className="px-3 py-2 rounded w-full"
+                className="w-full rounded px-3 py-2"
                 name="email"
                 placeholder="Email"
                 value={email}
                 {...{onChange}}
               />
               {inputErrors.email && (
-                <p className="text-red-500 text-sm">{inputErrors.email}</p>
+                <p className="text-sm text-red-500">{inputErrors.email}</p>
               )}
             </div>
             <Button className="w-full" type="submit" variant="primary">
               Reset Password
             </Button>
-            <div className="flex gap-4 center-align justify-center">
+            <div className="center-align flex justify-center gap-4">
               <div className="flex flex-wrap gap-x-2">
                 <p className="whitespace-nowrap">Need an account?</p>
                 <Link
-                  className="hover:underline text-blue-300"
+                  className="text-blue-300 hover:underline"
                   href="/register"
                 >
                   Register
