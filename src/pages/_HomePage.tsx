@@ -71,7 +71,7 @@ function HomeLoader() {
   return (
     <div className="flex flex-col items-center h-screen overflow-hidden border-slate-700">
       <div className="w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-md md:border-x mx-auto">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-xl xl:border-x mx-auto">
           {Array.from({length: 5}).map((_, i) => (
             <span
               className="h-7 w-7 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
@@ -79,11 +79,11 @@ function HomeLoader() {
             />
           ))}
         </div>
-        <div className="flex items-center justify-between border-b py-4 px-6 border-slate-700 max-w-screen-md md:border-x mx-auto bg-slate-50 dark:bg-black">
+        <div className="flex items-center justify-between border-b py-4 px-6 border-slate-700 max-w-screen-xl xl:border-x mx-auto bg-slate-50 dark:bg-black">
           <span className="h-7 w-24 rounded bg-slate-300 dark:bg-slate-700 animate-pulse" />
         </div>
       </div>
-      <div className="flex justify-center w-screen max-w-screen-md md:border-x border-slate-700">
+      <div className="flex justify-center w-screen max-w-screen-xl xl:border-x border-slate-700">
         <div className="flex flex-grow h-screen w-full overflow-hidden">
           <div className="flex flex-col flex-1 w-full">
             <div className="h-full pb-20 pt-4 px-6">
@@ -228,7 +228,7 @@ function HomeApp({filters, profile, workouts}: Session) {
   return (
     <div className="flex justify-center border-slate-700">
       <div className="fixed top-0 left-0 w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-md md:border-x mx-auto">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-xl xl:border-x mx-auto">
           <IconButton
             aria-label="Add a new workout"
             className="text-blue-600 dark:text-blue-400"
@@ -269,7 +269,7 @@ function HomeApp({filters, profile, workouts}: Session) {
           <UserMenu />
         </div>
         <div
-          className={`flex items-center justify-between border-b py-4 border-slate-700 max-w-screen-md md:border-x mx-auto bg-slate-50 dark:bg-black sm:px-6 ${
+          className={`flex items-center justify-between border-b py-4 border-slate-700 max-w-screen-xl xl:border-x mx-auto bg-slate-50 dark:bg-black sm:px-6 ${
             view !== "list" ? "px-4" : "px-6"
           }`}
         >
@@ -282,10 +282,10 @@ function HomeApp({filters, profile, workouts}: Session) {
           </h1>
         </div>
       </div>
-      <div className="flex justify-center w-screen max-w-screen-md md:border-x pt-28 border-slate-700">
+      <div className="flex justify-center w-screen max-w-screen-xl xl:border-x pt-28 border-slate-700">
         {view !== "list" && (
           <div className="flex flex-grow h-screen">
-            <div className="flex flex-col border-r border-slate-700 max-w-7xl w-40 xs:w-56 sm:w-64">
+            <div className="flex flex-col border-r border-slate-700 max-w-7xl w-40 xs:w-56 sm:w-64 md:w-80 lg:w-96">
               <div className="overflow-hidden">
                 <div className="overflow-y-auto h-full pt-10 pb-20 px-4 sm:px-6">
                   {view === "filters" ? (
@@ -480,19 +480,21 @@ function HomeApp({filters, profile, workouts}: Session) {
                                       >
                                         Enter
                                       </Button>
-                                      <Button
-                                        className="mx-auto"
-                                        onClick={() =>
-                                          setValues({
-                                            ...defaultValues,
-                                            date,
-                                            nameId,
-                                            liftId,
-                                          })
-                                        }
-                                      >
-                                        Clear
-                                      </Button>
+                                      {(sets || reps || weight) && (
+                                        <Button
+                                          className="mx-auto"
+                                          onClick={() =>
+                                            setValues({
+                                              ...defaultValues,
+                                              date,
+                                              nameId,
+                                              liftId,
+                                            })
+                                          }
+                                        >
+                                          Clear
+                                        </Button>
+                                      )}
                                     </div>
                                     {errorMsg && (
                                       <p className="text-red-500 text-sm text-center">
@@ -613,13 +615,15 @@ function HomeApp({filters, profile, workouts}: Session) {
                           >
                             Save
                           </Button>
-                          <Button
-                            className="mx-auto"
-                            type="button"
-                            onClick={() => updateRoutine([])}
-                          >
-                            Reset
-                          </Button>
+                          {routine.length > 0 && (
+                            <Button
+                              className="mx-auto"
+                              type="button"
+                              onClick={() => updateRoutine([])}
+                            >
+                              Reset
+                            </Button>
+                          )}
                         </div>
                         {workoutError && (
                           <p className="text-red-500 text-sm text-center">

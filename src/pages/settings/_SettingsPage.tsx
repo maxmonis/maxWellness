@@ -47,7 +47,7 @@ function SettingsLoader() {
   return (
     <div className="flex flex-col items-center h-screen overflow-hidden border-slate-700">
       <div className="w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-md md:border-x mx-auto">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 border-slate-700 border-b max-w-screen-xl xl:border-x mx-auto">
           {Array.from({length: 2}).map((_, i) => (
             <span
               className="h-7 w-7 rounded-full bg-slate-300 dark:bg-slate-700 animate-pulse"
@@ -56,7 +56,7 @@ function SettingsLoader() {
           ))}
         </div>
       </div>
-      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 w-screen min-h-full max-w-screen-md md:border-x">
+      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 w-screen min-h-full max-w-screen-xl xl:border-x">
         {Array.from({length: 2}).map((_, i) => (
           <div
             className="flex flex-col flex-grow items-center w-full overflow-hidden"
@@ -135,7 +135,7 @@ function SettingsApp({profile}: {profile: Profile}) {
   return (
     <div className="flex justify-center border-slate-700 h-screen">
       <div className="fixed top-0 left-0 w-screen">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-md md:border-x mx-auto border-slate-700 border-b">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-xl xl:border-x mx-auto border-slate-700 border-b">
           <IconButton
             aria-label="Go to the home page"
             href="/"
@@ -147,7 +147,7 @@ function SettingsApp({profile}: {profile: Profile}) {
           <UserMenu />
         </div>
       </div>
-      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 pt-16 w-screen max-w-screen-md md:border-x">
+      <div className="flex justify-center divide-x divide-slate-700 border-slate-700 pt-16 w-screen max-w-screen-xl xl:border-x">
         <div className="flex flex-col flex-grow items-center w-full overflow-hidden">
           <div className="border-b py-4 px-4 sm:px-6 border-slate-700 w-full">
             <h3 className="text-xl">Exercises</h3>

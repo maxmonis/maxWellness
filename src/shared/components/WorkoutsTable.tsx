@@ -74,7 +74,7 @@ export default function WorkoutsTable({
   return (
     <div className="flex justify-center border-slate-700 h-screen overflow-hidden">
       <div className="fixed top-0 left-0 w-screen z-10">
-        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-md md:border-x mx-auto border-slate-700 border-b">
+        <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-xl xl:border-x mx-auto border-slate-700 border-b">
           <IconButton
             icon={<FontAwesomeIcon icon={faList} size="xl" />}
             aria-label="View workouts list"
@@ -110,7 +110,7 @@ export default function WorkoutsTable({
           <UserMenu />
         </div>
       </div>
-      <div className="divide-x divide-slate-700 border-slate-700 pt-20 w-screen max-w-screen-md md:border-x max-h-screen overflow-hidden">
+      <div className="divide-x divide-slate-700 border-slate-700 pt-20 w-screen max-w-screen-xl xl:border-x max-h-screen overflow-hidden">
         <div className="flex flex-col flex-1 items-center w-full border-b border-slate-700">
           <div className="w-full">
             <div className="gap-5 flex items-center justify-center pb-4 w-full border-b border-slate-700">

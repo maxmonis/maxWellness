@@ -17,7 +17,7 @@ export default function InfoPage() {
     <Page title="Info">
       <div className="flex justify-center border-slate-700">
         <div className="fixed top-0 left-0 w-screen">
-          <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-md md:border-x mx-auto border-slate-700 border-b">
+          <div className="bg-slate-50 dark:bg-black flex gap-6 items-center justify-between h-16 px-6 max-w-screen-xl xl:border-x mx-auto border-slate-700 border-b">
             <Link
               aria-label={`Go to the ${user ? "home" : "login"} page`}
               href={user ? "/" : "/login"}
@@ -31,7 +31,7 @@ export default function InfoPage() {
             )}
           </div>
         </div>
-        <div className="flex flex-col border-slate-700 pt-16 pb-20 w-screen h-screen max-w-screen-md md:border-x overflow-y-auto">
+        <div className="flex flex-col border-slate-700 pt-16 pb-20 w-screen h-screen max-w-screen-xl xl:border-x overflow-y-auto">
           <div className="border-slate-700 border-b px-4 py-6 sm:px-6">
             <h2 className="text-xl mb-4">Table of Contents</h2>
             <ul className="flex flex-col gap-2">
