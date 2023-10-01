@@ -7,7 +7,7 @@ import Page from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
 
 /**
- * Text and GIFs showing how to use the app
+ * Displays text and GIFs showing how to use the app
  */
 export default function InfoPage() {
   const user = useAuth()
@@ -259,7 +259,7 @@ export default function InfoPage() {
                 <div className="flex w-full justify-center">
                   <Link href={user ? "/" : "/register"}>
                     <Button className="flex-grow" variant="primary">
-                      {user ? "New Workout" : "Sign Up"}
+                      {user ? "My Workouts" : "Sign Up"}
                     </Button>
                   </Link>
                 </div>

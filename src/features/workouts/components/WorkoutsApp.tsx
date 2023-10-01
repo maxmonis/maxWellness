@@ -21,53 +21,29 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd"
+import {WorkoutsTable} from "~/features/workouts/components/WorkoutsTable"
 import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
-import Page from "~/shared/components/Page"
-import WorkoutsTable from "~/shared/components/WorkoutsTable"
-import {HomeLoader} from "~/shared/components/loaders"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useAddWorkout from "~/shared/hooks/useAddWorkout"
 import useDeleteWorkout from "~/shared/hooks/useDeleteWorkout"
 import useMutating from "~/shared/hooks/useMutating"
-import useSession from "~/shared/hooks/useSession"
 import useUpdateEvent from "~/shared/hooks/useUpdateEvent"
 import useUpdateWorkout from "~/shared/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/shared/resources/models"
-import {getDateText} from "~/shared/utils/parsers"
-import LocalStorage from "~/shared/utils/storage"
+import {StorageService} from "~/shared/services/StorageService"
+import {getDateText, getLiftName, getWorkoutName} from "~/shared/utils/parsers"
 import {
   createNewExercise,
   eliminateRedundancy,
   getPrintout,
   groupExercisesByLift,
 } from "~/shared/utils/workout"
-
-const now = new Date()
-const year = now.getFullYear()
-const month = (now.getMonth() + 1).toString().padStart(2, "0")
-const day = now.getDate().toString().padStart(2, "0")
-const today = [year, month, day].join("-")
+import {today} from "../constants"
 
 /**
- * Landing page which allows user to view and manage workouts
+ * Allows the user to view, filter, and update their workouts
  */
-export default function HomePage() {
-  const {data, isLoading, error} = useSession()
-
-  return (
-    <Page
-      component={HomeApp}
-      Loader={HomeLoader}
-      loading={isLoading}
-      mustBeLoggedIn
-      props={data}
-      title="Workouts"
-      {...{error}}
-    />
-  )
-}
-
-function HomeApp({filters, profile, workouts}: Session) {
+export function WorkoutsApp({filters, profile, workouts}: Session) {
   const {liftNames, userId, workoutNames} = profile
   const activeWorkoutNames = sortBy(
     workoutNames.filter(n => !n.isHidden),
@@ -77,7 +53,7 @@ function HomeApp({filters, profile, workouts}: Session) {
     liftNames.filter(n => !n.isHidden),
     "text",
   )
-  const localRoutine = new LocalStorage(`wip-routine_${userId}`)
+  const localRoutine = new StorageService(`wip-routine_${userId}`)
 
   const {showAlert, setPersistentAlert} = useAlerts()
 
@@ -241,14 +217,14 @@ function HomeApp({filters, profile, workouts}: Session) {
                       <h4 className="text-xl">Exercise Name</h4>
                       <div className="mt-4 mb-10 grid gap-4">
                         {sortBy(appliedFilters.liftIds, ({id}) =>
-                          getLiftName(id),
+                          getLiftName(id, liftNames),
                         ).map(({checked, id}) => (
                           <Checkbox
                             key={id}
                             onChange={e =>
                               updateWorkoutsFilter(e.target.value, "liftId")
                             }
-                            text={getLiftName(id)}
+                            text={getLiftName(id, liftNames)}
                             value={id}
                             {...{checked}}
                           />
@@ -257,14 +233,14 @@ function HomeApp({filters, profile, workouts}: Session) {
                       <h4 className="text-xl">Workout Name</h4>
                       <div className="mt-4 mb-10 grid gap-4">
                         {sortBy(appliedFilters.nameIds, ({id}) =>
-                          getWorkoutName(id),
+                          getWorkoutName(id, workoutNames),
                         ).map(({checked, id}) => (
                           <Checkbox
                             key={id}
                             onChange={e =>
                               updateWorkoutsFilter(e.target.value, "nameId")
                             }
-                            text={getWorkoutName(id)}
+                            text={getWorkoutName(id, workoutNames)}
                             value={id}
                             {...{checked}}
                           />
@@ -507,6 +483,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                         >
                                           {`${getLiftName(
                                             exercise.liftId,
+                                            liftNames,
                                           )}: ${getPrintout(
                                             omit(exercise, [
                                               "recordEndDate",
@@ -653,7 +630,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                     : undefined
                                 }
                               >
-                                {getWorkoutName(workout.nameId)}
+                                {getWorkoutName(workout.nameId, workoutNames)}
                               </span>
                             </h1>
                             <h2 className="text-md mt-2 leading-tight">
@@ -701,7 +678,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                           : undefined
                                       }
                                     >
-                                      {getLiftName(liftId)}:
+                                      {getLiftName(liftId, liftNames)}:
                                     </span>
                                     {exerciseList.map((exercise, k) => (
                                       <span
@@ -1031,32 +1008,18 @@ function HomeApp({filters, profile, workouts}: Session) {
    */
   function copyToClipboard(workout: Workout) {
     navigator.clipboard?.writeText(
-      `${getWorkoutName(workout.nameId)}
+      `${getWorkoutName(workout.nameId, workoutNames)}
 ${getDateText(workout.date)}
 ${groupExercisesByLift(workout.routine)
   .map(
     exerciseList =>
-      `${getLiftName(exerciseList[0].liftId)}: ${exerciseList
+      `${getLiftName(exerciseList[0].liftId, liftNames)}: ${exerciseList
         .map(exercise => getPrintout(exercise))
         .join(", ")}`,
   )
   .join("\n")}
 `,
     )
-  }
-
-  /**
-   * Gets the lift name which corresponds to an ID
-   */
-  function getLiftName(liftId: string) {
-    return liftNames.find(({id}) => id === liftId)?.text ?? ""
-  }
-
-  /**
-   * Gets the workout name which corresponds to an ID
-   */
-  function getWorkoutName(nameId: string) {
-    return workoutNames.find(({id}) => id === nameId)?.text ?? ""
   }
 
   /**

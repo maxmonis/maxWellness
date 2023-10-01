@@ -1,1 +1,1 @@
-export {default} from "./_HomePage"
+export {default} from "../features/workouts/components/WorkoutsPage"

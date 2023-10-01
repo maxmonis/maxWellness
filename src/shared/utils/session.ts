@@ -1,5 +1,6 @@
 import sortBy from "lodash/sortBy"
 import {Exercise, Profile, Workout} from "~/shared/resources/models"
+import {getLiftName, getWorkoutName} from "./parsers"
 
 export function generateSession(profile: Profile, workoutList: Workout[]) {
   const liftIds = new Set<string>()
@@ -27,25 +28,17 @@ export function generateSession(profile: Profile, workoutList: Workout[]) {
           ...liftName,
           canDelete: !liftIds.has(liftName.id),
         })),
-        ({id}) => getLiftName(id),
+        ({id}) => getLiftName(id, profile.liftNames),
       ),
       workoutNames: sortBy(
         profile.workoutNames.map(workoutName => ({
           ...workoutName,
           canDelete: !nameIds.has(workoutName.id),
         })),
-        ({id}) => getWorkoutName(id),
+        ({id}) => getWorkoutName(id, profile.workoutNames),
       ),
     },
     workouts,
-  }
-
-  function getLiftName(liftId: string) {
-    return profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
-  }
-
-  function getWorkoutName(workoutId: string) {
-    return profile.workoutNames.find(({id}) => id === workoutId)?.text ?? ""
   }
 
   function recursiveChecker(

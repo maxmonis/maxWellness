@@ -10,7 +10,7 @@ import {validateAuthForm} from "~/shared/utils/validators"
 /**
  * Allows new users to create an account with Google or email/password
  */
-export default function Register() {
+export default function RegisterPage() {
   const router = useRouter()
 
   const [values, setValues] = React.useState({

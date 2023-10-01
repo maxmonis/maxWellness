@@ -5,7 +5,7 @@ import Page from "~/shared/components/Page"
 /**
  * Hidden route to end the current session
  */
-export default function LogOut() {
+export default function LogoutPage() {
   const router = useRouter()
 
   logOut().finally(() => router.replace("/login"))

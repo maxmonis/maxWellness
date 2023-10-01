@@ -1,48 +1,21 @@
-import {
-  faEllipsis,
-  faHome,
-  faMinusCircle,
-  faPen,
-  faTrash,
-  faXmarkSquare,
-} from "@fortawesome/free-solid-svg-icons"
+import {faHome, faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import isEqual from "lodash/isEqual"
-import omit from "lodash/omit"
-import sortBy from "lodash/sortBy"
+import {isEqual, omit, sortBy} from "lodash"
 import {nanoid} from "nanoid"
 import React from "react"
 import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
-import Page from "~/shared/components/Page"
-import {SettingsLoader} from "~/shared/components/loaders"
 import {useAlerts} from "~/shared/context/AlertContext"
-import useKeypress from "~/shared/hooks/useKeypress"
 import useMutating from "~/shared/hooks/useMutating"
-import useOutsideClick from "~/shared/hooks/useOutsideClick"
-import useSession from "~/shared/hooks/useSession"
 import useUpdateProfile from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/resources/models"
+import {isTextAlreadyInList} from "../functions"
+import {EditableListItem} from "./EditableListItem"
 
 /**
- * Allows the user to manage the names of workouts and exercises
+ * Displays the user's workout and exercise names, allowing
+ * them to add new ones and edit/delete existing ones
  */
-export default function SettingsPage() {
-  const {data, isLoading, error} = useSession()
-
-  return (
-    <Page
-      component={SettingsApp}
-      Loader={SettingsLoader}
-      loading={isLoading}
-      mustBeLoggedIn
-      props={data && {profile: data.profile}}
-      title="Settings"
-      {...{error}}
-    />
-  )
-}
-
-function SettingsApp({profile}: {profile: Profile}) {
+export function SettingsApp({profile}: {profile: Profile}) {
   const {showAlert} = useAlerts()
 
   const {mutate: updateProfile} = useUpdateProfile({
@@ -81,18 +54,16 @@ function SettingsApp({profile}: {profile: Profile}) {
 
   return (
     <div className="flex min-h-screen flex-col items-center">
-      <div className="w-screen">
-        <div className="w-screen border-b border-slate-700">
-          <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
-            <IconButton
-              aria-label="Go to the home page"
-              href="/"
-              icon={<FontAwesomeIcon icon={faHome} size="xl" />}
-              text="Home"
-              textClass="max-sm:sr-only"
-            />
-            <UserMenu />
-          </div>
+      <div className="w-screen border-b border-slate-700">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
+          <IconButton
+            aria-label="Go to the home page"
+            href="/"
+            icon={<FontAwesomeIcon icon={faHome} size="xl" />}
+            text="Home"
+            textClass="max-sm:sr-only"
+          />
+          <UserMenu />
         </div>
       </div>
       <div className="flex w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-h-[calc(100vh-124px)] md:max-w-2xl md:rounded-lg md:border">
@@ -387,223 +358,4 @@ function SettingsApp({profile}: {profile: Profile}) {
       )
     }
   }
-}
-
-/**
- * Allows the user to edit and delete a lift/workout name
- */
-function EditableListItem({
-  editableName,
-  editableNameList,
-  updateOptions,
-}: {
-  editableName: EditableName
-  editableNameList: EditableName[]
-  updateOptions: (newValue: EditableName, previousValue: EditableName) => void
-}) {
-  const [newText, setNewText] = React.useState(editableName.text)
-  const [editing, setEditing] = React.useState(false)
-
-  const isDuplicate = isTextAlreadyInList(newText, editableNameList)
-  const canHide = editableNameList.filter(n => !n.isHidden).length > 1
-
-  return (
-    <li className="mt-4 flex items-center justify-between gap-4">
-      {editing ? (
-        <form className="w-full" {...{onSubmit}}>
-          <div className="flex items-center justify-center gap-4 px-1">
-            <input autoFocus value={newText} {...{onChange, onKeyUp}} />
-            <IconButton
-              aria-label="Discard changes"
-              className="max-sm:hidden"
-              icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
-              onClick={handleReset}
-            />
-          </div>
-          {newText !== editableName.text && (
-            <div className="mb-2 flex justify-center">
-              {isDuplicate ? (
-                <p className="mt-1 text-center text-red-500">Duplicate name</p>
-              ) : newText ? (
-                <Button
-                  className="mt-3 w-fit"
-                  type="submit"
-                  variant="secondary"
-                >
-                  Update Name
-                </Button>
-              ) : editableName.canDelete ? (
-                <Button className="mt-3 w-fit" type="submit" variant="danger">
-                  Delete Name
-                </Button>
-              ) : (
-                <p className="mt-1 text-center text-sm text-red-500">
-                  Can&apos;t delete, used in workout(s)
-                </p>
-              )}
-            </div>
-          )}
-        </form>
-      ) : (
-        <>
-          <span
-            aria-label={`Edit ${newText}`}
-            className={`leading-tight ${
-              editableName.isHidden ? "line-through" : ""
-            }`}
-            onClick={() => setEditing(true)}
-          >
-            {newText}
-          </span>
-          <EditableItemMenu
-            onDeleteClick={handleDelete}
-            onEditClick={() => setEditing(true)}
-            {...{canHide, editableName, newText, onHideClick}}
-          />
-        </>
-      )}
-    </li>
-  )
-
-  /**
-   * Handles form updates, sanitizing the value
-   */
-  function onChange({target: {value}}: React.ChangeEvent<HTMLInputElement>) {
-    if (!value || /^[A-Za-z ]+$/.test(value)) {
-      setNewText(value.trimStart().replace(/\s/, " "))
-    }
-  }
-
-  /**
-   * Cancels editing if the user presses the escape key
-   */
-  function onKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Escape") {
-      setEditing(false)
-      setNewText(editableName.text)
-    }
-  }
-
-  /**
-   * Attempts to save the user's changes
-   */
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    if (isDuplicate) {
-      setNewText(editableName.text)
-    } else if (!newText.trim()) {
-      handleDelete()
-    } else {
-      updateOptions({...editableName, text: newText.trim()}, editableName)
-    }
-    setEditing(false)
-  }
-
-  /**
-   * Deletes the name (if allowed)
-   */
-  function handleDelete() {
-    if (editableName.canDelete && editableNameList.length > 1) {
-      updateOptions({...editableName, text: ""}, editableName)
-    } else {
-      handleReset()
-    }
-  }
-
-  /**
-   * Updates whether a name is hidden (if possible)
-   */
-  function onHideClick() {
-    const newHidden = !editableName.isHidden
-    if ((canHide && newHidden) || !newHidden) {
-      updateOptions({...editableName, isHidden: newHidden}, editableName)
-    }
-  }
-
-  /**
-   * Resets the component
-   */
-  function handleReset() {
-    setEditing(false)
-    setNewText(editableName.text)
-  }
-}
-
-/**
- * Evaluates whether text exists in a list of names (case insensitive)
- */
-function isTextAlreadyInList(newText: string, allNames: EditableName[]) {
-  return allNames.some(
-    ({text}) =>
-      text.toLowerCase().replace(/\s/g, "") ===
-      newText.toLowerCase().replace(/\s/g, ""),
-  )
-}
-
-/**
- * Allows the user to update or hide a name,
- * and also to delete it (if possible)
- */
-function EditableItemMenu({
-  canHide,
-  editableName: {canDelete, isHidden},
-  newText,
-  onDeleteClick,
-  onEditClick,
-  onHideClick,
-}: {
-  canHide: boolean
-  editableName: EditableName
-  newText: string
-  onDeleteClick: () => void
-  onEditClick: () => void
-  onHideClick: () => void
-}) {
-  const [open, setOpen] = React.useState(false)
-  const ref = useOutsideClick(() => setOpen(false))
-  useKeypress("Escape", () => setOpen(false))
-
-  return (
-    <div className="relative" {...{ref}}>
-      <IconButton
-        aria-label="Toggle menu"
-        className={`rounded-lg border p-1 ${
-          open ? "border-slate-300 bg-slate-100" : "border-transparent"
-        }`}
-        icon={<FontAwesomeIcon icon={faEllipsis} size="xl" />}
-        onClick={() => setOpen(!open)}
-      />
-      {open && (
-        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border p-4">
-          <IconButton
-            aria-label={`Edit ${newText}`}
-            icon={<FontAwesomeIcon icon={faPen} />}
-            onClick={onEditClick}
-            text="Edit"
-            textClass="whitespace-nowrap"
-          />
-          {((canHide && !isHidden) || isHidden) && (
-            <IconButton
-              aria-label={`${isHidden ? "Unhide" : "Hide"} ${newText}`}
-              icon={<FontAwesomeIcon icon={faMinusCircle} />}
-              onClick={onHideClick}
-              text={isHidden ? "Unhide" : "Hide"}
-            />
-          )}
-          {canDelete && (
-            <IconButton
-              icon={
-                <FontAwesomeIcon
-                  aria-label={`Delete ${newText}`}
-                  icon={faTrash}
-                />
-              }
-              onClick={onDeleteClick}
-              text="Delete"
-            />
-          )}
-        </dialog>
-      )}
-    </div>
-  )
 }

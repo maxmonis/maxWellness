@@ -10,13 +10,13 @@ import useViewport from "~/shared/hooks/useViewport"
 import {Profile, Workout} from "~/shared/resources/models"
 import {getDateText} from "~/shared/utils/parsers"
 import {getPrintout, groupExercisesByLift} from "~/shared/utils/workout"
-import {Button, IconButton, UserMenu} from "./CTA"
+import {Button, IconButton, UserMenu} from "../../../shared/components/CTA"
 
 /**
  * Displays workout exercises and dates in a table view
  * which can be filtered and/or have its axes toggled
  */
-export default function WorkoutsTable({
+export function WorkoutsTable({
   filteredWorkouts,
   clearFilters,
   hideWorkoutsTable,

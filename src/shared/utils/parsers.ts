@@ -1,4 +1,5 @@
 import {hasChars, hasMessage} from "~/shared/utils/validators"
+import {EditableName} from "../resources/models"
 
 /**
  * Attempts to extract an error message, returning a default one if not
@@ -35,4 +36,21 @@ export function getDateText(date: string) {
 
 export function getPositiveInt(value: string | number) {
   return Math.abs(parseInt(value + "")) || 0
+}
+
+/**
+ * Gets the lift name which corresponds to an ID
+ */
+export function getLiftName(liftId: string, liftNames: EditableName[]) {
+  return liftNames.find(({id}) => id === liftId)?.text ?? ""
+}
+
+/**
+ * Gets the workout name which corresponds to an ID
+ */
+export function getWorkoutName(
+  workoutId: string,
+  workoutNames: EditableName[],
+) {
+  return workoutNames.find(({id}) => id === workoutId)?.text ?? ""
 }

@@ -1,6 +1,6 @@
 import {Workout} from "../resources/models"
 
-export default class LocalStorage<
+export class StorageService<
   K extends `wip-routine_${string}`,
   T extends Workout["routine"],
 > {
