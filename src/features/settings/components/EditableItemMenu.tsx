@@ -37,14 +37,16 @@ export function EditableItemMenu({
     <div className="relative" {...{ref}}>
       <IconButton
         aria-label="Toggle menu"
-        className={`rounded-lg border p-1 ${
-          open ? "border-slate-300 bg-slate-100" : "border-transparent"
+        className={`flex items-center justify-center rounded-lg border-2 p-1 ${
+          open
+            ? "border-slate-700"
+            : "border-transparent hover:border-slate-300"
         }`}
         icon={<FontAwesomeIcon icon={faEllipsis} size="xl" />}
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border p-4">
+        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
           <IconButton
             aria-label={`Edit ${newText}`}
             icon={<FontAwesomeIcon icon={faPen} />}

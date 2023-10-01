@@ -65,9 +65,9 @@ export function IconButton({
   const classes = `flex gap-2 items-center cursor-pointer ${className ?? ""}`
   const content = (
     <>
-      {side === "left" && <span className={textClass}>{text}</span>}
+      {text && side === "left" && <span className={textClass}>{text}</span>}
       {icon}
-      {side === "right" && <span className={textClass}>{text}</span>}
+      {text && side === "right" && <span className={textClass}>{text}</span>}
     </>
   )
 
