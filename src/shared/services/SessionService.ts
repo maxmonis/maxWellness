@@ -1,5 +1,5 @@
-import {Session} from "../resources/models"
-import RequestService from "./RequestService"
+import {Session} from "../utils/models"
+import {RequestService} from "./RequestService"
 
 class SessionService extends RequestService {
   constructor() {

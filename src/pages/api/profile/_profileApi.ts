@@ -1,8 +1,8 @@
 import {NextApiRequest, NextApiResponse} from "next"
 import {getUserProfile, getUserWorkouts, updateProfile} from "~/firebase/server"
-import {Profile, Workout} from "~/shared/resources/models"
-import {extractErrorMessage} from "~/shared/utils/parsers"
-import {isProfile} from "~/shared/utils/validators"
+import {extractErrorMessage} from "~/shared/functions/parsers"
+import {isProfile} from "~/shared/functions/validators"
+import {Profile, Workout} from "~/shared/utils/models"
 
 /**
  * Handles requests to update the user's profile

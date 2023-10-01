@@ -1,5 +1,5 @@
-import {UnsavedWorkout, Workout} from "../resources/models"
-import RequestService from "./RequestService"
+import {UnsavedWorkout, Workout} from "../utils/models"
+import {RequestService} from "./RequestService"
 
 class WorkoutService extends RequestService {
   constructor() {

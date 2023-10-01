@@ -24,21 +24,25 @@ import {
 import {WorkoutsTable} from "~/features/workouts/components/WorkoutsTable"
 import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
-import useAddWorkout from "~/shared/hooks/useAddWorkout"
-import useDeleteWorkout from "~/shared/hooks/useDeleteWorkout"
-import useMutating from "~/shared/hooks/useMutating"
-import useUpdateEvent from "~/shared/hooks/useUpdateEvent"
-import useUpdateWorkout from "~/shared/hooks/useUpdateWorkout"
-import {Exercise, Session, Workout} from "~/shared/resources/models"
+import {
+  getDateText,
+  getLiftName,
+  getWorkoutName,
+} from "~/shared/functions/parsers"
+import {useAddWorkout} from "~/shared/hooks/useAddWorkout"
+import {useDeleteWorkout} from "~/shared/hooks/useDeleteWorkout"
+import {useMutating} from "~/shared/hooks/useMutating"
+import {useUpdateEvent} from "~/shared/hooks/useUpdateEvent"
+import {useUpdateWorkout} from "~/shared/hooks/useUpdateWorkout"
 import {StorageService} from "~/shared/services/StorageService"
-import {getDateText, getLiftName, getWorkoutName} from "~/shared/utils/parsers"
+import {Exercise, Session, Workout} from "~/shared/utils/models"
+import {today} from "../constants"
 import {
   createNewExercise,
   eliminateRedundancy,
   getPrintout,
   groupExercisesByLift,
-} from "~/shared/utils/workout"
-import {today} from "../constants"
+} from "../functions"
 
 /**
  * Allows the user to view, filter, and update their workouts

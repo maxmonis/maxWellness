@@ -2,7 +2,7 @@
  * Base class which exposes HTTP methods which
  * all rely on the same URL resource
  */
-export default class RequestService {
+export class RequestService {
   private readonly url: Url
   constructor(url: Url) {
     this.url = url

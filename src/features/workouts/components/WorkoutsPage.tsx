@@ -1,5 +1,5 @@
-import Page from "~/shared/components/Page"
-import useSession from "~/shared/hooks/useSession"
+import {Page} from "~/shared/components/Page"
+import {useSession} from "~/shared/hooks/useSession"
 import {WorkoutsApp} from "./WorkoutsApp"
 import {WorkoutsLoader} from "./WorkoutsLoader"
 

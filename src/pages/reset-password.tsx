@@ -2,9 +2,9 @@ import Link from "next/link"
 import React from "react"
 import {resetPassword} from "~/firebase/client"
 import {Button} from "~/shared/components/CTA"
-import Page from "~/shared/components/Page"
-import {extractErrorMessage} from "~/shared/utils/parsers"
-import {validateAuthForm} from "~/shared/utils/validators"
+import {Page} from "~/shared/components/Page"
+import {extractErrorMessage} from "~/shared/functions/parsers"
+import {validateAuthForm} from "~/shared/functions/validators"
 
 /**
  * Can send a password reset email to a user

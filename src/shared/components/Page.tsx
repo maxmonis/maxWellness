@@ -3,15 +3,15 @@ import Image from "next/image"
 import {useRouter} from "next/router"
 import React from "react"
 import {useAuth} from "~/shared/context/AuthContext"
-import useSession from "~/shared/hooks/useSession"
-import {extractErrorMessage} from "~/shared/utils/parsers"
+import {extractErrorMessage} from "~/shared/functions/parsers"
+import {useSession} from "~/shared/hooks/useSession"
 
 /**
  * Displays a page of content or its loading state,
  * also redirecting automatically if necessary when
  * a page requires the user to be logged in or out
  */
-export default function Page({
+export function Page({
   children,
   component,
   error,

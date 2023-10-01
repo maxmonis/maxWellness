@@ -7,9 +7,9 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
 import {IconButton} from "~/shared/components/CTA"
-import useKeypress from "~/shared/hooks/useKeypress"
-import useOutsideClick from "~/shared/hooks/useOutsideClick"
-import {EditableName} from "~/shared/resources/models"
+import {useKeypress} from "~/shared/hooks/useKeypress"
+import {useOutsideClick} from "~/shared/hooks/useOutsideClick"
+import {EditableName} from "~/shared/utils/models"
 
 /**
  * Allows the user to update/hide a name, and also to delete it if it's unused

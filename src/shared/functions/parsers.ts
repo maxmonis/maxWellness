@@ -1,8 +1,8 @@
-import {hasChars, hasMessage} from "~/shared/utils/validators"
-import {EditableName} from "../resources/models"
+import {hasChars, hasMessage} from "~/shared/functions/validators"
+import {EditableName} from "../utils/models"
 
 /**
- * Attempts to extract an error message, returning a default one if not
+ * Attempts to extract an error message, returning a default one if necessary
  */
 export function extractErrorMessage(error: unknown) {
   if (hasChars(error)) return error

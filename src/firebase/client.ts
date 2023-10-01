@@ -16,10 +16,7 @@ import {
   query,
   where,
 } from "firebase/firestore"
-import {
-  defaultLiftNames,
-  defaultWorkoutNames,
-} from "~/shared/resources/constants"
+import {defaultLiftNames, defaultWorkoutNames} from "~/shared/utils/constants"
 
 const app = initializeApp({
   apiKey: process.env.NEXT_PUBLIC_API_KEY,

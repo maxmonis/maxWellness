@@ -5,7 +5,7 @@ import {sessionService} from "~/shared/services/SessionService"
 /**
  * Attempts to load the current session
  */
-export default function useSession() {
+export function useSession() {
   const user = useAuth()
   const userId = user?.uid
 

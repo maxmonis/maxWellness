@@ -5,7 +5,7 @@ import {useQueryClient} from "react-query"
  * Subscribes to the mutation cache to return info about
  * loading mutations (if any) which match the mutationKey
  */
-export default function useMutating({key}: {key: string}) {
+export function useMutating({key}: {key: string}) {
   const queryClient = useQueryClient()
 
   const [count, setCount] = React.useState(0)

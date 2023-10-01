@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function useKeypress(key: string, callback: () => void) {
+export function useKeypress(key: string, callback: () => void) {
   React.useEffect(() => {
     window.addEventListener("keyup", handleKeyup)
     return () => {

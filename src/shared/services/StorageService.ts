@@ -1,4 +1,4 @@
-import {Workout} from "../resources/models"
+import {Workout} from "../utils/models"
 
 export class StorageService<
   K extends `wip-routine_${string}`,

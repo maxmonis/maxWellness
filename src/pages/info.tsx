@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import Link from "next/link"
 import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
-import Page from "~/shared/components/Page"
+import {Page} from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
 
 /**

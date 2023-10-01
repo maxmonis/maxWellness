@@ -1,11 +1,11 @@
 import {useMutation} from "react-query"
 import {workoutService} from "~/shared/services/WorkoutService"
-import useInvalidateSession from "./useInvalidateSession"
+import {useInvalidateSession} from "./useInvalidateSession"
 
 /**
  * Attempts to save a new workout to the database
  */
-export default function useAddWorkout({onSuccess}: {onSuccess: () => void}) {
+export function useAddWorkout({onSuccess}: {onSuccess: () => void}) {
   const onSettled = useInvalidateSession()
 
   return useMutation({

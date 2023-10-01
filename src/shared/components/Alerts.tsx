@@ -11,7 +11,7 @@ const bgColors = {
 /**
  * Can display one or more temporary toast alerts and/or a persistent alert
  */
-export default function Alerts() {
+export function Alerts() {
   const {alerts, persistentAlert} = useAlerts()
 
   return (

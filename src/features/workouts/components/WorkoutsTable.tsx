@@ -6,11 +6,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
-import useViewport from "~/shared/hooks/useViewport"
-import {Profile, Workout} from "~/shared/resources/models"
-import {getDateText} from "~/shared/utils/parsers"
-import {getPrintout, groupExercisesByLift} from "~/shared/utils/workout"
+import {getDateText} from "~/shared/functions/parsers"
+import {useViewport} from "~/shared/hooks/useViewport"
+import {Profile, Workout} from "~/shared/utils/models"
 import {Button, IconButton, UserMenu} from "../../../shared/components/CTA"
+import {getPrintout, groupExercisesByLift} from "../functions"
 
 /**
  * Displays workout exercises and dates in a table view

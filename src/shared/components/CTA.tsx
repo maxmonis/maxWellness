@@ -11,9 +11,9 @@ import Link from "next/link"
 import {useRouter} from "next/router"
 import React from "react"
 import {googleLogin, logOut} from "~/firebase/client"
-import useKeypress from "../hooks/useKeypress"
-import useOutsideClick from "../hooks/useOutsideClick"
-import useSession from "../hooks/useSession"
+import {useKeypress} from "../hooks/useKeypress"
+import {useOutsideClick} from "../hooks/useOutsideClick"
+import {useSession} from "../hooks/useSession"
 
 /**
  * A basic button which reflects its style variant (if any)

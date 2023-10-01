@@ -2,7 +2,7 @@ import {faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
 import {Button, IconButton} from "~/shared/components/CTA"
-import {EditableName} from "~/shared/resources/models"
+import {EditableName} from "~/shared/utils/models"
 import {isTextAlreadyInList} from "../functions"
 import {EditableItemMenu} from "./EditableItemMenu"
 

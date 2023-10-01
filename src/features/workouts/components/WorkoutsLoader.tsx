@@ -1,5 +1,5 @@
 /**
- * Displays a loading skeleton for the / route
+ * Displays a loading skeleton for the root route
  */
 export function WorkoutsLoader() {
   return (

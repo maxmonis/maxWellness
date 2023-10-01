@@ -1,5 +1,5 @@
-import {Profile} from "../resources/models"
-import RequestService from "./RequestService"
+import {Profile} from "../utils/models"
+import {RequestService} from "./RequestService"
 
 class ProfileService extends RequestService {
   constructor() {

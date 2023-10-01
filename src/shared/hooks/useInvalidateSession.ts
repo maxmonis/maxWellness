@@ -4,7 +4,7 @@ import {useAuth} from "~/shared/context/AuthContext"
 /**
  * @returns a function which invalidates the user's session query
  */
-export default function useInvalidateSession() {
+export function useInvalidateSession() {
   const user = useAuth()
   const queryClient = useQueryClient()
 

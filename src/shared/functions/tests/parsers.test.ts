@@ -1,4 +1,4 @@
-import {extractErrorMessage} from "~/shared/utils/parsers"
+import {extractErrorMessage} from "../parsers"
 
 describe("extractErrorMessage", () => {
   test("returns error if error is string", () => {

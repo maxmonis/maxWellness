@@ -1,4 +1,4 @@
-import {generateSession} from "../utils/session"
+import {generateSession} from "../functions/session"
 
 export interface EditableName {
   canDelete?: boolean

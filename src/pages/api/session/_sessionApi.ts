@@ -1,9 +1,9 @@
 import {NextApiRequest, NextApiResponse} from "next"
 import {getUserProfile, getUserWorkouts} from "~/firebase/server"
-import {Profile, Workout} from "~/shared/resources/models"
-import {extractErrorMessage} from "~/shared/utils/parsers"
-import {generateSession} from "~/shared/utils/session"
-import {hasChars} from "~/shared/utils/validators"
+import {extractErrorMessage} from "~/shared/functions/parsers"
+import {generateSession} from "~/shared/functions/session"
+import {hasChars} from "~/shared/functions/validators"
+import {Profile, Workout} from "~/shared/utils/models"
 
 /**
  * Handles requests to load the current session
