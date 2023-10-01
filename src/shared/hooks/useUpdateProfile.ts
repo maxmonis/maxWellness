@@ -1,7 +1,5 @@
 import {useMutation} from "react-query"
-
 import {profileService} from "~/shared/services/ProfileService"
-
 import useInvalidateSession from "./useInvalidateSession"
 
 /**

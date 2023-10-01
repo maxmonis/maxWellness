@@ -1,7 +1,6 @@
 import Link from "next/link"
 import {useRouter} from "next/router"
 import React from "react"
-
 import {signUp} from "~/firebase/client"
 import {Button, GoogleButton} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"

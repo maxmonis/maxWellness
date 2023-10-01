@@ -1,5 +1,4 @@
 import {useRouter} from "next/router"
-
 import {logOut} from "~/firebase/client"
 import Page from "~/shared/components/Page"
 

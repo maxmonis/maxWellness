@@ -1,5 +1,4 @@
 import {useQuery} from "react-query"
-
 import {useAuth} from "~/shared/context/AuthContext"
 import {sessionService} from "~/shared/services/SessionService"
 

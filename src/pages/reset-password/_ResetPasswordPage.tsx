@@ -1,6 +1,5 @@
 import Link from "next/link"
 import React from "react"
-
 import {resetPassword} from "~/firebase/client"
 import {Button} from "~/shared/components/CTA"
 import Page from "~/shared/components/Page"

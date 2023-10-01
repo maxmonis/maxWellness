@@ -1,5 +1,3 @@
-import React from "react"
-
 import {
   faChevronCircleLeft,
   faCirclePlus,
@@ -16,17 +14,17 @@ import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
+import React from "react"
 import {
   DragDropContext,
   Draggable,
-  Droppable,
   DropResult,
+  Droppable,
 } from "react-beautiful-dnd"
-
 import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
-import {HomeLoader} from "~/shared/components/loaders"
 import Page from "~/shared/components/Page"
 import WorkoutsTable from "~/shared/components/WorkoutsTable"
+import {HomeLoader} from "~/shared/components/loaders"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useAddWorkout from "~/shared/hooks/useAddWorkout"
 import useDeleteWorkout from "~/shared/hooks/useDeleteWorkout"

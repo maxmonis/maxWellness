@@ -1,5 +1,4 @@
 import {Profile} from "../resources/models"
-
 import RequestService from "./RequestService"
 
 class ProfileService extends RequestService {

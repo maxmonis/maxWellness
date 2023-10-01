@@ -1,7 +1,5 @@
 import {useMutation} from "react-query"
-
 import {workoutService} from "~/shared/services/WorkoutService"
-
 import useInvalidateSession from "./useInvalidateSession"
 
 /**

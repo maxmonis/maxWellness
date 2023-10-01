@@ -1,5 +1,3 @@
-import React from "react"
-
 import {
   faArrowLeft,
   faArrowRight,
@@ -7,7 +5,7 @@ import {
   faRotate,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-
+import React from "react"
 import useViewport from "~/shared/hooks/useViewport"
 import {Profile, Workout} from "~/shared/resources/models"
 import {getDateText} from "~/shared/utils/parsers"

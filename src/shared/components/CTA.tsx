@@ -1,8 +1,3 @@
-import Image from "next/image"
-import Link from "next/link"
-import {useRouter} from "next/router"
-import React from "react"
-
 import {
   faMoon,
   faSignOut,
@@ -10,11 +5,12 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-
 import {useTheme} from "next-themes"
-
+import Image from "next/image"
+import Link from "next/link"
+import {useRouter} from "next/router"
+import React from "react"
 import {googleLogin, logOut} from "~/firebase/client"
-
 import useKeypress from "../hooks/useKeypress"
 import useOutsideClick from "../hooks/useOutsideClick"
 import useSession from "../hooks/useSession"

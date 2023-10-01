@@ -1,5 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next"
-
 import {getUserProfile, getUserWorkouts} from "~/firebase/server"
 import {Profile, Workout} from "~/shared/resources/models"
 import {extractErrorMessage} from "~/shared/utils/parsers"

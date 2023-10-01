@@ -16,7 +16,6 @@ import {
   query,
   where,
 } from "firebase/firestore"
-
 import {
   defaultLiftNames,
   defaultWorkoutNames,

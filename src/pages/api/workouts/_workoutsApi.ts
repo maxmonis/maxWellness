@@ -1,5 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next"
-
 import {deleteWorkout, saveWorkout, updateWorkout} from "~/firebase/server"
 import {extractErrorMessage} from "~/shared/utils/parsers"
 import {hasChars, isUnsavedWorkout, isWorkout} from "~/shared/utils/validators"

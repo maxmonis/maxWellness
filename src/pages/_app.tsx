@@ -1,13 +1,10 @@
+import {config} from "@fortawesome/fontawesome-svg-core"
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import {ThemeProvider} from "next-themes"
 import type {AppProps} from "next/app"
 import {Source_Sans_Pro} from "next/font/google"
 import Head from "next/head"
-
-import {config} from "@fortawesome/fontawesome-svg-core"
-import "@fortawesome/fontawesome-svg-core/styles.css"
-
-import {ThemeProvider} from "next-themes"
 import {QueryClient, QueryClientProvider} from "react-query"
-
 import Alerts from "~/shared/components/Alerts"
 import {AlertContextProvider} from "~/shared/context/AlertContext"
 import {AuthContextProvider} from "~/shared/context/AuthContext"

@@ -1,6 +1,5 @@
-import React from "react"
-
 import {nanoid} from "nanoid"
+import React from "react"
 
 const AlertContext = React.createContext<{
   alerts: Alert[]

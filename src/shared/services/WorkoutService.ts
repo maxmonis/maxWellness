@@ -1,5 +1,4 @@
 import {UnsavedWorkout, Workout} from "../resources/models"
-
 import RequestService from "./RequestService"
 
 class WorkoutService extends RequestService {

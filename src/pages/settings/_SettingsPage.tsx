@@ -1,5 +1,3 @@
-import React from "react"
-
 import {
   faEllipsis,
   faHome,
@@ -13,10 +11,10 @@ import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
-
+import React from "react"
 import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
-import {SettingsLoader} from "~/shared/components/loaders"
 import Page from "~/shared/components/Page"
+import {SettingsLoader} from "~/shared/components/loaders"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useKeypress from "~/shared/hooks/useKeypress"
 import useMutating from "~/shared/hooks/useMutating"

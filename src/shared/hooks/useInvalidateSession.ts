@@ -1,5 +1,4 @@
 import {useQueryClient} from "react-query"
-
 import {useAuth} from "~/shared/context/AuthContext"
 
 /**
