@@ -3,9 +3,9 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import {Button} from "./CTA"
 
 const bgColors = {
-  danger: "bg-red-100 dark:bg-red-700 border-red-700 border",
-  information: "bg-blue-100 dark:bg-blue-700 border-blue-700 border",
-  success: "bg-green-100 dark:bg-green-700 border-green-700 border",
+  danger: "bg-red-700",
+  information: "bg-blue-700",
+  success: "bg-green-700",
 }
 
 /**
@@ -22,7 +22,7 @@ export default function Alerts() {
         {alerts.map(({id, text, type}) => (
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
             <div
-              className={`fixed top-16 right-4 rounded-lg px-4 py-2 ${bgColors[type]}`}
+              className={`fixed top-16 right-4 rounded-lg px-4 py-2 text-white ${bgColors[type]}`}
             >
               <p>{text}</p>
             </div>
@@ -33,7 +33,7 @@ export default function Alerts() {
       {/* the persistent alert appears until it is removed from context */}
       {persistentAlert && (
         <div
-          className={`fixed bottom-4 right-4 flex justify-center gap-4 rounded-lg border border-slate-700 p-4 ${
+          className={`fixed bottom-4 right-4 flex justify-center gap-4 rounded-lg p-4 text-white ${
             bgColors[persistentAlert.type]
           }`}
         >
