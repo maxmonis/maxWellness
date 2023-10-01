@@ -80,8 +80,15 @@ export default function Page({
         <title>{`maxWellness | ${title}`}</title>
       </Head>
       {redirect ? null : (
-        <main className="relative overflow-hidden">
-          <div className="min-w-screen flex flex-col justify-between">
+        <div className="relative overflow-hidden">
+          <div
+            className={`min-w-screen flex min-h-screen flex-col justify-between
+          ${
+            mustBeLoggedOut
+              ? "text-gray-50"
+              : "bg-gray-50 text-gray-900 dark:bg-black dark:text-gray-50"
+          }`}
+          >
             {children ??
               element ??
               (loading && Loader ? (
@@ -98,9 +105,9 @@ export default function Page({
             {mustBeLoggedOut && (
               <>
                 <Wallpaper />
-                <footer className="flex w-full flex-col items-center gap-4 py-2 text-center text-slate-300">
+                <footer className="flex w-full flex-col items-center gap-4 py-2 text-center">
                   <a
-                    href="https://github.com/maxmonis/"
+                    href="https://maxmonis.com/"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -110,7 +117,7 @@ export default function Page({
               </>
             )}
           </div>
-        </main>
+        </div>
       )}
     </>
   )
@@ -133,8 +140,8 @@ function Wallpaper() {
   return error ? (
     <></>
   ) : (
-    <div className="fixed top-0 left-0 z-[-1]">
-      <div className="relative w-screen">
+    <div className="fixed top-0 left-0 -z-10">
+      <div className="relative h-screen w-screen">
         <Image
           alt={
             "Barbell on the Floor by Leon Ardho from Pexels: " +

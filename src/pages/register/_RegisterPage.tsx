@@ -32,7 +32,7 @@ export default function Register() {
     <Page mustBeLoggedOut title="Register">
       <div className="flex h-full w-full flex-col items-center py-10 px-4">
         <form
-          className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-black p-6 text-slate-300"
+          className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
           {...{onSubmit}}
         >
           {authError && <p className="text-md text-red-500">{authError}</p>}

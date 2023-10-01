@@ -27,7 +27,7 @@ export default function ResetPasswordPage() {
     <Page mustBeLoggedOut title="Reset Password">
       <div className="flex h-full w-full flex-col items-center py-10 px-4 text-left">
         {emailSent ? (
-          <div className="flex w-full max-w-xs flex-col items-start gap-4 rounded-md border bg-black p-6 text-slate-300">
+          <div className="flex w-full max-w-xs flex-col items-start gap-4 rounded-md border border-slate-700 bg-black p-6">
             <h3 className="text-3xl">Email Sent</h3>
             <p>
               Please check {email} for instructions on resetting your password
@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
           </div>
         ) : (
           <form
-            className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-black p-6 text-slate-300"
+            className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
             {...{onSubmit}}
           >
             {authError && <p className="text-md text-red-500">{authError}</p>}
