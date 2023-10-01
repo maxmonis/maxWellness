@@ -15,6 +15,7 @@ import sortBy from "lodash/sortBy"
 import {nanoid} from "nanoid"
 
 import {Button, IconButton, UserMenu} from "~/shared/components/CTA"
+import {SettingsLoader} from "~/shared/components/loaders"
 import Page from "~/shared/components/Page"
 import {useAlerts} from "~/shared/context/AlertContext"
 import useKeypress from "~/shared/hooks/useKeypress"
@@ -40,59 +41,6 @@ export default function SettingsPage() {
       title="Settings"
       {...{error}}
     />
-  )
-}
-
-function SettingsLoader() {
-  return (
-    <div className="flex h-screen flex-col items-center overflow-hidden border-slate-700">
-      <div className="w-screen">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
-          {Array.from({length: 2}).map((_, i) => (
-            <span
-              className="h-7 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700"
-              key={i}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="flex min-h-full w-screen max-w-screen-xl justify-center divide-x divide-slate-700 border-slate-700 xl:border-x">
-        {Array.from({length: 2}).map((_, i) => (
-          <div
-            className="flex w-full flex-grow flex-col items-center overflow-hidden"
-            key={i}
-          >
-            <div className="flex w-full border-b border-slate-700 py-4 px-4 sm:px-6">
-              <span className="h-7 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-            </div>
-            <div className="flex w-full flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
-              <div className="flex">
-                <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-              </div>
-              <div className="flex h-full flex-col gap-5 pt-6 pb-20">
-                {Array.from({length: i === 0 ? 2 : 1}).map((_, j) => (
-                  <div className="flex flex-col gap-5" key={`${i}-${j}`}>
-                    {[24, 20, 20, 24].map((width, k) => (
-                      <div
-                        className="flex items-center justify-between"
-                        key={`${i}-${j}-${k}`}
-                      >
-                        <span
-                          className={`h-5 w-${width} animate-pulse rounded bg-slate-300 dark:bg-slate-700`}
-                        />
-                        <div className="flex gap-4">
-                          <span className="h-5 w-5 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }
 
@@ -134,21 +82,22 @@ function SettingsApp({profile}: {profile: Profile}) {
   }, [])
 
   return (
-    <div className="flex h-screen justify-center border-slate-700">
-      <div className="fixed top-0 left-0 w-screen">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
-          <IconButton
-            aria-label="Go to the home page"
-            href="/"
-            icon={<FontAwesomeIcon icon={faHome} size="xl" />}
-            side="right"
-            text="Home"
-            textClass="max-sm:sr-only"
-          />
-          <UserMenu />
+    <div className="flex min-h-screen flex-col items-center">
+      <div className="w-screen">
+        <div className="w-screen border-b border-slate-700">
+          <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
+            <IconButton
+              aria-label="Go to the home page"
+              href="/"
+              icon={<FontAwesomeIcon icon={faHome} size="xl" />}
+              text="Home"
+              textClass="max-sm:sr-only"
+            />
+            <UserMenu />
+          </div>
         </div>
       </div>
-      <div className="flex w-screen max-w-screen-xl justify-center divide-x divide-slate-700 border-slate-700 pt-16 xl:border-x">
+      <div className="flex w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-h-[calc(100vh-124px)] md:max-w-2xl md:rounded-lg md:border">
         <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
           <div className="w-full border-b border-slate-700 py-4 px-4 sm:px-6">
             <h3 className="text-xl">Exercises</h3>
@@ -193,7 +142,7 @@ function SettingsApp({profile}: {profile: Profile}) {
                 </>
               )}
             </form>
-            <ul className="h-full overflow-y-scroll pt-2 pb-20">
+            <ul className="h-full overflow-y-scroll pt-2 pb-6">
               {sortBy(
                 liftNames.filter(n => !n.isHidden),
                 "text",
@@ -263,7 +212,7 @@ function SettingsApp({profile}: {profile: Profile}) {
                 </>
               )}
             </form>
-            <ul className="h-full overflow-y-scroll pt-2 pb-20">
+            <ul className="h-full overflow-y-scroll pt-2 pb-6">
               {sortBy(
                 workoutNames.filter(n => !n.isHidden),
                 "text",
@@ -621,20 +570,17 @@ function EditableItemMenu({
       <IconButton
         aria-label="Toggle menu"
         className={`rounded-lg border p-1 ${
-          open
-            ? "border-slate-300 bg-slate-100 dark:bg-black"
-            : "border-transparent"
+          open ? "border-slate-300 bg-slate-100" : "border-transparent"
         }`}
         icon={<FontAwesomeIcon icon={faEllipsis} size="xl" />}
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
+        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border p-4">
           <IconButton
             aria-label={`Edit ${newText}`}
             icon={<FontAwesomeIcon icon={faPen} />}
             onClick={onEditClick}
-            side="right"
             text="Edit"
             textClass="whitespace-nowrap"
           />
@@ -643,7 +589,6 @@ function EditableItemMenu({
               aria-label={`${isHidden ? "Unhide" : "Hide"} ${newText}`}
               icon={<FontAwesomeIcon icon={faMinusCircle} />}
               onClick={onHideClick}
-              side="right"
               text={isHidden ? "Unhide" : "Hide"}
             />
           )}
@@ -656,7 +601,6 @@ function EditableItemMenu({
                 />
               }
               onClick={onDeleteClick}
-              side="right"
               text="Delete"
             />
           )}

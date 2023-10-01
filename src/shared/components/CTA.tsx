@@ -55,7 +55,7 @@ export function IconButton({
   href,
   textClass,
   icon,
-  side,
+  side = "right",
   text,
   type,
   ...props
@@ -63,7 +63,7 @@ export function IconButton({
   href?: `/${string}`
   icon: JSX.Element
 } & (
-    | {textClass?: string; text: string; side: "left" | "right"}
+    | {textClass?: string; text: string; side?: "left" | "right"}
     | {textClass?: never; text?: never; side?: never}
   )) {
   const classes = `flex gap-2 items-center cursor-pointer ${className ?? ""}`
@@ -225,7 +225,6 @@ export function UserMenu() {
               />
             }
             onClick={logOut}
-            side="right"
             text="Logout"
           />
         </dialog>

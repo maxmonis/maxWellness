@@ -82,14 +82,7 @@ export default function Page({
       </Head>
       {redirect ? null : (
         <main className="relative overflow-hidden">
-          <div
-            className={`min-w-screen flex min-h-screen flex-col justify-between
-          ${
-            mustBeLoggedOut
-              ? ""
-              : "bg-slate-50 text-slate-700 dark:bg-black dark:text-slate-300"
-          }`}
-          >
+          <div className="min-w-screen flex flex-col justify-between">
             {children ??
               element ??
               (loading && Loader ? (
@@ -142,7 +135,7 @@ function Wallpaper() {
     <></>
   ) : (
     <div className="fixed top-0 left-0 z-[-1]">
-      <div className="relative h-screen w-screen">
+      <div className="relative w-screen">
         <Image
           alt={
             "Barbell on the Floor by Leon Ardho from Pexels: " +

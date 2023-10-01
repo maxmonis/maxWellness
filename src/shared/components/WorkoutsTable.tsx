@@ -3,9 +3,7 @@ import React from "react"
 import {
   faArrowLeft,
   faArrowRight,
-  faFilter,
-  faGear,
-  faList,
+  faHome,
   faRotate,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -23,17 +21,13 @@ import {Button, IconButton, UserMenu} from "./CTA"
 export default function WorkoutsTable({
   filteredWorkouts,
   clearFilters,
-  handleFiltersClick,
   hideWorkoutsTable,
   profile,
 }: {
   filteredWorkouts: Workout[]
   profile: Profile
 } & {
-  [key in
-    | "clearFilters"
-    | "handleFiltersClick"
-    | "hideWorkoutsTable"]: () => void
+  [key in "clearFilters" | "hideWorkoutsTable"]: () => void
 }) {
   const width = useViewport()
 
@@ -70,45 +64,27 @@ export default function WorkoutsTable({
   }, [liftArray, horizontalIndex])
 
   return (
-    <div className="flex h-screen justify-center overflow-hidden border-slate-700">
-      <div className="fixed top-0 left-0 z-10 w-screen">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
+    <div className="flex min-h-screen flex-col items-center overflow-hidden">
+      <div className="w-screen border-b border-slate-700">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
           <IconButton
-            icon={<FontAwesomeIcon icon={faList} size="xl" />}
-            aria-label="View workouts list"
+            aria-label="Go to the home page"
+            icon={<FontAwesomeIcon icon={faHome} size="xl" />}
             onClick={hideWorkoutsTable}
-            side="right"
-            text="List"
-            textClass="max-sm:sr-only"
-          />
-          <IconButton
-            aria-label="Show workout filters"
-            icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
-            onClick={handleFiltersClick}
-            side="right"
-            text="Filters"
+            text="Home"
             textClass="max-sm:sr-only"
           />
           <IconButton
             aria-label="Reverse x and y axes of table"
             icon={<FontAwesomeIcon icon={faRotate} size="xl" />}
             onClick={() => setSortByDate(!sortByDate)}
-            side="right"
             text="Reverse"
-            textClass="max-sm:sr-only"
-          />
-          <IconButton
-            aria-label="Go to settings page"
-            href="/settings"
-            icon={<FontAwesomeIcon icon={faGear} size="xl" />}
-            side="right"
-            text="Settings"
             textClass="max-sm:sr-only"
           />
           <UserMenu />
         </div>
       </div>
-      <div className="max-h-screen w-screen max-w-screen-xl divide-x divide-slate-700 overflow-hidden border-slate-700 pt-20 xl:border-x">
+      <div className="w-screen flex-col divide-x divide-slate-700 overflow-hidden pt-4 lg:max-w-4xl">
         <div className="flex w-full flex-1 flex-col items-center border-b border-slate-700">
           <div className="w-full">
             <div className="flex w-full items-center justify-center gap-5 border-b border-slate-700 pb-4">
@@ -141,11 +117,11 @@ export default function WorkoutsTable({
               />
             </div>
           </div>
-          <div className="w-full">
-            <div className="h-[calc(100vh-124px)] w-full overflow-y-auto pb-20">
+          <div className="h-full w-full">
+            <div className="max-h-[calc(100vh-124px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100vh-156px)] lg:border-x">
               {filteredWorkouts.length > 0 ? (
                 <table className="w-full table-fixed border-b border-slate-700 text-center">
-                  <thead className="sticky top-0 divide-x divide-slate-700 bg-slate-50 shadow-sm shadow-slate-700 dark:bg-black">
+                  <thead className="sticky top-0 divide-x divide-slate-700 bg-gray-50 text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-gray-50">
                     <tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
                       <th className="py-2 px-4 text-lg shadow-sm shadow-slate-700">
                         {sortByDate ? "Exercise" : "Date"}
@@ -262,13 +238,11 @@ export default function WorkoutsTable({
                   </tbody>
                 </table>
               ) : (
-                <div className="p-6">
-                  <div className="flex items-center gap-4">
-                    <p className="text-lg font-bold text-red-500">No results</p>
-                    <Button onClick={clearFilters} variant="secondary">
-                      Clear Filters
-                    </Button>
-                  </div>
+                <div className="flex items-center justify-center gap-4 p-6">
+                  <p className="text-lg font-bold text-red-500">No results</p>
+                  <Button onClick={clearFilters} variant="secondary">
+                    Clear Filters
+                  </Button>
                 </div>
               )}
             </div>

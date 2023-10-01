@@ -1,6 +1,7 @@
 import React from "react"
 
 import {
+  faChevronCircleLeft,
   faCirclePlus,
   faCopy,
   faFilter,
@@ -18,11 +19,12 @@ import {nanoid} from "nanoid"
 import {
   DragDropContext,
   Draggable,
-  DropResult,
   Droppable,
+  DropResult,
 } from "react-beautiful-dnd"
 
 import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
+import {HomeLoader} from "~/shared/components/loaders"
 import Page from "~/shared/components/Page"
 import WorkoutsTable from "~/shared/components/WorkoutsTable"
 import {useAlerts} from "~/shared/context/AlertContext"
@@ -64,58 +66,6 @@ export default function HomePage() {
       title="Workouts"
       {...{error}}
     />
-  )
-}
-
-function HomeLoader() {
-  return (
-    <div className="flex h-screen flex-col items-center overflow-hidden border-slate-700">
-      <div className="w-screen">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
-          {Array.from({length: 5}).map((_, i) => (
-            <span
-              className="h-7 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700"
-              key={i}
-            />
-          ))}
-        </div>
-        <div className="mx-auto flex max-w-screen-xl items-center justify-between border-b border-slate-700 bg-slate-50 py-4 px-6 dark:bg-black xl:border-x">
-          <span className="h-7 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-        </div>
-      </div>
-      <div className="flex w-screen max-w-screen-xl justify-center border-slate-700 xl:border-x">
-        <div className="flex h-screen w-full flex-grow overflow-hidden">
-          <div className="flex w-full flex-1 flex-col">
-            <div className="h-full px-6 pb-20 pt-4">
-              {Array.from({length: 12}).map((_, i) => (
-                <div
-                  key={i}
-                  className={`flex justify-between gap-6 border-slate-700 pb-6 ${
-                    i ? "border-t-2 pt-6" : "pt-2"
-                  }`}
-                >
-                  <div className="flex flex-col">
-                    <span className="mb-4 h-6 w-40 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-                    <span className="mb-6 h-4 w-20 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-                    <span className="h-5 w-28 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-                    <span className="my-4 h-5 w-48 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-                    <span className="h-5 w-36 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-                  </div>
-                  <div className="flex flex-col items-center justify-evenly gap-y-4">
-                    {Array.from({length: 3}).map((_, j) => (
-                      <span
-                        className="h-6 w-6 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700"
-                        key={`${i}-${j}`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   )
 }
 
@@ -218,7 +168,6 @@ function HomeApp({filters, profile, workouts}: Session) {
         {...{
           clearFilters,
           filteredWorkouts,
-          handleFiltersClick,
           profile,
         }}
         hideWorkoutsTable={() => setView("list")}
@@ -227,68 +176,68 @@ function HomeApp({filters, profile, workouts}: Session) {
   }
 
   return (
-    <div className="flex justify-center border-slate-700">
-      <div className="fixed top-0 left-0 w-screen">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 border-b border-slate-700 bg-slate-50 px-6 dark:bg-black xl:border-x">
-          <IconButton
-            aria-label="Add a new workout"
-            className="text-blue-600 dark:text-blue-400"
-            icon={<FontAwesomeIcon icon={faCirclePlus} size="xl" />}
-            onClick={handleNewWorkoutClick}
-            side="right"
-            text="Create"
-            textClass="max-sm:sr-only"
-          />
-          {workouts.length > 0 && (
-            <>
-              <IconButton
-                aria-label="Show workout filters"
-                icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
-                onClick={handleFiltersClick}
-                side="right"
-                text="Filters"
-                textClass="max-sm:sr-only"
-              />
-              <IconButton
-                aria-label="View workouts in a table view"
-                icon={<FontAwesomeIcon icon={faTable} size="xl" />}
-                onClick={() => setView("table")}
-                side="right"
-                text="Table"
-                textClass="max-sm:sr-only"
-              />
-            </>
-          )}
-          <IconButton
-            aria-label="Go to the settings page"
-            href="/settings"
-            icon={<FontAwesomeIcon icon={faGear} size="xl" />}
-            side="right"
-            text="Settings"
-            textClass="max-sm:sr-only"
-          />
-          <UserMenu />
+    <div className="flex min-h-screen flex-col justify-start">
+      <div className="w-screen">
+        <div className="border-b border-slate-700">
+          <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
+            {workouts.length > 0 && (
+              <>
+                <IconButton
+                  aria-label="Show workout filters"
+                  icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
+                  onClick={handleFiltersClick}
+                  text="Filters"
+                  textClass="max-sm:sr-only"
+                />
+                <IconButton
+                  aria-label="View workouts in a table view"
+                  icon={<FontAwesomeIcon icon={faTable} size="xl" />}
+                  onClick={() => setView("table")}
+                  text="Table"
+                  textClass="max-sm:sr-only"
+                />
+              </>
+            )}
+            <IconButton
+              aria-label="Go to the settings page"
+              href="/settings"
+              icon={<FontAwesomeIcon icon={faGear} size="xl" />}
+              text="Settings"
+              textClass="max-sm:sr-only"
+            />
+            <UserMenu />
+          </div>
         </div>
         <div
-          className={`mx-auto flex max-w-screen-xl items-center justify-between border-b border-slate-700 bg-slate-50 py-4 dark:bg-black sm:px-6 xl:border-x ${
+          className={`mx-auto flex items-center justify-between py-4 sm:px-6 md:max-w-2xl md:pt-6 md:pb-2 ${
             view !== "list" ? "px-4" : "px-6"
           }`}
         >
           <h1 className="text-center text-xl">
             {view === "create"
-              ? `${editingWorkout ? "Editing" : "New"} Workout`
+              ? `${editingWorkout ? "Edit" : "New"} Workout`
               : view === "filters"
               ? "Filters"
               : "Workouts"}
           </h1>
+          {view !== "create" && (
+            <IconButton
+              aria-label="Add a new workout"
+              className="text-lg text-blue-600 dark:text-blue-400"
+              icon={<FontAwesomeIcon icon={faCirclePlus} />}
+              onClick={handleNewWorkoutClick}
+              text="New Workout"
+              side="left"
+            />
+          )}
         </div>
       </div>
-      <div className="flex w-screen max-w-screen-xl justify-center border-slate-700 pt-28 xl:border-x">
+      <div className="mx-auto flex h-full max-h-[calc(100vh-124px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100vh-156px)] md:max-w-2xl md:rounded-lg md:border">
         {view !== "list" && (
-          <div className="flex h-screen flex-grow">
-            <div className="flex w-40 max-w-7xl flex-col border-r border-slate-700 xs:w-56 sm:w-64 md:w-80 lg:w-96">
+          <div className="flex flex-grow border-r border-slate-700">
+            <div className="flex w-40 max-w-7xl flex-col xs:w-56 sm:w-64 md:w-72">
               <div className="overflow-hidden">
-                <div className="h-full overflow-y-auto px-4 pt-10 pb-20 sm:px-6">
+                <div className="h-full overflow-y-auto py-6 px-4 sm:px-6">
                   {view === "filters" ? (
                     <div>
                       <h4 className="text-xl">Exercise Name</h4>
@@ -383,6 +332,14 @@ function HomeApp({filters, profile, workouts}: Session) {
                             />
                           </div>
                         </div>
+                      </div>
+                      <div className="mt-6 flex justify-center">
+                        <IconButton
+                          className="text-lg text-blue-600 dark:text-blue-400"
+                          icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
+                          onClick={() => setView("list")}
+                          text="Hide Filters"
+                        />
                       </div>
                     </div>
                   ) : (
@@ -656,11 +613,11 @@ function HomeApp({filters, profile, workouts}: Session) {
             </div>
           </div>
         )}
-        <div className="flex h-screen w-full flex-grow">
+        <div className="flex w-full flex-grow">
           <div className="flex w-full flex-1 flex-col">
             <div className="overflow-hidden">
               <div
-                className={`h-full overflow-y-auto overflow-x-hidden pb-20 pt-4 ${
+                className={`h-full overflow-y-auto overflow-x-hidden ${
                   view !== "list" ? "px-4 sm:px-6" : "px-6"
                 }`}
               >
@@ -850,7 +807,7 @@ function HomeApp({filters, profile, workouts}: Session) {
                                 aria-label="Edit this workout"
                                 className={
                                   editingWorkout?.id === workout.id
-                                    ? "text-blue-600 dark:text-blue-400"
+                                    ? "text-lg text-blue-600 dark:text-blue-400"
                                     : ""
                                 }
                                 icon={

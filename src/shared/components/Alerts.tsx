@@ -10,12 +10,6 @@ const bgColors = {
   success: "bg-green-100 dark:bg-green-700 border-green-700 border",
 }
 
-const textColors = {
-  danger: "text-red-500",
-  information: "text-blue-500",
-  success: "text-green-500",
-}
-
 /**
  * Can display one or more temporary toast alerts and/or a persistent alert
  */
@@ -41,11 +35,11 @@ export default function Alerts() {
       {/* the persistent alert appears until it is removed from context */}
       {persistentAlert && (
         <div
-          className={`fixed bottom-0 left-0 flex w-screen justify-center gap-4 ${
-            textColors[persistentAlert.type]
+          className={`fixed bottom-4 right-4 flex justify-center gap-4 rounded-lg border border-slate-700 p-4 ${
+            bgColors[persistentAlert.type]
           }`}
         >
-          <div className="flex w-screen max-w-screen-xl items-center justify-end gap-4 border-t border-slate-700 bg-slate-50 px-4 py-2 dark:bg-black xl:border-x">
+          <div className="mx-auto flex items-center justify-center gap-4">
             <p className="font-bold">{persistentAlert.text}</p>
             {persistentAlert.actions?.map(({onClick, text}) => (
               <Button key={text} variant="secondary" {...{onClick}}>
