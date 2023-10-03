@@ -198,7 +198,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
             />
           )}
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100vh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100vh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100vh-140px)]">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-140px)]">
           {view !== "list" && (
             <div className="flex flex-grow border-r border-slate-700">
               <div className="flex w-40 max-w-7xl flex-col xs:w-56 sm:w-64 md:w-72">

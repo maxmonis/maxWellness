@@ -81,3 +81,15 @@ select:focus,
 input:focus {
   box-shadow: var(--glow);
 }
+
+@layer utilities {
+  .h-screen {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}

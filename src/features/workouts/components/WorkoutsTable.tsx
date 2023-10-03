@@ -105,7 +105,7 @@ export function WorkoutsTable({
               </div>
             </div>
             <div className="h-full w-full">
-              <div className="max-h-[calc(100vh-124px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100vh-156px)] lg:border-x">
+              <div className="max-h-[calc(100dvh-124px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100dvh-156px)] lg:border-x">
                 {filteredWorkouts.length > 0 ? (
                   <table className="w-full table-fixed border-b border-slate-700 text-center">
                     <thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">

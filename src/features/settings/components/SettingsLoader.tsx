@@ -7,7 +7,7 @@ export function SettingsLoader() {
   return (
     <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
       <div className="flex w-full flex-grow justify-center md:pt-2 lg:pt-6">
-        <div className="flex w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-h-[calc(100vh-124px)] md:max-w-2xl md:rounded-lg md:border">
+        <div className="flex w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-h-[calc(100dvh-124px)] md:max-w-2xl md:rounded-lg md:border">
           {Array.from({length: 2}).map((_, i) => (
             <div
               className="flex w-full flex-grow flex-col items-center overflow-hidden"

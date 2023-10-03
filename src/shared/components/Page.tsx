@@ -82,7 +82,7 @@ export function Page({
       {redirect ? null : (
         <div className="relative overflow-hidden">
           <div
-            className={`min-w-screen flex h-screen flex-col justify-between
+            className={`min-w-screen flex h-screen flex-col justify-between overflow-auto
           ${
             mustBeLoggedOut
               ? "text-white"
@@ -105,17 +105,17 @@ export function Page({
             {mustBeLoggedOut && (
               <>
                 <Wallpaper />
-                <footer className="flex w-full flex-col items-center gap-4 py-2 text-center">
-                  <a
-                    href="https://maxmonis.com/"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    © Max Monis 2019-{new Date().getFullYear()}
-                  </a>
-                </footer>
               </>
             )}
+            <footer className="flex w-full flex-col items-center gap-4 border-t border-slate-700 py-6 text-center">
+              <a
+                href="https://maxmonis.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                © Max Monis 2019-{new Date().getFullYear()}
+              </a>
+            </footer>
           </div>
         </div>
       )}

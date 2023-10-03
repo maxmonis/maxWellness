@@ -14,7 +14,7 @@ export function WorkoutsLoader() {
             <span className="h-5 w-12 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           </div>
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100vh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100vh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100vh-140px)]">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-140px)]">
           <div className="flex w-full flex-1 flex-col overflow-hidden">
             <div className="h-full p-6">
               {Array.from({length: 3}).map((_, i) => (
