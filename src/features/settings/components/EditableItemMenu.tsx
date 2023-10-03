@@ -46,7 +46,7 @@ export function EditableItemMenu({
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute top-8 -left-24 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
+        <dialog className="absolute top-8 -left-20 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
           <IconButton
             aria-label={`Edit ${newText}`}
             icon={<FontAwesomeIcon icon={faPen} />}

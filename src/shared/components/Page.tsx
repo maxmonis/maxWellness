@@ -82,11 +82,11 @@ export function Page({
       {redirect ? null : (
         <div className="relative overflow-hidden">
           <div
-            className={`min-w-screen flex min-h-screen flex-col justify-between
+            className={`min-w-screen flex h-screen flex-col justify-between
           ${
             mustBeLoggedOut
-              ? "text-gray-50"
-              : "bg-gray-50 text-gray-900 dark:bg-black dark:text-gray-50"
+              ? "text-white"
+              : "bg-white text-gray-900 dark:bg-black dark:text-white"
           }`}
           >
             {children ??

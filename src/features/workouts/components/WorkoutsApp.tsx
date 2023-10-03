@@ -1,9 +1,9 @@
 import {
-  faChevronCircleLeft,
   faCirclePlus,
   faCopy,
   faFilter,
   faGear,
+  faList,
   faPen,
   faTable,
   faTrash,
@@ -22,7 +22,8 @@ import {
   Droppable,
 } from "react-beautiful-dnd"
 import {WorkoutsTable} from "~/features/workouts/components/WorkoutsTable"
-import {Button, Checkbox, IconButton, UserMenu} from "~/shared/components/CTA"
+import {Button, Checkbox, IconButton} from "~/shared/components/CTA"
+import Navbar from "~/shared/components/Navbar"
 import {useAlerts} from "~/shared/context/AlertContext"
 import {
   getDateText,
@@ -154,41 +155,11 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col justify-start">
-      <div className="w-screen">
-        <div className="border-b border-slate-700">
-          <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
-            {workouts.length > 0 && (
-              <>
-                <IconButton
-                  aria-label="Show workout filters"
-                  icon={<FontAwesomeIcon icon={faFilter} size="xl" />}
-                  onClick={handleFiltersClick}
-                  text="Filters"
-                  textClass="max-sm:sr-only"
-                />
-                <IconButton
-                  aria-label="View workouts in a table view"
-                  icon={<FontAwesomeIcon icon={faTable} size="xl" />}
-                  onClick={() => setView("table")}
-                  text="Table"
-                  textClass="max-sm:sr-only"
-                />
-              </>
-            )}
-            <IconButton
-              aria-label="Go to the settings page"
-              href="/settings"
-              icon={<FontAwesomeIcon icon={faGear} size="xl" />}
-              text="Settings"
-              textClass="max-sm:sr-only"
-            />
-            <UserMenu />
-          </div>
-        </div>
+    <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
+      <div className="w-full lg:flex lg:flex-col">
         <div
-          className={`mx-auto flex items-center justify-between py-4 sm:px-6 md:max-w-2xl md:pt-6 md:pb-2 ${
-            view !== "list" ? "px-4" : "px-6"
+          className={`mx-auto flex w-full items-center justify-between pt-10 pb-1 text-lg sm:px-6 md:max-w-2xl ${
+            view !== "list" ? "px-4" : "px-4 xs:px-6"
           }`}
         >
           <h1 className="text-center text-xl">
@@ -198,518 +169,493 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
               ? "Filters"
               : "Workouts"}
           </h1>
-          {view !== "create" && (
+          {view === "list" ? (
+            <div className="flex gap-6">
+              {workouts.length > 0 && (
+                <IconButton
+                  aria-label="Show workout filters"
+                  icon={<FontAwesomeIcon icon={faFilter} />}
+                  onClick={handleFiltersClick}
+                  side="left"
+                  text="Filter"
+                />
+              )}
+              <IconButton
+                aria-label="Add a new workout"
+                className="text-blue-600 dark:text-blue-400"
+                icon={<FontAwesomeIcon icon={faCirclePlus} />}
+                onClick={handleNewWorkoutClick}
+                text="Create"
+                side="left"
+              />
+            </div>
+          ) : (
             <IconButton
-              aria-label="Add a new workout"
-              className="text-lg text-blue-600 dark:text-blue-400"
-              icon={<FontAwesomeIcon icon={faCirclePlus} />}
-              onClick={handleNewWorkoutClick}
-              text="New Workout"
-              side="left"
+              aria-label="View workouts list"
+              icon={<FontAwesomeIcon icon={faList} />}
+              onClick={() => setView("list")}
+              text="List View"
             />
           )}
         </div>
-      </div>
-      <div className="mx-auto flex h-full max-h-[calc(100vh-124px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100vh-156px)] md:max-w-2xl md:rounded-lg md:border">
-        {view !== "list" && (
-          <div className="flex flex-grow border-r border-slate-700">
-            <div className="flex w-40 max-w-7xl flex-col xs:w-56 sm:w-64 md:w-72">
-              <div className="overflow-hidden">
-                <div className="h-full overflow-y-auto py-6 px-4 sm:px-6">
-                  {view === "filters" ? (
-                    <div>
-                      <h4 className="text-xl">Exercise Name</h4>
-                      <div className="mt-4 mb-10 grid gap-4">
-                        {sortBy(appliedFilters.liftIds, ({id}) =>
-                          getLiftName(id, liftNames),
-                        ).map(({checked, id}) => (
-                          <Checkbox
-                            key={id}
-                            onChange={e =>
-                              updateWorkoutsFilter(e.target.value, "liftId")
-                            }
-                            text={getLiftName(id, liftNames)}
-                            value={id}
-                            {...{checked}}
-                          />
-                        ))}
-                      </div>
-                      <h4 className="text-xl">Workout Name</h4>
-                      <div className="mt-4 mb-10 grid gap-4">
-                        {sortBy(appliedFilters.nameIds, ({id}) =>
-                          getWorkoutName(id, workoutNames),
-                        ).map(({checked, id}) => (
-                          <Checkbox
-                            key={id}
-                            onChange={e =>
-                              updateWorkoutsFilter(e.target.value, "nameId")
-                            }
-                            text={getWorkoutName(id, workoutNames)}
-                            value={id}
-                            {...{checked}}
-                          />
-                        ))}
-                      </div>
-                      <h4 className="text-xl">Workout Date</h4>
-                      <div className="mt-4 mb-2">
-                        <Checkbox
-                          key={"chronology"}
-                          checked={appliedFilters.newestFirst}
-                          onChange={e =>
-                            updateWorkoutsFilter(e.target.value, "chronology")
-                          }
-                          text={"Newest First"}
-                          value={"chronology"}
-                        />
-                        <div className="mt-3 flex flex-col gap-3">
-                          <div>
-                            <label htmlFor="startDate">Start date:</label>
-                            <input
-                              className="mt-1"
-                              min={filters.workoutDates.startDate}
-                              max={
-                                appliedFilters.workoutDates.endDate.split(
-                                  "T",
-                                )[0]
-                              }
-                              id="startDate"
-                              type="date"
-                              value={
-                                appliedFilters.workoutDates.startDate.split(
-                                  "T",
-                                )[0]
-                              }
-                              onChange={e => {
-                                updateWorkoutsFilter(
-                                  e.target.value,
-                                  "startDate",
-                                )
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <label htmlFor="endDate">End date:</label>
-                            <input
-                              className="mt-1"
-                              id="endDate"
-                              min={
-                                appliedFilters.workoutDates.startDate.split(
-                                  "T",
-                                )[0]
-                              }
-                              max={filters.workoutDates.endDate.split("T")[0]}
-                              type="date"
-                              value={
-                                appliedFilters.workoutDates.endDate.split(
-                                  "T",
-                                )[0]
-                              }
-                              onChange={e => {
-                                updateWorkoutsFilter(e.target.value, "endDate")
-                              }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mt-6 flex justify-center">
-                        <IconButton
-                          className="text-lg text-blue-600 dark:text-blue-400"
-                          icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-                          onClick={() => setView("list")}
-                          text="Hide Filters"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <DragDropContext
-                      onDragEnd={handleDragEnd}
-                      onDragStart={() => setDragging(true)}
-                    >
-                      <form className="flex h-40 flex-col" {...{onSubmit}}>
-                        <Droppable droppableId="ExerciseForm">
-                          {(
-                            {
-                              droppableProps,
-                              innerRef: droppableRef,
-                              placeholder,
-                            },
-                            {isDraggingOver},
-                          ) => (
-                            <div ref={droppableRef} {...droppableProps}>
-                              {dragging ? (
-                                <div
-                                  className={`grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700 ${
-                                    isDraggingOver
-                                      ? "scale-105 border-blue-800 bg-blue-50 text-blue-800"
-                                      : "mb-2 bg-white"
-                                  }`}
-                                >
-                                  Drop here to edit
-                                </div>
-                              ) : (
-                                <>
-                                  <div>
-                                    <label
-                                      className="sr-only"
-                                      htmlFor="exerciseName"
-                                    >
-                                      Exercise Name
-                                    </label>
-                                    <select
-                                      id="exerciseName"
-                                      name="liftId"
-                                      value={liftId}
-                                      {...{onChange}}
-                                    >
-                                      {activeLiftNames.map(({text, id}) => (
-                                        <option key={id} value={id}>
-                                          {text}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </div>
-                                  <div className="flex flex-shrink gap-1">
-                                    {[
-                                      {
-                                        label: "Sets",
-                                        name: "sets",
-                                        value: sets,
-                                      },
-                                      {
-                                        label: "Reps",
-                                        name: "reps",
-                                        value: reps,
-                                      },
-                                      {
-                                        label: "Weight",
-                                        name: "weight",
-                                        value: weight,
-                                      },
-                                    ].map(({label, ...field}, i) => (
-                                      <div key={i}>
-                                        <label
-                                          className="text-sm"
-                                          htmlFor={label}
-                                        >
-                                          {label}
-                                        </label>
-                                        <input
-                                          autoFocus={
-                                            i === 0 && routine.length === 0
-                                          }
-                                          className="flex flex-shrink text-center xs:px-3 xs:text-left"
-                                          id={label}
-                                          inputMode="numeric"
-                                          pattern="\d*"
-                                          {...{onChange}}
-                                          {...field}
-                                        />
-                                      </div>
-                                    ))}
-                                  </div>
-                                  <div className="mt-2">
-                                    <div className="flex items-center justify-between gap-3">
-                                      <Button
-                                        className="flex-grow"
-                                        type="submit"
-                                        variant="secondary"
-                                      >
-                                        Enter
-                                      </Button>
-                                      {(sets || reps || weight) && (
-                                        <Button
-                                          className="mx-auto"
-                                          onClick={() =>
-                                            setValues({
-                                              ...defaultValues,
-                                              date,
-                                              nameId,
-                                              liftId,
-                                            })
-                                          }
-                                        >
-                                          Clear
-                                        </Button>
-                                      )}
-                                    </div>
-                                    {errorMsg && (
-                                      <p className="text-center text-sm text-red-500">
-                                        {errorMsg}
-                                      </p>
-                                    )}
-                                  </div>
-                                </>
-                              )}
-                              <div className="h-0 w-0">{placeholder}</div>
-                            </div>
-                          )}
-                        </Droppable>
-                      </form>
-                      {routine.length > 0 && (
-                        <div>
-                          <Droppable droppableId="ExerciseList">
-                            {({
-                              droppableProps,
-                              innerRef: droppableRef,
-                              placeholder,
-                            }) => (
-                              <ul
-                                className="mt-4"
-                                ref={droppableRef}
-                                {...droppableProps}
-                              >
-                                {routine.map((exercise, i) => (
-                                  <Draggable
-                                    draggableId={exercise.id}
-                                    index={i}
-                                    key={exercise.id}
-                                  >
-                                    {(
-                                      {
-                                        draggableProps,
-                                        dragHandleProps,
-                                        innerRef: draggableRef,
-                                      },
-                                      {draggingOver},
-                                    ) => (
-                                      <li
-                                        className={`flex items-center justify-between gap-2 py-2 ${
-                                          draggingOver === "ExerciseForm"
-                                            ? "rounded-lg border border-blue-900 bg-white px-2 text-blue-900"
-                                            : ""
-                                        }`}
-                                        ref={draggableRef}
-                                        {...draggableProps}
-                                      >
-                                        <span
-                                          className="text-lg leading-tight"
-                                          {...dragHandleProps}
-                                        >
-                                          {`${getLiftName(
-                                            exercise.liftId,
-                                            liftNames,
-                                          )}: ${getPrintout(
-                                            omit(exercise, [
-                                              "recordEndDate",
-                                              "recordStartDate",
-                                            ]),
-                                          )}`}
-                                        </span>
-                                        {draggingOver !== "ExerciseForm" && (
-                                          <IconButton
-                                            icon={
-                                              <FontAwesomeIcon icon={faX} />
-                                            }
-                                            onClick={() =>
-                                              deleteExercise(exercise.id)
-                                            }
-                                          />
-                                        )}
-                                      </li>
-                                    )}
-                                  </Draggable>
-                                ))}
-                                {placeholder}
-                              </ul>
-                            )}
-                          </Droppable>
-                        </div>
-                      )}
+        <div className="mx-auto flex h-full max-h-[calc(100vh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100vh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100vh-140px)]">
+          {view !== "list" && (
+            <div className="flex flex-grow border-r border-slate-700">
+              <div className="flex w-40 max-w-7xl flex-col xs:w-56 sm:w-64 md:w-72">
+                <div className="overflow-hidden">
+                  <div className="h-full overflow-y-auto py-6 px-4 sm:px-6">
+                    {view === "filters" ? (
                       <div>
-                        <div className="mt-6">
-                          <label className="sr-only" htmlFor="workoutName">
-                            Workout Name
-                          </label>
-                          <select
-                            className="mb-2"
-                            id="workoutName"
-                            name="nameId"
-                            value={nameId}
-                            {...{onChange}}
-                          >
-                            {activeWorkoutNames.map(({id, text}) => (
-                              <option key={id} value={id}>
-                                {text}
-                              </option>
-                            ))}
-                          </select>
-                          <label className="sr-only" htmlFor="workoutDate">
-                            Workout Date
-                          </label>
-                          <input
-                            id="workoutDate"
-                            name="date"
-                            type="date"
-                            value={date}
-                            {...{onChange}}
+                        <h4 className="text-xl">Exercise Name</h4>
+                        <div className="mt-4 mb-10 grid gap-4">
+                          {sortBy(appliedFilters.liftIds, ({id}) =>
+                            getLiftName(id, liftNames),
+                          ).map(({checked, id}) => (
+                            <Checkbox
+                              key={id}
+                              onChange={e =>
+                                updateWorkoutsFilter(e.target.value, "liftId")
+                              }
+                              text={getLiftName(id, liftNames)}
+                              value={id}
+                              {...{checked}}
+                            />
+                          ))}
+                        </div>
+                        <h4 className="text-xl">Workout Name</h4>
+                        <div className="mt-4 mb-10 grid gap-4">
+                          {sortBy(appliedFilters.nameIds, ({id}) =>
+                            getWorkoutName(id, workoutNames),
+                          ).map(({checked, id}) => (
+                            <Checkbox
+                              key={id}
+                              onChange={e =>
+                                updateWorkoutsFilter(e.target.value, "nameId")
+                              }
+                              text={getWorkoutName(id, workoutNames)}
+                              value={id}
+                              {...{checked}}
+                            />
+                          ))}
+                        </div>
+                        <h4 className="text-xl">Workout Date</h4>
+                        <div className="mt-4 mb-2">
+                          <Checkbox
+                            key={"chronology"}
+                            checked={appliedFilters.newestFirst}
+                            onChange={e =>
+                              updateWorkoutsFilter(e.target.value, "chronology")
+                            }
+                            text={"Newest First"}
+                            value={"chronology"}
                           />
-                        </div>
-                        <div className="mt-2 flex items-center justify-between gap-3">
-                          <Button
-                            className="flex-grow"
-                            onClick={handleSave}
-                            variant="primary"
-                          >
-                            Save
-                          </Button>
-                          {routine.length > 0 && (
-                            <Button
-                              className="mx-auto"
-                              type="button"
-                              onClick={() => updateRoutine([])}
-                            >
-                              Reset
-                            </Button>
-                          )}
-                        </div>
-                        {workoutError && (
-                          <p className="text-center text-sm text-red-500">
-                            {workoutError}
-                          </p>
-                        )}
-                      </div>
-                      <div className="mt-4 flex w-full justify-center">
-                        {editingWorkout ? (
-                          <Button onClick={resetState} variant="danger">
-                            Discard Changes
-                          </Button>
-                        ) : (
-                          <Button
-                            onClick={() => {
-                              updateRoutine([])
-                              resetState()
-                            }}
-                            variant="danger"
-                          >
-                            Discard
-                          </Button>
-                        )}
-                      </div>
-                    </DragDropContext>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="flex w-full flex-grow">
-          <div className="flex w-full flex-1 flex-col">
-            <div className="overflow-hidden">
-              <div
-                className={`h-full overflow-y-auto overflow-x-hidden ${
-                  view !== "list" ? "px-4 sm:px-6" : "px-6"
-                }`}
-              >
-                {filteredWorkouts.length ? (
-                  filteredWorkouts.map((workout, i) => {
-                    const workoutName = workoutNames.find(
-                      n => n.id === workout.id,
-                    )
-                    return (
-                      <div
-                        key={workout.id}
-                        className={`justify-between gap-6 border-slate-700 py-6 sm:gap-10 ${
-                          i ? "border-t-2" : ""
-                        } ${
-                          editingWorkout?.id === workout.id ? "italic" : ""
-                        } ${view !== "list" ? "sm:flex" : "flex"}`}
-                      >
-                        <div>
-                          <div className="mb-6">
-                            <h1 className="text-xl leading-tight">
-                              <span
-                                className={
-                                  view === "create" && !workoutName?.isHidden
-                                    ? "cursor-pointer"
-                                    : ""
+                          <div className="mt-3 flex flex-col gap-3">
+                            <div>
+                              <label htmlFor="startDate">Start date:</label>
+                              <input
+                                className="mt-1"
+                                min={filters.workoutDates.startDate}
+                                max={
+                                  appliedFilters.workoutDates.endDate.split(
+                                    "T",
+                                  )[0]
                                 }
-                                onClick={
-                                  view === "create" && !workoutName?.isHidden
-                                    ? () => {
-                                        setValues({
-                                          ...values,
-                                          nameId: workout.nameId,
-                                        })
-                                      }
-                                    : undefined
+                                id="startDate"
+                                type="date"
+                                value={
+                                  appliedFilters.workoutDates.startDate.split(
+                                    "T",
+                                  )[0]
                                 }
-                              >
-                                {getWorkoutName(workout.nameId, workoutNames)}
-                              </span>
-                            </h1>
-                            <h2 className="text-md mt-2 leading-tight">
-                              <span
-                                className={
-                                  view === "create" ? "cursor-pointer" : ""
+                                onChange={e => {
+                                  updateWorkoutsFilter(
+                                    e.target.value,
+                                    "startDate",
+                                  )
+                                }}
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="endDate">End date:</label>
+                              <input
+                                className="mt-1"
+                                id="endDate"
+                                min={
+                                  appliedFilters.workoutDates.startDate.split(
+                                    "T",
+                                  )[0]
                                 }
-                                onClick={
-                                  view === "create"
-                                    ? () =>
-                                        setValues({
-                                          ...values,
-                                          date: workout.date.split("T")[0],
-                                        })
-                                    : undefined
+                                max={filters.workoutDates.endDate.split("T")[0]}
+                                type="date"
+                                value={
+                                  appliedFilters.workoutDates.endDate.split(
+                                    "T",
+                                  )[0]
                                 }
-                              >
-                                {getDateText(workout.date)}
-                              </span>
-                            </h2>
+                                onChange={e => {
+                                  updateWorkoutsFilter(
+                                    e.target.value,
+                                    "endDate",
+                                  )
+                                }}
+                              />
+                            </div>
                           </div>
-                          <ul>
-                            {groupExercisesByLift(workout.routine).map(
-                              (exerciseList, j) => {
-                                const [{liftId}] = exerciseList
-                                const liftName = liftNames.find(
-                                  ({id}) => id === liftId,
-                                )
-                                return (
-                                  <li key={j} className="mt-4 flex flex-wrap">
-                                    <span
-                                      className={`text-lg leading-tight ${
-                                        view === "create" && !liftName?.isHidden
-                                          ? "cursor-pointer"
-                                          : ""
-                                      }`}
-                                      onClick={
-                                        view === "create" && !liftName?.isHidden
-                                          ? () => {
+                        </div>
+                      </div>
+                    ) : (
+                      <DragDropContext
+                        onDragEnd={handleDragEnd}
+                        onDragStart={() => setDragging(true)}
+                      >
+                        <form className="flex h-40 flex-col" {...{onSubmit}}>
+                          <Droppable droppableId="ExerciseForm">
+                            {(
+                              {
+                                droppableProps,
+                                innerRef: droppableRef,
+                                placeholder,
+                              },
+                              {isDraggingOver},
+                            ) => (
+                              <div ref={droppableRef} {...droppableProps}>
+                                {dragging ? (
+                                  <div
+                                    className={`grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700 ${
+                                      isDraggingOver
+                                        ? "scale-105 border-blue-800 bg-blue-50 text-blue-800"
+                                        : "mb-2 bg-white"
+                                    }`}
+                                  >
+                                    Drop here to edit
+                                  </div>
+                                ) : (
+                                  <>
+                                    <div>
+                                      <label
+                                        className="sr-only"
+                                        htmlFor="exerciseName"
+                                      >
+                                        Exercise Name
+                                      </label>
+                                      <select
+                                        id="exerciseName"
+                                        name="liftId"
+                                        value={liftId}
+                                        {...{onChange}}
+                                      >
+                                        {activeLiftNames.map(({text, id}) => (
+                                          <option key={id} value={id}>
+                                            {text}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                    <div className="flex flex-shrink gap-1">
+                                      {[
+                                        {
+                                          label: "Sets",
+                                          name: "sets",
+                                          value: sets,
+                                        },
+                                        {
+                                          label: "Reps",
+                                          name: "reps",
+                                          value: reps,
+                                        },
+                                        {
+                                          label: "Weight",
+                                          name: "weight",
+                                          value: weight,
+                                        },
+                                      ].map(({label, ...field}, i) => (
+                                        <div key={i}>
+                                          <label
+                                            className="text-sm"
+                                            htmlFor={label}
+                                          >
+                                            {label}
+                                          </label>
+                                          <input
+                                            autoFocus={
+                                              i === 0 && routine.length === 0
+                                            }
+                                            className="flex flex-shrink text-center xs:px-3 xs:text-left"
+                                            id={label}
+                                            inputMode="numeric"
+                                            pattern="\d*"
+                                            {...{onChange}}
+                                            {...field}
+                                          />
+                                        </div>
+                                      ))}
+                                    </div>
+                                    <div className="mt-2">
+                                      <div className="flex items-center justify-between gap-3">
+                                        <Button
+                                          className="flex-grow"
+                                          type="submit"
+                                          variant="secondary"
+                                        >
+                                          Enter
+                                        </Button>
+                                        {(sets || reps || weight) && (
+                                          <Button
+                                            className="mx-auto"
+                                            onClick={() =>
                                               setValues({
-                                                ...values,
+                                                ...defaultValues,
+                                                date,
+                                                nameId,
                                                 liftId,
                                               })
                                             }
-                                          : undefined
-                                      }
+                                          >
+                                            Clear
+                                          </Button>
+                                        )}
+                                      </div>
+                                      {errorMsg && (
+                                        <p className="text-center text-sm text-red-500">
+                                          {errorMsg}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </>
+                                )}
+                                <div className="h-0 w-0">{placeholder}</div>
+                              </div>
+                            )}
+                          </Droppable>
+                        </form>
+                        {routine.length > 0 && (
+                          <div>
+                            <Droppable droppableId="ExerciseList">
+                              {({
+                                droppableProps,
+                                innerRef: droppableRef,
+                                placeholder,
+                              }) => (
+                                <ul
+                                  className="mt-4"
+                                  ref={droppableRef}
+                                  {...droppableProps}
+                                >
+                                  {routine.map((exercise, i) => (
+                                    <Draggable
+                                      draggableId={exercise.id}
+                                      index={i}
+                                      key={exercise.id}
                                     >
-                                      {getLiftName(liftId, liftNames)}:
-                                    </span>
-                                    {exerciseList.map((exercise, k) => (
+                                      {(
+                                        {
+                                          draggableProps,
+                                          dragHandleProps,
+                                          innerRef: draggableRef,
+                                        },
+                                        {draggingOver},
+                                      ) => (
+                                        <li
+                                          className={`flex items-center justify-between gap-2 py-2 ${
+                                            draggingOver === "ExerciseForm"
+                                              ? "rounded-lg border border-blue-900 bg-white px-2 text-blue-900"
+                                              : ""
+                                          }`}
+                                          ref={draggableRef}
+                                          {...draggableProps}
+                                        >
+                                          <span
+                                            className="text-lg leading-tight"
+                                            {...dragHandleProps}
+                                          >
+                                            {`${getLiftName(
+                                              exercise.liftId,
+                                              liftNames,
+                                            )}: ${getPrintout(
+                                              omit(exercise, [
+                                                "recordEndDate",
+                                                "recordStartDate",
+                                              ]),
+                                            )}`}
+                                          </span>
+                                          {draggingOver !== "ExerciseForm" && (
+                                            <IconButton
+                                              icon={
+                                                <FontAwesomeIcon icon={faX} />
+                                              }
+                                              onClick={() =>
+                                                deleteExercise(exercise.id)
+                                              }
+                                            />
+                                          )}
+                                        </li>
+                                      )}
+                                    </Draggable>
+                                  ))}
+                                  {placeholder}
+                                </ul>
+                              )}
+                            </Droppable>
+                          </div>
+                        )}
+                        <div>
+                          <div className="mt-6">
+                            <label className="sr-only" htmlFor="workoutName">
+                              Workout Name
+                            </label>
+                            <select
+                              className="mb-2"
+                              id="workoutName"
+                              name="nameId"
+                              value={nameId}
+                              {...{onChange}}
+                            >
+                              {activeWorkoutNames.map(({id, text}) => (
+                                <option key={id} value={id}>
+                                  {text}
+                                </option>
+                              ))}
+                            </select>
+                            <label className="sr-only" htmlFor="workoutDate">
+                              Workout Date
+                            </label>
+                            <input
+                              id="workoutDate"
+                              name="date"
+                              type="date"
+                              value={date}
+                              {...{onChange}}
+                            />
+                          </div>
+                          <div className="mt-2 flex items-center justify-between gap-3">
+                            <Button
+                              className="flex-grow"
+                              onClick={handleSave}
+                              variant="primary"
+                            >
+                              Save
+                            </Button>
+                            {routine.length > 0 && (
+                              <Button
+                                className="mx-auto"
+                                type="button"
+                                onClick={() => updateRoutine([])}
+                              >
+                                Reset
+                              </Button>
+                            )}
+                          </div>
+                          {workoutError && (
+                            <p className="text-center text-sm text-red-500">
+                              {workoutError}
+                            </p>
+                          )}
+                        </div>
+                        <div className="mt-4 flex w-full justify-center">
+                          {editingWorkout ? (
+                            <Button onClick={resetState} variant="danger">
+                              Discard Changes
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => {
+                                updateRoutine([])
+                                resetState()
+                              }}
+                              variant="danger"
+                            >
+                              Discard
+                            </Button>
+                          )}
+                        </div>
+                      </DragDropContext>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="flex w-full flex-grow">
+            <div className="flex w-full flex-1 flex-col">
+              <div className="overflow-hidden">
+                <div
+                  className={`h-full overflow-y-auto overflow-x-hidden ${
+                    view !== "list" ? "px-4 sm:px-6" : "px-4 xs:px-6"
+                  }`}
+                >
+                  {filteredWorkouts.length ? (
+                    filteredWorkouts.map((workout, i) => {
+                      const workoutName = workoutNames.find(
+                        n => n.id === workout.id,
+                      )
+                      return (
+                        <div
+                          key={workout.id}
+                          className={`justify-between gap-6 border-slate-700 py-6 sm:gap-10${
+                            i ? " border-t" : ""
+                          }${
+                            editingWorkout?.id === workout.id ? " italic" : ""
+                          } ${view !== "list" ? "sm:flex" : "flex"}`}
+                        >
+                          <div>
+                            <div className="mb-6">
+                              <h1 className="text-xl leading-tight">
+                                <span
+                                  className={
+                                    view === "create" && !workoutName?.isHidden
+                                      ? "cursor-pointer"
+                                      : ""
+                                  }
+                                  onClick={
+                                    view === "create" && !workoutName?.isHidden
+                                      ? () => {
+                                          setValues({
+                                            ...values,
+                                            nameId: workout.nameId,
+                                          })
+                                        }
+                                      : undefined
+                                  }
+                                >
+                                  {getWorkoutName(workout.nameId, workoutNames)}
+                                </span>
+                              </h1>
+                              <h2 className="text-md mt-2 leading-tight">
+                                <span
+                                  className={
+                                    view === "create" ? "cursor-pointer" : ""
+                                  }
+                                  onClick={
+                                    view === "create"
+                                      ? () =>
+                                          setValues({
+                                            ...values,
+                                            date: workout.date.split("T")[0],
+                                          })
+                                      : undefined
+                                  }
+                                >
+                                  {getDateText(workout.date)}
+                                </span>
+                              </h2>
+                            </div>
+                            <ul>
+                              {groupExercisesByLift(workout.routine).map(
+                                (exerciseList, j) => {
+                                  const [{liftId}] = exerciseList
+                                  const liftName = liftNames.find(
+                                    ({id}) => id === liftId,
+                                  )
+                                  return (
+                                    <li key={j} className="mt-4 flex flex-wrap">
                                       <span
-                                        key={k}
                                         className={`text-lg leading-tight ${
                                           view === "create" &&
                                           !liftName?.isHidden
                                             ? "cursor-pointer"
                                             : ""
                                         }`}
-                                        onClick={() =>
-                                          view === "create"
-                                            ? setValues({
-                                                ...values,
-                                                sets: exercise.sets
-                                                  ? exercise.sets.toString()
-                                                  : "",
-                                                reps: exercise.reps
-                                                  ? exercise.reps.toString()
-                                                  : "",
-                                                weight: exercise.weight
-                                                  ? exercise.weight.toString()
-                                                  : "",
-                                              })
-                                            : undefined
-                                        }
-                                        onDoubleClick={
+                                        onClick={
                                           view === "create" &&
                                           !liftName?.isHidden
                                             ? () => {
@@ -717,131 +663,198 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                                                   ...values,
                                                   liftId,
                                                 })
-                                                addExercise({
-                                                  ...omit(exercise, [
-                                                    "recordStartDate",
-                                                    "recordEndDate",
-                                                  ]),
-                                                  id: nanoid(),
-                                                })
                                               }
                                             : undefined
                                         }
                                       >
-                                        &nbsp;
-                                        {getPrintout(exercise)}
-                                        {k !== exerciseList.length - 1 && ","}
+                                        {getLiftName(liftId, liftNames)}:
                                       </span>
-                                    ))}
-                                  </li>
-                                )
-                              },
-                            )}
-                          </ul>
-                        </div>
-                        <>
-                          {deletingId === workout.id ? (
-                            <div
-                              className={`flex items-center justify-evenly gap-4 ${
-                                view !== "list"
-                                  ? "pt-6 sm:flex-col"
-                                  : "flex-col"
-                              }`}
-                            >
-                              <Button
-                                onClick={() => handleDelete(workout.id)}
-                                variant="danger"
+                                      {exerciseList.map((exercise, k) => (
+                                        <span
+                                          key={k}
+                                          className={`text-lg leading-tight ${
+                                            view === "create" &&
+                                            !liftName?.isHidden
+                                              ? "cursor-pointer"
+                                              : ""
+                                          }`}
+                                          onClick={() =>
+                                            view === "create"
+                                              ? setValues({
+                                                  ...values,
+                                                  sets: exercise.sets
+                                                    ? exercise.sets.toString()
+                                                    : "",
+                                                  reps: exercise.reps
+                                                    ? exercise.reps.toString()
+                                                    : "",
+                                                  weight: exercise.weight
+                                                    ? exercise.weight.toString()
+                                                    : "",
+                                                })
+                                              : undefined
+                                          }
+                                          onDoubleClick={
+                                            view === "create" &&
+                                            !liftName?.isHidden
+                                              ? () => {
+                                                  setValues({
+                                                    ...values,
+                                                    liftId,
+                                                  })
+                                                  addExercise({
+                                                    ...omit(exercise, [
+                                                      "recordStartDate",
+                                                      "recordEndDate",
+                                                    ]),
+                                                    id: nanoid(),
+                                                  })
+                                                }
+                                              : undefined
+                                          }
+                                        >
+                                          &nbsp;
+                                          {getPrintout(exercise)}
+                                          {k !== exerciseList.length - 1 && ","}
+                                        </span>
+                                      ))}
+                                    </li>
+                                  )
+                                },
+                              )}
+                            </ul>
+                          </div>
+                          <>
+                            {deletingId === workout.id ? (
+                              <div
+                                className={`flex items-center justify-evenly gap-4 ${
+                                  view !== "list"
+                                    ? "pt-6 sm:flex-col"
+                                    : "flex-col"
+                                }`}
                               >
-                                Delete
-                              </Button>
-                              <Button onClick={() => setDeletingId(null)}>
-                                Cancel
-                              </Button>
-                            </div>
-                          ) : (
-                            <div
-                              className={`flex justify-evenly gap-y-4 ${
-                                view !== "list"
-                                  ? "mt-8 mb-2 items-center sm:mt-0 sm:mb-0 sm:flex-col sm:items-end"
-                                  : "flex-col items-end"
-                              }`}
-                            >
-                              <IconButton
-                                aria-label="Copy this workout's name and exercises"
-                                icon={
-                                  <FontAwesomeIcon icon={faCopy} size="lg" />
-                                }
-                                onClick={() =>
-                                  copyWorkout(
-                                    workouts.find(
-                                      ({id}) => id === workout.id,
-                                    ) ?? workout,
-                                  )
-                                }
-                                side="left"
-                                text="Copy"
-                                textClass="max-sm:sr-only"
-                              />
-                              <IconButton
-                                aria-label="Edit this workout"
-                                className={
-                                  editingWorkout?.id === workout.id
-                                    ? "text-lg text-blue-600 dark:text-blue-400"
-                                    : ""
-                                }
-                                icon={
-                                  <FontAwesomeIcon icon={faPen} size="lg" />
-                                }
-                                onClick={() =>
-                                  setEditingWorkout(
+                                <Button
+                                  onClick={() => handleDelete(workout.id)}
+                                  variant="danger"
+                                >
+                                  Delete
+                                </Button>
+                                <Button onClick={() => setDeletingId(null)}>
+                                  Cancel
+                                </Button>
+                              </div>
+                            ) : (
+                              <div
+                                className={`flex justify-evenly gap-y-4 ${
+                                  view !== "list"
+                                    ? "mt-8 mb-2 items-center sm:mt-0 sm:mb-0 sm:flex-col sm:items-end"
+                                    : "flex-col items-end"
+                                }`}
+                              >
+                                <IconButton
+                                  aria-label="Copy this workout's name and exercises"
+                                  icon={
+                                    <FontAwesomeIcon icon={faCopy} size="lg" />
+                                  }
+                                  onClick={() =>
+                                    copyWorkout(
+                                      workouts.find(
+                                        ({id}) => id === workout.id,
+                                      ) ?? workout,
+                                    )
+                                  }
+                                  side="left"
+                                  text="Copy"
+                                  textClass="max-sm:sr-only"
+                                />
+                                <IconButton
+                                  aria-label="Edit this workout"
+                                  className={
                                     editingWorkout?.id === workout.id
-                                      ? null
-                                      : workouts.find(
-                                          ({id}) => id === workout.id,
-                                        ) ?? workout,
-                                  )
-                                }
-                                side="left"
-                                text="Edit"
-                                textClass="max-sm:sr-only"
-                              />
-                              <IconButton
-                                aria-label="Delete this workout"
-                                icon={
-                                  <FontAwesomeIcon icon={faTrash} size="lg" />
-                                }
-                                onClick={() => handleDeleteClick(workout.id)}
-                                side="left"
-                                text="Delete"
-                                textClass="max-sm:sr-only"
-                              />
-                            </div>
-                          )}
-                        </>
-                      </div>
-                    )
-                  })
-                ) : (
-                  <div className="my-6">
-                    {workouts.length ? (
-                      <div className="flex items-center gap-4">
-                        <p className="text-lg font-bold text-red-500">
-                          No results
-                        </p>
-                        <Button onClick={clearFilters} variant="secondary">
-                          Clear Filters
-                        </Button>
-                      </div>
-                    ) : (
-                      <p>You haven&apos;t added any workouts yet</p>
-                    )}
-                  </div>
-                )}
+                                      ? "text-lg text-blue-600 dark:text-blue-400"
+                                      : ""
+                                  }
+                                  icon={
+                                    <FontAwesomeIcon icon={faPen} size="lg" />
+                                  }
+                                  onClick={() =>
+                                    setEditingWorkout(
+                                      editingWorkout?.id === workout.id
+                                        ? null
+                                        : workouts.find(
+                                            ({id}) => id === workout.id,
+                                          ) ?? workout,
+                                    )
+                                  }
+                                  side="left"
+                                  text="Edit"
+                                  textClass="max-sm:sr-only"
+                                />
+                                <IconButton
+                                  aria-label="Delete this workout"
+                                  icon={
+                                    <FontAwesomeIcon icon={faTrash} size="lg" />
+                                  }
+                                  onClick={() => handleDeleteClick(workout.id)}
+                                  side="left"
+                                  text="Delete"
+                                  textClass="max-sm:sr-only"
+                                />
+                              </div>
+                            )}
+                          </>
+                        </div>
+                      )
+                    })
+                  ) : (
+                    <div className="my-6">
+                      {workouts.length ? (
+                        <div className="flex items-center gap-4">
+                          <p className="text-lg font-bold text-red-500">
+                            No results
+                          </p>
+                          <Button onClick={clearFilters} variant="secondary">
+                            Clear Filters
+                          </Button>
+                        </div>
+                      ) : (
+                        <p>You haven&apos;t added any workouts yet</p>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Navbar
+        buttons={
+          workouts.length
+            ? [
+                {
+                  icon: <FontAwesomeIcon icon={faTable} size="xl" />,
+                  onClick: () => setView("table"),
+                  text: "Table",
+                  textClass: "max-sm:sr-only",
+                },
+                {
+                  href: "/settings",
+                  icon: <FontAwesomeIcon icon={faGear} size="xl" />,
+                  text: "Settings",
+                  textClass: "max-sm:sr-only",
+                },
+              ]
+            : [
+                {
+                  href: "/settings",
+                  icon: <FontAwesomeIcon icon={faGear} size="xl" />,
+                  text: "Settings",
+                  textClass: "max-sm:sr-only",
+                },
+              ]
+        }
+      />
     </div>
   )
 

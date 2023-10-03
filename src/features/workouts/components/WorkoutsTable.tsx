@@ -1,15 +1,17 @@
 import {
   faArrowLeft,
   faArrowRight,
+  faGear,
   faHome,
   faRotate,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
+import Navbar from "~/shared/components/Navbar"
 import {getDateText} from "~/shared/functions/parsers"
 import {useViewport} from "~/shared/hooks/useViewport"
 import {Profile, Workout} from "~/shared/utils/models"
-import {Button, IconButton, UserMenu} from "../../../shared/components/CTA"
+import {Button, IconButton} from "../../../shared/components/CTA"
 import {getPrintout, groupExercisesByLift} from "../functions"
 
 /**
@@ -62,191 +64,195 @@ export function WorkoutsTable({
   }, [liftArray, horizontalIndex])
 
   return (
-    <div className="flex min-h-screen flex-col items-center overflow-hidden">
-      <div className="w-screen border-b border-slate-700">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between gap-6 px-6">
-          <IconButton
-            aria-label="Go to the home page"
-            icon={<FontAwesomeIcon icon={faHome} size="xl" />}
-            onClick={hideWorkoutsTable}
-            text="Home"
-            textClass="max-sm:sr-only"
-          />
-          <IconButton
-            aria-label="Reverse x and y axes of table"
-            icon={<FontAwesomeIcon icon={faRotate} size="xl" />}
-            onClick={() => setSortByDate(!sortByDate)}
-            text="Reverse"
-            textClass="max-sm:sr-only"
-          />
-          <UserMenu />
-        </div>
-      </div>
-      <div className="w-screen flex-col divide-x divide-slate-700 overflow-hidden pt-4 lg:max-w-4xl">
-        <div className="flex w-full flex-1 flex-col items-center border-b border-slate-700">
-          <div className="w-full">
-            <div className="flex w-full items-center justify-center gap-5 border-b border-slate-700 pb-4">
-              <FontAwesomeIcon
-                className={
-                  horizontalIndex
-                    ? "cursor-pointer"
-                    : "cursor-default opacity-0"
-                }
-                onClick={() =>
-                  horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
-                }
-                icon={faArrowLeft}
-                size="lg"
-              />
-              <div>
-                <h1 className="text-center text-xl">
-                  {sortByDate ? "Dates" : "Exercises"}
-                </h1>
+    <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
+      <div className="w-full lg:flex lg:justify-center">
+        <div className="w-screen flex-col divide-x divide-slate-700 overflow-hidden pt-7 lg:max-w-3xl xl:max-w-5xl">
+          <div className="flex w-full flex-1 flex-col items-center border-slate-700 lg:border-b">
+            <div className="flex w-full justify-between border-b border-slate-700 px-4 pb-1 sm:px-6">
+              <h1 className="text-center text-xl">
+                {sortByDate ? "Dates" : "Exercises"}
+              </h1>
+              <div className="flex items-center justify-center gap-5 pb-1">
+                <FontAwesomeIcon
+                  aria-label="View previous column"
+                  className={
+                    horizontalIndex
+                      ? "cursor-pointer"
+                      : "cursor-default opacity-0"
+                  }
+                  onClick={() =>
+                    horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
+                  }
+                  icon={faArrowLeft}
+                  size="xl"
+                />
+                <IconButton
+                  aria-label="Reverse x and y axes of table"
+                  icon={<FontAwesomeIcon icon={faRotate} size="xl" />}
+                  onClick={() => setSortByDate(!sortByDate)}
+                />
+                <FontAwesomeIcon
+                  aria-label="View next column"
+                  className={
+                    canIncrement ? "cursor-pointer" : "cursor-default opacity-0"
+                  }
+                  onClick={() =>
+                    canIncrement && setHorizontalIndex(horizontalIndex + 1)
+                  }
+                  icon={faArrowRight}
+                  size="xl"
+                />
               </div>
-              <FontAwesomeIcon
-                className={
-                  canIncrement ? "cursor-pointer" : "cursor-default opacity-0"
-                }
-                onClick={() =>
-                  canIncrement && setHorizontalIndex(horizontalIndex + 1)
-                }
-                icon={faArrowRight}
-                size="lg"
-              />
             </div>
-          </div>
-          <div className="h-full w-full">
-            <div className="max-h-[calc(100vh-124px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100vh-156px)] lg:border-x">
-              {filteredWorkouts.length > 0 ? (
-                <table className="w-full table-fixed border-b border-slate-700 text-center">
-                  <thead className="sticky top-0 divide-x divide-slate-700 bg-gray-50 text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-gray-50">
-                    <tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
-                      <th className="py-2 px-4 text-lg shadow-sm shadow-slate-700">
-                        {sortByDate ? "Exercise" : "Date"}
-                      </th>
-                      {sortByDate
-                        ? filteredWorkouts
-                            .slice(
-                              horizontalIndex,
-                              horizontalIndex + maxColumns,
-                            )
-                            .map(workout => (
-                              <th
-                                className="whitespace-nowrap py-2 px-4 text-lg shadow-sm shadow-slate-700"
-                                key={workout.id}
-                              >
-                                {getDateText(workout.date)}
-                              </th>
-                            ))
-                        : sortedLifts
-                            .slice(
-                              horizontalIndex,
-                              horizontalIndex + maxColumns,
-                            )
-                            .map(({liftId}) => (
-                              <th
-                                className="py-2 px-4 text-lg shadow-sm shadow-slate-700"
-                                key={liftId}
-                              >
-                                {getLiftName(liftId)}
-                              </th>
-                            ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sortByDate
-                      ? sortedLifts.map(({liftId}) => (
-                          <tr
-                            className="divide-x divide-slate-700 border-t border-slate-700"
-                            key={liftId}
-                          >
-                            <td className="py-2 px-4 text-lg">
-                              {getLiftName(liftId)}
-                            </td>
-                            {filteredWorkouts
+            <div className="h-full w-full">
+              <div className="max-h-[calc(100vh-124px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100vh-156px)] lg:border-x">
+                {filteredWorkouts.length > 0 ? (
+                  <table className="w-full table-fixed border-b border-slate-700 text-center">
+                    <thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">
+                      <tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
+                        <th className="py-2 px-4 text-lg shadow-sm shadow-slate-700">
+                          {sortByDate ? "Exercise" : "Date"}
+                        </th>
+                        {sortByDate
+                          ? filteredWorkouts
                               .slice(
                                 horizontalIndex,
                                 horizontalIndex + maxColumns,
                               )
                               .map(workout => (
-                                <td
-                                  className="py-2 px-4 text-lg"
-                                  key={liftId + workout.id}
+                                <th
+                                  className="whitespace-nowrap py-2 px-4 text-lg shadow-sm shadow-slate-700"
+                                  key={workout.id}
                                 >
-                                  {groupExercisesByLift(
-                                    workout.routine.filter(
-                                      exercise => exercise.liftId === liftId,
-                                    ),
-                                  ).map(exerciseList =>
-                                    exerciseList.map((exercise, i) =>
-                                      getPrintout(exercise)
-                                        .split(" ")
-                                        .map(
-                                          printout =>
-                                            printout +
-                                            (i !== exerciseList.length - 1
-                                              ? ", "
-                                              : ""),
-                                        ),
-                                    ),
-                                  )}
-                                </td>
-                              ))}
-                          </tr>
-                        ))
-                      : filteredWorkouts.map(workout => (
-                          <tr
-                            className="divide-x divide-slate-700 border-t border-slate-700"
-                            key={workout.id}
-                          >
-                            <td className="whitespace-nowrap py-2 px-4 text-lg">
-                              {getDateText(workout.date)}
-                            </td>
-                            {sortedLifts
+                                  {getDateText(workout.date)}
+                                </th>
+                              ))
+                          : sortedLifts
                               .slice(
                                 horizontalIndex,
                                 horizontalIndex + maxColumns,
                               )
                               .map(({liftId}) => (
-                                <td
-                                  className="py-2 px-4 text-lg"
-                                  key={liftId + workout.id}
+                                <th
+                                  className="py-2 px-4 text-lg shadow-sm shadow-slate-700"
+                                  key={liftId}
                                 >
-                                  {groupExercisesByLift(
-                                    workout.routine.filter(
-                                      exercise => exercise.liftId === liftId,
-                                    ),
-                                  ).map(exerciseList =>
-                                    exerciseList.map((exercise, i) =>
-                                      getPrintout(exercise)
-                                        .split(" ")
-                                        .map(
-                                          printout =>
-                                            printout +
-                                            (i !== exerciseList.length - 1
-                                              ? ", "
-                                              : ""),
-                                        ),
-                                    ),
-                                  )}
-                                </td>
+                                  {getLiftName(liftId)}
+                                </th>
                               ))}
-                          </tr>
-                        ))}
-                  </tbody>
-                </table>
-              ) : (
-                <div className="flex items-center justify-center gap-4 p-6">
-                  <p className="text-lg font-bold text-red-500">No results</p>
-                  <Button onClick={clearFilters} variant="secondary">
-                    Clear Filters
-                  </Button>
-                </div>
-              )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sortByDate
+                        ? sortedLifts.map(({liftId}) => (
+                            <tr
+                              className="divide-x divide-slate-700 border-t border-slate-700"
+                              key={liftId}
+                            >
+                              <td className="py-2 px-4 text-lg">
+                                {getLiftName(liftId)}
+                              </td>
+                              {filteredWorkouts
+                                .slice(
+                                  horizontalIndex,
+                                  horizontalIndex + maxColumns,
+                                )
+                                .map(workout => (
+                                  <td
+                                    className="py-2 px-4 text-lg"
+                                    key={liftId + workout.id}
+                                  >
+                                    {groupExercisesByLift(
+                                      workout.routine.filter(
+                                        exercise => exercise.liftId === liftId,
+                                      ),
+                                    ).map(exerciseList =>
+                                      exerciseList.map((exercise, i) =>
+                                        getPrintout(exercise)
+                                          .split(" ")
+                                          .map(
+                                            printout =>
+                                              printout +
+                                              (i !== exerciseList.length - 1
+                                                ? ", "
+                                                : ""),
+                                          ),
+                                      ),
+                                    )}
+                                  </td>
+                                ))}
+                            </tr>
+                          ))
+                        : filteredWorkouts.map(workout => (
+                            <tr
+                              className="divide-x divide-slate-700 border-t border-slate-700"
+                              key={workout.id}
+                            >
+                              <td className="whitespace-nowrap py-2 px-4 text-lg">
+                                {getDateText(workout.date)}
+                              </td>
+                              {sortedLifts
+                                .slice(
+                                  horizontalIndex,
+                                  horizontalIndex + maxColumns,
+                                )
+                                .map(({liftId}) => (
+                                  <td
+                                    className="py-2 px-4 text-lg"
+                                    key={liftId + workout.id}
+                                  >
+                                    {groupExercisesByLift(
+                                      workout.routine.filter(
+                                        exercise => exercise.liftId === liftId,
+                                      ),
+                                    ).map(exerciseList =>
+                                      exerciseList.map((exercise, i) =>
+                                        getPrintout(exercise)
+                                          .split(" ")
+                                          .map(
+                                            printout =>
+                                              printout +
+                                              (i !== exerciseList.length - 1
+                                                ? ", "
+                                                : ""),
+                                          ),
+                                      ),
+                                    )}
+                                  </td>
+                                ))}
+                            </tr>
+                          ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <div className="flex items-center justify-center gap-4 p-6">
+                    <p className="text-lg font-bold text-red-500">No results</p>
+                    <Button onClick={clearFilters} variant="secondary">
+                      Clear Filters
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <Navbar
+        buttons={[
+          {
+            icon: <FontAwesomeIcon icon={faHome} size="xl" />,
+            onClick: hideWorkoutsTable,
+            text: "Home",
+            textClass: "max-sm:sr-only",
+          },
+          {
+            href: "/settings",
+            icon: <FontAwesomeIcon icon={faGear} size="xl" />,
+            text: "Settings",
+            textClass: "max-sm:sr-only",
+          },
+        ]}
+      />
     </div>
   )
 
