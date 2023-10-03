@@ -9,6 +9,7 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import sortBy from "lodash/sortBy"
@@ -157,9 +158,10 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
       <div className="w-full lg:flex lg:flex-col">
         <div
-          className={`mx-auto flex w-full items-center justify-between pt-6 pb-2 text-lg sm:px-6 md:max-w-2xl ${
-            view !== "list" ? "px-4" : "px-4 xs:px-6"
-          }`}
+          className={classNames(
+            "mx-auto flex w-full items-center justify-between px-4 pt-6 pb-2 text-lg md:max-w-2xl",
+            view === "list" ? "xs:px-6" : "sm:px-6",
+          )}
         >
           {view === "list" ? (
             <>
@@ -330,11 +332,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                               <div ref={droppableRef} {...droppableProps}>
                                 {dragging ? (
                                   <div
-                                    className={`grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700 ${
+                                    className={classNames(
+                                      "grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700",
                                       isDraggingOver
                                         ? "scale-105 border-blue-800 bg-blue-50 text-blue-800"
-                                        : "mb-2 bg-white"
-                                    }`}
+                                        : "mb-2 bg-white",
+                                    )}
                                   >
                                     Drop here to edit
                                   </div>
@@ -465,11 +468,11 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                                         {draggingOver},
                                       ) => (
                                         <li
-                                          className={`flex items-center justify-between gap-2 py-2 ${
-                                            draggingOver === "ExerciseForm"
-                                              ? "rounded-lg border border-blue-900 bg-white px-2 text-blue-900"
-                                              : ""
-                                          }`}
+                                          className={classNames(
+                                            "flex items-center justify-between gap-2 py-2",
+                                            draggingOver === "ExerciseForm" &&
+                                              "rounded-lg border border-blue-900 bg-white px-2 text-blue-900",
+                                          )}
                                           ref={draggableRef}
                                           {...draggableProps}
                                         >
@@ -588,9 +591,10 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
             <div className="flex w-full flex-1 flex-col">
               <div className="overflow-hidden">
                 <div
-                  className={`h-full overflow-y-auto overflow-x-hidden ${
-                    view !== "list" ? "px-4 sm:px-6" : "px-4 xs:px-6"
-                  }`}
+                  className={classNames(
+                    "h-full overflow-y-auto overflow-x-hidden  px-4",
+                    view === "list" ? "xs:px-6" : "sm:px-6",
+                  )}
                 >
                   {filteredWorkouts.length ? (
                     filteredWorkouts.map((workout, i) => {
@@ -600,21 +604,22 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                       return (
                         <div
                           key={workout.id}
-                          className={`justify-between gap-6 border-slate-700 py-6 sm:gap-10${
-                            i ? " border-t" : ""
-                          }${
-                            editingWorkout?.id === workout.id ? " italic" : ""
-                          } ${view !== "list" ? "sm:flex" : "flex"}`}
+                          className={classNames(
+                            "justify-between gap-6 border-slate-700 py-6 sm:gap-10",
+                            i > 0 && "border-t",
+                            editingWorkout?.id === workout.id && "italic",
+                            view === "list" ? "flex" : "sm:flex",
+                          )}
                         >
                           <div>
                             <div className="mb-6">
                               <h1 className="text-xl leading-tight">
                                 <span
-                                  className={
-                                    view === "create" && !workoutName?.isHidden
-                                      ? "cursor-pointer"
-                                      : ""
-                                  }
+                                  className={classNames(
+                                    view === "create" &&
+                                      !workoutName?.isHidden &&
+                                      "cursor-pointer",
+                                  )}
                                   onClick={
                                     view === "create" && !workoutName?.isHidden
                                       ? () => {
@@ -631,9 +636,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                               </h1>
                               <h2 className="text-md mt-2 leading-tight">
                                 <span
-                                  className={
-                                    view === "create" ? "cursor-pointer" : ""
-                                  }
+                                  className={classNames(
+                                    view === "create" && "cursor-pointer",
+                                  )}
                                   onClick={
                                     view === "create"
                                       ? () =>
@@ -658,12 +663,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                                   return (
                                     <li key={j} className="mt-4 flex flex-wrap">
                                       <span
-                                        className={`text-lg leading-tight ${
+                                        className={classNames(
+                                          "text-lg leading-tight",
                                           view === "create" &&
-                                          !liftName?.isHidden
-                                            ? "cursor-pointer"
-                                            : ""
-                                        }`}
+                                            !liftName?.isHidden &&
+                                            "cursor-pointer",
+                                        )}
                                         onClick={
                                           view === "create" &&
                                           !liftName?.isHidden
@@ -681,12 +686,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                                       {exerciseList.map((exercise, k) => (
                                         <span
                                           key={k}
-                                          className={`text-lg leading-tight ${
+                                          className={classNames(
+                                            "text-lg leading-tight",
                                             view === "create" &&
-                                            !liftName?.isHidden
-                                              ? "cursor-pointer"
-                                              : ""
-                                          }`}
+                                              !liftName?.isHidden &&
+                                              "cursor-pointer",
+                                          )}
                                           onClick={() =>
                                             view === "create"
                                               ? setValues({
@@ -737,11 +742,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                             <>
                               {deletingId === workout.id ? (
                                 <div
-                                  className={`flex items-center justify-evenly gap-4 ${
-                                    view !== "list"
-                                      ? "pt-6 sm:flex-col"
-                                      : "flex-col"
-                                  }`}
+                                  className={classNames(
+                                    "flex items-center justify-evenly gap-4",
+                                    view === "create"
+                                      ? "flex-col"
+                                      : "pt-6 sm:flex-col",
+                                  )}
                                 >
                                   <Button
                                     onClick={() => handleDelete(workout.id)}
@@ -755,11 +761,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                                 </div>
                               ) : (
                                 <div
-                                  className={`flex justify-evenly gap-y-4 ${
+                                  className={classNames(
+                                    "flex justify-evenly gap-y-4",
                                     view === "create"
                                       ? "mt-8 mb-2 items-center sm:mt-0 sm:mb-0 sm:flex-col sm:items-end"
-                                      : "flex-col items-end"
-                                  }`}
+                                      : "flex-col items-end",
+                                  )}
                                 >
                                   <IconButton
                                     aria-label="Copy this workout's name and exercises"
@@ -779,11 +786,10 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                                   />
                                   <IconButton
                                     aria-label="Edit this workout"
-                                    className={
-                                      editingWorkout?.id === workout.id
-                                        ? "text-lg text-blue-600 dark:text-blue-400"
-                                        : ""
-                                    }
+                                    className={classNames(
+                                      editingWorkout?.id === workout.id &&
+                                        "text-lg text-blue-600 dark:text-blue-400",
+                                    )}
                                     icon={<FontAwesomeIcon icon={faPen} />}
                                     onClick={() =>
                                       setEditingWorkout(

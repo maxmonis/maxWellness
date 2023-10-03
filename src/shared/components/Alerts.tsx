@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import {CSSTransition, TransitionGroup} from "react-transition-group"
 import {useAlerts} from "~/shared/context/AlertContext"
 import {Button} from "./CTA"
@@ -22,7 +23,10 @@ export function Alerts() {
         {alerts.map(({id, text, type}) => (
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
             <div
-              className={`fixed top-16 right-4 rounded-lg px-4 py-2 text-white ${bgColors[type]}`}
+              className={classNames(
+                "fixed top-16 right-4 rounded-lg px-4 py-2 text-white",
+                bgColors[type],
+              )}
             >
               <p>{text}</p>
             </div>
@@ -33,9 +37,10 @@ export function Alerts() {
       {/* the persistent alert appears until it is removed from context */}
       {persistentAlert && (
         <div
-          className={`fixed bottom-0 right-0 flex justify-center gap-4 py-1 pl-2 pr-1 text-white max-lg:w-screen lg:rounded-tl-lg ${
-            bgColors[persistentAlert.type]
-          }`}
+          className={classNames(
+            "fixed bottom-0 right-0 flex justify-center gap-4 py-1 pl-2 pr-1 text-white max-lg:w-screen lg:rounded-tl-lg",
+            bgColors[persistentAlert.type],
+          )}
         >
           <div className="mx-auto flex items-center justify-center gap-4">
             <p className="font-bold">{persistentAlert.text}</p>

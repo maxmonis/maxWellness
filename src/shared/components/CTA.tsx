@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import Image from "next/image"
 import Link from "next/link"
 import {useRouter} from "next/router"
@@ -18,15 +19,17 @@ export function Button({
 }) {
   return (
     <button
-      className={`flex justify-center rounded-lg text-lg outline-none focus:ring-2   ${
+      className={classNames(
+        "flex justify-center rounded-lg text-lg outline-none focus:ring-2",
         variant === "primary"
           ? "bg-blue-800 px-4 py-1 font-semibold text-white hover:bg-blue-700"
           : variant === "secondary"
           ? "border border-blue-700 bg-white px-4 py-1 font-semibold text-blue-700 hover:border-blue-800 hover:bg-blue-50 hover:text-blue-800 dark:bg-blue-50 dark:hover:border-blue-600 dark:hover:bg-white dark:hover:text-blue-600"
           : variant === "danger"
           ? "text-red-800 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400"
-          : "text-blue-700 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
-      } ${className}`}
+          : "text-blue-700 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400",
+        className,
+      )}
       type={type ?? "button"}
       {...props}
     >

@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import Navbar from "~/shared/components/Navbar"
 
 /**
@@ -26,7 +27,10 @@ export function SettingsLoader() {
                           key={`${i}-${j}-${k}`}
                         >
                           <span
-                            className={`h-5 w-${width} animate-pulse rounded bg-slate-300 dark:bg-slate-700`}
+                            className={classNames(
+                              "h-5 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
+                              `w-${width}`,
+                            )}
                           />
                           <div className="flex gap-4">
                             <span className="h-5 w-5 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />

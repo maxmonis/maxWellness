@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import Head from "next/head"
 import Image from "next/image"
 import {useRouter} from "next/router"
@@ -82,12 +83,12 @@ export function Page({
       {redirect ? null : (
         <div className="relative overflow-hidden">
           <div
-            className={`min-w-screen flex h-screen flex-col justify-between overflow-auto
-          ${
-            mustBeLoggedOut
-              ? "text-white"
-              : "bg-white text-gray-900 dark:bg-black dark:text-white"
-          }`}
+            className={classNames(
+              "min-w-screen flex h-screen flex-col justify-between overflow-auto",
+              mustBeLoggedOut
+                ? "text-white"
+                : "bg-white text-gray-900 dark:bg-black dark:text-white",
+            )}
           >
             {children ??
               element ??
@@ -108,9 +109,10 @@ export function Page({
               </>
             )}
             <footer
-              className={`flex w-full flex-col items-center gap-4 border-slate-700 py-6 text-center ${
-                !mustBeLoggedOut && "lg:border-t"
-              }`}
+              className={classNames(
+                "flex w-full flex-col items-center gap-4 border-slate-700 py-6 text-center",
+                !mustBeLoggedOut && "lg:border-t",
+              )}
             >
               <a
                 href="https://maxmonis.com/"

@@ -55,7 +55,7 @@ export default function App({Component, pageProps}: AppProps) {
         <AlertContextProvider>
           <AuthContextProvider>
             <ThemeProvider attribute="class">
-              <main className={`${font.className}`}>
+              <main className={font.className}>
                 <Component {...pageProps} />
               </main>
             </ThemeProvider>

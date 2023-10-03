@@ -1,5 +1,6 @@
 import {faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
 import React from "react"
 import {Button, IconButton} from "~/shared/components/CTA"
 import {EditableName} from "~/shared/utils/models"
@@ -65,9 +66,10 @@ export function EditableListItem({
         <>
           <span
             aria-label={`Edit ${newText}`}
-            className={`leading-tight ${
-              editableName.isHidden ? "line-through" : ""
-            }`}
+            className={classNames(
+              "leading-tight",
+              editableName.isHidden && "line-through",
+            )}
             onClick={() => setEditing(true)}
           >
             {newText}

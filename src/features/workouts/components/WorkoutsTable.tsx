@@ -5,6 +5,7 @@ import {
   faRotate,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
 import React from "react"
 import Navbar from "~/shared/components/Navbar"
 import {getDateText} from "~/shared/functions/parsers"
@@ -71,11 +72,11 @@ export function WorkoutsTable({
               <div className="flex items-center justify-center gap-5">
                 <FontAwesomeIcon
                   aria-label="View previous column"
-                  className={
+                  className={classNames(
                     horizontalIndex
                       ? "cursor-pointer"
-                      : "cursor-default opacity-0"
-                  }
+                      : "cursor-default opacity-0",
+                  )}
                   onClick={() =>
                     horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
                   }
@@ -89,9 +90,11 @@ export function WorkoutsTable({
                 />
                 <FontAwesomeIcon
                   aria-label="View next column"
-                  className={
-                    canIncrement ? "cursor-pointer" : "cursor-default opacity-0"
-                  }
+                  className={classNames(
+                    canIncrement
+                      ? "cursor-pointer"
+                      : "cursor-default opacity-0",
+                  )}
                   onClick={() =>
                     canIncrement && setHorizontalIndex(horizontalIndex + 1)
                   }
