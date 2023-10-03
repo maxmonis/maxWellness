@@ -7,17 +7,17 @@ export function WorkoutsLoader() {
   return (
     <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
       <div className="w-full lg:flex lg:flex-col">
-        <div className="mx-auto flex w-full items-center justify-between px-6 pt-10 pb-2 text-lg sm:px-6 md:max-w-2xl">
-          <span className="h-6 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+        <div className="mx-auto flex w-full items-center justify-between px-6 pt-6 pb-2 text-lg sm:px-6 md:max-w-2xl">
+          <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           <div className="flex gap-6">
-            <span className="h-5 w-12 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-            <span className="h-5 w-12 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+            <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+            <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           </div>
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100dvh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-140px)]">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-116px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-148px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-96px)]">
           <div className="flex w-full flex-1 flex-col overflow-hidden">
             <div className="h-full p-6">
-              {Array.from({length: 3}).map((_, i) => (
+              {Array.from({length: 5}).map((_, i) => (
                 <div
                   key={i}
                   className={`flex justify-between gap-6 border-slate-700 pb-6 ${
@@ -45,7 +45,7 @@ export function WorkoutsLoader() {
           </div>
         </div>
       </div>
-      <Navbar skeletonCount={3} />
+      <Navbar />
     </div>
   )
 }

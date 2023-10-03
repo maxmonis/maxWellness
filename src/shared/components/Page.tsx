@@ -107,7 +107,11 @@ export function Page({
                 <Wallpaper />
               </>
             )}
-            <footer className="flex w-full flex-col items-center gap-4 border-t border-slate-700 py-6 text-center">
+            <footer
+              className={`flex w-full flex-col items-center gap-4 border-slate-700 py-6 text-center ${
+                !mustBeLoggedOut && "lg:border-t"
+              }`}
+            >
               <a
                 href="https://maxmonis.com/"
                 rel="noopener noreferrer"

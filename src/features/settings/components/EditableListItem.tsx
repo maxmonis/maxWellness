@@ -33,7 +33,7 @@ export function EditableListItem({
             <IconButton
               aria-label="Discard changes"
               className="max-sm:hidden"
-              icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
+              icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
               onClick={handleReset}
             />
           </div>

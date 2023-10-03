@@ -1,8 +1,7 @@
 import {
   faArrowLeft,
   faArrowRight,
-  faGear,
-  faHome,
+  faChevronCircleLeft,
   faRotate,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -66,13 +65,10 @@ export function WorkoutsTable({
   return (
     <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
       <div className="w-full lg:flex lg:justify-center">
-        <div className="w-screen flex-col divide-x divide-slate-700 overflow-hidden pt-7 lg:max-w-3xl xl:max-w-5xl">
+        <div className="w-full flex-col divide-x divide-slate-700 overflow-hidden xl:max-w-4xl">
           <div className="flex w-full flex-1 flex-col items-center border-slate-700 lg:border-b">
-            <div className="flex w-full justify-between border-b border-slate-700 px-4 pb-1 sm:px-6">
-              <h1 className="text-center text-xl">
-                {sortByDate ? "Dates" : "Exercises"}
-              </h1>
-              <div className="flex items-center justify-center gap-5 pb-1">
+            <div className="flex w-full justify-between border-b border-slate-700 px-4 pt-6 pb-2 text-lg sm:px-6">
+              <div className="flex items-center justify-center gap-5">
                 <FontAwesomeIcon
                   aria-label="View previous column"
                   className={
@@ -84,11 +80,11 @@ export function WorkoutsTable({
                     horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
                   }
                   icon={faArrowLeft}
-                  size="xl"
+                  size="lg"
                 />
                 <IconButton
                   aria-label="Reverse x and y axes of table"
-                  icon={<FontAwesomeIcon icon={faRotate} size="xl" />}
+                  icon={<FontAwesomeIcon icon={faRotate} size="lg" />}
                   onClick={() => setSortByDate(!sortByDate)}
                 />
                 <FontAwesomeIcon
@@ -100,12 +96,17 @@ export function WorkoutsTable({
                     canIncrement && setHorizontalIndex(horizontalIndex + 1)
                   }
                   icon={faArrowRight}
-                  size="xl"
+                  size="lg"
                 />
               </div>
+              <IconButton
+                icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
+                onClick={hideWorkoutsTable}
+                text="Hide"
+              />
             </div>
             <div className="h-full w-full">
-              <div className="max-h-[calc(100dvh-124px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100dvh-156px)] lg:border-x">
+              <div className="max-h-[calc(100dvh-112px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100dvh-60px)] xl:lg:max-h-[calc(100dvh-96px)] xl:border-x">
                 {filteredWorkouts.length > 0 ? (
                   <table className="w-full table-fixed border-b border-slate-700 text-center">
                     <thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">
@@ -237,22 +238,7 @@ export function WorkoutsTable({
           </div>
         </div>
       </div>
-      <Navbar
-        buttons={[
-          {
-            icon: <FontAwesomeIcon icon={faHome} size="xl" />,
-            onClick: hideWorkoutsTable,
-            text: "Home",
-            textClass: "max-sm:sr-only",
-          },
-          {
-            href: "/settings",
-            icon: <FontAwesomeIcon icon={faGear} size="xl" />,
-            text: "Settings",
-            textClass: "max-sm:sr-only",
-          },
-        ]}
-      />
+      <Navbar />
     </div>
   )
 

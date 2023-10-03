@@ -1,9 +1,8 @@
 import {
+  faChevronCircleLeft,
   faCirclePlus,
   faCopy,
   faFilter,
-  faGear,
-  faList,
   faPen,
   faTable,
   faTrash,
@@ -158,47 +157,57 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
       <div className="w-full lg:flex lg:flex-col">
         <div
-          className={`mx-auto flex w-full items-center justify-between pt-10 pb-1 text-lg sm:px-6 md:max-w-2xl ${
+          className={`mx-auto flex w-full items-center justify-between pt-6 pb-2 text-lg sm:px-6 md:max-w-2xl ${
             view !== "list" ? "px-4" : "px-4 xs:px-6"
           }`}
         >
-          <h1 className="text-center text-xl">
-            {view === "create"
-              ? `${editingWorkout ? "Edit" : "New"} Workout`
-              : view === "filters"
-              ? "Filters"
-              : "Workouts"}
-          </h1>
           {view === "list" ? (
-            <div className="flex gap-6">
-              {workouts.length > 0 && (
-                <IconButton
-                  aria-label="Show workout filters"
-                  icon={<FontAwesomeIcon icon={faFilter} />}
-                  onClick={handleFiltersClick}
-                  side="left"
-                  text="Filter"
-                />
-              )}
+            <>
               <IconButton
-                aria-label="Add a new workout"
                 className="text-blue-600 dark:text-blue-400"
                 icon={<FontAwesomeIcon icon={faCirclePlus} />}
                 onClick={handleNewWorkoutClick}
                 text="Create"
-                side="left"
               />
-            </div>
+              <div className="flex gap-10">
+                {workouts.length > 0 && (
+                  <>
+                    <IconButton
+                      icon={<FontAwesomeIcon icon={faFilter} />}
+                      onClick={handleFiltersClick}
+                      text="Filters"
+                    />
+                    <IconButton
+                      icon={<FontAwesomeIcon icon={faTable} />}
+                      onClick={() => setView("table")}
+                      text="Table"
+                    />
+                  </>
+                )}
+              </div>
+            </>
           ) : (
-            <IconButton
-              aria-label="View workouts list"
-              icon={<FontAwesomeIcon icon={faList} />}
-              onClick={() => setView("list")}
-              text="List View"
-            />
+            <>
+              <h1 className="text-lg">
+                {view === "create"
+                  ? `${editingWorkout ? "Edit" : "New"} Workout`
+                  : "Filters"}
+              </h1>
+              {editingWorkout ? (
+                <Button onClick={resetState} variant="danger">
+                  Discard Changes
+                </Button>
+              ) : (
+                <IconButton
+                  icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
+                  onClick={() => setView("list")}
+                  text="Hide"
+                />
+              )}
+            </>
           )}
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100dvh-140px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-172px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-140px)]">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-116px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-148px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-96px)]">
           {view !== "list" && (
             <div className="flex flex-grow border-r border-slate-700">
               <div className="flex w-40 max-w-7xl flex-col xs:w-56 sm:w-64 md:w-72">
@@ -724,92 +733,96 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                               )}
                             </ul>
                           </div>
-                          <>
-                            {deletingId === workout.id ? (
-                              <div
-                                className={`flex items-center justify-evenly gap-4 ${
-                                  view !== "list"
-                                    ? "pt-6 sm:flex-col"
-                                    : "flex-col"
-                                }`}
-                              >
-                                <Button
-                                  onClick={() => handleDelete(workout.id)}
-                                  variant="danger"
+                          {view !== "filters" && (
+                            <>
+                              {deletingId === workout.id ? (
+                                <div
+                                  className={`flex items-center justify-evenly gap-4 ${
+                                    view !== "list"
+                                      ? "pt-6 sm:flex-col"
+                                      : "flex-col"
+                                  }`}
                                 >
-                                  Delete
-                                </Button>
-                                <Button onClick={() => setDeletingId(null)}>
-                                  Cancel
-                                </Button>
-                              </div>
-                            ) : (
-                              <div
-                                className={`flex justify-evenly gap-y-4 ${
-                                  view !== "list"
-                                    ? "mt-8 mb-2 items-center sm:mt-0 sm:mb-0 sm:flex-col sm:items-end"
-                                    : "flex-col items-end"
-                                }`}
-                              >
-                                <IconButton
-                                  aria-label="Copy this workout's name and exercises"
-                                  icon={
-                                    <FontAwesomeIcon icon={faCopy} size="lg" />
-                                  }
-                                  onClick={() =>
-                                    copyWorkout(
-                                      workouts.find(
-                                        ({id}) => id === workout.id,
-                                      ) ?? workout,
-                                    )
-                                  }
-                                  side="left"
-                                  text="Copy"
-                                  textClass="max-sm:sr-only"
-                                />
-                                <IconButton
-                                  aria-label="Edit this workout"
-                                  className={
-                                    editingWorkout?.id === workout.id
-                                      ? "text-lg text-blue-600 dark:text-blue-400"
-                                      : ""
-                                  }
-                                  icon={
-                                    <FontAwesomeIcon icon={faPen} size="lg" />
-                                  }
-                                  onClick={() =>
-                                    setEditingWorkout(
+                                  <Button
+                                    onClick={() => handleDelete(workout.id)}
+                                    variant="danger"
+                                  >
+                                    Delete
+                                  </Button>
+                                  <Button onClick={() => setDeletingId(null)}>
+                                    Cancel
+                                  </Button>
+                                </div>
+                              ) : (
+                                <div
+                                  className={`flex justify-evenly gap-y-4 ${
+                                    view === "create"
+                                      ? "mt-8 mb-2 items-center sm:mt-0 sm:mb-0 sm:flex-col sm:items-end"
+                                      : "flex-col items-end"
+                                  }`}
+                                >
+                                  <IconButton
+                                    aria-label="Copy this workout's name and exercises"
+                                    icon={<FontAwesomeIcon icon={faCopy} />}
+                                    onClick={() =>
+                                      copyWorkout(
+                                        workouts.find(
+                                          ({id}) => id === workout.id,
+                                        ) ?? workout,
+                                      )
+                                    }
+                                    side="left"
+                                    text="Copy"
+                                    textClass={
+                                      view === "create" ? "max-sm:sr-only" : ""
+                                    }
+                                  />
+                                  <IconButton
+                                    aria-label="Edit this workout"
+                                    className={
                                       editingWorkout?.id === workout.id
-                                        ? null
-                                        : workouts.find(
-                                            ({id}) => id === workout.id,
-                                          ) ?? workout,
-                                    )
-                                  }
-                                  side="left"
-                                  text="Edit"
-                                  textClass="max-sm:sr-only"
-                                />
-                                <IconButton
-                                  aria-label="Delete this workout"
-                                  icon={
-                                    <FontAwesomeIcon icon={faTrash} size="lg" />
-                                  }
-                                  onClick={() => handleDeleteClick(workout.id)}
-                                  side="left"
-                                  text="Delete"
-                                  textClass="max-sm:sr-only"
-                                />
-                              </div>
-                            )}
-                          </>
+                                        ? "text-lg text-blue-600 dark:text-blue-400"
+                                        : ""
+                                    }
+                                    icon={<FontAwesomeIcon icon={faPen} />}
+                                    onClick={() =>
+                                      setEditingWorkout(
+                                        editingWorkout?.id === workout.id
+                                          ? null
+                                          : workouts.find(
+                                              ({id}) => id === workout.id,
+                                            ) ?? workout,
+                                      )
+                                    }
+                                    side="left"
+                                    text="Edit"
+                                    textClass={
+                                      view === "create" ? "max-sm:sr-only" : ""
+                                    }
+                                  />
+                                  <IconButton
+                                    aria-label="Delete this workout"
+                                    icon={<FontAwesomeIcon icon={faTrash} />}
+                                    onClick={() =>
+                                      handleDeleteClick(workout.id)
+                                    }
+                                    side="left"
+                                    text="Delete"
+                                    textClass={
+                                      view === "create" ? "max-sm:sr-only" : ""
+                                    }
+                                  />
+                                </div>
+                              )}
+                            </>
+                          )}
                         </div>
                       )
                     })
                   ) : (
                     <div className="my-6">
                       {workouts.length ? (
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-wrap items-center gap-4">
                           <p className="text-lg font-bold text-red-500">
                             No results
                           </p>
@@ -828,33 +841,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
           </div>
         </div>
       </div>
-      <Navbar
-        buttons={
-          workouts.length
-            ? [
-                {
-                  icon: <FontAwesomeIcon icon={faTable} size="xl" />,
-                  onClick: () => setView("table"),
-                  text: "Table",
-                  textClass: "max-sm:sr-only",
-                },
-                {
-                  href: "/settings",
-                  icon: <FontAwesomeIcon icon={faGear} size="xl" />,
-                  text: "Settings",
-                  textClass: "max-sm:sr-only",
-                },
-              ]
-            : [
-                {
-                  href: "/settings",
-                  icon: <FontAwesomeIcon icon={faGear} size="xl" />,
-                  text: "Settings",
-                  textClass: "max-sm:sr-only",
-                },
-              ]
-        }
-      />
+      <Navbar />
     </div>
   )
 

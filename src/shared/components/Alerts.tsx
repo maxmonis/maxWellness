@@ -33,7 +33,7 @@ export function Alerts() {
       {/* the persistent alert appears until it is removed from context */}
       {persistentAlert && (
         <div
-          className={`fixed bottom-4 right-4 flex justify-center gap-4 rounded-lg p-4 text-white ${
+          className={`fixed bottom-0 right-0 flex justify-center gap-4 py-1 pl-2 pr-1 text-white max-lg:w-screen lg:rounded-tl-lg ${
             bgColors[persistentAlert.type]
           }`}
         >

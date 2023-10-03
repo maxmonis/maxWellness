@@ -1,4 +1,4 @@
-import {faHome, faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
+import {faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {isEqual, omit, sortBy} from "lodash"
 import {nanoid} from "nanoid"
@@ -54,13 +54,10 @@ export function SettingsApp({profile}: {profile: Profile}) {
   }, [])
 
   return (
-    <div className="flex h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
+    <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
       <div className="flex w-full flex-grow justify-center md:pt-2 lg:pt-6">
-        <div className="flex max-h-[calc(100dvh-68px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-w-2xl md:rounded-lg md:border">
+        <div className="flex max-h-[calc(100dvh-52px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-h-[calc(100dvh-128px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-96px)]">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="w-full border-b border-slate-700 py-4 px-4 sm:px-6">
-              <h3 className="text-xl">Exercises</h3>
-            </div>
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
               <form onSubmit={handleLiftSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
@@ -74,7 +71,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
                     <IconButton
                       aria-label="Clear lift"
                       className="max-sm:hidden"
-                      icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
+                      icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
                       onClick={() => setValues({...values, lift: ""})}
                     />
                   )}
@@ -128,9 +125,6 @@ export function SettingsApp({profile}: {profile: Profile}) {
             </div>
           </div>
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="w-full border-b border-slate-700 py-4 px-4 sm:px-6">
-              <h3 className="text-xl">Workouts</h3>
-            </div>
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
               <form onSubmit={handleWorkoutSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
@@ -144,7 +138,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
                     <IconButton
                       aria-label="Clear workout"
                       className="hidden sm:block"
-                      icon={<FontAwesomeIcon icon={faXmarkSquare} size="xl" />}
+                      icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
                       onClick={() => setValues({...values, workout: ""})}
                     />
                   )}
@@ -199,16 +193,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
           </div>
         </div>
       </div>
-      <Navbar
-        buttons={[
-          {
-            href: "/",
-            icon: <FontAwesomeIcon icon={faHome} size="xl" />,
-            text: "Home",
-            textClass: "max-sm:sr-only",
-          },
-        ]}
-      />
+      <Navbar />
     </div>
   )
 

@@ -13,9 +13,6 @@ export function SettingsLoader() {
               className="flex w-full flex-grow flex-col items-center overflow-hidden"
               key={i}
             >
-              <div className="flex w-full border-b border-slate-700 py-4 px-4 sm:px-6">
-                <span className="h-7 w-24 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-              </div>
               <div className="flex w-full flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
                 <div className="flex">
                   <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
@@ -23,7 +20,7 @@ export function SettingsLoader() {
                 <div className="flex h-full flex-col gap-5 pt-6 pb-20">
                   {Array.from({length: i === 0 ? 2 : 1}).map((_, j) => (
                     <div className="flex flex-col gap-5" key={`${i}-${j}`}>
-                      {[24, 20, 20, 24].map((width, k) => (
+                      {[24, 16, 20].map((width, k) => (
                         <div
                           className="flex items-center justify-between"
                           key={`${i}-${j}-${k}`}
@@ -44,7 +41,7 @@ export function SettingsLoader() {
           ))}
         </div>
       </div>
-      <Navbar skeletonCount={2} />
+      <Navbar />
     </div>
   )
 }

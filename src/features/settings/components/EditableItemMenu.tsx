@@ -42,7 +42,7 @@ export function EditableItemMenu({
             ? "border-slate-700"
             : "border-transparent hover:border-slate-300"
         }`}
-        icon={<FontAwesomeIcon icon={faEllipsis} size="xl" />}
+        icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
         onClick={() => setOpen(!open)}
       />
       {open && (

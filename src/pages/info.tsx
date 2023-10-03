@@ -1,5 +1,3 @@
-import {faHome, faSignIn} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import Link from "next/link"
 import {Button} from "~/shared/components/CTA"
@@ -258,22 +256,7 @@ export default function InfoPage() {
             </div>
           </div>
         </div>
-        <Navbar
-          buttons={[
-            {
-              href: user ? "/" : "/login",
-              icon: (
-                <FontAwesomeIcon
-                  cursor="pointer"
-                  icon={user ? faHome : faSignIn}
-                  size="xl"
-                />
-              ),
-              text: user ? "Home" : "Login",
-              textClass: "max-sm:sr-only",
-            },
-          ]}
-        />
+        <Navbar />
       </div>
     </Page>
   )

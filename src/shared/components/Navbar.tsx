@@ -1,4 +1,6 @@
 import {
+  faGear,
+  faHome,
   faMoon,
   faSignOut,
   faSun,
@@ -13,37 +15,26 @@ import {useAuth} from "../context/AuthContext"
 import {useKeypress} from "../hooks/useKeypress"
 import {useOutsideClick} from "../hooks/useOutsideClick"
 import {useSession} from "../hooks/useSession"
-import {IconButton, IconButtonProps} from "./CTA"
+import {IconButton} from "./CTA"
 
-export default function Navbar({
-  buttons,
-  skeletonCount,
-}:
-  | {
-      buttons: Array<IconButtonProps>
-      skeletonCount?: never
-    }
-  | {
-      buttons?: never
-      skeletonCount: number
-    }) {
+export default function Navbar() {
   return (
     <div className="max-lg:w-screen">
       <div className="h-full border-slate-700 max-lg:border-t lg:border-r">
-        <div className="mx-auto flex h-16 max-w-2xl items-center justify-between gap-6 px-6 lg:h-full lg:flex-col lg:items-start lg:justify-start lg:py-6 lg:pr-12">
-          {skeletonCount ? (
-            Array.from({length: skeletonCount}).map((_, i) => (
-              <div className="flex items-center gap-2" key={i}>
-                <span className="h-6 w-6 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
-                <span className="h-4 w-12 animate-pulse rounded bg-slate-300 dark:bg-slate-700 max-sm:hidden" />
-              </div>
-            ))
-          ) : (
-            <>
-              {buttons?.map((props, i) => <IconButton key={i} {...props} />)}
-              <UserMenu />
-            </>
-          )}
+        <div className="mx-auto flex max-w-2xl items-center justify-between gap-6 p-4 sm:px-6 lg:h-full lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:gap-10 lg:py-12">
+          <IconButton
+            href="/"
+            icon={<FontAwesomeIcon icon={faHome} size="lg" />}
+            text="Home"
+            textClass="max-xs:sr-only"
+          />
+          <IconButton
+            href="/settings"
+            icon={<FontAwesomeIcon icon={faGear} size="lg" />}
+            text="Settings"
+            textClass="max-xs:sr-only"
+          />
+          <UserMenu />
         </div>
       </div>
     </div>
@@ -77,16 +68,16 @@ function UserMenu() {
             </div>
           }
           text="Profile"
-          textClass="max-sm:sr-only"
+          textClass="max-xs:sr-only"
           onClick={() => setOpen(!open)}
         />
       ) : (
         <IconButton
           aria-label="Toggle menu"
-          icon={<FontAwesomeIcon icon={faUser} size="xl" />}
+          icon={<FontAwesomeIcon icon={faUser} size="lg" />}
           onClick={() => setOpen(!open)}
           text="Profile"
-          textClass="max-sm:sr-only"
+          textClass="max-xs:sr-only"
         />
       )}
       {open && (
