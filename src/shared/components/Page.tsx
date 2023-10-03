@@ -6,6 +6,7 @@ import React from "react"
 import {useAuth} from "~/shared/context/AuthContext"
 import {extractErrorMessage} from "~/shared/functions/parsers"
 import {useSession} from "~/shared/hooks/useSession"
+import Navbar from "./Navbar"
 
 /**
  * Displays a page of content or its loading state,
@@ -85,42 +86,49 @@ export function Page({
           <div
             className={classNames(
               "min-w-screen flex h-screen flex-col justify-between overflow-auto",
-              mustBeLoggedOut
-                ? "text-white"
-                : "bg-white text-gray-900 dark:bg-black dark:text-white",
+              !mustBeLoggedOut &&
+                "bg-white text-gray-900 dark:bg-black dark:text-white",
             )}
           >
-            {children ??
-              element ??
-              (loading && Loader ? (
-                <Loader />
-              ) : (
-                <p className="absolute left-4 top-4 text-lg">
-                  {loading
-                    ? loadingText ?? "Loading..."
-                    : error
-                    ? extractErrorMessage(error)
-                    : null}
-                </p>
-              ))}
-            {mustBeLoggedOut && (
-              <>
-                <Wallpaper />
-              </>
-            )}
-            <footer
-              className={classNames(
-                "flex w-full flex-col items-center gap-4 border-slate-700 py-6 text-center",
-                !mustBeLoggedOut && "lg:border-t",
-              )}
-            >
-              <a
-                href="https://maxmonis.com/"
-                rel="noopener noreferrer"
-                target="_blank"
+            <div className="flex flex-col justify-between lg:flex-row-reverse lg:justify-end">
+              <div
+                className={classNames(
+                  "max-h-[calc(100dvh-56px)] w-full border-slate-700",
+                  !mustBeLoggedOut && "border-b lg:border-l",
+                )}
               >
-                © Max Monis 2019-{new Date().getFullYear()}
-              </a>
+                {children ??
+                  element ??
+                  (loading && Loader ? (
+                    <Loader />
+                  ) : (
+                    <p className="absolute left-4 top-4 text-lg">
+                      {loading
+                        ? loadingText ?? "Loading..."
+                        : error
+                        ? extractErrorMessage(error)
+                        : null}
+                    </p>
+                  ))}
+              </div>
+              {mustBeLoggedOut ? <Wallpaper /> : <Navbar />}
+            </div>
+            <footer
+              className={
+                mustBeLoggedOut
+                  ? "text-white"
+                  : "border-slate-700 bg-gray-100 dark:bg-gray-900 lg:pl-48"
+              }
+            >
+              <div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center max-md:py-6 md:h-14">
+                <a
+                  href="https://maxmonis.com/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  © Max Monis 2019-{new Date().getFullYear()}
+                </a>
+              </div>
             </footer>
           </div>
         </div>

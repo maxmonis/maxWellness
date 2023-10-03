@@ -1,13 +1,8 @@
-import {
-  faEllipsis,
-  faMinusCircle,
-  faPen,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons"
+import {faMinusCircle, faPen, faTrash} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
 import React from "react"
 import {IconButton} from "~/shared/components/CTA"
+import {Menu} from "~/shared/components/Menu"
 import {useKeypress} from "~/shared/hooks/useKeypress"
 import {useOutsideClick} from "~/shared/hooks/useOutsideClick"
 import {EditableName} from "~/shared/utils/models"
@@ -35,49 +30,31 @@ export function EditableItemMenu({
   useKeypress("Escape", () => setOpen(false))
 
   return (
-    <div className="relative" {...{ref}}>
+    <Menu>
       <IconButton
-        aria-label="Toggle menu"
-        className={classNames(
-          "flex items-center justify-center rounded-lg border-2 p-1",
-          open
-            ? "border-slate-700"
-            : "border-transparent hover:border-slate-300",
-        )}
-        icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
-        onClick={() => setOpen(!open)}
+        aria-label={`Edit ${newText}`}
+        icon={<FontAwesomeIcon icon={faPen} />}
+        onClick={onEditClick}
+        text="Edit"
+        textClass="whitespace-nowrap"
       />
-      {open && (
-        <dialog className="absolute top-8 -left-20 z-10 flex w-28 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4">
-          <IconButton
-            aria-label={`Edit ${newText}`}
-            icon={<FontAwesomeIcon icon={faPen} />}
-            onClick={onEditClick}
-            text="Edit"
-            textClass="whitespace-nowrap"
-          />
-          {((canHide && !isHidden) || isHidden) && (
-            <IconButton
-              aria-label={`${isHidden ? "Unhide" : "Hide"} ${newText}`}
-              icon={<FontAwesomeIcon icon={faMinusCircle} />}
-              onClick={onHideClick}
-              text={isHidden ? "Unhide" : "Hide"}
-            />
-          )}
-          {canDelete && (
-            <IconButton
-              icon={
-                <FontAwesomeIcon
-                  aria-label={`Delete ${newText}`}
-                  icon={faTrash}
-                />
-              }
-              onClick={onDeleteClick}
-              text="Delete"
-            />
-          )}
-        </dialog>
+      {((canHide && !isHidden) || isHidden) && (
+        <IconButton
+          aria-label={`${isHidden ? "Unhide" : "Hide"} ${newText}`}
+          icon={<FontAwesomeIcon icon={faMinusCircle} />}
+          onClick={onHideClick}
+          text={isHidden ? "Unhide" : "Hide"}
+        />
       )}
-    </div>
+      {canDelete && (
+        <IconButton
+          icon={
+            <FontAwesomeIcon aria-label={`Delete ${newText}`} icon={faTrash} />
+          }
+          onClick={onDeleteClick}
+          text="Delete"
+        />
+      )}
+    </Menu>
   )
 }

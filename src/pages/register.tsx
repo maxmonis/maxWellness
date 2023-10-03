@@ -92,7 +92,7 @@ export default function RegisterPage() {
           <GoogleButton {...{handleError, submitting, setSubmitting}} />
           <div className="center-align flex justify-center gap-4">
             <div className="flex flex-wrap gap-x-2">
-              <p className="whitespace-nowrap">Already a member?</p>
+              <p className="whitespace-nowrap text-white">Already a member?</p>
               <Link className="text-blue-300 hover:underline" href="/login">
                 Log In
               </Link>

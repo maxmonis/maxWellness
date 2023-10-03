@@ -74,7 +74,7 @@ export default function LoginPage() {
             </div>
             <div className="center-align flex justify-center gap-4">
               <div className="flex flex-wrap gap-x-2">
-                <p className="whitespace-nowrap">Need an account?</p>
+                <p className="whitespace-nowrap text-white">Need an account?</p>
                 <Link
                   className="text-blue-300 hover:underline"
                   href="/register"

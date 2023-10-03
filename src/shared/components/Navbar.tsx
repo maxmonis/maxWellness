@@ -2,6 +2,7 @@ import {
   faGear,
   faHome,
   faMoon,
+  faQuestionCircle,
   faSignOut,
   faSun,
   faUser,
@@ -19,23 +20,41 @@ import {IconButton} from "./CTA"
 
 export default function Navbar() {
   return (
-    <div className="max-lg:w-screen">
-      <div className="h-full border-slate-700 max-lg:border-t lg:border-r">
-        <div className="mx-auto flex max-w-2xl items-center justify-between gap-6 p-4 sm:px-6 lg:h-full lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:gap-10 lg:py-12">
-          <IconButton
-            href="/"
-            icon={<FontAwesomeIcon icon={faHome} size="lg" />}
-            text="Home"
-            textClass="max-xs:sr-only"
-          />
-          <IconButton
-            href="/settings"
-            icon={<FontAwesomeIcon icon={faGear} size="lg" />}
-            text="Settings"
-            textClass="max-xs:sr-only"
-          />
-          <UserMenu />
-        </div>
+    <div className="flex items-center border-slate-700 bg-gray-100 dark:bg-gray-900 max-lg:h-14 max-lg:w-screen">
+      <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-6 px-4 sm:px-6 lg:h-full lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:gap-10 lg:py-12">
+        <IconButton
+          href="/"
+          icon={
+            <Image
+              alt="Logo"
+              className="rounded-md border"
+              src="/android-chrome-192x192.png"
+              height={24}
+              width={24}
+            />
+          }
+          text="maxWellness"
+          textClass="max-sm:sr-only"
+        />
+        <IconButton
+          href="/"
+          icon={<FontAwesomeIcon icon={faHome} size="lg" />}
+          text="Home"
+          textClass="max-sm:sr-only"
+        />
+        <IconButton
+          href="/settings"
+          icon={<FontAwesomeIcon icon={faGear} size="lg" />}
+          text="Settings"
+          textClass="max-sm:sr-only"
+        />
+        <IconButton
+          href="/info"
+          icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
+          text="Info"
+          textClass="max-sm:sr-only"
+        />
+        <UserMenu />
       </div>
     </div>
   )
@@ -68,7 +87,7 @@ function UserMenu() {
             </div>
           }
           text="Profile"
-          textClass="max-xs:sr-only"
+          textClass="max-sm:sr-only"
           onClick={() => setOpen(!open)}
         />
       ) : (
@@ -77,7 +96,7 @@ function UserMenu() {
           icon={<FontAwesomeIcon icon={faUser} size="lg" />}
           onClick={() => setOpen(!open)}
           text="Profile"
-          textClass="max-xs:sr-only"
+          textClass="max-sm:sr-only"
         />
       )}
       {open && (

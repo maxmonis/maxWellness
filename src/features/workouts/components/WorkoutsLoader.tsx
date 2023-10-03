@@ -1,12 +1,11 @@
 import classNames from "classnames"
-import Navbar from "~/shared/components/Navbar"
 
 /**
  * Displays a loading skeleton for the root route
  */
 export function WorkoutsLoader() {
   return (
-    <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
+    <div className="min-h-screen">
       <div className="w-full lg:flex lg:flex-col">
         <div className="mx-auto flex w-full items-center justify-between px-6 pt-6 pb-2 text-lg sm:px-6 md:max-w-2xl">
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
@@ -15,7 +14,7 @@ export function WorkoutsLoader() {
             <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           </div>
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100dvh-116px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-148px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-96px)]">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-116px)] w-screen justify-center border-t border-slate-700 md:max-h-[calc(100dvh-148px)] md:max-w-2xl md:rounded-lg md:border">
           <div className="flex w-full flex-1 flex-col overflow-hidden">
             <div className="h-full p-6">
               {Array.from({length: 5}).map((_, i) => (
@@ -47,7 +46,6 @@ export function WorkoutsLoader() {
           </div>
         </div>
       </div>
-      <Navbar />
     </div>
   )
 }

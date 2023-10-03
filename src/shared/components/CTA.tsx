@@ -55,7 +55,11 @@ export function IconButton({
   type,
   ...props
 }: IconButtonProps) {
-  const classes = `flex gap-2 items-center cursor-pointer ${className ?? ""}`
+  const classes = classNames(
+    "flex gap-2 items-center cursor-pointer",
+    !className?.includes("text-") && "text-gray-700 dark:text-gray-200",
+    className,
+  )
   const content = (
     <>
       {text && side === "left" && <span className={textClass}>{text}</span>}

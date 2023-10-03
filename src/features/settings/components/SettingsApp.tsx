@@ -4,7 +4,6 @@ import {isEqual, omit, sortBy} from "lodash"
 import {nanoid} from "nanoid"
 import React from "react"
 import {Button, IconButton} from "~/shared/components/CTA"
-import Navbar from "~/shared/components/Navbar"
 import {useAlerts} from "~/shared/context/AlertContext"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {useUpdateProfile} from "~/shared/hooks/useUpdateProfile"
@@ -54,146 +53,143 @@ export function SettingsApp({profile}: {profile: Profile}) {
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
-      <div className="flex w-full flex-grow justify-center md:pt-2 lg:pt-6">
-        <div className="flex max-h-[calc(100dvh-52px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-6 md:max-h-[calc(100dvh-128px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-96px)]">
-          <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
-              <form onSubmit={handleLiftSubmit}>
-                <div className="flex items-center justify-center gap-4 text-lg">
-                  <input
-                    name="lift"
-                    value={lift}
-                    placeholder="New exercise"
-                    {...{onChange}}
-                  />
-                  {lift && (
-                    <IconButton
-                      aria-label="Clear lift"
-                      className="max-sm:hidden"
-                      icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-                      onClick={() => setValues({...values, lift: ""})}
-                    />
-                  )}
-                </div>
+    <div className="flex min-h-screen w-full flex-grow justify-center">
+      <div className="flex max-h-[calc(100dvh-56px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:mt-10 md:max-h-[calc(100dvh-128px)] md:max-w-2xl md:rounded-lg md:border">
+        <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
+          <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
+            <form onSubmit={handleLiftSubmit}>
+              <div className="flex items-center justify-center gap-4 text-lg">
+                <input
+                  name="lift"
+                  value={lift}
+                  placeholder="New exercise"
+                  {...{onChange}}
+                />
                 {lift && (
-                  <>
-                    {liftNames.some(
-                      ({text}) => text.toLowerCase() === lift.toLowerCase(),
-                    ) ? (
-                      <p className="mt-1 text-center text-red-500">
-                        Duplicate name
-                      </p>
-                    ) : (
-                      <div className="flex justify-center">
-                        <Button
-                          className="mt-3 w-fit"
-                          type="submit"
-                          variant="secondary"
-                        >
-                          Add Name
-                        </Button>
-                      </div>
-                    )}
-                  </>
+                  <IconButton
+                    aria-label="Clear lift"
+                    className="max-sm:hidden"
+                    icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
+                    onClick={() => setValues({...values, lift: ""})}
+                  />
                 )}
-              </form>
-              <ul className="h-full overflow-y-scroll pt-2 pb-6">
-                {sortBy(
-                  liftNames.filter(n => !n.isHidden),
-                  "text",
-                ).map(liftName => (
-                  <EditableListItem
-                    editableName={liftName}
-                    editableNameList={liftNames}
-                    key={liftName.id}
-                    updateOptions={updateLiftNames}
-                  />
-                ))}
-                {sortBy(
-                  liftNames.filter(({isHidden}) => isHidden),
-                  "text",
-                ).map(liftName => (
-                  <EditableListItem
-                    editableName={liftName}
-                    editableNameList={liftNames}
-                    key={liftName.id}
-                    updateOptions={updateLiftNames}
-                  />
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
-              <form onSubmit={handleWorkoutSubmit}>
-                <div className="flex items-center justify-center gap-4 text-lg">
-                  <input
-                    name="workout"
-                    value={workout}
-                    placeholder="New workout"
-                    {...{onChange}}
-                  />
-                  {workout && (
-                    <IconButton
-                      aria-label="Clear workout"
-                      className="hidden sm:block"
-                      icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-                      onClick={() => setValues({...values, workout: ""})}
-                    />
+              </div>
+              {lift && (
+                <>
+                  {liftNames.some(
+                    ({text}) => text.toLowerCase() === lift.toLowerCase(),
+                  ) ? (
+                    <p className="mt-1 text-center text-red-500">
+                      Duplicate name
+                    </p>
+                  ) : (
+                    <div className="flex justify-center">
+                      <Button
+                        className="mt-3 w-fit"
+                        type="submit"
+                        variant="secondary"
+                      >
+                        Add Name
+                      </Button>
+                    </div>
                   )}
-                </div>
+                </>
+              )}
+            </form>
+            <ul className="h-full overflow-y-scroll pt-2 pb-6">
+              {sortBy(
+                liftNames.filter(n => !n.isHidden),
+                "text",
+              ).map(liftName => (
+                <EditableListItem
+                  editableName={liftName}
+                  editableNameList={liftNames}
+                  key={liftName.id}
+                  updateOptions={updateLiftNames}
+                />
+              ))}
+              {sortBy(
+                liftNames.filter(({isHidden}) => isHidden),
+                "text",
+              ).map(liftName => (
+                <EditableListItem
+                  editableName={liftName}
+                  editableNameList={liftNames}
+                  key={liftName.id}
+                  updateOptions={updateLiftNames}
+                />
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
+          <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
+            <form onSubmit={handleWorkoutSubmit}>
+              <div className="flex items-center justify-center gap-4 text-lg">
+                <input
+                  name="workout"
+                  value={workout}
+                  placeholder="New workout"
+                  {...{onChange}}
+                />
                 {workout && (
-                  <>
-                    {workoutNames.some(
-                      ({text}) => text.toLowerCase() === workout.toLowerCase(),
-                    ) ? (
-                      <p className="mt-1 text-center text-red-500">
-                        Duplicate name
-                      </p>
-                    ) : (
-                      <div className="flex justify-center">
-                        <Button
-                          className="mt-3 w-fit"
-                          type="submit"
-                          variant="secondary"
-                        >
-                          Add Name
-                        </Button>
-                      </div>
-                    )}
-                  </>
+                  <IconButton
+                    aria-label="Clear workout"
+                    className="hidden sm:block"
+                    icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
+                    onClick={() => setValues({...values, workout: ""})}
+                  />
                 )}
-              </form>
-              <ul className="h-full overflow-y-scroll pt-2 pb-6">
-                {sortBy(
-                  workoutNames.filter(n => !n.isHidden),
-                  "text",
-                ).map(workoutName => (
-                  <EditableListItem
-                    key={workoutName.id}
-                    editableName={workoutName}
-                    editableNameList={workoutNames}
-                    updateOptions={updateWorkoutNames}
-                  />
-                ))}
-                {sortBy(
-                  workoutNames.filter(({isHidden}) => isHidden),
-                  "text",
-                ).map(workoutName => (
-                  <EditableListItem
-                    key={workoutName.id}
-                    editableName={workoutName}
-                    editableNameList={workoutNames}
-                    updateOptions={updateWorkoutNames}
-                  />
-                ))}
-              </ul>
-            </div>
+              </div>
+              {workout && (
+                <>
+                  {workoutNames.some(
+                    ({text}) => text.toLowerCase() === workout.toLowerCase(),
+                  ) ? (
+                    <p className="mt-1 text-center text-red-500">
+                      Duplicate name
+                    </p>
+                  ) : (
+                    <div className="flex justify-center">
+                      <Button
+                        className="mt-3 w-fit"
+                        type="submit"
+                        variant="secondary"
+                      >
+                        Add Name
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </form>
+            <ul className="h-full overflow-y-scroll pt-2 pb-6">
+              {sortBy(
+                workoutNames.filter(n => !n.isHidden),
+                "text",
+              ).map(workoutName => (
+                <EditableListItem
+                  key={workoutName.id}
+                  editableName={workoutName}
+                  editableNameList={workoutNames}
+                  updateOptions={updateWorkoutNames}
+                />
+              ))}
+              {sortBy(
+                workoutNames.filter(({isHidden}) => isHidden),
+                "text",
+              ).map(workoutName => (
+                <EditableListItem
+                  key={workoutName.id}
+                  editableName={workoutName}
+                  editableNameList={workoutNames}
+                  updateOptions={updateWorkoutNames}
+                />
+              ))}
+            </ul>
           </div>
         </div>
       </div>
-      <Navbar />
     </div>
   )
 
