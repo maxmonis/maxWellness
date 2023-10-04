@@ -20,7 +20,7 @@ import {IconButton} from "./CTA"
 
 export default function Navbar() {
   return (
-    <div className="flex items-center border-slate-700 bg-gray-100 dark:bg-gray-900 max-lg:h-14 max-lg:w-screen">
+    <div className="flex items-center bg-gray-100 dark:bg-gray-950 max-lg:h-14 max-lg:w-screen">
       <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-6 px-4 sm:px-6 lg:h-full lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:gap-10 lg:py-12">
         <IconButton
           href="/"
@@ -100,7 +100,7 @@ function UserMenu() {
         />
       )}
       {open && (
-        <dialog className="absolute z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-lg:bottom-8 max-lg:-left-24 lg:left-8 lg:top-8">
+        <dialog className="absolute z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-lg:-left-24 max-lg:bottom-8 lg:left-8 lg:top-8">
           <DarkModeToggle />
           {user && (
             <IconButton
@@ -139,7 +139,7 @@ function DarkModeToggle() {
           onChange={() => setTheme(dark ? "light" : "dark")}
           type="checkbox"
         />
-        <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800" />
+        <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800" />
       </label>
       <FontAwesomeIcon icon={faMoon} />
     </div>

@@ -94,7 +94,9 @@ export function Page({
               <div
                 className={classNames(
                   "max-h-[calc(100dvh-56px)] w-full border-slate-700",
-                  !mustBeLoggedOut && "border-b lg:border-l",
+                  mustBeLoggedOut
+                    ? "max-h-screen"
+                    : "border-b lg:max-h-screen lg:border-l",
                 )}
               >
                 {children ??
@@ -117,7 +119,7 @@ export function Page({
               className={
                 mustBeLoggedOut
                   ? "text-white"
-                  : "border-slate-700 bg-gray-100 dark:bg-gray-900 lg:pl-48"
+                  : "border-slate-700 bg-gray-100 dark:bg-gray-950 lg:pl-48"
               }
             >
               <div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center max-md:py-6 md:h-14">
@@ -154,7 +156,7 @@ function Wallpaper() {
   return error ? (
     <></>
   ) : (
-    <div className="fixed top-0 left-0 -z-10">
+    <div className="fixed left-0 top-0 -z-10">
       <div className="relative h-screen w-screen">
         <Image
           alt={

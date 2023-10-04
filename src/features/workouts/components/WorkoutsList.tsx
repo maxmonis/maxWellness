@@ -76,8 +76,8 @@ export function WorkoutsList({
                   <div
                     key={workout.id}
                     className={classNames(
-                      "justify-between gap-6 border-slate-700 py-6 px-4 sm:gap-10 md:rounded-lg md:even:bg-gray-100 md:even:dark:bg-gray-900",
-                      i > 0 && "max-md:border-t",
+                      "justify-between gap-6 border-slate-700 bg-gray-50 px-4 py-6 dark:bg-gray-950 sm:gap-10 md:border-x",
+                      i > 0 && "border-t",
                       editingWorkout?.id === workout.id && "italic",
                       view === "list" ? "flex xs:px-6" : "sm:flex sm:px-6",
                     )}

@@ -66,7 +66,7 @@ export function WorkoutsTable({
     <div className="flex min-h-screen w-full justify-center">
       <div className="w-full flex-col divide-x divide-slate-700 overflow-hidden xl:max-w-4xl">
         <div className="flex w-full flex-1 flex-col items-center border-b border-slate-700">
-          <div className="flex w-full justify-between border-b border-slate-700 px-4 pt-6 pb-2 text-lg sm:px-6">
+          <div className="flex w-full justify-between border-b border-slate-700 px-4 pb-2 pt-6 text-lg sm:px-6">
             <div className="flex items-center justify-center gap-5">
               <FontAwesomeIcon
                 aria-label="View previous column"
@@ -105,12 +105,12 @@ export function WorkoutsTable({
             />
           </div>
           <div className="h-full w-full">
-            <div className="max-h-[calc(100dvh-117px)] w-full overflow-y-auto border-slate-700 xl:max-h-[calc(100dvh-156px)] xl:border-x">
+            <div className="max-h-[calc(100dvh-118px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100dvh-62px)] xl:border-x">
               {filteredWorkouts.length > 0 ? (
-                <table className="w-full table-fixed border-slate-700 text-center xl:border-b">
-                  <thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">
+                <table className="w-full table-fixed border-slate-700 bg-gray-100 text-center dark:bg-gray-900 xl:border-b">
+                  <thead className="sticky top-0 divide-x divide-slate-700 bg-gray-100 text-gray-900 shadow-sm shadow-slate-700 dark:bg-gray-950 dark:text-white">
                     <tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
-                      <th className="py-2 px-4 text-lg shadow-sm shadow-slate-700">
+                      <th className="px-4 py-2 text-lg shadow-sm shadow-slate-700">
                         {sortByDate ? "Exercise" : "Date"}
                       </th>
                       {sortByDate
@@ -121,7 +121,7 @@ export function WorkoutsTable({
                             )
                             .map(workout => (
                               <th
-                                className="whitespace-nowrap py-2 px-4 text-lg shadow-sm shadow-slate-700"
+                                className="whitespace-nowrap px-4 py-2 text-lg shadow-sm shadow-slate-700"
                                 key={workout.id}
                               >
                                 {getDateText(workout.date)}
@@ -134,7 +134,7 @@ export function WorkoutsTable({
                             )
                             .map(({liftId}) => (
                               <th
-                                className="py-2 px-4 text-lg shadow-sm shadow-slate-700"
+                                className="px-4 py-2 text-lg shadow-sm shadow-slate-700"
                                 key={liftId}
                               >
                                 {getLiftName(liftId)}
@@ -149,7 +149,7 @@ export function WorkoutsTable({
                             className="divide-x divide-slate-700 border-t border-slate-700"
                             key={liftId}
                           >
-                            <td className="py-2 px-4 text-lg">
+                            <td className="px-4 py-2 text-lg">
                               {getLiftName(liftId)}
                             </td>
                             {filteredWorkouts
@@ -159,7 +159,7 @@ export function WorkoutsTable({
                               )
                               .map(workout => (
                                 <td
-                                  className="py-2 px-4 text-lg"
+                                  className="px-4 py-2 text-lg"
                                   key={liftId + workout.id}
                                 >
                                   {groupExercisesByLift(
@@ -188,7 +188,7 @@ export function WorkoutsTable({
                             className="divide-x divide-slate-700 border-t border-slate-700"
                             key={workout.id}
                           >
-                            <td className="whitespace-nowrap py-2 px-4 text-lg">
+                            <td className="whitespace-nowrap px-4 py-2 text-lg">
                               {getDateText(workout.date)}
                             </td>
                             {sortedLifts
@@ -198,7 +198,7 @@ export function WorkoutsTable({
                               )
                               .map(({liftId}) => (
                                 <td
-                                  className="py-2 px-4 text-lg"
+                                  className="px-4 py-2 text-lg"
                                   key={liftId + workout.id}
                                 >
                                   {groupExercisesByLift(

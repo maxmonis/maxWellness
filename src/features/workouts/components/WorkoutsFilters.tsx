@@ -30,11 +30,10 @@ export function WorkoutsFilters({
 }) {
   const {setPersistentAlert} = useAlerts()
 
-  const [previousFilters, setPreviousFilters] = React.useState(filters)
-  if (previousFilters !== filters) {
-    setPreviousFilters(filters)
+  React.useEffect(() => {
     setAppliedFilters(filters)
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
 
   return (
     <div>
@@ -48,7 +47,7 @@ export function WorkoutsFilters({
         />
       </div>
       <h4 className="text-xl">Exercise Name</h4>
-      <div className="mt-4 mb-10 grid gap-4">
+      <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.liftIds, ({id}) =>
           getLiftName(id, liftNames),
         ).map(({checked, id}) => (
@@ -62,7 +61,7 @@ export function WorkoutsFilters({
         ))}
       </div>
       <h4 className="text-xl">Workout Name</h4>
-      <div className="mt-4 mb-10 grid gap-4">
+      <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.nameIds, ({id}) =>
           getWorkoutName(id, workoutNames),
         ).map(({checked, id}) => (
@@ -76,7 +75,7 @@ export function WorkoutsFilters({
         ))}
       </div>
       <h4 className="text-xl">Workout Date</h4>
-      <div className="mt-4 mb-2">
+      <div className="mb-2 mt-4">
         <Checkbox
           key={"chronology"}
           checked={appliedFilters.newestFirst}

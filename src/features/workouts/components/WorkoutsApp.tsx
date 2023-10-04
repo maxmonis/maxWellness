@@ -103,7 +103,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     <div className="min-h-screen">
       <div
         className={classNames(
-          "mx-auto flex w-full items-center justify-between border-b border-slate-700 bg-gray-100 px-4 pt-6 pb-2 text-lg dark:bg-gray-900 md:max-w-2xl md:rounded-b-lg md:border-x",
+          "mx-auto flex w-full items-center justify-between border-b border-slate-700 bg-gray-100 px-4 pb-2 pt-6 text-lg dark:bg-gray-900 md:max-w-2xl md:rounded-b-lg md:border-x",
           view === "list" ? "xs:px-6" : "sm:px-6 md:hidden",
         )}
       >
@@ -155,17 +155,17 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
       </div>
       <div
         className={classNames(
-          "mx-auto flex h-full max-h-[calc(100dvh-117px)] w-screen justify-center md:max-w-2xl md:px-6",
+          "mx-auto flex h-full max-h-[calc(100dvh-118px)] w-screen justify-center md:max-w-2xl md:px-6",
           view === "list"
-            ? "md:max-h-[calc(100dvh-118px)]"
-            : "md:max-h-[calc(100dvh-57px)]",
+            ? "md:max-h-[calc(100dvh-118px)] lg:max-h-[calc(100dvh-62px)]"
+            : "md:max-h-[calc(100dvh-57px)] lg:max-h-[calc(100dvh-1px)]",
         )}
       >
         {view !== "list" && (
-          <div className="flex w-full flex-grow border-slate-700 max-md:border-b md:mr-6">
+          <div className="flex w-full flex-grow overflow-x-hidden border-slate-700 md:mr-6">
             <div className="flex w-full max-w-7xl flex-grow flex-col">
               <div className="w-full overflow-hidden max-md:h-full md:my-6">
-                <div className="h-full overflow-y-auto border-slate-700 py-6 px-4 max-md:border-r sm:px-6 md:rounded-lg md:border">
+                <div className="h-full overflow-y-auto border-slate-700 px-4 py-6 dark:bg-gray-900 max-md:border-r sm:px-6 md:rounded-lg md:border">
                   {view === "filters" ? (
                     <WorkoutsFilters
                       {...{

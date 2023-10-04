@@ -12,7 +12,7 @@ export default function InfoPage() {
 
   return (
     <Page title="Info">
-      <div className="h-screen max-h-[calc(100dvh-56px)] w-full overflow-y-auto">
+      <div className="h-full max-h-[calc(100dvh-56px)] w-full overflow-y-auto lg:max-h-[calc(100dvh-1px)]">
         <div className="mx-auto flex w-full max-w-sm flex-col items-center border-slate-700 py-10">
           <h2 className="mb-6 text-2xl">Information</h2>
           <div className="w-full border-y border-slate-700 px-4 py-6 text-center sm:px-6">
