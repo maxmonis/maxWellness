@@ -11,8 +11,8 @@ export function WorkoutsFilters({
   appliedFilters,
   clearFilters,
   filters,
-  hideFilters,
   liftNames,
+  resetState,
   setAppliedFilters,
   setFilteredWorkouts,
   workoutNames,
@@ -21,8 +21,8 @@ export function WorkoutsFilters({
   appliedFilters: typeof filters
   clearFilters: () => void
   filters: Session["filters"]
-  hideFilters: () => void
   liftNames: Session["profile"]["liftNames"]
+  resetState: () => void
   setAppliedFilters: React.Dispatch<React.SetStateAction<typeof filters>>
   setFilteredWorkouts: React.Dispatch<React.SetStateAction<typeof workouts>>
   workoutNames: Session["profile"]["workoutNames"]
@@ -38,15 +38,15 @@ export function WorkoutsFilters({
   return (
     <div>
       <div className="mb-6 flex items-center justify-between max-md:hidden">
-        <h3 className="text-2xl">Filters</h3>
+        <h1 className="text-xl">Filters</h1>
         <IconButton
           className="text-blue-600 dark:text-blue-400"
           icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-          onClick={hideFilters}
+          onClick={resetState}
           text="Hide"
         />
       </div>
-      <h4 className="text-xl">Exercise Name</h4>
+      <h2 className="text-lg">Exercise Name</h2>
       <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.liftIds, ({id}) =>
           getLiftName(id, liftNames),
@@ -60,7 +60,7 @@ export function WorkoutsFilters({
           />
         ))}
       </div>
-      <h4 className="text-xl">Workout Name</h4>
+      <h2 className="text-lg">Workout Name</h2>
       <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.nameIds, ({id}) =>
           getWorkoutName(id, workoutNames),
@@ -74,7 +74,7 @@ export function WorkoutsFilters({
           />
         ))}
       </div>
-      <h4 className="text-xl">Workout Date</h4>
+      <h2 className="text-lg">Workout Date</h2>
       <div className="mb-2 mt-4">
         <Checkbox
           key={"chronology"}

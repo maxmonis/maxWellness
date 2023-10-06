@@ -93,10 +93,8 @@ export function Page({
             <div className="flex flex-col justify-between lg:flex-row-reverse lg:justify-end">
               <div
                 className={classNames(
-                  "max-h-[calc(100dvh-56px)] w-full border-slate-700",
-                  mustBeLoggedOut
-                    ? "max-h-screen"
-                    : "border-b lg:max-h-screen lg:border-l",
+                  "max-h-[calc(100dvh-56px)] w-full",
+                  mustBeLoggedOut ? "max-h-screen" : "lg:max-h-screen",
                 )}
               >
                 {children ??
@@ -117,9 +115,7 @@ export function Page({
             </div>
             <footer
               className={
-                mustBeLoggedOut
-                  ? "text-white"
-                  : "border-slate-700 bg-gray-100 dark:bg-gray-950 lg:pl-48"
+                mustBeLoggedOut ? "text-white" : "border-slate-700 lg:hidden"
               }
             >
               <div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center max-md:py-6 md:h-14">

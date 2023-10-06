@@ -54,7 +54,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
 
   return (
     <div className="flex min-h-screen w-full flex-grow justify-center">
-      <div className="flex max-h-[calc(100dvh-57px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 bg-gray-100 dark:bg-gray-900 md:mt-10 md:max-h-[calc(100dvh-128px)] md:max-w-2xl md:rounded-lg md:border">
+      <div className="flex max-h-[calc(100dvh-56px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:my-10 md:max-h-[calc(100dvh-136px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-80px)]">
         <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
           <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
             <form onSubmit={handleLiftSubmit}>

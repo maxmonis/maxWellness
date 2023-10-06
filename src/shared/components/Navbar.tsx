@@ -20,41 +20,52 @@ import {IconButton} from "./CTA"
 
 export default function Navbar() {
   return (
-    <div className="flex items-center bg-gray-100 dark:bg-gray-950 max-lg:h-14 max-lg:w-screen">
-      <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-6 px-4 sm:px-6 lg:h-full lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:gap-10 lg:py-12">
-        <IconButton
-          href="/"
-          icon={
-            <Image
-              alt="Logo"
-              className="rounded-md border"
-              src="/android-chrome-192x192.png"
-              height={24}
-              width={24}
-            />
-          }
-          text="maxWellness"
-          textClass="max-sm:sr-only"
-        />
-        <IconButton
-          href="/"
-          icon={<FontAwesomeIcon icon={faHome} size="lg" />}
-          text="Home"
-          textClass="max-sm:sr-only"
-        />
-        <IconButton
-          href="/settings"
-          icon={<FontAwesomeIcon icon={faGear} size="lg" />}
-          text="Settings"
-          textClass="max-sm:sr-only"
-        />
-        <IconButton
-          href="/info"
-          icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
-          text="Info"
-          textClass="max-sm:sr-only"
-        />
-        <UserMenu />
+    <div className="flex max-h-screen items-center border-slate-700 max-lg:h-14 max-lg:w-screen max-lg:border-t lg:border-r">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 lg:h-full lg:justify-between lg:overflow-y-scroll">
+        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-6 lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:py-12">
+          <IconButton
+            href="/"
+            icon={
+              <Image
+                alt="Logo"
+                className="rounded-md border"
+                src="/android-chrome-192x192.png"
+                height={24}
+                width={24}
+              />
+            }
+            text="maxWellness"
+            textClass="max-sm:sr-only"
+          />
+          <IconButton
+            href="/"
+            icon={<FontAwesomeIcon icon={faHome} size="lg" />}
+            text="Home"
+            textClass="max-sm:sr-only"
+          />
+          <IconButton
+            href="/settings"
+            icon={<FontAwesomeIcon icon={faGear} size="lg" />}
+            text="Settings"
+            textClass="max-sm:sr-only"
+          />
+          <IconButton
+            href="/info"
+            icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
+            text="Info"
+            textClass="max-sm:sr-only"
+          />
+          <UserMenu />
+        </div>
+        <footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 max-lg:hidden">
+          <a
+            href="https://maxmonis.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            © Max Monis 2019-{new Date().getFullYear()}
+          </a>
+        </footer>
       </div>
     </div>
   )

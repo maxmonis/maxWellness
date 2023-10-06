@@ -76,7 +76,7 @@ export function WorkoutsList({
                   <div
                     key={workout.id}
                     className={classNames(
-                      "justify-between gap-6 border-slate-700 bg-gray-50 px-4 py-6 dark:bg-gray-950 sm:gap-10 md:border-x",
+                      "justify-between gap-6 border-slate-700 px-4 py-6 sm:gap-10 md:border-x",
                       i > 0 && "border-t",
                       editingWorkout?.id === workout.id && "italic",
                       view === "list" ? "flex xs:px-6" : "sm:flex sm:px-6",
@@ -84,23 +84,21 @@ export function WorkoutsList({
                   >
                     <div>
                       <div className="mb-6">
-                        <h1 className="text-xl leading-tight">
+                        <h1 className="text-lg leading-tight">
                           <span
                             className={classNames(
                               view === "create" &&
                                 !workoutName?.isHidden &&
                                 "cursor-pointer",
                             )}
-                            onClick={
-                              view === "create" && !workoutName?.isHidden
-                                ? () => {
-                                    setValues({
-                                      ...values,
-                                      nameId: workout.nameId,
-                                    })
-                                  }
-                                : undefined
-                            }
+                            {...(view === "create" &&
+                              !workoutName?.isHidden && {
+                                onClick: () =>
+                                  setValues({
+                                    ...values,
+                                    nameId: workout.nameId,
+                                  }),
+                              })}
                           >
                             {getWorkoutName(workout.nameId, workoutNames)}
                           </span>
@@ -110,15 +108,13 @@ export function WorkoutsList({
                             className={classNames(
                               view === "create" && "cursor-pointer",
                             )}
-                            onClick={
-                              view === "create"
-                                ? () =>
-                                    setValues({
-                                      ...values,
-                                      date: workout.date.split("T")[0],
-                                    })
-                                : undefined
-                            }
+                            {...(view === "create" && {
+                              onClick: () =>
+                                setValues({
+                                  ...values,
+                                  date: workout.date.split("T")[0],
+                                }),
+                            })}
                           >
                             {getDateText(workout.date)}
                           </span>
@@ -140,16 +136,14 @@ export function WorkoutsList({
                                       !liftName?.isHidden &&
                                       "cursor-pointer",
                                   )}
-                                  onClick={
-                                    view === "create" && !liftName?.isHidden
-                                      ? () => {
-                                          setValues({
-                                            ...values,
-                                            liftId,
-                                          })
-                                        }
-                                      : undefined
-                                  }
+                                  {...(view === "create" &&
+                                    !liftName?.isHidden && {
+                                      onClick: () =>
+                                        setValues({
+                                          ...values,
+                                          liftId,
+                                        }),
+                                    })}
                                 >
                                   {getLiftName(liftId, liftNames)}:
                                 </span>
@@ -162,39 +156,36 @@ export function WorkoutsList({
                                         !liftName?.isHidden &&
                                         "cursor-pointer",
                                     )}
-                                    onClick={() =>
-                                      view === "create"
-                                        ? setValues({
+                                    {...(view === "create" && {
+                                      onClick: () =>
+                                        setValues({
+                                          ...values,
+                                          sets: exercise.sets
+                                            ? exercise.sets.toString()
+                                            : "",
+                                          reps: exercise.reps
+                                            ? exercise.reps.toString()
+                                            : "",
+                                          weight: exercise.weight
+                                            ? exercise.weight.toString()
+                                            : "",
+                                        }),
+                                      ...(!liftName?.isHidden && {
+                                        onDoubleClick: () => {
+                                          setValues({
                                             ...values,
-                                            sets: exercise.sets
-                                              ? exercise.sets.toString()
-                                              : "",
-                                            reps: exercise.reps
-                                              ? exercise.reps.toString()
-                                              : "",
-                                            weight: exercise.weight
-                                              ? exercise.weight.toString()
-                                              : "",
+                                            liftId,
                                           })
-                                        : undefined
-                                    }
-                                    onDoubleClick={
-                                      view === "create" && !liftName?.isHidden
-                                        ? () => {
-                                            setValues({
-                                              ...values,
-                                              liftId,
-                                            })
-                                            addExercise({
-                                              ...omit(exercise, [
-                                                "recordStartDate",
-                                                "recordEndDate",
-                                              ]),
-                                              id: nanoid(),
-                                            })
-                                          }
-                                        : undefined
-                                    }
+                                          addExercise({
+                                            ...omit(exercise, [
+                                              "recordStartDate",
+                                              "recordEndDate",
+                                            ]),
+                                            id: nanoid(),
+                                          })
+                                        },
+                                      }),
+                                    })}
                                   >
                                     &nbsp;
                                     {getPrintout(exercise)}
@@ -269,7 +260,7 @@ export function WorkoutsList({
                 )
               })
             ) : (
-              <div className="my-6">
+              <div className="px-4 py-6 sm:px-6">
                 {workouts.length ? (
                   <div className="flex flex-wrap items-center gap-4">
                     <p className="text-lg font-bold text-red-500">No results</p>

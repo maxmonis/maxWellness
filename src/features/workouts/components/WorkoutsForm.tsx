@@ -24,7 +24,6 @@ export function WorkoutsForm({
   activeWorkoutNames,
   defaultValues,
   editingWorkout,
-  hideForm,
   liftNames,
   resetState,
   routine,
@@ -37,7 +36,6 @@ export function WorkoutsForm({
   activeWorkoutNames: Session["profile"]["workoutNames"]
   defaultValues: typeof values
   editingWorkout: Workout | null
-  hideForm: () => void
   liftNames: Session["profile"]["liftNames"]
   resetState: () => void
   routine: Workout["routine"]
@@ -77,13 +75,15 @@ export function WorkoutsForm({
       onDragStart={() => setDragging(true)}
     >
       <div className="mb-4 flex items-center justify-between max-md:hidden">
-        <h3 className="text-xl">{editingWorkout ? "Edit" : "New"} Workout</h3>
-        <IconButton
-          className="text-blue-600 dark:text-blue-400"
-          icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-          onClick={hideForm}
-          text="Hide"
-        />
+        <h1 className="text-xl">{editingWorkout ? "Edit" : "New"} Workout</h1>
+        {!editingWorkout && (
+          <IconButton
+            className="text-blue-600 dark:text-blue-400"
+            icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
+            onClick={resetState}
+            text="Hide"
+          />
+        )}
       </div>
       <form className="flex h-40 flex-col" {...{onSubmit}}>
         <Droppable droppableId="ExerciseForm">

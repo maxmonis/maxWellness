@@ -6,14 +6,14 @@ import classNames from "classnames"
 export function WorkoutsLoader() {
   return (
     <div className="min-h-screen">
-      <div className="mx-auto flex w-full items-center justify-between border-b border-slate-700 bg-gray-100 px-4 pb-4 pt-6 text-lg dark:bg-gray-900 md:max-w-2xl md:rounded-b-lg md:border-x">
+      <div className="mx-auto flex w-full items-center justify-between border-b border-slate-700 px-4 pb-4 pt-6 text-lg  md:max-w-2xl md:rounded-b-lg md:border-x">
         <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         <div className="flex gap-6">
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         </div>
       </div>
-      <div className="mx-auto flex h-full max-h-[calc(100dvh-116px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-118px)] md:max-w-2xl md:border-0 lg:max-h-[calc(100dvh-54px)] lg:px-6">
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-w-2xl md:border-0 lg:max-h-[calc(100dvh-56px)] lg:px-6">
         <div className="flex flex-1 flex-col overflow-hidden">
           <div className="h-full p-6">
             {Array.from({length: 5}).map((_, i) => (
