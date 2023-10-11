@@ -24,7 +24,7 @@ export function Alerts() {
           <CSSTransition classNames="slide-in" key={id} timeout={200}>
             <div
               className={classNames(
-                "fixed top-16 right-4 rounded-lg px-4 py-2 text-white",
+                "fixed right-4 top-16 rounded-lg px-4 py-2 text-white",
                 bgColors[type],
               )}
             >

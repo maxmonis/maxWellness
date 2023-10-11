@@ -1,29 +1,20 @@
 import {
   faGear,
   faHome,
-  faMoon,
   faQuestionCircle,
-  faSignOut,
-  faSun,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {useTheme} from "next-themes"
 import Image from "next/image"
-import React from "react"
-import {logOut} from "~/firebase/client"
-import {useAuth} from "../context/AuthContext"
-import {useKeypress} from "../hooks/useKeypress"
-import {useOutsideClick} from "../hooks/useOutsideClick"
-import {useSession} from "../hooks/useSession"
 import {IconButton} from "./CTA"
+import {UserMenu} from "./UserMenu"
 
 export default function Navbar() {
   return (
-    <div className="flex max-h-screen items-center border-slate-700 max-lg:h-14 max-lg:w-screen max-lg:border-t lg:border-r">
-      <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 lg:h-full lg:justify-between lg:overflow-y-scroll">
-        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-6 lg:w-48 lg:flex-col lg:items-start lg:justify-start lg:py-12">
+    <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 md:h-full md:justify-between md:overflow-y-scroll">
+        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-6 md:flex-col md:items-start md:justify-start md:py-6 md:pr-6 xl:pr-12">
           <IconButton
+            className="md:mb-6"
             href="/"
             icon={
               <Image
@@ -55,9 +46,9 @@ export default function Navbar() {
             text="Info"
             textClass="max-sm:sr-only"
           />
-          <UserMenu />
+          <UserMenu className="lg:hidden" />
         </div>
-        <footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 max-lg:hidden">
+        <footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 text-center text-sm max-md:hidden">
           <a
             href="https://maxmonis.com/"
             rel="noopener noreferrer"
@@ -67,92 +58,6 @@ export default function Navbar() {
           </a>
         </footer>
       </div>
-    </div>
-  )
-}
-
-/**
- * This menu allows the user to toggle dark mode or log out
- */
-function UserMenu() {
-  const user = useAuth()
-  const {data: session} = useSession()
-
-  const [open, setOpen] = React.useState(false)
-  const ref = useOutsideClick(() => setOpen(false))
-  useKeypress("Escape", () => setOpen(false))
-
-  return (
-    <div className="relative" {...{ref}}>
-      {session?.profile.photoURL ? (
-        <IconButton
-          aria-label="Toggle menu"
-          icon={
-            <div className="relative h-6 w-6">
-              <Image
-                alt={session.profile.userName}
-                className="rounded-full"
-                fill
-                src={session.profile.photoURL}
-              />
-            </div>
-          }
-          text="Profile"
-          textClass="max-sm:sr-only"
-          onClick={() => setOpen(!open)}
-        />
-      ) : (
-        <IconButton
-          aria-label="Toggle menu"
-          icon={<FontAwesomeIcon icon={faUser} size="lg" />}
-          onClick={() => setOpen(!open)}
-          text="Profile"
-          textClass="max-sm:sr-only"
-        />
-      )}
-      {open && (
-        <dialog className="absolute z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-lg:-left-24 max-lg:bottom-8 lg:left-8 lg:top-8">
-          <DarkModeToggle />
-          {user && (
-            <IconButton
-              icon={
-                <FontAwesomeIcon
-                  aria-label="Sign out"
-                  icon={faSignOut}
-                  size="lg"
-                />
-              }
-              onClick={logOut}
-              text="Logout"
-            />
-          )}
-        </dialog>
-      )}
-    </div>
-  )
-}
-
-/**
- * Allows the user to toggle light/dark mode
- */
-function DarkModeToggle() {
-  const {theme, setTheme} = useTheme()
-  const dark = theme === "dark"
-
-  return (
-    <div className="flex items-center gap-2">
-      <FontAwesomeIcon icon={faSun} />
-      <label className="relative inline-flex cursor-pointer items-center">
-        <input
-          aria-label="Toggle dark mode"
-          checked={dark}
-          className="peer sr-only"
-          onChange={() => setTheme(dark ? "light" : "dark")}
-          type="checkbox"
-        />
-        <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800" />
-      </label>
-      <FontAwesomeIcon icon={faMoon} />
     </div>
   )
 }

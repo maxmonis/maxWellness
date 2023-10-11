@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
 
   return (
     <Page mustBeLoggedOut title="Reset Password">
-      <div className="flex h-full w-full flex-col items-center py-10 px-4 text-left">
+      <div className="flex h-full w-full flex-col items-center px-4 py-10 text-left">
         {emailSent ? (
           <div className="flex w-full max-w-xs flex-col items-start gap-4 rounded-md border border-slate-700 bg-black p-6">
             <h3 className="text-3xl">Email Sent</h3>

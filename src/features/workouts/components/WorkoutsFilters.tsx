@@ -1,8 +1,6 @@
-import {faChevronCircleLeft} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import sortBy from "lodash/sortBy"
 import React from "react"
-import {Checkbox, IconButton} from "~/shared/components/CTA"
+import {Checkbox} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
 import {getLiftName, getWorkoutName} from "~/shared/functions/parsers"
 import {Session} from "~/shared/utils/models"
@@ -37,15 +35,6 @@ export function WorkoutsFilters({
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between max-md:hidden">
-        <h1 className="text-xl">Filters</h1>
-        <IconButton
-          className="text-blue-600 dark:text-blue-400"
-          icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-          onClick={resetState}
-          text="Hide"
-        />
-      </div>
       <h2 className="text-lg">Exercise Name</h2>
       <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.liftIds, ({id}) =>

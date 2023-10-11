@@ -1,4 +1,4 @@
-import {faChevronCircleLeft, faX} from "@fortawesome/free-solid-svg-icons"
+import {faX} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import isEqual from "lodash/isEqual"
@@ -74,17 +74,6 @@ export function WorkoutsForm({
       onDragEnd={handleDragEnd}
       onDragStart={() => setDragging(true)}
     >
-      <div className="mb-4 flex items-center justify-between max-md:hidden">
-        <h1 className="text-xl">{editingWorkout ? "Edit" : "New"} Workout</h1>
-        {!editingWorkout && (
-          <IconButton
-            className="text-blue-600 dark:text-blue-400"
-            icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-            onClick={resetState}
-            text="Hide"
-          />
-        )}
-      </div>
       <form className="flex h-40 flex-col" {...{onSubmit}}>
         <Droppable droppableId="ExerciseForm">
           {(

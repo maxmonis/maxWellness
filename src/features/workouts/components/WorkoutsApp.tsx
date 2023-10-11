@@ -103,8 +103,8 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     <div className="min-h-screen">
       <div
         className={classNames(
-          "mx-auto flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 text-lg md:max-w-2xl md:rounded-b-lg md:border-x",
-          view === "list" ? "xs:px-6" : "sm:px-6 md:hidden",
+          "mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 text-lg",
+          view === "list" ? "xs:px-6" : "sm:px-6",
         )}
       >
         {view === "list" ? (
@@ -141,6 +141,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
             </h1>
             {!editingWorkout && (
               <IconButton
+                className="text-blue-600 dark:text-blue-400"
                 icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
                 onClick={() => setView("list")}
                 text="Hide"
@@ -149,19 +150,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
           </>
         )}
       </div>
-      <div
-        className={classNames(
-          "mx-auto flex h-full max-h-[calc(100dvh-112px)] w-screen justify-center md:max-w-2xl md:px-6",
-          view === "list"
-            ? "lg:max-h-[calc(100dvh-56px)]"
-            : "md:max-h-[calc(100dvh-56px)] lg:max-h-screen",
-        )}
-      >
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)] md:px-6">
         {view !== "list" && (
-          <div className="flex w-full flex-grow overflow-x-hidden border-slate-700 md:mr-6">
-            <div className="flex w-full max-w-7xl flex-grow flex-col">
-              <div className="w-full overflow-hidden max-md:h-full md:my-6">
-                <div className="h-full overflow-y-auto border-slate-700 px-4 py-6 max-md:border-r sm:px-6 md:rounded-lg md:border">
+          <div className="flex w-full max-w-xs flex-grow overflow-x-hidden border-slate-700 bg-slate-100 dark:bg-slate-800 max-md:border-r md:my-6 md:mr-6 md:rounded-lg md:border">
+            <div className="flex w-full flex-grow flex-col">
+              <div className="w-full overflow-hidden max-md:h-full">
+                <div className="h-full overflow-y-auto px-4 py-6 sm:px-6">
                   {view === "filters" ? (
                     <WorkoutsFilters
                       {...{

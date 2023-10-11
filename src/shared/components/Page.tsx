@@ -7,6 +7,7 @@ import {useAuth} from "~/shared/context/AuthContext"
 import {extractErrorMessage} from "~/shared/functions/parsers"
 import {useSession} from "~/shared/hooks/useSession"
 import Navbar from "./Navbar"
+import {RecordsApp} from "./RecordsApp"
 
 /**
  * Displays a page of content or its loading state,
@@ -90,11 +91,12 @@ export function Page({
                 "bg-white text-gray-900 dark:bg-black dark:text-white",
             )}
           >
-            <div className="flex flex-col justify-between lg:flex-row-reverse lg:justify-end">
+            <div className="mx-auto flex w-screen max-w-screen-xl flex-col justify-between md:flex-row-reverse md:justify-end">
+              {mustBeLoggedIn && <RecordsApp />}
               <div
                 className={classNames(
                   "max-h-[calc(100dvh-56px)] w-full",
-                  mustBeLoggedOut ? "max-h-screen" : "lg:max-h-screen",
+                  mustBeLoggedOut ? "max-h-screen" : "md:max-h-screen",
                 )}
               >
                 {children ??
@@ -115,10 +117,10 @@ export function Page({
             </div>
             <footer
               className={
-                mustBeLoggedOut ? "text-white" : "border-slate-700 lg:hidden"
+                mustBeLoggedOut ? "text-white" : "border-slate-700 md:hidden"
               }
             >
-              <div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center max-md:py-6 md:h-14">
+              <div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center text-sm max-md:py-6 md:h-14">
                 <a
                   href="https://maxmonis.com/"
                   rel="noopener noreferrer"

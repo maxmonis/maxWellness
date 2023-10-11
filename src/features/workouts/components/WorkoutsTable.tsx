@@ -64,7 +64,7 @@ export function WorkoutsTable({
 
   return (
     <div className="flex min-h-screen w-full justify-center">
-      <div className="w-full flex-col divide-x divide-slate-700 overflow-hidden xl:max-w-4xl">
+      <div className="w-full flex-col divide-x divide-slate-700 overflow-hidden">
         <div className="flex w-full flex-1 flex-col items-center border-slate-700">
           <div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 text-lg sm:px-6">
             <div className="flex items-center justify-center gap-5">
@@ -99,16 +99,17 @@ export function WorkoutsTable({
               />
             </div>
             <IconButton
+              className="text-blue-600 dark:text-blue-400"
               icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
               onClick={hideWorkoutsTable}
               text="Hide"
             />
           </div>
           <div className="h-full w-full">
-            <div className="max-h-[calc(100dvh-112px)] w-full overflow-y-auto border-slate-700 lg:max-h-[calc(100dvh-56px)] xl:border-x">
+            <div className="max-h-[calc(100dvh-112px)] w-full overflow-y-auto border-slate-700 md:max-h-[calc(100dvh-56px)]">
               {filteredWorkouts.length > 0 ? (
-                <table className="w-full table-fixed border-slate-700  text-center  xl:border-b">
-                  <thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">
+                <table className="w-full table-fixed border-b border-slate-700 bg-gray-100 text-center dark:bg-gray-900">
+                  <thead className="sticky top-0 divide-x divide-slate-700 bg-gray-100 text-gray-900 shadow-sm shadow-slate-700 dark:bg-gray-900 dark:text-white">
                     <tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
                       <th className="px-4 py-2 text-lg shadow-sm shadow-slate-700">
                         {sortByDate ? "Exercise" : "Date"}
