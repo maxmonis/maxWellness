@@ -28,11 +28,6 @@ export function WorkoutsFilters({
 }) {
   const {setPersistentAlert} = useAlerts()
 
-  React.useEffect(() => {
-    setAppliedFilters(filters)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters])
-
   return (
     <div>
       <h2 className="text-lg">Exercise Name</h2>

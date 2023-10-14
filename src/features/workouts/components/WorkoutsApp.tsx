@@ -7,9 +7,11 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import sortBy from "lodash/sortBy"
+import {useRouter} from "next/router"
 import React from "react"
 import {IconButton} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
+import {useUpdateEvent} from "~/shared/hooks/useUpdateEvent"
 import {StorageService} from "~/shared/services/StorageService"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {today} from "../constants"
@@ -33,6 +35,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     "text",
   )
 
+  const router = useRouter()
   const {setPersistentAlert} = useAlerts()
 
   const [editingWorkout, setEditingWorkout] = React.useState<Workout | null>(
@@ -54,18 +57,27 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }
   const [values, setValues] = React.useState(defaultValues)
 
-  const [view, setView] = React.useState<
-    "list" | "table" | "filters" | "create"
-  >(workouts.length > 0 ? "list" : "create")
+  const [view, setView] = React.useState<View>(
+    workouts.length > 0 ? "list" : "create",
+  )
   const [appliedFilters, setAppliedFilters] = React.useState(filters)
   const [filteredWorkouts, setFilteredWorkouts] = React.useState(workouts)
+
+  React.useEffect(() => {
+    if (isValidView(router.query.view)) {
+      setView(router.query.view)
+    } else {
+      changeView("list")
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query])
 
   React.useEffect(() => {
     clearFilters()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workouts])
 
-  React.useEffect(() => {
+  useUpdateEvent(() => {
     if (editingWorkout) {
       updateRoutine(editingWorkout.routine)
       setValues({
@@ -76,7 +88,6 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     } else {
       resetState()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editingWorkout])
 
   React.useEffect(() => {
@@ -86,6 +97,11 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  React.useEffect(() => {
+    setAppliedFilters(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
+
   if (view === "table") {
     return (
       <WorkoutsTable
@@ -94,7 +110,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
           filteredWorkouts,
           profile,
         }}
-        hideWorkoutsTable={() => setView("list")}
+        hideWorkoutsTable={() => changeView("list")}
       />
     )
   }
@@ -125,7 +141,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                   />
                   <IconButton
                     icon={<FontAwesomeIcon icon={faTable} />}
-                    onClick={() => setView("table")}
+                    onClick={() => changeView("table")}
                     text="Table"
                   />
                 </>
@@ -143,7 +159,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
               <IconButton
                 className="text-blue-600 dark:text-blue-400"
                 icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-                onClick={() => setView("list")}
+                onClick={() => changeView("list")}
                 text="Hide"
               />
             )}
@@ -222,7 +238,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
       localRoutine.set(routine)
     }
     setRoutine(routine)
-    setView("create")
+    changeView("create")
   }
 
   /**
@@ -237,9 +253,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
    */
   function handleFiltersClick() {
     if (view === "filters") {
-      setView(editingWorkout ? "create" : "list")
+      changeView(editingWorkout ? "create" : "list")
     } else {
-      setView("filters")
+      changeView("filters")
     }
   }
 
@@ -248,9 +264,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
    */
   function handleNewWorkoutClick() {
     if (view === "create" && !editingWorkout) {
-      setView("list")
+      changeView("list")
     } else {
-      setView("create")
+      changeView("create")
     }
   }
 
@@ -261,7 +277,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     updateRoutine(localRoutine.get() ?? [])
     setValues(defaultValues)
     setEditingWorkout(null)
-    setView("list")
+    changeView("list")
   }
 
   /**
@@ -272,4 +288,15 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     setFilteredWorkouts(workouts)
     setPersistentAlert(null)
   }
+
+  function changeView(newView: View) {
+    router.push(`/?view=${newView}`, undefined, {shallow: true})
+    setView(newView)
+  }
+}
+
+const validViews = ["list", "table", "filters", "create"] as const
+type View = (typeof validViews)[number]
+function isValidView(view: unknown): view is View {
+  return validViews.includes(view as View)
 }
