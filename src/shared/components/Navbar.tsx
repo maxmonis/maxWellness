@@ -73,7 +73,7 @@ export default function Navbar() {
             text="Info"
             textClass="max-sm:sr-only"
           />
-          <UserMenu className="lg:hidden" />
+          <UserMenu />
         </div>
         <footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 text-center text-sm max-md:hidden">
           <a
