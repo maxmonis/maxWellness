@@ -22,7 +22,7 @@ export function Menu({children}: {children: React.ReactNode}) {
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute -left-20 top-6 z-10 flex w-24 flex-col gap-4 rounded-lg border border-slate-700 p-4">
+        <dialog className="absolute -left-24 top-8 z-10 flex flex-col gap-4 rounded-lg border border-slate-700 p-4">
           {children}
         </dialog>
       )}

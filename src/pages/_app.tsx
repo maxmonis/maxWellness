@@ -2,7 +2,7 @@ import {config} from "@fortawesome/fontawesome-svg-core"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import {ThemeProvider} from "next-themes"
 import type {AppProps} from "next/app"
-import {Source_Sans_Pro} from "next/font/google"
+import {Lato} from "next/font/google"
 import Head from "next/head"
 import {QueryClient, QueryClientProvider} from "react-query"
 import {Alerts} from "~/shared/components/Alerts"
@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
   },
 })
 
-const font = Source_Sans_Pro({subsets: ["latin"], weight: ["400", "700"]})
+const font = Lato({subsets: ["latin"], weight: ["400", "700"]})
 
 export default function App({Component, pageProps}: AppProps) {
   return (

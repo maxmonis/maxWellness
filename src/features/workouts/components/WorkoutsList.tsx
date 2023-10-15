@@ -161,7 +161,7 @@ export function WorkoutsList({
       >
         <div>
           <div className="mb-6">
-            <h1 className="text-lg leading-tight">
+            <h1 className="text-xl leading-tight">
               <span
                 className={classNames(
                   view === "create" &&
@@ -175,20 +175,26 @@ export function WorkoutsList({
                         ...values,
                         nameId: workout.nameId,
                       }),
+                    title: "Click to copy",
                   })}
               >
                 {getWorkoutName(workout.nameId, workoutNames)}
               </span>
             </h1>
-            <h2 className="text-md mt-2 leading-tight">
+            <h2 className="mt-2 leading-tight">
               <span
-                className={classNames(view === "create" && "cursor-pointer")}
+                className={classNames(
+                  view === "create"
+                    ? "cursor-pointer"
+                    : "text-gray-600 dark:text-gray-400",
+                )}
                 {...(view === "create" && {
                   onClick: () =>
                     setValues({
                       ...values,
                       date: workout.date.split("T")[0],
                     }),
+                  title: "Click to copy",
                 })}
               >
                 {getDateText(workout.date)}
@@ -215,6 +221,7 @@ export function WorkoutsList({
                             ...values,
                             liftId,
                           }),
+                        title: "Click to copy",
                       })}
                   >
                     {getLiftName(liftId, liftNames)}:
@@ -229,30 +236,27 @@ export function WorkoutsList({
                           "cursor-pointer",
                       )}
                       {...(view === "create" && {
-                        onClick: () =>
+                        onClick() {
                           setValues({
                             ...values,
+                            liftId: !liftName?.isHidden
+                              ? liftId
+                              : values.liftId,
                             sets: exercise.sets ? exercise.sets.toString() : "",
                             reps: exercise.reps ? exercise.reps.toString() : "",
                             weight: exercise.weight
                               ? exercise.weight.toString()
                               : "",
-                          }),
-                        ...(!liftName?.isHidden && {
-                          onDoubleClick: () => {
-                            setValues({
-                              ...values,
-                              liftId,
-                            })
-                            addExercise({
-                              ...omit(exercise, [
-                                "recordStartDate",
-                                "recordEndDate",
-                              ]),
-                              id: nanoid(),
-                            })
-                          },
-                        }),
+                          })
+                          addExercise({
+                            ...omit(exercise, [
+                              "recordStartDate",
+                              "recordEndDate",
+                            ]),
+                            id: nanoid(),
+                          })
+                        },
+                        title: "Click to copy",
                       })}
                     >
                       &nbsp;
@@ -292,10 +296,7 @@ export function WorkoutsList({
                   />
                   <IconButton
                     aria-label="Edit this workout"
-                    className={classNames(
-                      editingWorkout?.id === workout.id &&
-                        "text-lg text-blue-600 dark:text-blue-400",
-                    )}
+                    className="text-lg"
                     icon={<FontAwesomeIcon icon={faPen} />}
                     onClick={() =>
                       setEditingWorkout(

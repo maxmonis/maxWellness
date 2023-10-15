@@ -30,7 +30,7 @@ export function WorkoutsFilters({
 
   return (
     <div>
-      <h2 className="text-lg">Exercise Name</h2>
+      <h2 className="text-lg font-bold">Exercise Name</h2>
       <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.liftIds, ({id}) =>
           getLiftName(id, liftNames),
@@ -44,7 +44,7 @@ export function WorkoutsFilters({
           />
         ))}
       </div>
-      <h2 className="text-lg">Workout Name</h2>
+      <h2 className="text-lg font-bold">Workout Name</h2>
       <div className="mb-10 mt-4 grid gap-4">
         {sortBy(appliedFilters.nameIds, ({id}) =>
           getWorkoutName(id, workoutNames),
@@ -58,7 +58,7 @@ export function WorkoutsFilters({
           />
         ))}
       </div>
-      <h2 className="text-lg">Workout Date</h2>
+      <h2 className="text-lg font-bold">Workout Date</h2>
       <div className="mb-2 mt-4">
         <Checkbox
           key={"chronology"}

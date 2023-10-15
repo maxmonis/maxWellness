@@ -57,9 +57,8 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }
   const [values, setValues] = React.useState(defaultValues)
 
-  const [view, setView] = React.useState<View>(
-    workouts.length > 0 ? "list" : "create",
-  )
+  const defaultView = workouts.length > 0 ? "list" : "create"
+  const [view, setView] = React.useState<View>(defaultView)
   const [appliedFilters, setAppliedFilters] = React.useState(filters)
   const [filteredWorkouts, setFilteredWorkouts] = React.useState(workouts)
 
@@ -67,13 +66,13 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     if (isValidView(router.query.view)) {
       setView(router.query.view)
     } else {
-      changeView("list")
+      changeView(defaultView)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
   React.useEffect(() => {
-    clearFilters()
+    resetState()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workouts])
 
@@ -97,11 +96,6 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  React.useEffect(() => {
-    setAppliedFilters(filters)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters])
-
   if (view === "table") {
     return (
       <WorkoutsTable
@@ -119,24 +113,24 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     <div className="min-h-screen">
       <div
         className={classNames(
-          "mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 text-lg",
+          "mx-auto flex h-14 w-full items-end justify-between px-4 pb-2",
           view === "list" ? "xs:px-6" : "sm:px-6",
         )}
       >
         {view === "list" ? (
           <>
             <IconButton
-              className="text-blue-600 dark:text-blue-400"
+              color="blue"
               icon={<FontAwesomeIcon icon={faCirclePlus} />}
-              onClick={handleNewWorkoutClick}
+              onClick={() => changeView("create")}
               text="Create"
             />
-            <div className="flex gap-10">
+            <div className="flex gap-6">
               {workouts.length > 0 && (
                 <>
                   <IconButton
                     icon={<FontAwesomeIcon icon={faFilter} />}
-                    onClick={handleFiltersClick}
+                    onClick={() => changeView("filters")}
                     text="Filters"
                   />
                   <IconButton
@@ -150,14 +144,14 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
           </>
         ) : (
           <>
-            <h1 className="text-xl">
+            <h1 className="text-xl font-bold">
               {view === "create"
                 ? `${editingWorkout ? "Edit" : "New"} Workout`
                 : "Filters"}
             </h1>
-            {!editingWorkout && (
+            {!editingWorkout && workouts.length > 0 && (
               <IconButton
-                className="text-blue-600 dark:text-blue-400"
+                color="blue"
                 icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
                 onClick={() => changeView("list")}
                 text="Hide"
@@ -249,35 +243,14 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }
 
   /**
-   * Toggles the filters section
-   */
-  function handleFiltersClick() {
-    if (view === "filters") {
-      changeView(editingWorkout ? "create" : "list")
-    } else {
-      changeView("filters")
-    }
-  }
-
-  /**
-   * Toggles the new workout section
-   */
-  function handleNewWorkoutClick() {
-    if (view === "create" && !editingWorkout) {
-      changeView("list")
-    } else {
-      changeView("create")
-    }
-  }
-
-  /**
    * Clears everything to return to default state
    */
   function resetState() {
+    clearFilters()
     updateRoutine(localRoutine.get() ?? [])
     setValues(defaultValues)
     setEditingWorkout(null)
-    changeView("list")
+    changeView(defaultView)
   }
 
   /**
@@ -289,6 +262,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     setPersistentAlert(null)
   }
 
+  /**
+   * Updates the view
+   */
   function changeView(newView: View) {
     router.push(`/?view=${newView}`, undefined, {shallow: true})
     setView(newView)

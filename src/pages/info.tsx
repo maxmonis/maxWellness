@@ -16,7 +16,7 @@ export default function InfoPage() {
         <div className="mx-auto flex w-full max-w-sm flex-col items-center border-slate-700 py-10">
           <h2 className="mb-6 text-2xl">Information</h2>
           <div className="w-full border-y border-slate-700 px-4 py-6 text-center sm:px-6">
-            <h2 className="mb-4 text-xl">Table of Contents</h2>
+            <h2 className="mb-4 text-xl font-bold">Table of Contents</h2>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
@@ -59,7 +59,9 @@ export default function InfoPage() {
           <div className="mx-4 flex flex-col gap-6 divide-y divide-slate-700 sm:mx-6">
             <div id="creating-workouts">
               <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl">Creating Workouts</h3>
+                <h3 className="text-center text-xl font-bold">
+                  Creating Workouts
+                </h3>
                 <p>
                   To create a new workout, navigate to the home screen by
                   clicking the house icon in the navbar. You can then add
@@ -91,7 +93,9 @@ export default function InfoPage() {
             </div>
             <div id="managing-names">
               <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl">Managing Names</h3>
+                <h3 className="text-center text-xl font-bold">
+                  Managing Names
+                </h3>
                 <p>
                   To edit the names you use for your exercises and workouts,
                   navigate to the settings page by clicking the gear icon in the
@@ -119,7 +123,9 @@ export default function InfoPage() {
             </div>
             <div id="updating-workouts">
               <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl">Updating Workouts</h3>
+                <h3 className="text-center text-xl font-bold">
+                  Updating Workouts
+                </h3>
                 <p>
                   To edit an existing workout, click its pencil icon. You can
                   then update the name, date, and/or exercise(s). You can cancel
@@ -167,7 +173,9 @@ export default function InfoPage() {
             </div>
             <div id="tips-and-tricks">
               <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl">Tips and Tricks</h3>
+                <h3 className="text-center text-xl font-bold">
+                  Tips and Tricks
+                </h3>
                 <p>Click a workout&apos;s name to copy it:</p>
                 <div className="relative h-96">
                   <Image

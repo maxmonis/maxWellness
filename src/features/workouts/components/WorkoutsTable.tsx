@@ -99,7 +99,7 @@ export function WorkoutsTable({
               />
             </div>
             <IconButton
-              className="text-blue-600 dark:text-blue-400"
+              color="blue"
               icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
               onClick={hideWorkoutsTable}
               text="Hide"

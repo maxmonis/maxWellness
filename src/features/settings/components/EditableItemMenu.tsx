@@ -1,10 +1,7 @@
 import {faMinusCircle, faPen, faTrash} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import React from "react"
 import {IconButton} from "~/shared/components/CTA"
 import {Menu} from "~/shared/components/Menu"
-import {useKeypress} from "~/shared/hooks/useKeypress"
-import {useOutsideClick} from "~/shared/hooks/useOutsideClick"
 import {EditableName} from "~/shared/utils/models"
 
 /**
@@ -25,10 +22,6 @@ export function EditableItemMenu({
   onEditClick: () => void
   onHideClick: () => void
 }) {
-  const [open, setOpen] = React.useState(false)
-  const ref = useOutsideClick(() => setOpen(false))
-  useKeypress("Escape", () => setOpen(false))
-
   return (
     <Menu>
       <IconButton

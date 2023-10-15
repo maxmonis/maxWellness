@@ -79,7 +79,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
             className="mx-auto flex flex-col gap-4 rounded-lg border border-slate-700 bg-white p-6 dark:bg-black"
             open
           >
-            <h1 className="text-xl">You have unsaved changes</h1>
+            <h1 className="text-xl font-bold">You have unsaved changes</h1>
             <Button
               onClick={() => {
                 saveChanges()
@@ -106,10 +106,10 @@ export function SettingsApp({profile}: {profile: Profile}) {
         </div>
       )}
       <div className="flex h-14 items-end px-4 pb-2 md:px-6">
-        <h1 className="text-xl">Settings</h1>
+        <h1 className="text-xl font-bold">Settings</h1>
       </div>
       <div className="flex flex-grow flex-col border-t border-slate-700">
-        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-slate-700 border-slate-700 max-md:divide-x max-md:border-b md:max-h-[calc(100dvh-136px)] md:gap-6 md:px-6 md:pt-6">
+        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-slate-700 border-slate-700 max-md:divide-x max-md:border-b md:max-h-[calc(100dvh-138px)] md:gap-6 md:px-6 md:pt-6">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 bg-slate-100 dark:bg-slate-800 md:rounded-lg md:border">
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
               <form onSubmit={handleLiftSubmit}>
@@ -246,7 +246,11 @@ export function SettingsApp({profile}: {profile: Profile}) {
           </div>
         </div>
         <div className="flex h-20 flex-row items-center justify-center gap-4">
-          <Button onClick={saveChanges} variant="primary">
+          <Button
+            disabled={!hasChangeOccurred}
+            onClick={saveChanges}
+            variant="primary"
+          >
             Save Changes
           </Button>
           {hasChangeOccurred && (
