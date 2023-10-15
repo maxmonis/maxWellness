@@ -15,7 +15,7 @@ import {
 import {useDeleteWorkout} from "~/shared/hooks/useDeleteWorkout"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
-import {getPrintout, groupExercisesByLift} from "../functions"
+import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
 
 export function WorkoutsList({
   addExercise,

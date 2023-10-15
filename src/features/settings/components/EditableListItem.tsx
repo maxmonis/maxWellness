@@ -4,7 +4,7 @@ import classNames from "classnames"
 import React from "react"
 import {Button, IconButton} from "~/shared/components/CTA"
 import {EditableName} from "~/shared/utils/models"
-import {isTextAlreadyInList} from "../functions"
+import {isTextAlreadyInList} from "../settingsFunctions"
 import {EditableItemMenu} from "./EditableItemMenu"
 
 /**

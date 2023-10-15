@@ -9,7 +9,7 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {useUpdateProfile} from "~/shared/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/shared/utils/models"
-import {isTextAlreadyInList} from "../functions"
+import {isTextAlreadyInList} from "../settingsFunctions"
 import {EditableListItem} from "./EditableListItem"
 
 /**

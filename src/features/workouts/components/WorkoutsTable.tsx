@@ -11,7 +11,7 @@ import {getDateText} from "~/shared/functions/parsers"
 import {useViewport} from "~/shared/hooks/useViewport"
 import {Profile, Workout} from "~/shared/utils/models"
 import {Button, IconButton} from "../../../shared/components/CTA"
-import {getPrintout, groupExercisesByLift} from "../functions"
+import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
 
 /**
  * Displays workout exercises and dates in a table view

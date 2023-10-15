@@ -1,4 +1,4 @@
-import {getPrintout} from "~/features/workouts/functions"
+import {getPrintout} from "~/features/workouts/workoutsFunctions"
 import {getDateText, getLiftName} from "../functions/parsers"
 import {useSession} from "../hooks/useSession"
 import {UserMenu} from "./UserMenu"

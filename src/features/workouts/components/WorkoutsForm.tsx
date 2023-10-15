@@ -17,7 +17,7 @@ import {useAddWorkout} from "~/shared/hooks/useAddWorkout"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {useUpdateWorkout} from "~/shared/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
-import {createNewExercise, getPrintout} from "../functions"
+import {createNewExercise, getPrintout} from "../workoutsFunctions"
 
 export function WorkoutsForm({
   activeLiftNames,

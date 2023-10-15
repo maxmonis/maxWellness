@@ -1,6 +1,8 @@
 import {nanoid} from "nanoid"
 import {getPositiveInt} from "~/shared/functions/parsers"
 import {Exercise} from "~/shared/utils/models"
+import {validViews} from "./workoutsConstants"
+import {View} from "./workoutsModels"
 
 /**
  * @returns a new exercise if possible, or null if not
@@ -103,4 +105,8 @@ export function groupExercisesByLift(routine: Exercise[]) {
     }
   }
   return organizedRoutine
+}
+
+export function isValidView(view: unknown): view is View {
+  return validViews.includes(view as View)
 }
