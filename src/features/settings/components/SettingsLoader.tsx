@@ -5,22 +5,25 @@ import classNames from "classnames"
  */
 export function SettingsLoader() {
   return (
-    <div className="flex min-h-screen flex-col justify-between md:flex-row-reverse md:justify-end">
-      <div className="flex w-full flex-grow justify-center md:pt-6">
-        <div className="flex max-h-[calc(100dvh-56px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:my-10 md:max-h-[calc(100dvh-136px)] md:max-h-[calc(100dvh-80px)] md:max-w-2xl md:rounded-lg md:border">
+    <div className="flex min-h-screen flex-col justify-between">
+      <div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 md:px-6">
+        <h1 className="text-xl font-bold">Settings</h1>
+      </div>
+      <div className="flex w-full flex-grow justify-center">
+        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-slate-700 border-slate-700 max-xs:divide-x max-xs:border-b xs:gap-4 xs:px-4 xs:pt-4 md:max-h-[calc(100dvh-138px)] md:gap-6 md:px-6 md:pt-6">
           {Array.from({length: 2}).map((_, i) => (
             <div
-              className="flex w-full flex-grow flex-col items-center overflow-hidden"
+              className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 xs:rounded-lg xs:border"
               key={i}
             >
-              <div className="flex w-full flex-col justify-center overflow-hidden px-4 pt-6 md:px-6">
+              <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
                 <div className="flex">
                   <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 </div>
                 <div className="flex h-full flex-col gap-5 pb-20 pt-6">
-                  {Array.from({length: i === 0 ? 2 : 1}).map((_, j) => (
+                  {Array.from({length: 2 - i}).map((_, j) => (
                     <div className="flex flex-col gap-5" key={`${i}-${j}`}>
-                      {[24, 16, 20].map((width, k) => (
+                      {[28, 16, 20].map((width, k) => (
                         <div
                           className="flex items-center justify-between"
                           key={`${i}-${j}-${k}`}
