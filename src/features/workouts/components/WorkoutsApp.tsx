@@ -60,14 +60,17 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
         nameId: editingWorkout.nameId,
         date: editingWorkout.date.split("T")[0],
       })
-    } else {
-      resetState()
     }
   }, [editingWorkout])
 
-  useUpdateEvent(() => {
-    resetState()
-  }, [workouts])
+  useUpdateEvent(resetState, [workouts])
+
+  React.useEffect(() => {
+    if (editingWorkout && view !== "create") {
+      setEditingWorkout(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => () => setPersistentAlert(null), [])
