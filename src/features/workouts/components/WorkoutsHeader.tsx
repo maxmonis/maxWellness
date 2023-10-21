@@ -7,19 +7,16 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {IconButton} from "~/shared/components/CTA"
 import {Workout} from "~/shared/utils/models"
-import {View} from "../workoutsModels"
+import {useWorkoutView} from "../workoutsHooks"
 
 export function WorkoutsHeader({
-  changeView,
   editingWorkout,
-  view,
   workouts,
 }: {
-  changeView: (view: View) => void
   editingWorkout: Workout | null
-  view: View
   workouts: Array<Workout>
 }) {
+  const {changeView, view} = useWorkoutView()
   return (
     <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 md:px-6">
       {view === "list" ? (

@@ -8,27 +8,27 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import React from "react"
 import {getDateText} from "~/shared/functions/parsers"
+import {useSession} from "~/shared/hooks/useSession"
 import {useViewport} from "~/shared/hooks/useViewport"
-import {Profile, Workout} from "~/shared/utils/models"
+import {Workout} from "~/shared/utils/models"
 import {Button, IconButton} from "../../../shared/components/CTA"
 import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
+import {useWorkoutView} from "../workoutsHooks"
 
 /**
  * Displays workout exercises and dates in a table view
  * which can be filtered and/or have its axes toggled
  */
 export function WorkoutsTable({
-  filteredWorkouts,
   clearFilters,
-  hideWorkoutsTable,
-  profile,
+  filteredWorkouts,
 }: {
+  clearFilters: () => void
   filteredWorkouts: Workout[]
-  profile: Profile
-} & {
-  [key in "clearFilters" | "hideWorkoutsTable"]: () => void
 }) {
   const width = useViewport()
+  const {data: session} = useSession()
+  const {changeView} = useWorkoutView()
 
   const canFit = Math.floor(width / 150) - 1
   const maxColumns = canFit < 2 ? 1 : canFit < 3 ? canFit : 3
@@ -101,7 +101,7 @@ export function WorkoutsTable({
             <IconButton
               color="blue"
               icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-              onClick={hideWorkoutsTable}
+              onClick={() => changeView("list")}
               text="Hide"
             />
           </div>
@@ -244,6 +244,6 @@ export function WorkoutsTable({
    * Gets the text which corresponds to a lift ID
    */
   function getLiftName(liftId: string) {
-    return profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
+    return session?.profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
   }
 }

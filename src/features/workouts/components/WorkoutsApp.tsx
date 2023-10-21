@@ -1,13 +1,12 @@
 import sortBy from "lodash/sortBy"
-import {useRouter} from "next/router"
 import React from "react"
 import {useAlerts} from "~/shared/context/AlertContext"
 import {useUpdateEvent} from "~/shared/hooks/useUpdateEvent"
 import {StorageService} from "~/shared/services/StorageService"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {today} from "../workoutsConstants"
-import {eliminateRedundancy, isValidView} from "../workoutsFunctions"
-import {View} from "../workoutsModels"
+import {eliminateRedundancy} from "../workoutsFunctions"
+import {useWorkoutView} from "../workoutsHooks"
 import {WorkoutsFilters} from "./WorkoutsFilters"
 import {WorkoutsForm} from "./WorkoutsForm"
 import {WorkoutsHeader} from "./WorkoutsHeader"
@@ -28,7 +27,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     "text",
   )
 
-  const router = useRouter()
+  const {changeView, defaultView, view} = useWorkoutView()
   const {setPersistentAlert} = useAlerts()
 
   const [editingWorkout, setEditingWorkout] = React.useState<Workout | null>(
@@ -50,24 +49,8 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }
   const [values, setValues] = React.useState(defaultValues)
 
-  const defaultView = workouts.length > 0 ? "list" : "create"
-  const [view, setView] = React.useState<View>(defaultView)
   const [appliedFilters, setAppliedFilters] = React.useState(filters)
   const [filteredWorkouts, setFilteredWorkouts] = React.useState(workouts)
-
-  React.useEffect(() => {
-    if (isValidView(router.query.view)) {
-      setView(router.query.view)
-    } else {
-      changeView(defaultView)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query])
-
-  React.useEffect(() => {
-    resetState()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [workouts])
 
   useUpdateEvent(() => {
     if (editingWorkout) {
@@ -82,12 +65,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     }
   }, [editingWorkout])
 
-  React.useEffect(() => {
-    return () => {
-      setPersistentAlert(null)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useUpdateEvent(() => {
+    resetState()
+  }, [workouts])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => () => setPersistentAlert(null), [])
 
   if (view === "table") {
     return (
@@ -95,16 +78,14 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
         {...{
           clearFilters,
           filteredWorkouts,
-          profile,
         }}
-        hideWorkoutsTable={() => changeView("list")}
       />
     )
   }
 
   return (
     <div className="min-h-screen">
-      <WorkoutsHeader {...{changeView, editingWorkout, view, workouts}} />
+      <WorkoutsHeader {...{editingWorkout, workouts}} />
       <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-grow justify-center gap-4 border-t border-slate-700 px-4 md:max-h-[calc(100dvh-56px)] md:gap-6 md:px-6">
         {view !== "list" && (
           <div className="my-4 flex w-full min-w-[10rem] max-w-xs flex-grow overflow-x-hidden rounded-lg border border-slate-700 bg-slate-100 dark:bg-slate-800 md:my-6">
@@ -205,13 +186,5 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
     setAppliedFilters(filters)
     setFilteredWorkouts(workouts)
     setPersistentAlert(null)
-  }
-
-  /**
-   * Updates the view
-   */
-  function changeView(newView: View) {
-    router.push(`/?view=${newView}`, undefined, {shallow: true})
-    setView(newView)
   }
 }
