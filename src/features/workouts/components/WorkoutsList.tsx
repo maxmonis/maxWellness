@@ -4,6 +4,7 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import {useDeleteWorkout} from "~/shared/hooks/useDeleteWorkout"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
+import {WorkoutsEmptyState} from "./WorkoutsEmptyState"
 import {WorkoutsListItem} from "./WorkoutsListItem"
 
 export function WorkoutsList({
@@ -97,7 +98,7 @@ export function WorkoutsList({
                       </div>
                     </div>
                   ) : (
-                    <p>You haven&apos;t added any workouts yet</p>
+                    <WorkoutsEmptyState />
                   )}
                 </>
               )}

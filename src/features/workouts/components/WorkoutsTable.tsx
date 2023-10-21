@@ -27,8 +27,8 @@ export function WorkoutsTable({
   filteredWorkouts: Workout[]
 }) {
   const width = useViewport()
-  const {data: session} = useSession()
-  const {changeView} = useWorkoutView()
+  const {data: session, isLoading} = useSession()
+  const {changeView, defaultView} = useWorkoutView()
 
   const canFit = Math.floor(width / 150) - 1
   const maxColumns = canFit < 2 ? 1 : canFit < 3 ? canFit : 3
@@ -61,6 +61,10 @@ export function WorkoutsTable({
     )
     // eslint-disable-next-line
   }, [liftArray, horizontalIndex])
+
+  if (!isLoading && session?.workouts.length === 0) {
+    changeView(defaultView)
+  }
 
   return (
     <div className="flex min-h-screen w-full justify-center">

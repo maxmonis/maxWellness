@@ -19,6 +19,8 @@ export function useWorkoutView() {
     view: isValidView(view) ? view : defaultView,
   }
   function changeView(newView: View) {
-    router.push(`/?view=${newView}`, undefined, {shallow: true})
+    router.push(newView === "list" ? "/" : `/?view=${newView}`, undefined, {
+      shallow: true,
+    })
   }
 }

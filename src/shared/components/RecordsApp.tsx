@@ -4,7 +4,7 @@ import {useSession} from "../hooks/useSession"
 import {UserMenu} from "./UserMenu"
 
 export function RecordsApp() {
-  const {data: session} = useSession()
+  const {data: session, isLoading} = useSession()
   const records =
     session?.workouts.flatMap(w => w.routine.filter(e => e.recordStartDate)) ??
     []
@@ -14,7 +14,9 @@ export function RecordsApp() {
       <div className="h-full overflow-hidden pb-14">
         <div className="mt-8 flex h-full flex-col gap-6 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
           <h2 className="text-xl font-bold">Records</h2>
-          {records.length === 0 ? (
+          {isLoading ? (
+            <p>Loading records...</p>
+          ) : records.length === 0 ? (
             <p>You haven&apos;t set any records yet</p>
           ) : (
             records.map(exercise => (

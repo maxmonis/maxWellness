@@ -15,13 +15,14 @@ import {UserMenu} from "./UserMenu"
 export default function Navbar() {
   const {data: session = {workouts: []}} = useSession()
   const hasWorkouts = session.workouts.length > 0
+  const homeHref = hasWorkouts ? "/" : "/?view=create"
   return (
     <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r">
       <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 md:h-full md:justify-between md:overflow-y-scroll">
         <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-x-6 gap-y-4 md:flex-col md:items-start md:justify-start md:py-6 md:pr-6 xl:pr-12">
           <IconButton
             className="md:mb-6"
-            href={hasWorkouts ? "/?view=list" : "/?view=create"}
+            href={homeHref}
             icon={
               <Image
                 alt="Logo"
@@ -36,7 +37,7 @@ export default function Navbar() {
           />
           <IconButton
             className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
-            href={hasWorkouts ? "/?view=list" : "/?view=create"}
+            href={homeHref}
             icon={<FontAwesomeIcon icon={faHome} size="lg" />}
             text="Home"
             textClass="max-sm:sr-only"
