@@ -5,15 +5,15 @@ import classNames from "classnames"
  */
 export function SettingsLoader() {
   return (
-    <div className="flex min-h-screen flex-col justify-between lg:flex-row-reverse lg:justify-end">
-      <div className="flex w-full flex-grow justify-center md:pt-2 lg:pt-6">
-        <div className="flex max-h-[calc(100dvh-56px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:my-10 md:max-h-[calc(100dvh-136px)] md:max-w-2xl md:rounded-lg md:border lg:max-h-[calc(100dvh-80px)]">
+    <div className="flex min-h-screen flex-col justify-between md:flex-row-reverse md:justify-end">
+      <div className="flex w-full flex-grow justify-center md:pt-6">
+        <div className="flex max-h-[calc(100dvh-56px)] w-screen flex-grow justify-center divide-x divide-slate-700 border-slate-700 md:my-10 md:max-h-[calc(100dvh-136px)] md:max-h-[calc(100dvh-80px)] md:max-w-2xl md:rounded-lg md:border">
           {Array.from({length: 2}).map((_, i) => (
             <div
               className="flex w-full flex-grow flex-col items-center overflow-hidden"
               key={i}
             >
-              <div className="flex w-full flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
+              <div className="flex w-full flex-col justify-center overflow-hidden px-4 pt-6 md:px-6">
                 <div className="flex">
                   <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 </div>

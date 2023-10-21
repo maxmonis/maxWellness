@@ -66,7 +66,7 @@ export function WorkoutsTable({
     <div className="flex min-h-screen w-full justify-center">
       <div className="w-full flex-col divide-x divide-slate-700 overflow-hidden">
         <div className="flex w-full flex-1 flex-col items-center border-slate-700">
-          <div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 text-lg sm:px-6">
+          <div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 text-lg md:px-6">
             <div className="flex items-center justify-center gap-5">
               <FontAwesomeIcon
                 aria-label="View previous column"

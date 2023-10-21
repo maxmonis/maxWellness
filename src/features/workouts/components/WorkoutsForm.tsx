@@ -135,7 +135,10 @@ export function WorkoutsForm({
                         </label>
                         <input
                           autoFocus={i === 0 && routine.length === 0}
-                          className="flex flex-shrink text-center xs:px-3 xs:text-left"
+                          className={classNames(
+                            "flex flex-shrink xs:pl-3",
+                            field.value.length < 3 ? "pl-2" : "pl-1",
+                          )}
                           id={label}
                           inputMode="numeric"
                           pattern="\d*"

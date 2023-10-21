@@ -5,7 +5,6 @@ import {
   faTable,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
 import {IconButton} from "~/shared/components/CTA"
 import {Workout} from "~/shared/utils/models"
 import {View} from "../workoutsModels"
@@ -22,12 +21,7 @@ export function WorkoutsHeader({
   workouts: Array<Workout>
 }) {
   return (
-    <div
-      className={classNames(
-        "mx-auto flex h-14 w-full items-end justify-between px-4 pb-2",
-        view === "list" ? "xs:px-6" : "sm:px-6",
-      )}
-    >
+    <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 md:px-6">
       {view === "list" ? (
         <>
           <IconButton

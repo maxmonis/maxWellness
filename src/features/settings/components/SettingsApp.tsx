@@ -111,7 +111,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
       <div className="flex flex-grow flex-col border-t border-slate-700">
         <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-slate-700 border-slate-700 max-md:divide-x max-md:border-b md:max-h-[calc(100dvh-138px)] md:gap-6 md:px-6 md:pt-6">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 bg-slate-100 dark:bg-slate-800 md:rounded-lg md:border">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
+            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 md:px-6">
               <form onSubmit={handleLiftSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
                   <input
@@ -178,7 +178,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
             </div>
           </div>
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 bg-slate-100 dark:bg-slate-800 md:rounded-lg md:border">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 sm:px-6">
+            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-6 md:px-6">
               <form onSubmit={handleWorkoutSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
                   <input

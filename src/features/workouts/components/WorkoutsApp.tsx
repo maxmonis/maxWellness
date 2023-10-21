@@ -105,12 +105,12 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   return (
     <div className="min-h-screen">
       <WorkoutsHeader {...{changeView, editingWorkout, view, workouts}} />
-      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-grow justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)] md:px-6">
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-grow justify-center gap-4 border-t border-slate-700 px-4 md:max-h-[calc(100dvh-56px)] md:gap-6 md:px-6">
         {view !== "list" && (
-          <div className="flex w-full max-w-xs flex-grow overflow-x-hidden border-slate-700 bg-slate-100 dark:bg-slate-800 max-md:border-r md:my-6 md:mr-6 md:rounded-lg md:border">
+          <div className="my-4 flex w-full min-w-[10rem] max-w-xs flex-grow overflow-x-hidden rounded-lg border border-slate-700 bg-slate-100 dark:bg-slate-800 md:my-6">
             <div className="flex w-full flex-grow flex-col">
               <div className="w-full overflow-hidden max-md:h-full">
-                <div className="h-full overflow-y-auto px-4 py-6 sm:px-6">
+                <div className="h-full overflow-y-auto overflow-x-hidden p-4 md:p-6">
                   {view === "filters" ? (
                     <WorkoutsFilters
                       {...{

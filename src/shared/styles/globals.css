@@ -70,12 +70,13 @@ input:not([type="checkbox"]):not(:focus) {
 }
 
 select,
-input:not([type="checkbox"]):not([inputmode="numeric"]) {
+input:not([type="checkbox"]):not([inputmode="numeric"]):not([type="date"]) {
   padding-inline: 0.75rem;
 }
 
 input[type="date"] {
   min-height: 2.25rem;
+  padding-inline: 0.25rem;
 }
 
 select:focus,
