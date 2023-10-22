@@ -7,6 +7,10 @@ import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {WorkoutsEmptyState} from "./WorkoutsEmptyState"
 import {WorkoutsListItem} from "./WorkoutsListItem"
 
+/**
+ * Displays a list of the user's workouts, each of which
+ * includes a menu for copying, editing, or deleting
+ */
 export function WorkoutsList({
   clearFilters,
   editingWorkout,
@@ -67,7 +71,7 @@ export function WorkoutsList({
               />
             </div>
           ) : (
-            <div className="grid h-full gap-4 overflow-y-auto overflow-x-hidden py-4 md:py-6">
+            <div className="flex h-full flex-col gap-4 overflow-y-auto overflow-x-hidden py-4 md:py-6">
               {filteredWorkouts.length ? (
                 filteredWorkouts.map(workout => (
                   <WorkoutsListItem

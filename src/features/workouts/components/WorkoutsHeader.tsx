@@ -9,6 +9,10 @@ import {IconButton} from "~/shared/components/CTA"
 import {Workout} from "~/shared/utils/models"
 import {useWorkoutView} from "../workoutsHooks"
 
+/**
+ * Displays the title of the selected view
+ * and allows the user to choose a new one
+ */
 export function WorkoutsHeader({
   editingWorkout,
   workouts,

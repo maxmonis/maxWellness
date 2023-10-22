@@ -146,7 +146,7 @@ export function Page({
 }
 
 /**
- * Memoized background image for select pages
+ * Background image for select pages
  */
 function Wallpaper() {
   const [error, setError] = React.useState(false)

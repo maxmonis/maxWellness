@@ -5,6 +5,9 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import {getLiftName, getWorkoutName} from "~/shared/functions/parsers"
 import {Session} from "~/shared/utils/models"
 
+/**
+ * Allows the user to filter workouts by name, date, etc.
+ */
 export function WorkoutsFilters({
   appliedFilters,
   clearFilters,
@@ -31,7 +34,7 @@ export function WorkoutsFilters({
   return (
     <div>
       <h2 className="text-lg font-bold">Exercise Name</h2>
-      <div className="mb-10 mt-4 grid gap-4">
+      <div className="mb-10 mt-4 flex flex-col gap-4">
         {sortBy(appliedFilters.liftIds, ({id}) =>
           getLiftName(id, liftNames),
         ).map(({checked, id}) => (
@@ -45,7 +48,7 @@ export function WorkoutsFilters({
         ))}
       </div>
       <h2 className="text-lg font-bold">Workout Name</h2>
-      <div className="mb-10 mt-4 grid gap-4">
+      <div className="mb-10 mt-4 flex flex-col gap-4">
         {sortBy(appliedFilters.nameIds, ({id}) =>
           getWorkoutName(id, workoutNames),
         ).map(({checked, id}) => (

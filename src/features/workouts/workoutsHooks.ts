@@ -10,7 +10,7 @@ export function useWorkoutView() {
   } = router
   const {data: session} = useSession()
   const defaultView: View = session?.workouts.length ? "list" : "create"
-  if (view && !isValidView(view)) {
+  if (view === "list" || (view && !isValidView(view))) {
     changeView(defaultView)
   }
   return {

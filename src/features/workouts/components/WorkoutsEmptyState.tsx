@@ -1,5 +1,8 @@
 import {useAuth} from "~/shared/context/AuthContext"
 
+/**
+ * Contains a greeting and instructions on managing workouts
+ */
 export function WorkoutsEmptyState() {
   const user = useAuth()
   return (

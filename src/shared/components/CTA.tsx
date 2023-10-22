@@ -38,14 +38,17 @@ export function Button({
   )
 }
 
+/**
+ * Displays either a link or button, with an icon and optional text
+ */
 export function IconButton({
   className,
   color,
   href,
-  textClass,
   icon,
-  side = "right",
   text,
+  textClass,
+  textSide = "right",
   type,
   ...props
 }: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color"> & {
@@ -53,8 +56,8 @@ export function IconButton({
   href?: `/${string}`
   icon: JSX.Element
 } & (
-    | {textClass?: string; text: string; side?: "left" | "right"}
-    | {textClass?: never; text?: never; side?: never}
+    | {textClass?: string; text: string; textSide?: "left" | "right"}
+    | {textClass?: never; text?: never; textSide?: never}
   )) {
   const classes = classNames(
     "flex gap-2 items-center cursor-pointer text-lg font-bold",
@@ -65,9 +68,11 @@ export function IconButton({
   )
   const content = (
     <>
-      {text && side === "left" && <span className={textClass}>{text}</span>}
+      {text && textSide === "left" && <span className={textClass}>{text}</span>}
       {icon}
-      {text && side === "right" && <span className={textClass}>{text}</span>}
+      {text && textSide === "right" && (
+        <span className={textClass}>{text}</span>
+      )}
     </>
   )
 

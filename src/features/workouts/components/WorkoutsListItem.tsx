@@ -14,6 +14,10 @@ import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
 import {View} from "../workoutsModels"
 
+/**
+ * A workout from the list view, along with a menu
+ * which allows copying, editing, or deleting
+ */
 export function WorkoutsListItem({
   addExercise,
   deletingId,

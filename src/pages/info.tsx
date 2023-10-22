@@ -14,7 +14,7 @@ export default function InfoPage() {
     <Page title="Info">
       <div className="h-full max-h-[calc(100dvh-56px)] w-full overflow-y-auto md:max-h-screen">
         <div className="mx-auto flex w-full max-w-sm flex-col items-center border-slate-700 py-10">
-          <h2 className="mb-6 text-2xl">Information</h2>
+          <h1 className="mb-6 text-2xl font-bold">Information</h1>
           <div className="w-full border-y border-slate-700 px-4 py-6 text-center md:px-6">
             <h2 className="mb-4 text-xl font-bold">Table of Contents</h2>
             <ul className="flex flex-col gap-2">
@@ -58,8 +58,8 @@ export default function InfoPage() {
           </div>
           <div className="mx-4 flex flex-col gap-6 divide-y divide-slate-700 md:mx-6">
             <div id="creating-workouts">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col pt-6">
+                <h3 className="mb-6 text-center text-xl font-bold">
                   Creating Workouts
                 </h3>
                 <p>
@@ -92,8 +92,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="managing-names">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col pt-6">
+                <h3 className="mb-6 text-center text-xl font-bold">
                   Managing Names
                 </h3>
                 <p>
@@ -122,8 +122,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="updating-workouts">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col pt-6">
+                <h3 className="mb-6 text-center text-xl font-bold">
                   Updating Workouts
                 </h3>
                 <p>
@@ -172,8 +172,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="tips-and-tricks">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col pt-6">
+                <h3 className="mb-6 text-center text-xl font-bold">
                   Tips and Tricks
                 </h3>
                 <p>Click a workout&apos;s name to copy it:</p>

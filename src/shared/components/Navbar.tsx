@@ -12,29 +12,35 @@ import {useSession} from "../hooks/useSession"
 import {IconButton} from "./CTA"
 import {UserMenu} from "./UserMenu"
 
+/**
+ * The site's main navbar, which is displayed at the bottom of
+ * the screen on narrow viewports and to the left on wider ones
+ */
 export default function Navbar() {
   const {data: session = {workouts: []}} = useSession()
   const hasWorkouts = session.workouts.length > 0
   const homeHref = hasWorkouts ? "/" : "/?view=create"
+
   return (
     <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r">
       <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 md:h-full md:justify-between md:overflow-y-scroll">
-        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-x-6 gap-y-4 md:flex-col md:items-start md:justify-start md:py-6 md:pr-6 xl:pr-12">
-          <IconButton
-            className="md:mb-6"
-            href={homeHref}
-            icon={
-              <Image
-                alt="Logo"
-                className="rounded-md border"
-                src="/android-chrome-192x192.png"
-                height={24}
-                width={24}
-              />
-            }
-            text="maxWellness"
-            textClass="max-sm:sr-only"
-          />
+        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-x-6 gap-y-4 md:flex-col md:items-start md:justify-start md:py-6">
+          <div className="md:mb-6">
+            <IconButton
+              href={homeHref}
+              icon={
+                <Image
+                  alt="Logo"
+                  className="rounded-md border"
+                  src="/android-chrome-192x192.png"
+                  height={24}
+                  width={24}
+                />
+              }
+              text="maxWellness"
+              textClass="max-sm:sr-only"
+            />
+          </div>
           <IconButton
             className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
             href={homeHref}
@@ -42,7 +48,7 @@ export default function Navbar() {
             text="Home"
             textClass="max-sm:sr-only"
           />
-          <div className="grid gap-x-6 gap-y-4 max-md:hidden">
+          <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
             <IconButton
               className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
               color="blue"

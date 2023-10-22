@@ -6,7 +6,7 @@ import {useKeypress} from "~/shared/hooks/useKeypress"
 import {useOutsideClick} from "~/shared/hooks/useOutsideClick"
 
 /**
- * Allows the user to update/hide a name, and also to delete it if it's unused
+ * A generic toggleable menu
  */
 export function Menu({children}: {children: React.ReactNode}) {
   const [open, setOpen] = React.useState(false)

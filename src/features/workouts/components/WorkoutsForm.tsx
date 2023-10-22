@@ -19,6 +19,9 @@ import {useUpdateWorkout} from "~/shared/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {createNewExercise, getPrintout} from "../workoutsFunctions"
 
+/**
+ * Allows the user to edit an existing workout or create a new one
+ */
 export function WorkoutsForm({
   activeLiftNames,
   activeWorkoutNames,

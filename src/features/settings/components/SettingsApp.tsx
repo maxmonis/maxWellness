@@ -74,7 +74,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
   return (
     <div className="flex min-h-screen w-full flex-grow flex-col">
       {showLeaveConfirmDialog && (
-        <div className="fixed left-0 top-0 z-10 grid h-screen w-screen items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-50 p-4">
           <dialog
             className="mx-auto flex flex-col gap-4 rounded-lg border border-slate-700 bg-white p-6 dark:bg-black"
             open

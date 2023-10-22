@@ -3,6 +3,9 @@ import {getDateText, getLiftName} from "../functions/parsers"
 import {useSession} from "../hooks/useSession"
 import {UserMenu} from "./UserMenu"
 
+/**
+ * Displays the user's personal records (if any exist)
+ */
 export function RecordsApp() {
   const {data: session, isLoading} = useSession()
   const records =

@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import {useTheme} from "next-themes"
 import Image from "next/image"
+import {useRouter} from "next/router"
 import React from "react"
 import {logOut} from "~/firebase/client"
 import {useAuth} from "../context/AuthContext"
@@ -22,6 +23,7 @@ import {IconButton} from "./CTA"
 export function UserMenu({className = "", showName = false}) {
   const user = useAuth()
   const {data: session} = useSession()
+  const router = useRouter()
 
   const [open, setOpen] = React.useState(false)
   const ref = useOutsideClick(() => setOpen(false))
@@ -29,32 +31,25 @@ export function UserMenu({className = "", showName = false}) {
 
   return (
     <div className={classNames("relative", className)} {...{ref}}>
-      {session?.profile.photoURL ? (
-        <IconButton
-          aria-label="Toggle menu"
-          icon={
+      <IconButton
+        icon={
+          session?.profile.photoURL ? (
             <div className="relative h-6 w-6">
               <Image
-                alt={session.profile.userName}
+                alt={`${session.profile.userName} profile photo`}
                 className="rounded-full"
                 fill
                 src={session.profile.photoURL}
               />
             </div>
-          }
-          text={showName ? session.profile.userName : "Profile"}
-          textClass="max-sm:sr-only"
-          onClick={() => setOpen(!open)}
-        />
-      ) : (
-        <IconButton
-          aria-label="Toggle menu"
-          icon={<FontAwesomeIcon icon={faUser} size="lg" />}
-          onClick={() => setOpen(!open)}
-          text={showName ? session?.profile.userName ?? "Profile" : "Profile"}
-          textClass="max-sm:sr-only"
-        />
-      )}
+          ) : (
+            <FontAwesomeIcon icon={faUser} size="lg" />
+          )
+        }
+        text={showName ? session?.profile.userName ?? "Profile" : "Profile"}
+        textClass="max-sm:sr-only"
+        onClick={() => setOpen(!open)}
+      />
       {open && (
         <dialog className="absolute z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-md:-left-24 max-md:bottom-8 md:left-8 md:top-8">
           <DarkModeToggle />
@@ -67,7 +62,9 @@ export function UserMenu({className = "", showName = false}) {
                   size="lg"
                 />
               }
-              onClick={logOut}
+              onClick={() => {
+                logOut().then(() => router.push("/login"))
+              }}
               text="Logout"
             />
           )}
