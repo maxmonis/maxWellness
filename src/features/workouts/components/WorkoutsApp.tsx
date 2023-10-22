@@ -102,7 +102,6 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
                         clearFilters,
                         filters,
                         liftNames,
-                        resetState,
                         setAppliedFilters,
                         setFilteredWorkouts,
                         workoutNames,

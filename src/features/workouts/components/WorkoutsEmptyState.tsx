@@ -1,14 +1,14 @@
-import {useAuth} from "~/shared/context/AuthContext"
+import {useSession} from "~/shared/hooks/useSession"
 
 /**
  * Contains a greeting and instructions on managing workouts
  */
 export function WorkoutsEmptyState() {
-  const user = useAuth()
+  const {data: session} = useSession()
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-lg font-bold">
-        Hi {user?.displayName}, welcome to maxWellness!
+        Hi {session?.profile.userName}, welcome to maxWellness!
       </h2>
       <p>
         Once you&apos;ve saved workouts, they will be displayed here.

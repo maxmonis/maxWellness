@@ -13,7 +13,6 @@ export function WorkoutsFilters({
   clearFilters,
   filters,
   liftNames,
-  resetState,
   setAppliedFilters,
   setFilteredWorkouts,
   workoutNames,
@@ -23,13 +22,19 @@ export function WorkoutsFilters({
   clearFilters: () => void
   filters: Session["filters"]
   liftNames: Session["profile"]["liftNames"]
-  resetState: () => void
   setAppliedFilters: React.Dispatch<React.SetStateAction<typeof filters>>
   setFilteredWorkouts: React.Dispatch<React.SetStateAction<typeof workouts>>
   workoutNames: Session["profile"]["workoutNames"]
   workouts: Session["workouts"]
 }) {
   const {setPersistentAlert} = useAlerts()
+  if (workouts.length === 0) {
+    return (
+      <div>
+        <h2 className="text-lg font-bold">No filters available</h2>
+      </div>
+    )
+  }
 
   return (
     <div>

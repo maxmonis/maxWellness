@@ -9,15 +9,22 @@ export function useWorkoutView() {
     query: {view},
   } = router
   const {data: session} = useSession()
-  const defaultView: View = session?.workouts.length ? "list" : "create"
+
+  const hasWorkouts = Boolean(session?.workouts.length)
+  const defaultView: View = hasWorkouts ? "list" : "create"
+
   if (view === "list" || (view && !isValidView(view))) {
     changeView(defaultView)
+  } else if (!hasWorkouts && view !== "create") {
+    router.replace("/?view=create")
   }
+
   return {
     changeView,
     defaultView,
     view: isValidView(view) ? view : defaultView,
   }
+
   function changeView(newView: View) {
     router.push(newView === "list" ? "/" : `/?view=${newView}`, undefined, {
       shallow: true,

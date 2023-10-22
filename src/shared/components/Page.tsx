@@ -104,7 +104,7 @@ export function Page({
                   (loading && Loader ? (
                     <Loader />
                   ) : (
-                    <p className="absolute left-4 top-4 text-lg">
+                    <p className="p-6 text-lg">
                       {loading
                         ? loadingText ?? "Loading..."
                         : error
