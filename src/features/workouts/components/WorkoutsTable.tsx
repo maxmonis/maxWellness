@@ -147,7 +147,7 @@ export function WorkoutsTable({
                                 className="px-4 py-2 text-lg shadow-sm shadow-slate-700"
                                 key={liftId}
                               >
-                                {getLiftName(liftId)}
+                                {getLiftNameText(liftId)}
                               </th>
                             ))}
                     </tr>
@@ -160,7 +160,7 @@ export function WorkoutsTable({
                             key={liftId}
                           >
                             <td className="px-4 py-2 text-lg">
-                              {getLiftName(liftId)}
+                              {getLiftNameText(liftId)}
                             </td>
                             {filteredWorkouts
                               .slice(
@@ -252,7 +252,7 @@ export function WorkoutsTable({
   /**
    * Gets the text which corresponds to a lift ID
    */
-  function getLiftName(liftId: string) {
+  function getLiftNameText(liftId: string) {
     return session?.profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
   }
 }

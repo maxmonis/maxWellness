@@ -1,5 +1,5 @@
 import {getPrintout} from "~/features/workouts/workoutsFunctions"
-import {getDateText, getLiftName} from "../functions/parsers"
+import {getDateText, getLiftNameText} from "../functions/parsers"
 import {useSession} from "../hooks/useSession"
 import {UserMenu} from "./UserMenu"
 
@@ -25,7 +25,7 @@ export function RecordsApp() {
             records.map(exercise => (
               <div key={exercise.id}>
                 <p>
-                  {getLiftName(
+                  {getLiftNameText(
                     exercise.liftId,
                     session?.profile.liftNames ?? [],
                   )}

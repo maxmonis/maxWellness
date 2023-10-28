@@ -2,7 +2,7 @@ import sortBy from "lodash/sortBy"
 import React from "react"
 import {Checkbox} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
-import {getLiftName, getWorkoutName} from "~/shared/functions/parsers"
+import {getLiftNameText, getWorkoutNameText} from "~/shared/functions/parsers"
 import {Session} from "~/shared/utils/models"
 
 /**
@@ -41,12 +41,12 @@ export function WorkoutsFilters({
       <h2 className="text-lg font-bold">Exercise Name</h2>
       <div className="mb-10 mt-4 flex flex-col gap-4">
         {sortBy(appliedFilters.liftIds, ({id}) =>
-          getLiftName(id, liftNames),
+          getLiftNameText(id, liftNames),
         ).map(({checked, id}) => (
           <Checkbox
             key={id}
             onChange={e => updateWorkoutsFilter(e.target.value, "liftId")}
-            text={getLiftName(id, liftNames)}
+            text={getLiftNameText(id, liftNames)}
             value={id}
             {...{checked}}
           />
@@ -55,12 +55,12 @@ export function WorkoutsFilters({
       <h2 className="text-lg font-bold">Workout Name</h2>
       <div className="mb-10 mt-4 flex flex-col gap-4">
         {sortBy(appliedFilters.nameIds, ({id}) =>
-          getWorkoutName(id, workoutNames),
+          getWorkoutNameText(id, workoutNames),
         ).map(({checked, id}) => (
           <Checkbox
             key={id}
             onChange={e => updateWorkoutsFilter(e.target.value, "nameId")}
-            text={getWorkoutName(id, workoutNames)}
+            text={getWorkoutNameText(id, workoutNames)}
             value={id}
             {...{checked}}
           />

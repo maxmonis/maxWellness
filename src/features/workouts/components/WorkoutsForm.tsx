@@ -12,7 +12,7 @@ import {
 } from "react-beautiful-dnd"
 import {Button, IconButton} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
-import {getLiftName} from "~/shared/functions/parsers"
+import {getLiftNameText} from "~/shared/functions/parsers"
 import {useAddWorkout} from "~/shared/hooks/useAddWorkout"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {useUpdateWorkout} from "~/shared/hooks/useUpdateWorkout"
@@ -217,7 +217,7 @@ export function WorkoutsForm({
                           className="text-lg leading-tight"
                           {...dragHandleProps}
                         >
-                          {`${getLiftName(
+                          {`${getLiftNameText(
                             exercise.liftId,
                             liftNames,
                           )}: ${getPrintout(

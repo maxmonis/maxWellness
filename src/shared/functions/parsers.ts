@@ -41,14 +41,14 @@ export function getPositiveInt(value: string | number) {
 /**
  * Gets the lift name which corresponds to an ID
  */
-export function getLiftName(liftId: string, liftNames: EditableName[]) {
+export function getLiftNameText(liftId: string, liftNames: EditableName[]) {
   return liftNames.find(({id}) => id === liftId)?.text ?? ""
 }
 
 /**
  * Gets the workout name which corresponds to an ID
  */
-export function getWorkoutName(
+export function getWorkoutNameText(
   workoutId: string,
   workoutNames: EditableName[],
 ) {

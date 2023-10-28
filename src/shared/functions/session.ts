@@ -1,6 +1,6 @@
 import sortBy from "lodash/sortBy"
 import {Exercise, Profile, Workout} from "~/shared/utils/models"
-import {getLiftName, getWorkoutName} from "./parsers"
+import {getLiftNameText, getWorkoutNameText} from "./parsers"
 
 export function generateSession(profile: Profile, workoutList: Workout[]) {
   const liftIds = new Set<string>()
@@ -28,14 +28,14 @@ export function generateSession(profile: Profile, workoutList: Workout[]) {
           ...liftName,
           canDelete: !liftIds.has(liftName.id),
         })),
-        ({id}) => getLiftName(id, profile.liftNames),
+        ({id}) => getLiftNameText(id, profile.liftNames),
       ),
       workoutNames: sortBy(
         profile.workoutNames.map(workoutName => ({
           ...workoutName,
           canDelete: !nameIds.has(workoutName.id),
         })),
-        ({id}) => getWorkoutName(id, profile.workoutNames),
+        ({id}) => getWorkoutNameText(id, profile.workoutNames),
       ),
     },
     workouts,
