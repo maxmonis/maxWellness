@@ -60,8 +60,10 @@ export function IconButton({
     | {textClass?: never; text?: never; textSide?: never}
   )) {
   const classes = classNames(
-    "flex gap-2 items-center cursor-pointer text-lg font-bold",
-    color === "blue"
+    "flex gap-2 items-center text-lg font-bold",
+    props.disabled
+      ? "text-gray-500 dark:text-gray-400 cursor-not-allowed"
+      : color === "blue"
       ? "text-blue-600 dark:text-blue-400"
       : "text-gray-700 dark:text-gray-200",
     className,

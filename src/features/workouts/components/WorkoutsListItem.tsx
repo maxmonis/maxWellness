@@ -1,15 +1,24 @@
-import {faCopy, faPen, faTrash} from "@fortawesome/free-solid-svg-icons"
+import {
+  faClipboard,
+  faCopy,
+  faEllipsis,
+  faPen,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import omit from "lodash/omit"
 import {nanoid} from "nanoid"
+import React from "react"
 import {Button, IconButton} from "~/shared/components/CTA"
-import {Menu} from "~/shared/components/Menu"
+import {useAlerts} from "~/shared/context/AlertContext"
 import {
   getDateText,
-  getLiftName,
-  getWorkoutName,
+  getLiftNameText,
+  getWorkoutNameText,
 } from "~/shared/functions/parsers"
+import {useKeypress} from "~/shared/hooks/useKeypress"
+import {useOutsideClick} from "~/shared/hooks/useOutsideClick"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
 import {View} from "../workoutsModels"
@@ -54,6 +63,10 @@ export function WorkoutsListItem({
   workouts: Array<Workout>
   workoutNames: Session["profile"]["workoutNames"]
 }) {
+  const {showAlert} = useAlerts()
+  const [open, setOpen] = React.useState(false)
+  const ref = useOutsideClick(() => setOpen(false))
+  useKeypress("Escape", () => setOpen(false))
   const workoutName = workoutNames.find(n => n.id === workout.id)
   return (
     <div
@@ -81,7 +94,7 @@ export function WorkoutsListItem({
                   title: "Click to copy",
                 })}
             >
-              {getWorkoutName(workout.nameId, workoutNames)}
+              {getWorkoutNameText(workout.nameId, workoutNames)}
             </span>
           </h1>
           <h2 className="mt-2 leading-tight">
@@ -127,7 +140,7 @@ export function WorkoutsListItem({
                       title: "Click to copy",
                     })}
                 >
-                  {getLiftName(liftId, liftNames)}:
+                  {getLiftNameText(liftId, liftNames)}:
                 </span>
                 {exerciseList.map((exercise, k) => (
                   <span
@@ -180,39 +193,63 @@ export function WorkoutsListItem({
               <Button onClick={() => setDeletingId(null)}>Cancel</Button>
             </div>
           ) : (
-            <Menu>
-              <div className="flex flex-col justify-evenly gap-y-4">
-                <IconButton
-                  aria-label="Copy this workout's name and exercises"
-                  icon={<FontAwesomeIcon icon={faCopy} />}
-                  onClick={() =>
-                    copyWorkout(
-                      workouts.find(({id}) => id === workout.id) ?? workout,
-                    )
-                  }
-                  text="Copy"
-                />
-                <IconButton
-                  aria-label="Edit this workout"
-                  className="text-lg"
-                  icon={<FontAwesomeIcon icon={faPen} />}
-                  onClick={() =>
-                    setEditingWorkout(
-                      editingWorkout?.id === workout.id
-                        ? null
-                        : workouts.find(({id}) => id === workout.id) ?? workout,
-                    )
-                  }
-                  text="Edit"
-                />
-                <IconButton
-                  aria-label="Delete this workout"
-                  icon={<FontAwesomeIcon icon={faTrash} />}
-                  onClick={() => handleDeleteClick(workout.id)}
-                  text="Delete"
-                />
-              </div>
-            </Menu>
+            <div className="relative" {...{ref}}>
+              <IconButton
+                aria-label="Toggle menu"
+                className="flex items-center justify-center rounded-lg border-2 border-slate-300 p-1 dark:border-slate-700"
+                icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
+                onClick={() => setOpen(!open)}
+              />
+              {open && (
+                <dialog className="absolute -left-28 top-8 z-10 flex flex-col gap-4 rounded-lg border border-slate-700 p-4">
+                  <div className="flex flex-col justify-evenly gap-y-4">
+                    <IconButton
+                      aria-label="Duplicate this workout's name and exercises"
+                      icon={<FontAwesomeIcon icon={faCopy} />}
+                      onClick={() =>
+                        duplicateWorkout(
+                          workouts.find(({id}) => id === workout.id) ?? workout,
+                        )
+                      }
+                      text="Duplicate"
+                    />
+                    {navigator?.clipboard && (
+                      <IconButton
+                        aria-label="Copy this workout's name and exercises to clipboard"
+                        icon={<FontAwesomeIcon icon={faClipboard} />}
+                        onClick={() =>
+                          copyToClipboard(
+                            workouts.find(({id}) => id === workout.id) ??
+                              workout,
+                          )
+                        }
+                        text="Copy"
+                      />
+                    )}
+                    <IconButton
+                      aria-label="Edit this workout"
+                      className="text-lg"
+                      icon={<FontAwesomeIcon icon={faPen} />}
+                      onClick={() =>
+                        setEditingWorkout(
+                          editingWorkout?.id === workout.id
+                            ? null
+                            : workouts.find(({id}) => id === workout.id) ??
+                                workout,
+                        )
+                      }
+                      text="Edit"
+                    />
+                    <IconButton
+                      aria-label="Delete this workout"
+                      icon={<FontAwesomeIcon icon={faTrash} />}
+                      onClick={() => handleDeleteClick(workout.id)}
+                      text="Delete"
+                    />
+                  </div>
+                </dialog>
+              )}
+            </div>
           )}
         </>
       )}
@@ -222,32 +259,38 @@ export function WorkoutsListItem({
   /**
    * Copies the name and routine of a workout, also copying it to clipboard
    */
-  function copyWorkout(workout: Workout) {
+  function duplicateWorkout(workout: Workout) {
     const copiedRoutine = workout.routine.map(exercise => ({
       ...exercise,
       id: nanoid(),
     }))
     updateRoutine(copiedRoutine)
     setValues({...values, nameId: workout.nameId})
-    copyToClipboard(workout)
+    showAlert({text: "Workout duplicated", type: "success"})
+    setOpen(false)
   }
 
   /**
    * Copies a workout to the clipboard
    */
   function copyToClipboard(workout: Workout) {
-    navigator.clipboard?.writeText(
-      `${getWorkoutName(workout.nameId, workoutNames)}
-  ${getDateText(workout.date)}
-  ${groupExercisesByLift(workout.routine)
-    .map(
-      exerciseList =>
-        `${getLiftName(exerciseList[0].liftId, liftNames)}: ${exerciseList
-          .map(exercise => getPrintout(exercise))
-          .join(", ")}`,
-    )
-    .join("\n")}
-  `,
-    )
+    navigator.clipboard
+      ?.writeText(
+        `${getWorkoutNameText(workout.nameId, workoutNames)}
+${getDateText(workout.date)}
+${groupExercisesByLift(workout.routine)
+  .map(
+    exerciseList =>
+      `${getLiftNameText(exerciseList[0].liftId, liftNames)}: ${exerciseList
+        .map(exercise => getPrintout(exercise))
+        .join(", ")}`,
+  )
+  .join("\n")}
+`,
+      )
+      .then(() => {
+        showAlert({text: "Copied to clipboard", type: "success"})
+        setOpen(false)
+      })
   }
 }
