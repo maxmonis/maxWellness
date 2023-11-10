@@ -17,7 +17,7 @@ import {EditableListItem} from "./EditableListItem"
  * them to add new ones and edit/delete existing ones
  */
 export function SettingsApp({profile}: {profile: Profile}) {
-  const Router = useRouter()
+  const router = useRouter()
   const {showAlert} = useAlerts()
 
   const {mutate: updateProfile} = useUpdateProfile({
@@ -61,7 +61,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
   )
 
   React.useEffect(() => {
-    Router.events.on("routeChangeStart", onRouteChangeStart)
+    router.events.on("routeChangeStart", onRouteChangeStart)
     return removeListener
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onRouteChangeStart])
@@ -411,10 +411,10 @@ export function SettingsApp({profile}: {profile: Profile}) {
   function onConfirmRouteChange() {
     setShowLeaveConfirmDialog(false)
     removeListener()
-    Router.push(nextRouterPath)
+    router.push(nextRouterPath)
   }
 
   function removeListener() {
-    Router.events.off("routeChangeStart", onRouteChangeStart)
+    router.events.off("routeChangeStart", onRouteChangeStart)
   }
 }
