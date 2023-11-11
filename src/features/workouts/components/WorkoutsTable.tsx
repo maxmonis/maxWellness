@@ -31,8 +31,20 @@ export function WorkoutsTable({
   const {data: session, isLoading} = useSession()
   const {changeView} = useWorkoutView()
 
-  const canFit = Math.floor(width / 150) - 1
-  const maxColumns = canFit < 2 ? 1 : canFit < 3 ? canFit : 3
+  const maxColumns =
+    width < 500
+      ? 1
+      : width < 650
+      ? 2
+      : width < 768
+      ? 3
+      : width < 900
+      ? 2
+      : width < 1024
+      ? 3
+      : width < 1125
+      ? 2
+      : 3
 
   const liftIds: Record<string, number> = {}
   for (const {routine} of filteredWorkouts) {
@@ -131,7 +143,7 @@ export function WorkoutsTable({
                             )
                             .map(workout => (
                               <th
-                                className="whitespace-nowrap px-4 py-2 text-lg shadow-sm shadow-slate-700"
+                                className="px-4 py-2 text-lg shadow-sm shadow-slate-700"
                                 key={workout.id}
                               >
                                 {getDateText(workout.date)}
@@ -198,7 +210,7 @@ export function WorkoutsTable({
                             className="divide-x divide-slate-700 border-t border-slate-700"
                             key={workout.id}
                           >
-                            <td className="whitespace-nowrap px-4 py-2 text-lg">
+                            <td className="px-4 py-2 text-lg">
                               {getDateText(workout.date)}
                             </td>
                             {sortedLifts
