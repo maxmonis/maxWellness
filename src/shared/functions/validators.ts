@@ -118,7 +118,7 @@ export function validateAuthForm({
   if (page === "register") {
     if (!hasChars(userName)) {
       inputErrors.userName = "Name is required"
-    } else if (!hasChars(password, 3)) {
+    } else if (!hasChars(userName, 3)) {
       inputErrors.password = "Name is too short"
     }
 
