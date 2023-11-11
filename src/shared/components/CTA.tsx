@@ -54,7 +54,7 @@ export function IconButton({
 }: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color"> & {
   color?: "blue"
   href?: `/${string}`
-  icon: JSX.Element
+  icon: React.ReactNode
 } & (
     | {textClass?: string; text: string; textSide?: "left" | "right"}
     | {textClass?: never; text?: never; textSide?: never}
@@ -149,8 +149,19 @@ export function GoogleButton({
     <button
       className="flex w-full items-center justify-center rounded border bg-white p-2 text-black"
       disabled={submitting}
+      onClick={async () => {
+        if (submitting) return
+        setSubmitting(true)
+        try {
+          const isNewUser = await googleLogin()
+          router.push(isNewUser ? "/info" : "/")
+        } catch (error) {
+          handleError(error)
+        } finally {
+          setSubmitting(false)
+        }
+      }}
       type="button"
-      {...{onClick}}
     >
       <Image
         alt="google logo"
@@ -165,20 +176,4 @@ export function GoogleButton({
       Continue with Google
     </button>
   )
-
-  /**
-   * Attempts to log the user in using their Google credentials
-   */
-  async function onClick() {
-    if (submitting) return
-    setSubmitting(true)
-    try {
-      const isNewUser = await googleLogin()
-      router.push(isNewUser ? "/info" : "/")
-    } catch (error) {
-      handleError(error)
-    } finally {
-      setSubmitting(false)
-    }
-  }
 }

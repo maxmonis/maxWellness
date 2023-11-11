@@ -45,7 +45,7 @@ export function Page({
   ) &
   (
     | {
-        children: JSX.Element
+        children: React.ReactNode
         component?: never
         props?: never
       }
@@ -95,8 +95,10 @@ export function Page({
               {mustBeLoggedIn && <RecordsApp />}
               <div
                 className={classNames(
-                  "max-h-[calc(100dvh-56px)] w-full",
-                  mustBeLoggedOut ? "max-h-screen" : "md:max-h-screen",
+                  "w-full",
+                  mustBeLoggedOut
+                    ? "max-h-screen"
+                    : "max-h-[calc(100dvh-56px)] md:max-h-screen",
                 )}
               >
                 {children ??

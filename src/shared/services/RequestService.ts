@@ -53,7 +53,6 @@ export class RequestService {
    */
   private async makeRequest<T>({
     body,
-    method,
     params,
     route,
     ...request
@@ -61,7 +60,6 @@ export class RequestService {
     const url = this.getUrl({params, route})
     const res = await fetch(url, {
       body: JSON.stringify(body),
-      method,
       ...request,
     })
     if (!res.ok) {
@@ -73,12 +71,12 @@ export class RequestService {
   /**
    * Appends route and params (if any) to base URL
    */
-  private getUrl({params = {}, route}: {params?: object; route?: string}) {
+  private getUrl({params, route}: {params?: object; route?: string}) {
     let url = this.url
     if (route) {
       url += `/${route}`
     }
-    const searchParams = Object.entries(params)
+    const searchParams = Object.entries(params ?? {})
     if (searchParams.length > 0) {
       url += `?${new URLSearchParams(searchParams)}`
     }

@@ -34,19 +34,22 @@ export function getDateText(date: string) {
   )
 }
 
+/**
+ * Parses a value to an integer greater than or equal to zero
+ */
 export function getPositiveInt(value: string | number) {
   return Math.abs(parseInt(value + "")) || 0
 }
 
 /**
- * Gets the lift name which corresponds to an ID
+ * Gets the lift name text which corresponds to an ID
  */
 export function getLiftNameText(liftId: string, liftNames: EditableName[]) {
   return liftNames.find(({id}) => id === liftId)?.text ?? ""
 }
 
 /**
- * Gets the workout name which corresponds to an ID
+ * Gets the workout name text which corresponds to an ID
  */
 export function getWorkoutNameText(
   workoutId: string,

@@ -1,19 +1,21 @@
 import {nanoid} from "nanoid"
 import React from "react"
 
-const AlertContext = React.createContext<{
+const initialValue: {
   alerts: Alert[]
   persistentAlert: PersistentAlert | null
   setPersistentAlert: React.Dispatch<
     React.SetStateAction<PersistentAlert | null>
   >
   showAlert: (alert: Omit<Alert, "id">) => void
-}>({
+} = {
   alerts: [],
   persistentAlert: null,
   setPersistentAlert: returnVoid,
   showAlert: returnVoid,
-})
+}
+
+const AlertContext = React.createContext(initialValue)
 
 export const useAlerts = () => React.useContext(AlertContext)
 
@@ -22,9 +24,9 @@ export const AlertContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [alerts, setAlerts] = React.useState<Alert[]>([])
+  const [alerts, setAlerts] = React.useState<typeof initialValue.alerts>([])
   const [persistentAlert, setPersistentAlert] =
-    React.useState<PersistentAlert | null>(null)
+    React.useState<typeof initialValue.persistentAlert>(null)
 
   return (
     <AlertContext.Provider
