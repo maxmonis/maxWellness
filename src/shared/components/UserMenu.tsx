@@ -39,6 +39,7 @@ export function UserMenu({className = "", showName = false}) {
                 alt={`${session.profile.userName} profile photo`}
                 className="rounded-full"
                 fill
+                priority
                 src={session.profile.photoURL}
               />
             </div>
