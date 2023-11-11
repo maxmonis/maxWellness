@@ -56,22 +56,20 @@ export default function Navbar() {
               icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
               text="Create"
             />
-            {hasWorkouts && (
-              <>
-                <IconButton
-                  className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
-                  href="/?view=filters"
-                  icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
-                  text="Filters"
-                />
-                <IconButton
-                  className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
-                  href="/?view=table"
-                  icon={<FontAwesomeIcon icon={faTable} size="lg" />}
-                  text="Table"
-                />
-              </>
-            )}
+            <IconButton
+              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              disabled={!hasWorkouts}
+              href="/?view=filters"
+              icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
+              text="Filters"
+            />
+            <IconButton
+              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              disabled={!hasWorkouts}
+              href="/?view=table"
+              icon={<FontAwesomeIcon icon={faTable} size="lg" />}
+              text="Table"
+            />
           </div>
           <IconButton
             className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
