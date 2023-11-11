@@ -266,7 +266,6 @@ export function WorkoutsListItem({
     }))
     updateRoutine(copiedRoutine)
     setValues({...values, nameId: workout.nameId})
-    showAlert({text: "Workout duplicated", type: "success"})
     setOpen(false)
   }
 
