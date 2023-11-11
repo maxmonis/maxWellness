@@ -7,6 +7,7 @@ import {
   faTable,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
 import Image from "next/image"
 import {useSession} from "../hooks/useSession"
 import {IconButton} from "./CTA"
@@ -57,16 +58,22 @@ export default function Navbar() {
               text="Create"
             />
             <IconButton
-              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              className={classNames(
+                "rounded-full md:-ml-3 md:px-3 md:py-2",
+                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
+              )}
               disabled={!hasWorkouts}
-              href="/?view=filters"
+              href={hasWorkouts ? "/?view=filters" : undefined}
               icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
               text="Filters"
             />
             <IconButton
-              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              className={classNames(
+                "rounded-full md:-ml-3 md:px-3 md:py-2",
+                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
+              )}
               disabled={!hasWorkouts}
-              href="/?view=table"
+              href={hasWorkouts ? "/?view=table" : undefined}
               icon={<FontAwesomeIcon icon={faTable} size="lg" />}
               text="Table"
             />
