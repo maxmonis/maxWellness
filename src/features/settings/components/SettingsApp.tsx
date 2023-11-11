@@ -81,6 +81,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
           >
             <h1 className="text-xl font-bold">You have unsaved changes</h1>
             <Button
+              autoFocus
               onClick={() => {
                 saveChanges()
                 onConfirmRouteChange()
@@ -89,7 +90,13 @@ export function SettingsApp({profile}: {profile: Profile}) {
             >
               Save Changes
             </Button>
-            <Button onClick={onRejectRouteChange} variant="secondary">
+            <Button
+              onClick={() => {
+                setNextRouterPath("")
+                setShowLeaveConfirmDialog(false)
+              }}
+              variant="secondary"
+            >
               Continue Editing
             </Button>
             <Button
@@ -164,7 +171,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
                   />
                 ))}
                 {sortBy(
-                  liftNames.filter(({isHidden}) => isHidden),
+                  liftNames.filter(n => n.isHidden),
                   "text",
                 ).map(liftName => (
                   <EditableListItem
@@ -231,7 +238,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
                   />
                 ))}
                 {sortBy(
-                  workoutNames.filter(({isHidden}) => isHidden),
+                  workoutNames.filter(n => n.isHidden),
                   "text",
                 ).map(workoutName => (
                   <EditableListItem
@@ -401,11 +408,6 @@ export function SettingsApp({profile}: {profile: Profile}) {
         ),
       )
     }
-  }
-
-  function onRejectRouteChange() {
-    setNextRouterPath("")
-    setShowLeaveConfirmDialog(false)
   }
 
   function onConfirmRouteChange() {
