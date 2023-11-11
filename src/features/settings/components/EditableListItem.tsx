@@ -16,7 +16,7 @@ export function EditableListItem({
   updateOptions,
 }: {
   editableName: EditableName
-  editableNameList: EditableName[]
+  editableNameList: Array<EditableName>
   updateOptions: (newValue: EditableName, previousValue: EditableName) => void
 }) {
   const [newText, setNewText] = React.useState(editableName.text)

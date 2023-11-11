@@ -53,7 +53,7 @@ export function WorkoutsListItem({
   setDeletingId: React.Dispatch<React.SetStateAction<typeof deletingId>>
   setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
   setValues: React.Dispatch<React.SetStateAction<typeof values>>
-  updateRoutine: (newRoutine: Exercise[]) => void
+  updateRoutine: (newRoutine: Array<Exercise>) => void
   values: Record<
     "date" | "liftId" | "nameId" | "reps" | "sets" | "weight",
     string

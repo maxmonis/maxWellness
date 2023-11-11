@@ -3,7 +3,6 @@ import {getUserProfile, getUserWorkouts} from "~/firebase/server"
 import {extractErrorMessage} from "~/shared/functions/parsers"
 import {generateSession} from "~/shared/functions/session"
 import {hasChars} from "~/shared/functions/validators"
-import {Profile, Workout} from "~/shared/utils/models"
 
 /**
  * Handles requests to load the current session
@@ -22,8 +21,8 @@ export default async function sessionApi(
 
       try {
         const [profile, workouts]: [
-          Profile | undefined,
-          Workout[] | undefined,
+          Awaited<ReturnType<typeof getUserProfile>>,
+          Awaited<ReturnType<typeof getUserWorkouts>>,
         ] = await Promise.all([getUserProfile(userId), getUserWorkouts(userId)])
 
         if (!profile || !workouts) {

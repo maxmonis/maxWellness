@@ -22,18 +22,18 @@ export function WorkoutsList({
   addExercise: (newExercise: Exercise) => void
   clearFilters: () => void
   editingWorkout: Workout | null
-  filteredWorkouts: Workout[]
+  filteredWorkouts: Array<Workout>
   liftNames: Session["profile"]["liftNames"]
   resetState: () => void
   setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
   setValues: React.Dispatch<React.SetStateAction<typeof props.values>>
-  updateRoutine: (newRoutine: Exercise[]) => void
+  updateRoutine: (newRoutine: Array<Exercise>) => void
   values: Record<
     "date" | "liftId" | "nameId" | "reps" | "sets" | "weight",
     string
   >
   view: "create" | "filters" | "list"
-  workouts: Workout[]
+  workouts: Array<Workout>
   workoutNames: Session["profile"]["workoutNames"]
 }) {
   const {showAlert} = useAlerts()

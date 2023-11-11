@@ -3,7 +3,10 @@ import {EditableName} from "~/shared/utils/models"
 /**
  * Evaluates whether text exists in a list of names (case insensitive)
  */
-export function isTextAlreadyInList(newText: string, allNames: EditableName[]) {
+export function isTextAlreadyInList(
+  newText: string,
+  allNames: Array<EditableName>,
+) {
   return allNames.some(
     ({text}) =>
       text.toLowerCase().replace(/\s/g, "") ===

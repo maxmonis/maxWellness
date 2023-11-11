@@ -2,7 +2,7 @@ import sortBy from "lodash/sortBy"
 import {Exercise, Profile, Workout} from "~/shared/utils/models"
 import {getLiftNameText, getWorkoutNameText} from "./parsers"
 
-export function generateSession(profile: Profile, workoutList: Workout[]) {
+export function generateSession(profile: Profile, workoutList: Array<Workout>) {
   const liftIds = new Set<string>()
   const nameIds = new Set<string>()
   const workoutDates = new Set<string>()
@@ -42,10 +42,10 @@ export function generateSession(profile: Profile, workoutList: Workout[]) {
   }
 
   function recursiveChecker(
-    pendingWorkouts: Workout[],
-    workouts: Workout[] = [],
-    records: Exercise[] = [],
-  ): Workout[] {
+    pendingWorkouts: Array<Workout>,
+    workouts: Array<Workout> = [],
+    records: Array<Exercise> = [],
+  ) {
     if (pendingWorkouts.length > 0) {
       const updated = updateRecords(pendingWorkouts[0], records)
       return recursiveChecker(
@@ -57,7 +57,7 @@ export function generateSession(profile: Profile, workoutList: Workout[]) {
     return workouts.reverse()
   }
 
-  function updateRecords(workout: Workout, records: Exercise[]) {
+  function updateRecords(workout: Workout, records: Array<Exercise>) {
     nameIds.add(workout.nameId)
     workoutDates.add(workout.date)
     for (const exercise of workout.routine) {
@@ -98,9 +98,9 @@ function generateWorkoutsFilters({
   workoutDates,
   liftIds,
 }: {
-  nameIds: string[]
-  workoutDates: string[]
-  liftIds: string[]
+  nameIds: Array<string>
+  workoutDates: Array<string>
+  liftIds: Array<string>
 }) {
   return {
     liftIds: sortBy(liftIds).map(id => ({

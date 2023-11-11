@@ -2,17 +2,15 @@ import {nanoid} from "nanoid"
 import React from "react"
 
 const initialValue: {
-  alerts: Alert[]
-  persistentAlert: PersistentAlert | null
-  setPersistentAlert: React.Dispatch<
-    React.SetStateAction<PersistentAlert | null>
-  >
+  alerts: Array<Alert>
+  persistentAlert: PersistentAlert
+  setPersistentAlert: React.Dispatch<React.SetStateAction<PersistentAlert>>
   showAlert: (alert: Omit<Alert, "id">) => void
 } = {
   alerts: [],
   persistentAlert: null,
-  setPersistentAlert: returnVoid,
-  showAlert: returnVoid,
+  setPersistentAlert: () => {},
+  showAlert: () => {},
 }
 
 const AlertContext = React.createContext(initialValue)
@@ -49,17 +47,17 @@ export const AlertContextProvider = ({
   }
 }
 
-function returnVoid() {}
-
 interface Alert {
   id: string
   text: string
   type: "danger" | "information" | "success"
 }
 
-interface PersistentAlert extends Omit<Alert, "id"> {
-  actions?: {
-    onClick: () => void
-    text: string
-  }[]
-}
+type PersistentAlert =
+  | null
+  | (Omit<Alert, "id"> & {
+      actions?: Array<{
+        onClick: () => void
+        text: string
+      }>
+    })

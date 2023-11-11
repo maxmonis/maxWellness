@@ -65,7 +65,9 @@ export function isProfile(profile: unknown): profile is Profile {
   )
 }
 
-export function isWorkoutList(workoutList: unknown): workoutList is Workout[] {
+export function isWorkoutList(
+  workoutList: unknown,
+): workoutList is Array<Workout> {
   return Array.isArray(workoutList) && workoutList.every(isWorkout)
 }
 

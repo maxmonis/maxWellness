@@ -4,7 +4,7 @@ import React from "react"
  * Calls a callback if the component is already mounted
  * when a change is detected in the dependencies array
  */
-export function useUpdateEvent(callback: () => void, deps: unknown[]) {
+export function useUpdateEvent(callback: () => void, deps: Array<unknown>) {
   const mounted = React.useRef(false)
 
   React.useEffect(() => {

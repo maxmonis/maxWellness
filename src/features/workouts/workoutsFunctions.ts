@@ -37,7 +37,7 @@ export function createNewExercise(exerciseData: {
  * instances of the same number of reps with the same weight,
  * for example: `2(8x50), 3(8x50) -> 5(8x50)`
  */
-export function eliminateRedundancy(routine: Exercise[]) {
+export function eliminateRedundancy(routine: Array<Exercise>) {
   const updatedRoutine: typeof routine = []
   for (const exercise of routine) {
     const previousExercise = updatedRoutine.at(-1)
@@ -94,8 +94,8 @@ export function getPrintout({
  * @returns an array of lists where each list is comprised of
  * consecutive exercises in the routine with the same lift ID
  */
-export function groupExercisesByLift(routine: Exercise[]) {
-  const organizedRoutine: Exercise[][] = []
+export function groupExercisesByLift(routine: Array<Exercise>) {
+  const organizedRoutine: Array<Array<Exercise>> = []
   for (const exercise of routine) {
     const previous = organizedRoutine.at(-1)
     if (previous && previous[0].liftId === exercise.liftId) {

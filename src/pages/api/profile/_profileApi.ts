@@ -2,7 +2,6 @@ import {NextApiRequest, NextApiResponse} from "next"
 import {getUserProfile, getUserWorkouts, updateProfile} from "~/firebase/server"
 import {extractErrorMessage} from "~/shared/functions/parsers"
 import {isProfile} from "~/shared/functions/validators"
-import {Profile, Workout} from "~/shared/utils/models"
 
 /**
  * Handles requests to update the user's profile
@@ -23,8 +22,8 @@ export default async function profileApi(
 
       try {
         const [profile, workouts]: [
-          Profile | undefined,
-          Workout[] | undefined,
+          Awaited<ReturnType<typeof getUserProfile>>,
+          Awaited<ReturnType<typeof getUserWorkouts>>,
         ] = await Promise.all([getUserProfile(userId), getUserWorkouts(userId)])
 
         if (!profile || !workouts) {

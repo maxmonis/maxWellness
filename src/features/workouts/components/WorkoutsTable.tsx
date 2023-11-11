@@ -25,7 +25,7 @@ export function WorkoutsTable({
   filteredWorkouts,
 }: {
   clearFilters: () => void
-  filteredWorkouts: Workout[]
+  filteredWorkouts: Array<Workout>
 }) {
   const width = useViewport()
   const {data: session, isLoading} = useSession()

@@ -19,9 +19,9 @@ export interface Exercise {
 
 export interface Profile {
   id: string
-  liftNames: EditableName[]
+  liftNames: Array<EditableName>
   photoURL: string
-  workoutNames: EditableName[]
+  workoutNames: Array<EditableName>
   userId: string
   userName: string
 }
@@ -31,7 +31,7 @@ export type Session = ReturnType<typeof generateSession>
 export interface UnsavedWorkout {
   date: string
   nameId: string
-  routine: Exercise[]
+  routine: Array<Exercise>
   userId: string
 }
 
