@@ -52,7 +52,10 @@ export function WorkoutsTable({
       liftIds[liftId] = liftIds[liftId] + 1 || 1
     }
   }
-  const liftArray = []
+  const liftArray: Array<{
+    liftId: string
+    total: number
+  }> = []
   for (const liftId in liftIds) {
     liftArray.push({liftId, total: liftIds[liftId]})
   }

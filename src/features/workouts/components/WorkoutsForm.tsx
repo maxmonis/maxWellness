@@ -386,7 +386,7 @@ export function WorkoutsForm({
       exerciseIds.splice(source.index, 1)
       exerciseIds.splice(destination.index, 0, draggableId)
     }
-    const reorderedRoutine = []
+    const reorderedRoutine: Array<Exercise> = []
     for (const exerciseId of exerciseIds) {
       for (const exercise of routine) {
         if (exercise.id === exerciseId) {
