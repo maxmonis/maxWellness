@@ -7,7 +7,7 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import React from "react"
-import {getDateText} from "~/shared/functions/parsers"
+import {getDateText, getLiftNameText} from "~/shared/functions/parsers"
 import {useSession} from "~/shared/hooks/useSession"
 import {useViewport} from "~/shared/hooks/useViewport"
 import {Workout} from "~/shared/utils/models"
@@ -159,7 +159,10 @@ export function WorkoutsTable({
                                 className="px-4 py-2 text-lg shadow-sm shadow-slate-700"
                                 key={liftId}
                               >
-                                {getLiftNameText(liftId)}
+                                {getLiftNameText(
+                                  liftId,
+                                  session?.profile.liftNames ?? [],
+                                )}
                               </th>
                             ))}
                     </tr>
@@ -172,7 +175,10 @@ export function WorkoutsTable({
                             key={liftId}
                           >
                             <td className="px-4 py-2 text-lg">
-                              {getLiftNameText(liftId)}
+                              {getLiftNameText(
+                                liftId,
+                                session?.profile.liftNames ?? [],
+                              )}
                             </td>
                             {filteredWorkouts
                               .slice(
@@ -260,11 +266,4 @@ export function WorkoutsTable({
       </div>
     </div>
   )
-
-  /**
-   * Gets the text which corresponds to a lift ID
-   */
-  function getLiftNameText(liftId: string) {
-    return session?.profile.liftNames.find(({id}) => id === liftId)?.text ?? ""
-  }
 }

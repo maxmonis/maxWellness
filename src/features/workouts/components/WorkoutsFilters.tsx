@@ -69,11 +69,11 @@ export function WorkoutsFilters({
       <h2 className="text-lg font-bold">Workout Date</h2>
       <div className="mb-2 mt-4">
         <Checkbox
-          key={"chronology"}
+          key="chronology"
           checked={appliedFilters.newestFirst}
           onChange={e => updateWorkoutsFilter(e.target.value, "chronology")}
-          text={"Newest First"}
-          value={"chronology"}
+          text="Newest First"
+          value="chronology"
         />
         <div className="mt-3 flex flex-col gap-3">
           <div>

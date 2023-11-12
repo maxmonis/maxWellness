@@ -94,13 +94,13 @@ export function generateSession(profile: Profile, workoutList: Array<Workout>) {
 }
 
 function generateWorkoutsFilters({
+  liftIds,
   nameIds,
   workoutDates,
-  liftIds,
 }: {
+  liftIds: Array<string>
   nameIds: Array<string>
   workoutDates: Array<string>
-  liftIds: Array<string>
 }) {
   return {
     liftIds: sortBy(liftIds).map(id => ({
