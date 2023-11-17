@@ -39,8 +39,10 @@ export function EditableItemMenu({
       <IconButton
         aria-label="Toggle menu"
         className={classNames(
-          "flex items-center justify-center rounded-lg border-2 border-transparent p-1 hover:border-slate-300 dark:hover:border-slate-700",
-          open && "border-slate-300 dark:border-slate-700",
+          "flex items-center justify-center rounded-lg border-2 p-1 hover:border-slate-300 dark:hover:border-slate-700",
+          open
+            ? "border-slate-300 dark:border-slate-700"
+            : "border-transparent",
         )}
         icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
         onClick={() => setOpen(!open)}
