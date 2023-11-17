@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import {getPrintout} from "~/features/workouts/workoutsFunctions"
 import {getDateText, getLiftNameText} from "../functions/parsers"
 import {useSession} from "../hooks/useSession"
@@ -22,20 +23,27 @@ export function RecordsApp() {
           ) : records.length === 0 ? (
             <p>You haven&apos;t set any records yet</p>
           ) : (
-            records.map(exercise => (
-              <div key={exercise.id}>
-                <p>
-                  {getLiftNameText(
-                    exercise.liftId,
-                    session?.profile.liftNames ?? [],
-                  )}
-                  : {getPrintout(exercise)}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {getDateText(exercise.recordStartDate ?? "")}
-                </p>
-              </div>
-            ))
+            records.map(exercise => {
+              const liftNameText = getLiftNameText(
+                exercise.liftId,
+                session?.profile.liftNames ?? [],
+              )
+              return (
+                <div key={exercise.id}>
+                  <p
+                    className={classNames(
+                      liftNameText.split(" ").some(word => word.length > 9) &&
+                        "break-all",
+                    )}
+                  >
+                    {liftNameText}: {getPrintout(exercise)}
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {getDateText(exercise.recordStartDate ?? "")}
+                  </p>
+                </div>
+              )
+            })
           )}
         </div>
       </div>

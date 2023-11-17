@@ -157,63 +157,80 @@ export function WorkoutsTable({
                               horizontalIndex,
                               horizontalIndex + maxColumns,
                             )
-                            .map(({liftId}) => (
-                              <th
-                                className="px-4 py-2 text-lg shadow-sm shadow-slate-700"
-                                key={liftId}
-                              >
-                                {getLiftNameText(
-                                  liftId,
-                                  session?.profile.liftNames ?? [],
-                                )}
-                              </th>
-                            ))}
+                            .map(({liftId}) => {
+                              const liftNameText = getLiftNameText(
+                                liftId,
+                                session?.profile.liftNames ?? [],
+                              )
+                              return (
+                                <th
+                                  className={classNames(
+                                    "px-4 py-2 text-lg shadow-sm shadow-slate-700",
+                                    liftNameText
+                                      .split(" ")
+                                      .some(word => word.length > 9) &&
+                                      "break-all",
+                                  )}
+                                  key={liftId}
+                                >
+                                  {liftNameText}
+                                </th>
+                              )
+                            })}
                     </tr>
                   </thead>
                   <tbody>
                     {sortByDate
-                      ? sortedLifts.map(({liftId}) => (
-                          <tr
-                            className="divide-x divide-slate-700 border-t border-slate-700"
-                            key={liftId}
-                          >
-                            <td className="px-4 py-2 text-lg">
-                              {getLiftNameText(
-                                liftId,
-                                session?.profile.liftNames ?? [],
+                      ? sortedLifts.map(({liftId}) => {
+                          const liftNameText = getLiftNameText(
+                            liftId,
+                            session?.profile.liftNames ?? [],
+                          )
+                          return (
+                            <tr
+                              className={classNames(
+                                "divide-x divide-slate-700 border-t border-slate-700",
+                                liftNameText
+                                  .split(" ")
+                                  .some(word => word.length > 9) && "break-all",
                               )}
-                            </td>
-                            {filteredWorkouts
-                              .slice(
-                                horizontalIndex,
-                                horizontalIndex + maxColumns,
-                              )
-                              .map(workout => (
-                                <td
-                                  className="px-4 py-2 text-lg"
-                                  key={liftId + workout.id}
-                                >
-                                  {groupExercisesByLift(
-                                    workout.routine.filter(
-                                      exercise => exercise.liftId === liftId,
-                                    ),
-                                  ).map(exerciseList =>
-                                    exerciseList.map((exercise, i) =>
-                                      getPrintout(exercise)
-                                        .split(" ")
-                                        .map(
-                                          printout =>
-                                            printout +
-                                            (i !== exerciseList.length - 1
-                                              ? ", "
-                                              : ""),
-                                        ),
-                                    ),
-                                  )}
-                                </td>
-                              ))}
-                          </tr>
-                        ))
+                              key={liftId}
+                            >
+                              <td className="px-4 py-2 text-lg">
+                                {liftNameText}
+                              </td>
+                              {filteredWorkouts
+                                .slice(
+                                  horizontalIndex,
+                                  horizontalIndex + maxColumns,
+                                )
+                                .map(workout => (
+                                  <td
+                                    className="px-4 py-2 text-lg"
+                                    key={liftId + workout.id}
+                                  >
+                                    {groupExercisesByLift(
+                                      workout.routine.filter(
+                                        exercise => exercise.liftId === liftId,
+                                      ),
+                                    ).map(exerciseList =>
+                                      exerciseList.map((exercise, i) =>
+                                        getPrintout(exercise)
+                                          .split(" ")
+                                          .map(
+                                            printout =>
+                                              printout +
+                                              (i !== exerciseList.length - 1
+                                                ? ", "
+                                                : ""),
+                                          ),
+                                      ),
+                                    )}
+                                  </td>
+                                ))}
+                            </tr>
+                          )
+                        })
                       : filteredWorkouts.map(workout => (
                           <tr
                             className="divide-x divide-slate-700 border-t border-slate-700"

@@ -68,6 +68,7 @@ export function WorkoutsListItem({
   const ref = useOutsideClick(() => setOpen(false))
   useKeypress("Escape", () => setOpen(false))
   const workoutName = workoutNames.find(n => n.id === workout.id)
+  const workoutNameText = getWorkoutNameText(workout.nameId, workoutNames)
   return (
     <div
       key={workout.id}
@@ -82,6 +83,8 @@ export function WorkoutsListItem({
           <h1 className="text-xl leading-tight">
             <span
               className={classNames(
+                workoutNameText.split(" ").some(word => word.length > 9) &&
+                  "break-all",
                 view === "create" && !workoutName?.isHidden && "cursor-pointer",
               )}
               {...(view === "create" &&
@@ -94,7 +97,7 @@ export function WorkoutsListItem({
                   title: "Click to copy",
                 })}
             >
-              {getWorkoutNameText(workout.nameId, workoutNames)}
+              {workoutNameText}
             </span>
           </h1>
           <h2 className="mt-2 leading-tight">
@@ -121,11 +124,14 @@ export function WorkoutsListItem({
           {groupExercisesByLift(workout.routine).map((exerciseList, j) => {
             const [{liftId}] = exerciseList
             const liftName = liftNames.find(({id}) => id === liftId)
+            const liftNameText = getLiftNameText(liftId, liftNames)
             return (
               <li key={j} className="mt-4 flex flex-wrap">
                 <span
                   className={classNames(
                     "text-lg leading-tight",
+                    liftNameText.split(" ").some(word => word.length > 9) &&
+                      "break-all",
                     view === "create" &&
                       !liftName?.isHidden &&
                       "cursor-pointer",
@@ -140,7 +146,7 @@ export function WorkoutsListItem({
                       title: "Click to copy",
                     })}
                 >
-                  {getLiftNameText(liftId, liftNames)}:
+                  {liftNameText}:
                 </span>
                 {exerciseList.map((exercise, k) => (
                   <span
