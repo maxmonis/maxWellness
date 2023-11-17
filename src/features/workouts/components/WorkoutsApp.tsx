@@ -64,8 +64,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }, [editingWorkout])
 
   useUpdateEvent(resetState, [workouts])
+
   useUpdateEvent(() => {
-    updateRoutine(getLocalRoutine())
+    setRoutine(getLocalRoutine())
   }, [liftNames])
 
   React.useEffect(() => {
@@ -178,7 +179,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
    */
   function resetState() {
     clearFilters()
-    updateRoutine(getLocalRoutine())
+    setRoutine(getLocalRoutine())
     setValues(defaultValues)
     setEditingWorkout(null)
     changeView(defaultView)
@@ -189,12 +190,14 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
    * filtering out any exercises whose names are hidden/deleted
    */
   function getLocalRoutine() {
-    return (
+    const newRoutine = eliminateRedundancy(
       localRoutine.get()?.filter(({liftId}) => {
         const liftName = liftNames.find(({id}) => id === liftId)
         return liftName && !liftName.isHidden
-      }) ?? []
+      }) ?? [],
     )
+    localRoutine.set(newRoutine)
+    return newRoutine
   }
 
   /**
