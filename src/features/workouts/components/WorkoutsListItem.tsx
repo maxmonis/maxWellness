@@ -294,8 +294,7 @@ export function WorkoutsListItem({
    * Gets workout text we will copy to clipboard
    */
   function getClipboardText(workout: Workout) {
-    return `
-${getWorkoutNameText(workout.nameId, workoutNames)}
+    return `${getWorkoutNameText(workout.nameId, workoutNames)}
 ${getDateText(workout.date)}
 ${groupExercisesByLift(workout.routine)
   .map(
@@ -304,7 +303,6 @@ ${groupExercisesByLift(workout.routine)
         .map(getPrintout)
         .join(", ")}`,
   )
-  .join("\n")}
-`
+  .join("\n")}`
   }
 }
