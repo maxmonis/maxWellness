@@ -5,6 +5,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
 import React from "react"
 import {IconButton} from "~/shared/components/CTA"
 import {useKeypress} from "~/shared/hooks/useKeypress"
@@ -37,7 +38,10 @@ export function EditableItemMenu({
     <div className="relative" {...{ref}}>
       <IconButton
         aria-label="Toggle menu"
-        className="flex items-center justify-center rounded-lg border-2 border-slate-300 p-1 dark:border-slate-700"
+        className={classNames(
+          "flex items-center justify-center rounded-lg border-2 border-transparent p-1 hover:border-slate-300 dark:hover:border-slate-700",
+          open && "border-slate-300 dark:border-slate-700",
+        )}
         icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
         onClick={() => setOpen(!open)}
       />

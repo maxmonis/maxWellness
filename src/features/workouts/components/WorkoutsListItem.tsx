@@ -196,7 +196,10 @@ export function WorkoutsListItem({
             <div className="relative" {...{ref}}>
               <IconButton
                 aria-label="Toggle menu"
-                className="flex items-center justify-center rounded-lg border-2 border-slate-300 p-1 dark:border-slate-700"
+                className={classNames(
+                  "flex items-center justify-center rounded-lg border-2 border-transparent p-1 hover:border-slate-300 dark:hover:border-slate-700",
+                  open && "border-slate-300 dark:border-slate-700",
+                )}
                 icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
                 onClick={() => setOpen(!open)}
               />
