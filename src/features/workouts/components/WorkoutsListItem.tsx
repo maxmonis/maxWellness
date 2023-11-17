@@ -209,23 +209,46 @@ export function WorkoutsListItem({
                     <IconButton
                       aria-label="Duplicate this workout's name and exercises"
                       icon={<FontAwesomeIcon icon={faCopy} />}
-                      onClick={() =>
-                        duplicateWorkout(
-                          workouts.find(({id}) => id === workout.id) ?? workout,
-                        )
-                      }
+                      onClick={() => {
+                        const copiedRoutine = workouts
+                          .find(({id}) => id === workout.id)
+                          ?.routine.map(exercise => ({
+                            ...exercise,
+                            id: nanoid(),
+                          }))
+                        if (copiedRoutine) {
+                          updateRoutine(copiedRoutine)
+                          setValues({...values, nameId: workout.nameId})
+                          setOpen(false)
+                        } else {
+                          showAlert({
+                            text: "Duplication failed",
+                            type: "danger",
+                          })
+                        }
+                      }}
                       text="Duplicate"
                     />
                     {navigator?.clipboard && (
                       <IconButton
                         aria-label="Copy this workout's name and exercises to clipboard"
                         icon={<FontAwesomeIcon icon={faClipboard} />}
-                        onClick={() =>
-                          copyToClipboard(
-                            workouts.find(({id}) => id === workout.id) ??
-                              workout,
-                          )
-                        }
+                        onClick={() => {
+                          navigator.clipboard
+                            .writeText(
+                              getClipboardText(
+                                workouts.find(({id}) => id === workout.id) ??
+                                  workout,
+                              ),
+                            )
+                            .then(() => {
+                              showAlert({
+                                text: "Copied to clipboard",
+                                type: "success",
+                              })
+                              setOpen(false)
+                            })
+                        }}
                         text="Copy"
                       />
                     )}
@@ -260,39 +283,20 @@ export function WorkoutsListItem({
   )
 
   /**
-   * Copies the name and routine of a workout, also copying it to clipboard
+   * Gets workout text we will copy to clipboard
    */
-  function duplicateWorkout(workout: Workout) {
-    const copiedRoutine = workout.routine.map(exercise => ({
-      ...exercise,
-      id: nanoid(),
-    }))
-    updateRoutine(copiedRoutine)
-    setValues({...values, nameId: workout.nameId})
-    setOpen(false)
-  }
-
-  /**
-   * Copies a workout to the clipboard
-   */
-  function copyToClipboard(workout: Workout) {
-    navigator.clipboard
-      ?.writeText(
-        `${getWorkoutNameText(workout.nameId, workoutNames)}
+  function getClipboardText(workout: Workout) {
+    return `
+${getWorkoutNameText(workout.nameId, workoutNames)}
 ${getDateText(workout.date)}
 ${groupExercisesByLift(workout.routine)
   .map(
     exerciseList =>
       `${getLiftNameText(exerciseList[0].liftId, liftNames)}: ${exerciseList
-        .map(exercise => getPrintout(exercise))
+        .map(getPrintout)
         .join(", ")}`,
   )
   .join("\n")}
-`,
-      )
-      .then(() => {
-        showAlert({text: "Copied to clipboard", type: "success"})
-        setOpen(false)
-      })
+`
   }
 }
