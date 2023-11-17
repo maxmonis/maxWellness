@@ -36,7 +36,7 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
 
   const localRoutine = new StorageService(`wip-routine_${userId}`)
   const [routine, setRoutine] = React.useState<Workout["routine"]>(
-    localRoutine.get() ?? [],
+    getLocalRoutine(),
   )
 
   const defaultValues = {
@@ -64,6 +64,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   }, [editingWorkout])
 
   useUpdateEvent(resetState, [workouts])
+  useUpdateEvent(() => {
+    updateRoutine(getLocalRoutine())
+  }, [liftNames])
 
   React.useEffect(() => {
     if (editingWorkout && view !== "create") {
@@ -175,10 +178,23 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
    */
   function resetState() {
     clearFilters()
-    updateRoutine(localRoutine.get() ?? [])
+    updateRoutine(getLocalRoutine())
     setValues(defaultValues)
     setEditingWorkout(null)
     changeView(defaultView)
+  }
+
+  /**
+   * Gets the user's WIP routine (if any) from local storage,
+   * filtering out any exercises whose names are hidden/deleted
+   */
+  function getLocalRoutine() {
+    return (
+      localRoutine.get()?.filter(({liftId}) => {
+        const liftName = liftNames.find(({id}) => id === liftId)
+        return liftName && !liftName.isHidden
+      }) ?? []
+    )
   }
 
   /**
