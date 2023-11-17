@@ -122,7 +122,10 @@ export function Checkbox({
         type="checkbox"
         {...{checked, onChange, value}}
       />
-      <label className="text-md cursor-pointer leading-none" htmlFor={text}>
+      <label
+        className="text-md cursor-pointer overflow-hidden text-ellipsis leading-tight"
+        htmlFor={text}
+      >
         {text}
       </label>
     </div>

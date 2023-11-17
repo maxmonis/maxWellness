@@ -39,7 +39,7 @@ export function WorkoutsFilters({
   return (
     <div>
       <h2 className="text-lg font-bold">Exercise Name</h2>
-      <div className="mb-10 mt-4 flex flex-col gap-4">
+      <div className="mb-10 mt-4 flex flex-col gap-3">
         {sortBy(appliedFilters.liftIds, ({id}) =>
           getLiftNameText(id, liftNames),
         ).map(({checked, id}) => (
@@ -53,7 +53,7 @@ export function WorkoutsFilters({
         ))}
       </div>
       <h2 className="text-lg font-bold">Workout Name</h2>
-      <div className="mb-10 mt-4 flex flex-col gap-4">
+      <div className="mb-10 mt-4 flex flex-col gap-3">
         {sortBy(appliedFilters.nameIds, ({id}) =>
           getWorkoutNameText(id, workoutNames),
         ).map(({checked, id}) => (
