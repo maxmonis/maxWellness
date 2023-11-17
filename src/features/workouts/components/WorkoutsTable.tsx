@@ -214,17 +214,11 @@ export function WorkoutsTable({
                                         exercise => exercise.liftId === liftId,
                                       ),
                                     ).map(exerciseList =>
-                                      exerciseList.map((exercise, i) =>
-                                        getPrintout(exercise)
-                                          .split(" ")
-                                          .map(
-                                            printout =>
-                                              printout +
-                                              (i !== exerciseList.length - 1
-                                                ? ", "
-                                                : ""),
-                                          ),
-                                      ),
+                                      exerciseList
+                                        .map(exercise =>
+                                          getPrintout(exercise).split(" "),
+                                        )
+                                        .join(", "),
                                     )}
                                   </td>
                                 ))}
@@ -254,17 +248,11 @@ export function WorkoutsTable({
                                       exercise => exercise.liftId === liftId,
                                     ),
                                   ).map(exerciseList =>
-                                    exerciseList.map((exercise, i) =>
-                                      getPrintout(exercise)
-                                        .split(" ")
-                                        .map(
-                                          printout =>
-                                            printout +
-                                            (i !== exerciseList.length - 1
-                                              ? ", "
-                                              : ""),
-                                        ),
-                                    ),
+                                    exerciseList
+                                      .map(exercise =>
+                                        getPrintout(exercise).split(" "),
+                                      )
+                                      .join(", "),
                                   )}
                                 </td>
                               ))}
