@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 import {Button} from "~/shared/components/CTA"
 import {Page} from "~/shared/components/Page"
@@ -13,11 +12,20 @@ export default function InfoPage() {
   return (
     <Page title="Info">
       <div className="h-full max-h-[calc(100dvh-56px)] w-full overflow-y-auto md:max-h-screen">
-        <div className="mx-auto flex w-full max-w-sm flex-col items-center border-slate-700 py-10">
+        <div className="mx-auto flex w-full max-w-xl flex-col items-center border-slate-700 px-6 py-10">
           <h1 className="mb-6 text-2xl font-bold">Information</h1>
-          <div className="w-full border-y border-slate-700 px-4 py-6 text-center md:px-6">
+          <div className="w-full border-y border-slate-700 py-6 text-center">
             <h2 className="mb-4 text-xl font-bold">Table of Contents</h2>
             <ul className="flex flex-col gap-2">
+              <li>
+                <Link
+                  aria-label="Scroll to the Overview section"
+                  className="hover:underline"
+                  href="#overview"
+                >
+                  Overview
+                </Link>
+              </li>
               <li>
                 <Link
                   aria-label="Scroll to the Creating Workouts section"
@@ -38,11 +46,11 @@ export default function InfoPage() {
               </li>
               <li>
                 <Link
-                  aria-label="Scroll to the Updating Workouts section"
+                  aria-label="Scroll to the Managing Workouts section"
                   className="hover:underline"
-                  href="#updating-workouts"
+                  href="#managing-workouts"
                 >
-                  Updating Workouts
+                  Managing Workouts
                 </Link>
               </li>
               <li>
@@ -56,38 +64,39 @@ export default function InfoPage() {
               </li>
             </ul>
           </div>
-          <div className="mx-4 flex flex-col gap-6 divide-y divide-slate-700 md:mx-6">
+          <div className="flex flex-col gap-6 divide-y divide-slate-700">
+            <div id="overview">
+              <div className="mx-auto flex flex-col pt-6">
+                <h3 className="mb-6 text-center text-xl font-bold">Overview</h3>
+                <p>
+                  This website allows you to create a free account using your
+                  Google credentials (recommended) or an email/password
+                  combination. It&apos;s a handy way to keep track of your
+                  weightlifting workouts and personal bests, and can be used on
+                  devices of any size. You can even install it as an application
+                  on your phone for easy access at the gym.
+                </p>
+              </div>
+            </div>
             <div id="creating-workouts">
               <div className="mx-auto flex flex-col pt-6">
                 <h3 className="mb-6 text-center text-xl font-bold">
                   Creating Workouts
                 </h3>
                 <p>
-                  To create a new workout, navigate to the home screen by
-                  clicking the house icon in the navbar. You can then add
-                  exercises by selecting their name, sets, reps, and weight. You
-                  can drag and drop exercises to reorder them, and clicking the
-                  x icon next to an exercise will delete it. When you&apos;ve
+                  To create a new workout, add exercises by selecting their
+                  name, sets, reps, and weight. You can drag and drop exercises
+                  to reorder them, and clicking the x icon next to an exercise
+                  will delete it. Each exercise must include a weight or at
+                  least one rep. This is because you could do 10 bodyweight
+                  squats or you could squat 315 pounds one time, but you
+                  can&apos;t do zero reps with zero weight. When you&apos;ve
                   finished adding exercises, select a name and date for your
-                  workout and click &quot;Save&quot;.
-                </p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of a new workout being added"
-                    className="object-contain"
-                    fill
-                    priority
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230690627-0599b38c-85b7-49ea-9bd5-e8c647ff26ad.gif"
-                    }
-                  />
-                </div>
-                <p>
-                  Each exercise must include a weight or at least one rep. This
-                  is because you could do 10 bodyweight squats or you could
-                  squat 315 pounds one time, but you can&apos;t do zero reps
-                  with zero weight.
+                  workout and click &quot;Save&quot;. Personal records will be
+                  indicated with asterisks (one indicates that the record has
+                  been broken, two means it&apos;s still your record). These
+                  records will be automatically refreshed any time you add,
+                  edit, or remove a workout.
                 </p>
               </div>
             </div>
@@ -97,77 +106,25 @@ export default function InfoPage() {
                   Managing Names
                 </h3>
                 <p>
-                  To edit the names you use for your exercises and workouts,
-                  navigate to the settings page by clicking the gear icon in the
-                  navbar. You can then update the existing names and/or add new
-                  ones.
-                </p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of exercise and workout names being updated"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230690802-aec0e203-8250-487d-9681-f08e28342681.gif"
-                    }
-                  />
-                </div>
-                <p>
-                  Names must be unique and can be deleted unless they&apos;re
-                  currently included in any workout(s). Your changes will be
-                  saved when you navigate away from the settings page, and your
-                  workout(s) will be updated accordingly.
+                  The Settings page allows you to add, update, or delete the
+                  names you use for workouts and exercises. Names must be unique
+                  and can be deleted unless they&apos;re currently included in
+                  any workout(s). You can hide names which you no longer use,
+                  which will cause them to no longer appear in Filters and the
+                  New/Edit Workout forms.
                 </p>
               </div>
             </div>
-            <div id="updating-workouts">
+            <div id="managing-workouts">
               <div className="mx-auto flex flex-col pt-6">
                 <h3 className="mb-6 text-center text-xl font-bold">
-                  Updating Workouts
+                  Managing Workouts
                 </h3>
                 <p>
-                  To edit an existing workout, click its pencil icon. You can
-                  then update the name, date, and/or exercise(s). You can cancel
-                  by clicking the &quot;Discard Changes&quot; button or by
-                  clicking the pencil icon again. Click save when you&apos;re
-                  satisfied with your updates.
-                </p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of a workout being updated"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230691111-c505c6b2-ab1b-4476-b27b-ee4d62c88288.gif"
-                    }
-                  />
-                </div>
-                <p>
-                  The copy icon of each workout copies its name and exercises
-                  into the new workout, and also copies that workout&apos;s
-                  name, date, and exercises to your clipboard. The trash can
-                  icon allows you to delete a workout. It will ask you for
-                  confirmation in case you clicked it accidentally, but please
-                  note that once completed this action cannot be undone.
-                </p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of a workout being copied, then deleted"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230691774-48637151-85d6-423b-9f2e-bcf94751f344.gif"
-                    }
-                  />
-                </div>
-                <p>
-                  Personal records will be indicated with asterisks (one
-                  indicates that the record has been broken, two means it&apos;s
-                  still your record). These records will be automatically
-                  refreshed any time you add, edit, or remove a workout.
+                  The ellipsis icon to the right of each workout in the list
+                  allows you to duplicate it, copy it to clipboard, edit it, or
+                  delete it. Please note that edits and deletions cannot be
+                  undone once confirmed.
                 </p>
               </div>
             </div>
@@ -176,81 +133,17 @@ export default function InfoPage() {
                 <h3 className="mb-6 text-center text-xl font-bold">
                   Tips and Tricks
                 </h3>
-                <p>Click a workout&apos;s name to copy it:</p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of a workout's name being copied"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230772260-8b134ba2-8c6d-4bbc-8acb-97fd520955b6.gif"
-                    }
-                  />
-                </div>
-                <p>Click a workout&apos;s date to copy it:</p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of a workout's date being copied"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230772411-fc69b061-3206-4535-bbd0-58faf2ef8981.gif"
-                    }
-                  />
-                </div>
-                <p>Click an exercise&apos;s name to copy it:</p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of an exercise's name being copied"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230772556-2523a7be-04ae-4a8d-b0fd-4ca697e46def.gif"
-                    }
-                  />
-                </div>
                 <p>
-                  Click an exercise&apos;s printout to copy its sets, reps, and
-                  weight:
+                  While you&apos;re entering a new workout you can click on the
+                  name, date, or exercise of an existing workout to copy that
+                  value. The Filters page allows you to to sort or filter the
+                  workouts list, and the Table page provides an alternate way to
+                  view your workouts sorted by date or exercise name. If you
+                  ever need help you can always return to this information page
+                  by clicking the question mark icon in the navbar. That&apos;s
+                  all you need to know, time to add some workouts!
                 </p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of an exercise's sets, reps, and weight being copied"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230772780-16415706-a661-4f4f-bc04-ece6557a3500.gif"
-                    }
-                  />
-                </div>
-                <p>
-                  Double click an exercise&apos;s printout to add it to the
-                  current workout:
-                </p>
-                <div className="relative h-96">
-                  <Image
-                    alt="GIF of an exercise being added to the workout"
-                    className="object-contain"
-                    fill
-                    src={
-                      "https://user-images.githubusercontent.com/51540371/" +
-                      "230772980-9ed89152-b06b-4950-8734-2d2a68cc4c14.gif"
-                    }
-                  />
-                </div>
-                <p>
-                  The navbar allows you to apply filters to the workouts list
-                  and/or to view your workouts in a table sorted by date or
-                  exercise name. If you ever need help you can always return to
-                  this information page by clicking the &quot;i&quot; icon in
-                  the navbar. That&apos;s all you need to know, time to add some
-                  workouts!
-                </p>
-                <div className="my-4 flex w-full justify-center">
+                <div className="my-8 flex w-full justify-center">
                   <Link href={user ? "/" : "/register"}>
                     <Button className="flex-grow" variant="primary">
                       {user ? "My Workouts" : "Sign Up"}
