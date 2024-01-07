@@ -20,10 +20,10 @@ export function SettingsLoader() {
                 <div className="flex">
                   <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 </div>
-                <div className="flex h-full flex-col gap-5 pb-20 pt-6">
-                  {Array.from({length: 2 - i}).map((_, j) => (
+                <div className="flex h-full flex-col gap-5 pt-6">
+                  {Array.from({length: 3 - i}).map((_, j) => (
                     <div className="flex flex-col gap-5" key={`${i}-${j}`}>
-                      {[28, 16, 20].map((width, k) => (
+                      {Array.from({length: 2}).map((_, k) => (
                         <div
                           className="flex items-center justify-between"
                           key={`${i}-${j}-${k}`}
@@ -31,7 +31,8 @@ export function SettingsLoader() {
                           <span
                             className={classNames(
                               "h-5 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
-                              `w-${width}`,
+                              k ? "w-16" : "w-20",
+                              ((i + j) * k) % 5 && "max-xs:h-8 xs:w-28",
                             )}
                           />
                           <div className="flex gap-4">
