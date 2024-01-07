@@ -66,8 +66,8 @@ export default function InfoPage() {
           </div>
           <div className="flex flex-col gap-6 divide-y divide-slate-700">
             <div id="overview">
-              <div className="mx-auto flex flex-col pt-6">
-                <h3 className="mb-6 text-center text-xl font-bold">Overview</h3>
+              <div className="mx-auto flex flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl font-bold">Overview</h3>
                 <p>
                   This website allows you to create a free account using your
                   Google credentials (recommended) or an email/password
@@ -79,45 +79,55 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="creating-workouts">
-              <div className="mx-auto flex flex-col pt-6">
-                <h3 className="mb-6 text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl font-bold">
                   Creating Workouts
                 </h3>
                 <p>
                   To create a new workout, add exercises by selecting their
                   name, sets, reps, and weight. You can drag and drop exercises
                   to reorder them, and clicking the x icon next to an exercise
-                  will delete it. Each exercise must include a weight or at
-                  least one rep. This is because you could do 10 bodyweight
-                  squats or you could squat 315 pounds one time, but you
-                  can&apos;t do zero reps with zero weight. When you&apos;ve
-                  finished adding exercises, select a name and date for your
-                  workout and click &quot;Save&quot;. Personal records will be
-                  indicated with asterisks (one indicates that the record has
-                  been broken, two means it&apos;s still your record). These
-                  records will be automatically refreshed any time you add,
-                  edit, or remove a workout.
+                  will delete it. When you&apos;ve finished adding exercises,
+                  select a name and date for your workout and click
+                  &quot;Save&quot;.
+                </p>
+                <p>
+                  Each exercise must include a weight or at least one rep. This
+                  is because you could do 10 bodyweight squats or you could
+                  squat 315 pounds one time, but you can&apos;t do zero reps
+                  with zero weight.
+                </p>
+                <p>
+                  Back-to-back sets with the same weight and reps will
+                  automatically be combined. For example, 2(10x100) immediately
+                  followed by 3(10x100) will become 5(10x100).
+                </p>
+                <p>
+                  Personal records will be indicated with asterisks (one
+                  indicates that the record has been broken, two means it&apos;s
+                  still your record). These records will be automatically
+                  refreshed any time you add, edit, or remove a workout.
                 </p>
               </div>
             </div>
             <div id="managing-names">
-              <div className="mx-auto flex flex-col pt-6">
-                <h3 className="mb-6 text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl font-bold">
                   Managing Names
                 </h3>
                 <p>
                   The Settings page allows you to add, update, or delete the
                   names you use for workouts and exercises. Names must be unique
                   and can be deleted unless they&apos;re currently included in
-                  any workout(s). You can hide names which you no longer use,
-                  which will cause them to no longer appear in Filters and the
-                  New/Edit Workout forms.
+                  any workout(s). You have the option of hiding names which you
+                  no longer use, which will cause them to no longer appear in
+                  Filters and the New/Edit Workout forms.
                 </p>
               </div>
             </div>
             <div id="managing-workouts">
-              <div className="mx-auto flex flex-col pt-6">
-                <h3 className="mb-6 text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl font-bold">
                   Managing Workouts
                 </h3>
                 <p>
@@ -129,8 +139,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="tips-and-tricks">
-              <div className="mx-auto flex flex-col pt-6">
-                <h3 className="mb-6 text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 pt-6">
+                <h3 className="text-center text-xl font-bold">
                   Tips and Tricks
                 </h3>
                 <p>
