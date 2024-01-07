@@ -91,8 +91,8 @@ export function Page({
                 "bg-white text-gray-900 dark:bg-black dark:text-white",
             )}
           >
-            <div className="mx-auto flex w-screen max-w-screen-xl flex-col-reverse justify-between md:flex-row md:justify-end">
-              {mustBeLoggedOut ? <Wallpaper /> : <Navbar />}
+            <div className="mx-auto flex w-screen max-w-screen-xl flex-col justify-between md:flex-row-reverse md:justify-end">
+              {mustBeLoggedIn && <RecordsApp />}
               <div
                 className={classNames(
                   "w-full",
@@ -115,7 +115,7 @@ export function Page({
                     </p>
                   ))}
               </div>
-              {mustBeLoggedIn && <RecordsApp />}
+              {mustBeLoggedOut ? <Wallpaper /> : <Navbar />}
             </div>
             <footer
               className={
