@@ -167,10 +167,7 @@ function Wallpaper() {
           fill
           onError={() => setError(true)}
           priority
-          src={
-            "https://user-images.githubusercontent.com/51540371/" +
-            "202918612-e2daf207-d8fc-45db-827e-8b44aff1b07b.jpg"
-          }
+          src="/barbell.jpg"
         />
       </div>
     </div>
