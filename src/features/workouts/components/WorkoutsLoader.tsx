@@ -6,16 +6,16 @@ import classNames from "classnames"
 export function WorkoutsLoader() {
   return (
     <div className="min-h-screen">
-      <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 md:px-6">
+      <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-3 md:px-6">
         <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         <div className="flex gap-6">
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         </div>
       </div>
-      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)] md:px-6">
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)]">
         <div className="flex flex-1 flex-col overflow-hidden">
-          <div className="h-full p-6">
+          <div className="h-full px-4 py-6 md:px-6">
             {Array.from({length: 5}).map((_, i) => (
               <div
                 key={i}
