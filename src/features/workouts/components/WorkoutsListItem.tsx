@@ -73,7 +73,7 @@ export function WorkoutsListItem({
     <div
       key={workout.id}
       className={classNames(
-        "h-min justify-between gap-6 rounded-lg bg-gray-100 p-4 dark:bg-gray-900 sm:gap-10 md:p-6",
+        "h-min justify-between gap-6 rounded-lg bg-gray-200 p-4 dark:bg-gray-800 sm:gap-10 md:p-6",
         editingWorkout?.id === workout.id && "italic",
         view === "list" ? "flex last:mb-20" : "sm:flex",
       )}

@@ -16,7 +16,7 @@ export function RecordsApp() {
     <div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l border-slate-700 p-6 max-lg:hidden xl:w-full">
       <UserMenu showName />
       <div className="h-full overflow-hidden pb-14">
-        <div className="mt-8 flex h-full flex-col gap-6 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
+        <div className="mt-8 flex h-full flex-col gap-6 overflow-y-auto rounded-lg bg-gray-200 px-6 py-4 dark:bg-gray-800">
           <h2 className="text-xl font-bold">Records</h2>
           {isLoading ? (
             <p>Loading records...</p>

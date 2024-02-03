@@ -71,7 +71,7 @@ export function WorkoutsList({
               />
             </div>
           ) : (
-            <div className="flex h-full flex-col gap-4 overflow-y-auto overflow-x-hidden py-4 md:py-6">
+            <div className="flex h-full flex-col gap-4 overflow-y-auto overflow-x-hidden py-4 md:gap-6 md:py-6">
               {filteredWorkouts.length ? (
                 filteredWorkouts.map(workout => (
                   <WorkoutsListItem

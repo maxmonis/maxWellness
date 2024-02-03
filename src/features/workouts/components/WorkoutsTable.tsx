@@ -132,8 +132,8 @@ export function WorkoutsTable({
           <div className="h-full w-full">
             <div className="max-h-[calc(100dvh-112px)] w-full overflow-y-auto border-slate-700 md:max-h-[calc(100dvh-56px)]">
               {filteredWorkouts.length > 0 ? (
-                <table className="w-full table-fixed border-b border-slate-700 bg-gray-100 text-center dark:bg-gray-900">
-                  <thead className="sticky top-0 divide-x divide-slate-700 bg-gray-100 text-gray-900 shadow-sm shadow-slate-700 dark:bg-gray-900 dark:text-white">
+                <table className="w-full table-fixed border-b border-slate-700 bg-gray-200 text-center dark:bg-gray-800">
+                  <thead className="sticky top-0 divide-x divide-slate-700 bg-gray-200 text-gray-900 shadow-sm shadow-slate-700 dark:bg-gray-800 dark:text-white">
                     <tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
                       <th className="px-4 py-2 text-lg shadow-sm shadow-slate-700">
                         {sortByDate ? "Exercise" : "Date"}
