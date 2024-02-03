@@ -42,25 +42,27 @@ export default function Navbar() {
               textClass="max-sm:sr-only"
             />
           </div>
-          <IconButton
-            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
-            href={homeHref}
-            icon={<FontAwesomeIcon icon={faHome} size="lg" />}
-            text="Home"
-            textClass="max-sm:sr-only"
-          />
-          <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
+          <span className="max-md:hidden">
+            <IconButton
+              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              href={homeHref}
+              icon={<FontAwesomeIcon icon={faHome} size="lg" />}
+              text="Home"
+            />
+          </span>
+          <div className="flex flex-col md:gap-y-4">
             <IconButton
               className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
               color="blue"
               href="/?view=create"
               icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
               text="Create"
+              textClass="max-sm:sr-only"
             />
             <IconButton
               className={classNames(
-                "rounded-full md:-ml-3 md:px-3 md:py-2",
-                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
+                "rounded-full max-md:hidden md:-ml-3 md:px-3 md:py-2",
+                hasWorkouts && "hover:bg-gray-100 dark:hover:bg-gray-800",
               )}
               disabled={!hasWorkouts}
               href={hasWorkouts ? "/?view=filters" : undefined}
@@ -69,8 +71,8 @@ export default function Navbar() {
             />
             <IconButton
               className={classNames(
-                "rounded-full md:-ml-3 md:px-3 md:py-2",
-                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
+                "rounded-full max-md:hidden md:-ml-3 md:px-3 md:py-2",
+                hasWorkouts && "hover:bg-gray-100 dark:hover:bg-gray-800",
               )}
               disabled={!hasWorkouts}
               href={hasWorkouts ? "/?view=table" : undefined}
