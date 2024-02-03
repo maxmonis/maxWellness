@@ -146,7 +146,7 @@ export default function InfoPage() {
                 <p>
                   While you&apos;re entering a new workout you can click on the
                   name, date, or exercise of an existing workout to copy that
-                  value. The Filters page allows you to to sort or filter the
+                  value. The Filters page allows you to sort or filter the
                   workouts list, and the Table page provides an alternate way to
                   view your workouts sorted by date or exercise name. If you
                   ever need help you can always return to this information page
