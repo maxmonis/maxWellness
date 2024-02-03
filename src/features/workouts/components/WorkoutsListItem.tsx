@@ -257,7 +257,7 @@ export function WorkoutsListItem({
                               setOpen(false)
                             })
                         }}
-                        text="Copy"
+                        text="Clipboard"
                       />
                     )}
                     <IconButton
