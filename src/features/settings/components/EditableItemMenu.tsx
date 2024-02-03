@@ -64,17 +64,18 @@ export function EditableItemMenu({
               text={isHidden ? "Unhide" : "Hide"}
             />
           )}
-          <IconButton
-            disabled={!canDelete}
-            icon={
-              <FontAwesomeIcon
-                aria-label={`Delete ${newText}`}
-                icon={faTrash}
-              />
-            }
-            onClick={onDeleteClick}
-            text="Delete"
-          />
+          {canDelete && (
+            <IconButton
+              icon={
+                <FontAwesomeIcon
+                  aria-label={`Delete ${newText}`}
+                  icon={faTrash}
+                />
+              }
+              onClick={onDeleteClick}
+              text="Delete"
+            />
+          )}
         </dialog>
       )}
     </div>
