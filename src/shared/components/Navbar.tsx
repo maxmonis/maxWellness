@@ -32,13 +32,14 @@ export default function Navbar() {
               icon={
                 <Image
                   alt="Logo"
-                  className="rounded-md border"
+                  className="h-6 w-6 min-w-max rounded-md border"
                   src="/android-chrome-192x192.png"
                   height={24}
                   width={24}
                 />
               }
               text="maxWellness"
+              textClass="max-sm:sr-only"
             />
           </div>
           <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">

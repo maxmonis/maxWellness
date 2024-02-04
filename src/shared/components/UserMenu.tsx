@@ -48,7 +48,7 @@ export function UserMenu({className = ""}) {
           )
         }
         text={session?.profile.userName.split(" ")[0] ?? "Profile"}
-        textClass="max-sm:sr-only whitespace-nowrap max-w-[12ch] lg:max-w-[23ch] truncate"
+        textClass="max-xs:sr-only whitespace-nowrap max-w-[12ch] lg:max-w-[23ch] truncate"
         onClick={() => setOpen(!open)}
       />
       {open && (
