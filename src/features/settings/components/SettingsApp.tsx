@@ -1,4 +1,4 @@
-import {faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
+import {faCheckCircle, faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {isEqual, omit, sortBy} from "lodash"
 import {nanoid} from "nanoid"
@@ -112,11 +112,29 @@ export function SettingsApp({profile}: {profile: Profile}) {
           </dialog>
         </div>
       )}
-      <div className="flex h-14 items-end px-4 pb-2 md:px-6">
+      <div className="flex h-14 items-end justify-between px-4 pb-2 md:px-6">
         <h1 className="text-xl font-bold">Settings</h1>
+        <div className="flex flex-row items-center justify-center gap-4">
+          <IconButton
+            color="blue"
+            icon={<FontAwesomeIcon icon={faCheckCircle} />}
+            onClick={saveChanges}
+            text="Save"
+          />
+          <Button
+            onClick={() => {
+              setLiftNames(profile.liftNames)
+              setWorkoutNames(profile.workoutNames)
+              router.push("/")
+            }}
+            variant="danger"
+          >
+            Cancel
+          </Button>
+        </div>
       </div>
       <div className="flex flex-grow flex-col border-t border-slate-700">
-        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-x divide-slate-700 border-b border-slate-700 md:max-h-[calc(100dvh-138px)]">
+        <div className="flex max-h-[calc(100dvh-112px)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-56px)]">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
               <form onSubmit={handleLiftSubmit}>
@@ -251,26 +269,6 @@ export function SettingsApp({profile}: {profile: Profile}) {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="flex h-20 flex-row items-center justify-center gap-4">
-          <Button
-            disabled={!hasChangeOccurred}
-            onClick={saveChanges}
-            variant="primary"
-          >
-            Save Changes
-          </Button>
-          {hasChangeOccurred && (
-            <Button
-              onClick={() => {
-                setLiftNames(profile.liftNames)
-                setWorkoutNames(profile.workoutNames)
-              }}
-              variant="danger"
-            >
-              Discard
-            </Button>
-          )}
         </div>
       </div>
     </div>

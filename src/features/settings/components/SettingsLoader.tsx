@@ -10,10 +10,10 @@ export function SettingsLoader() {
         <h1 className="text-xl font-bold">Settings</h1>
       </div>
       <div className="flex w-full flex-grow justify-center">
-        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-slate-700 border-slate-700 max-xs:divide-x max-xs:border-b xs:gap-4 xs:px-4 xs:pt-4 md:max-h-[calc(100dvh-138px)] md:gap-6 md:px-6 md:pt-6">
+        <div className="flex max-h-[calc(100dvh-112px)] flex-grow divide-x divide-slate-700 md:max-h-[calc(100dvh-56px)]">
           {Array.from({length: 2}).map((_, i) => (
             <div
-              className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 xs:rounded-lg xs:border"
+              className="flex w-full flex-grow flex-col items-center overflow-hidden"
               key={i}
             >
               <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
