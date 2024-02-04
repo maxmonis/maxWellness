@@ -6,12 +6,13 @@ import classNames from "classnames"
 export function WorkoutsLoader() {
   return (
     <div className="min-h-screen">
-      <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-3 md:px-6">
-        <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
-        <div className="flex gap-6">
+      <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-3 md:px-6 md:pb-2">
+        <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700 md:hidden" />
+        <div className="flex gap-6 md:hidden">
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         </div>
+        <h1 className="text-xl font-bold max-md:hidden">Workouts</h1>
       </div>
       <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)]">
         <div className="flex flex-1 flex-col overflow-hidden">

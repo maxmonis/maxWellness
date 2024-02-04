@@ -25,15 +25,15 @@ export function WorkoutsHeader({
     <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 md:px-6">
       {view === "list" ? (
         <>
-          <IconButton
-            color="blue"
-            icon={<FontAwesomeIcon icon={faCirclePlus} />}
-            onClick={() => changeView("create")}
-            text="Create"
-          />
-          <div className="flex gap-6">
+          <div className="flex w-full items-end justify-between md:hidden">
+            <IconButton
+              color="blue"
+              icon={<FontAwesomeIcon icon={faCirclePlus} />}
+              onClick={() => changeView("create")}
+              text="Create"
+            />
             {workouts.length > 0 && (
-              <>
+              <div className="flex gap-6">
                 <IconButton
                   icon={<FontAwesomeIcon icon={faFilter} />}
                   onClick={() => changeView("filters")}
@@ -44,9 +44,10 @@ export function WorkoutsHeader({
                   onClick={() => changeView("table")}
                   text="Table"
                 />
-              </>
+              </div>
             )}
           </div>
+          <h1 className="text-xl font-bold max-md:hidden">Workouts</h1>
         </>
       ) : (
         <>

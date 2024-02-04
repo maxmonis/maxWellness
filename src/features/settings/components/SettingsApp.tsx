@@ -76,7 +76,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
       {showLeaveConfirmDialog && (
         <div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-50 p-4">
           <dialog
-            className="mx-auto flex flex-col gap-4 rounded-lg border border-slate-700 bg-white p-6 dark:bg-black"
+            className="mx-auto flex flex-col gap-4 rounded-lg border border-slate-700 p-6"
             open
           >
             <h1 className="text-xl font-bold">You have unsaved changes</h1>
@@ -116,8 +116,8 @@ export function SettingsApp({profile}: {profile: Profile}) {
         <h1 className="text-xl font-bold">Settings</h1>
       </div>
       <div className="flex flex-grow flex-col border-t border-slate-700">
-        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-slate-700 border-slate-700 max-xs:divide-x max-xs:border-b xs:gap-4 xs:px-4 xs:pt-4 md:max-h-[calc(100dvh-138px)] md:gap-6 md:px-6 md:pt-6">
-          <div className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 xs:rounded-lg xs:border xs:bg-gray-200 xs:dark:bg-gray-800">
+        <div className="flex max-h-[calc(100dvh-192px)] flex-grow divide-x divide-slate-700 border-b border-slate-700 md:max-h-[calc(100dvh-138px)]">
+          <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
               <form onSubmit={handleLiftSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
@@ -184,7 +184,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
               </ul>
             </div>
           </div>
-          <div className="flex w-full flex-grow flex-col items-center overflow-hidden border-slate-700 xs:rounded-lg xs:border xs:bg-gray-200 xs:dark:bg-gray-800">
+          <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
               <form onSubmit={handleWorkoutSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">

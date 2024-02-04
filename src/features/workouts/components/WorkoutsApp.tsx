@@ -93,9 +93,9 @@ export function WorkoutsApp({filters, profile, workouts}: Session) {
   return (
     <div className="min-h-screen">
       <WorkoutsHeader {...{editingWorkout, workouts}} />
-      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-grow justify-center gap-4 border-t border-slate-700 px-4 md:max-h-[calc(100dvh-56px)] md:gap-6 md:px-6">
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-grow justify-center divide-x divide-slate-700 border-t border-slate-700 md:max-h-[calc(100dvh-56px)]">
         {view !== "list" && (
-          <div className="my-4 flex w-full min-w-[10rem] max-w-xs flex-grow overflow-x-hidden rounded-lg border border-slate-700 bg-slate-100 dark:bg-slate-800 md:my-6">
+          <div className="flex w-full min-w-[10rem] max-w-xs flex-grow overflow-x-hidden">
             <div className="flex w-full flex-grow flex-col">
               <div className="w-full overflow-hidden max-md:h-full">
                 <div className="h-full overflow-y-auto overflow-x-hidden p-4 md:p-6">

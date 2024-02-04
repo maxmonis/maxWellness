@@ -150,7 +150,7 @@ export function GoogleButton({
 
   return (
     <button
-      className="flex w-full items-center justify-center rounded border bg-white p-2 text-black"
+      className="flex w-full items-center justify-center rounded border bg-white p-2 text-gray-900"
       disabled={submitting}
       onClick={async () => {
         if (submitting) return

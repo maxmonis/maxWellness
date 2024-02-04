@@ -20,7 +20,7 @@ import {IconButton} from "./CTA"
 /**
  * This menu allows the user to toggle dark mode or log out
  */
-export function UserMenu({className = "", showName = false}) {
+export function UserMenu({className = ""}) {
   const user = useAuth()
   const {data: session} = useSession()
   const router = useRouter()
@@ -30,7 +30,7 @@ export function UserMenu({className = "", showName = false}) {
   useKeypress("Escape", () => setOpen(false))
 
   return (
-    <div className={classNames("relative", className)} {...{ref}}>
+    <div className={classNames("relative w-min", className)} {...{ref}}>
       <IconButton
         icon={
           session?.profile.photoURL ? (
@@ -47,8 +47,8 @@ export function UserMenu({className = "", showName = false}) {
             <FontAwesomeIcon icon={faUser} size="lg" />
           )
         }
-        text={showName ? session?.profile.userName ?? "Profile" : "Profile"}
-        textClass="max-sm:sr-only"
+        text={session?.profile.userName.split(" ")[0] ?? "Profile"}
+        textClass="max-sm:sr-only whitespace-nowrap max-w-[12ch] lg:max-w-[23ch] truncate"
         onClick={() => setOpen(!open)}
       />
       {open && (

@@ -23,8 +23,8 @@ export default function Navbar() {
   const homeHref = hasWorkouts ? "/" : "/?view=create"
 
   return (
-    <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r">
-      <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 md:h-full md:justify-between md:overflow-y-scroll">
+    <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r md:pl-2">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 md:h-full md:justify-between md:overflow-y-scroll">
         <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-x-6 gap-y-4 md:flex-col md:items-start md:justify-start md:py-6">
           <div className="md:mb-6">
             <IconButton
@@ -39,30 +39,26 @@ export default function Navbar() {
                 />
               }
               text="maxWellness"
-              textClass="max-sm:sr-only"
             />
           </div>
-          <span className="max-md:hidden">
+          <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
             <IconButton
               className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
               href={homeHref}
               icon={<FontAwesomeIcon icon={faHome} size="lg" />}
               text="Home"
             />
-          </span>
-          <div className="flex flex-col md:gap-y-4">
             <IconButton
               className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
               color="blue"
               href="/?view=create"
               icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
               text="Create"
-              textClass="max-sm:sr-only"
             />
             <IconButton
               className={classNames(
-                "rounded-full max-md:hidden md:-ml-3 md:px-3 md:py-2",
-                hasWorkouts && "hover:bg-gray-100 dark:hover:bg-gray-800",
+                "rounded-full md:-ml-3 md:px-3 md:py-2",
+                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
               )}
               disabled={!hasWorkouts}
               href={hasWorkouts ? "/?view=filters" : undefined}
@@ -71,8 +67,8 @@ export default function Navbar() {
             />
             <IconButton
               className={classNames(
-                "rounded-full max-md:hidden md:-ml-3 md:px-3 md:py-2",
-                hasWorkouts && "hover:bg-gray-100 dark:hover:bg-gray-800",
+                "rounded-full md:-ml-3 md:px-3 md:py-2",
+                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
               )}
               disabled={!hasWorkouts}
               href={hasWorkouts ? "/?view=table" : undefined}
@@ -85,16 +81,16 @@ export default function Navbar() {
             href="/settings"
             icon={<FontAwesomeIcon icon={faGear} size="lg" />}
             text="Settings"
-            textClass="max-sm:sr-only"
+            textClass="max-xs:sr-only"
           />
           <IconButton
             className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
             href="/info"
             icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
             text="Info"
-            textClass="max-sm:sr-only"
+            textClass="max-xs:sr-only"
           />
-          <UserMenu className="md:mt-10" />
+          <UserMenu className="md:mt-10 lg:hidden" />
         </div>
         <footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 text-center text-sm max-md:hidden">
           <a

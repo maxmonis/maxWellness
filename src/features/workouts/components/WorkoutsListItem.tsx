@@ -73,9 +73,9 @@ export function WorkoutsListItem({
     <div
       key={workout.id}
       className={classNames(
-        "h-min justify-between gap-6 rounded-lg bg-gray-200 p-4 dark:bg-gray-800 sm:gap-10 md:p-6",
+        "h-min justify-between gap-6 px-4 sm:gap-10 md:px-6",
         editingWorkout?.id === workout.id && "italic",
-        view === "list" ? "flex last:mb-20" : "sm:flex",
+        view === "list" ? "flex py-6 last:mb-20" : "py-4 sm:flex md:py-6",
       )}
     >
       <div>

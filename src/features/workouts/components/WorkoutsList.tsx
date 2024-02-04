@@ -16,6 +16,7 @@ export function WorkoutsList({
   editingWorkout,
   filteredWorkouts,
   resetState,
+  view,
   workouts,
   ...props
 }: {
@@ -56,7 +57,7 @@ export function WorkoutsList({
       <div className="flex w-full flex-1 flex-col">
         <div className="h-screen overflow-hidden">
           {editingWorkout ? (
-            <div className="py-6">
+            <div>
               <WorkoutsListItem
                 {...{
                   deletingId,
@@ -64,6 +65,7 @@ export function WorkoutsList({
                   handleDelete,
                   handleDeleteClick,
                   setDeletingId,
+                  view,
                   workouts,
                 }}
                 {...props}
@@ -71,7 +73,7 @@ export function WorkoutsList({
               />
             </div>
           ) : (
-            <div className="flex h-full flex-col gap-4 overflow-y-auto overflow-x-hidden py-4 md:gap-6 md:py-6">
+            <div className="flex h-full flex-col divide-y divide-slate-700 overflow-y-auto overflow-x-hidden">
               {filteredWorkouts.length ? (
                 filteredWorkouts.map(workout => (
                   <WorkoutsListItem
@@ -82,6 +84,7 @@ export function WorkoutsList({
                       handleDelete,
                       handleDeleteClick,
                       setDeletingId,
+                      view,
                       workout,
                       workouts,
                     }}
