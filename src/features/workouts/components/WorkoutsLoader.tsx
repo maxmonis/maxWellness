@@ -1,5 +1,3 @@
-import classNames from "classnames"
-
 /**
  * Displays a loading skeleton for the root route
  */
@@ -16,14 +14,11 @@ export function WorkoutsLoader() {
       </div>
       <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)]">
         <div className="flex flex-1 flex-col overflow-hidden">
-          <div className="h-full px-4 py-6 md:px-6">
+          <div className="h-full divide-y divide-slate-700">
             {Array.from({length: 5}).map((_, i) => (
               <div
                 key={i}
-                className={classNames(
-                  "flex justify-between gap-6 border-slate-700 pb-6",
-                  i ? "border-t pt-6" : "pt-2",
-                )}
+                className="flex justify-between gap-6 border-slate-700 px-4 py-6 md:px-6"
               >
                 <div className="flex flex-col">
                   <span className="mb-4 h-6 w-40 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
