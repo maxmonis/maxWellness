@@ -1,4 +1,8 @@
-import {faCheckCircle, faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
+import {
+  faCheckCircle,
+  faChevronCircleLeft,
+  faXmarkSquare,
+} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {isEqual, omit, sortBy} from "lodash"
 import {nanoid} from "nanoid"
@@ -114,24 +118,33 @@ export function SettingsApp({profile}: {profile: Profile}) {
       )}
       <div className="flex h-14 items-end justify-between px-4 pb-2 md:px-6">
         <h1 className="text-xl font-bold">Settings</h1>
-        <div className="flex flex-row items-center justify-center gap-4">
+        {hasChangeOccurred ? (
+          <div className="flex flex-row items-center justify-center gap-4">
+            <IconButton
+              color="blue"
+              icon={<FontAwesomeIcon icon={faCheckCircle} />}
+              onClick={saveChanges}
+              text="Save"
+            />
+            <Button
+              onClick={() => {
+                setLiftNames(profile.liftNames)
+                setWorkoutNames(profile.workoutNames)
+                router.push("/")
+              }}
+              variant="danger"
+            >
+              Cancel
+            </Button>
+          </div>
+        ) : (
           <IconButton
             color="blue"
-            icon={<FontAwesomeIcon icon={faCheckCircle} />}
-            onClick={saveChanges}
-            text="Save"
+            icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
+            onClick={() => router.push("/")}
+            text="Hide"
           />
-          <Button
-            onClick={() => {
-              setLiftNames(profile.liftNames)
-              setWorkoutNames(profile.workoutNames)
-              router.push("/")
-            }}
-            variant="danger"
-          >
-            Cancel
-          </Button>
-        </div>
+        )}
       </div>
       <div className="flex flex-grow flex-col border-t border-slate-700">
         <div className="flex max-h-[calc(100dvh-112px)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-56px)]">
