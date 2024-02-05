@@ -1,5 +1,8 @@
+import {faChevronCircleLeft} from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Link from "next/link"
-import {Button} from "~/shared/components/CTA"
+import {useRouter} from "next/router"
+import {Button, IconButton} from "~/shared/components/CTA"
 import {Page} from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
 
@@ -8,14 +11,23 @@ import {useAuth} from "~/shared/context/AuthContext"
  */
 export default function InfoPage() {
   const user = useAuth()
+  const router = useRouter()
 
   return (
     <Page title="Info">
-      <div className="h-full max-h-[calc(100dvh-56px)] w-full overflow-y-auto md:max-h-screen">
-        <div className="mx-auto flex w-full max-w-xl flex-col items-center border-slate-700 px-6 py-10">
-          <h1 className="mb-6 text-2xl font-bold">Information</h1>
-          <div className="w-full border-y border-slate-700 py-6 text-center">
-            <h2 className="mb-4 text-xl font-bold">Table of Contents</h2>
+      <div className=" w-full border-slate-700 lg:max-w-3xl lg:border-r">
+        <div className="flex h-14 items-end justify-between border-b border-slate-700 px-4 pb-2 md:px-6">
+          <h1 className="text-xl font-bold">Information</h1>
+          <IconButton
+            color="blue"
+            icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
+            onClick={() => router.push(user ? "/" : "/register")}
+            text="Hide"
+          />
+        </div>
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-col items-center overflow-y-auto border-slate-700 pb-10 md:max-h-[calc(100dvh-56px)]">
+          <div className="w-full border-b border-slate-700 py-6 text-center">
+            <h2 className="mb-4 text-lg font-bold">Table of Contents</h2>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
@@ -66,8 +78,8 @@ export default function InfoPage() {
           </div>
           <div className="flex flex-col gap-6 divide-y divide-slate-700">
             <div id="overview">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">Overview</h3>
+              <div className="mx-auto flex flex-col gap-4 p-6">
+                <h3 className="text-center text-lg font-bold">Overview</h3>
                 <p>
                   This website allows you to create a free account using your
                   Google credentials (recommended) or an email/password
@@ -79,8 +91,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="creating-workouts">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 p-6">
+                <h3 className="text-center text-lg font-bold">
                   Creating Workouts
                 </h3>
                 <p>
@@ -111,8 +123,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="managing-names">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 p-6">
+                <h3 className="text-center text-lg font-bold">
                   Managing Names
                 </h3>
                 <p>
@@ -126,8 +138,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="managing-workouts">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 p-6">
+                <h3 className="text-center text-lg font-bold">
                   Managing Workouts
                 </h3>
                 <p>
@@ -139,8 +151,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div id="tips-and-tricks">
-              <div className="mx-auto flex flex-col gap-4 pt-6">
-                <h3 className="text-center text-xl font-bold">
+              <div className="mx-auto flex flex-col gap-4 p-6">
+                <h3 className="text-center text-lg font-bold">
                   Tips and Tricks
                 </h3>
                 <p>
