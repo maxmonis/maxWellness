@@ -2,7 +2,6 @@ import classNames from "classnames"
 import {getPrintout} from "~/features/workouts/workoutsFunctions"
 import {getDateText, getLiftNameText} from "../functions/parsers"
 import {useSession} from "../hooks/useSession"
-import {UserMenu} from "./UserMenu"
 
 /**
  * Displays the user's personal records (if any exist)
@@ -13,11 +12,10 @@ export function RecordsApp() {
     session?.workouts.flatMap(w => w.routine.filter(e => e.recordStartDate)) ??
     []
   return (
-    <div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l border-slate-700 p-6 max-lg:hidden xl:w-full">
-      <UserMenu />
+    <div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l border-slate-700 px-6 pb-6 max-lg:hidden xl:w-full">
       <div className="h-full overflow-hidden pb-14">
-        <div className="mt-8 flex h-full flex-col gap-6 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
-          <h2 className="text-xl font-bold">Records</h2>
+        <h2 className="mb-1 ml-1 mt-6 text-lg font-bold">Personal Bests</h2>
+        <div className="flex h-full flex-col gap-4 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
           {isLoading ? (
             <p>Loading records...</p>
           ) : records.length === 0 ? (
