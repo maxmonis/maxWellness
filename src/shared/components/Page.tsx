@@ -92,7 +92,9 @@ export function Page({
             )}
           >
             <div className="mx-auto flex w-screen max-w-screen-xl flex-col justify-between md:flex-row-reverse md:justify-end">
-              {mustBeLoggedIn && <RecordsApp />}
+              {router.pathname === "/" && router.query.view !== "table" && (
+                <RecordsApp />
+              )}
               <div
                 className={classNames(
                   "w-full",

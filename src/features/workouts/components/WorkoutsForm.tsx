@@ -229,7 +229,7 @@ export function WorkoutsForm({
                         </span>
                         {draggingOver !== "ExerciseForm" && (
                           <IconButton
-                            icon={<FontAwesomeIcon icon={faX} />}
+                            icon={<FontAwesomeIcon icon={faX} size="sm" />}
                             onClick={() => deleteExercise(exercise.id)}
                           />
                         )}

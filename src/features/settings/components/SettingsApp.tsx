@@ -76,7 +76,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
   }, [profile])
 
   return (
-    <div className="flex min-h-screen w-full flex-grow flex-col">
+    <div className="flex min-h-screen w-full flex-grow flex-col border-slate-700 xl:max-w-5xl xl:border-r">
       {showLeaveConfirmDialog && (
         <div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-50 p-4">
           <dialog
@@ -189,7 +189,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
                   </>
                 )}
               </form>
-              <ul className="h-full overflow-y-scroll pb-6 pt-2">
+              <ul className="h-full overflow-y-scroll pb-6 pt-1">
                 {sortBy(
                   liftNames.filter(n => !n.isHidden),
                   "text",
@@ -256,7 +256,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
                   </>
                 )}
               </form>
-              <ul className="h-full overflow-y-scroll pb-6 pt-2">
+              <ul className="h-full overflow-y-scroll pb-6 pt-1">
                 {sortBy(
                   workoutNames.filter(n => !n.isHidden),
                   "text",

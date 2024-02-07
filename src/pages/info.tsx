@@ -15,7 +15,7 @@ export default function InfoPage() {
 
   return (
     <Page title="Info">
-      <div className=" w-full border-slate-700 lg:max-w-3xl lg:border-r">
+      <div className=" w-full border-slate-700 xl:max-w-5xl xl:border-r">
         <div className="flex h-14 items-end justify-between border-b border-slate-700 px-4 pb-2 md:px-6">
           <h1 className="text-xl font-bold">Information</h1>
           <IconButton
@@ -25,60 +25,10 @@ export default function InfoPage() {
             text="Hide"
           />
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-col items-center overflow-y-auto border-slate-700 pb-10 md:max-h-[calc(100dvh-56px)]">
-          <div className="w-full border-b border-slate-700 py-6 text-center">
-            <h2 className="mb-4 text-lg font-bold">Table of Contents</h2>
-            <ul className="flex flex-col gap-2">
-              <li>
-                <Link
-                  aria-label="Scroll to the Overview section"
-                  className="hover:underline"
-                  href="#overview"
-                >
-                  Overview
-                </Link>
-              </li>
-              <li>
-                <Link
-                  aria-label="Scroll to the Creating Workouts section"
-                  className="hover:underline"
-                  href="#creating-workouts"
-                >
-                  Creating Workouts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  aria-label="Scroll to the Managing Names section"
-                  className="hover:underline"
-                  href="#managing-names"
-                >
-                  Managing Names
-                </Link>
-              </li>
-              <li>
-                <Link
-                  aria-label="Scroll to the Managing Workouts section"
-                  className="hover:underline"
-                  href="#managing-workouts"
-                >
-                  Managing Workouts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  aria-label="Scroll to the Tips and Tricks section"
-                  className="hover:underline"
-                  href="#tips-and-tricks"
-                >
-                  Tips and Tricks
-                </Link>
-              </li>
-            </ul>
-          </div>
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-col items-center overflow-y-auto border-slate-700 pb-28 md:max-h-[calc(100dvh-56px)]">
           <div className="flex flex-col gap-6 divide-y divide-slate-700">
-            <div id="overview">
-              <div className="mx-auto flex flex-col gap-4 p-6">
+            <div>
+              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
                 <h3 className="text-center text-lg font-bold">Overview</h3>
                 <p>
                   This website allows you to create a free account using your
@@ -90,8 +40,8 @@ export default function InfoPage() {
                 </p>
               </div>
             </div>
-            <div id="creating-workouts">
-              <div className="mx-auto flex flex-col gap-4 p-6">
+            <div>
+              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
                 <h3 className="text-center text-lg font-bold">
                   Creating Workouts
                 </h3>
@@ -122,8 +72,8 @@ export default function InfoPage() {
                 </p>
               </div>
             </div>
-            <div id="managing-names">
-              <div className="mx-auto flex flex-col gap-4 p-6">
+            <div>
+              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
                 <h3 className="text-center text-lg font-bold">
                   Managing Names
                 </h3>
@@ -137,8 +87,8 @@ export default function InfoPage() {
                 </p>
               </div>
             </div>
-            <div id="managing-workouts">
-              <div className="mx-auto flex flex-col gap-4 p-6">
+            <div>
+              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
                 <h3 className="text-center text-lg font-bold">
                   Managing Workouts
                 </h3>
@@ -150,8 +100,8 @@ export default function InfoPage() {
                 </p>
               </div>
             </div>
-            <div id="tips-and-tricks">
-              <div className="mx-auto flex flex-col gap-4 p-6">
+            <div>
+              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
                 <h3 className="text-center text-lg font-bold">
                   Tips and Tricks
                 </h3>

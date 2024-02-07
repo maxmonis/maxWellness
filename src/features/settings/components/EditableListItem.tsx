@@ -26,7 +26,7 @@ export function EditableListItem({
   const canHide = editableNameList.filter(n => !n.isHidden).length > 1
 
   return (
-    <li className="mt-4 flex items-center justify-between gap-4">
+    <li className="mt-3 flex items-center justify-between gap-4">
       {editing ? (
         <form className="w-full" {...{onSubmit}}>
           <div className="flex items-center justify-center gap-4 px-1">
