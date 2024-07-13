@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import {useRouter} from "next/router"
 import React from "react"
@@ -35,6 +36,16 @@ export default function RegisterPage() {
           className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
           {...{onSubmit}}
         >
+          <h1 className="mx-auto flex items-center gap-2 text-xl font-bold text-slate-50">
+            <Image
+              alt="Logo"
+              className="h-6 w-6 min-w-max rounded-md border"
+              src="/android-chrome-192x192.png"
+              height={24}
+              width={24}
+            />
+            maxWellness
+          </h1>
           {authError && <p className="text-md text-red-500">{authError}</p>}
           <div className="w-full">
             <input
@@ -90,11 +101,16 @@ export default function RegisterPage() {
             Create Account
           </Button>
           <GoogleButton {...{handleError, submitting, setSubmitting}} />
-          <div className="center-align flex justify-center gap-4">
+          <div className="flex flex-col gap-2">
             <div className="flex flex-wrap gap-x-2">
               <p className="whitespace-nowrap text-white">Already a member?</p>
               <Link className="text-blue-300 hover:underline" href="/login">
                 Log In
+              </Link>
+            </div>
+            <div>
+              <Link className="text-blue-300 hover:underline" href="/info">
+                Learn More
               </Link>
             </div>
           </div>
