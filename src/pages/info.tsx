@@ -25,7 +25,7 @@ export default function InfoPage() {
             text="Hide"
           />
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full flex-col items-center overflow-y-auto border-slate-700 pb-28 md:max-h-[calc(100dvh-56px)]">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 pb-28 md:max-h-[calc(100dvh-3.5rem)]">
           <div className="flex flex-col gap-6 divide-y divide-slate-700">
             <div>
               <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">

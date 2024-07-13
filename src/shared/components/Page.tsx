@@ -91,7 +91,7 @@ export function Page({
                 "bg-white text-gray-900 dark:bg-black dark:text-white",
             )}
           >
-            <div className="mx-auto flex w-screen max-w-screen-xl flex-col justify-between md:flex-row-reverse md:justify-end">
+            <div className="mx-auto flex w-screen max-w-7xl flex-col justify-between md:flex-row-reverse md:justify-end">
               {router.pathname === "/" && router.query.view !== "table" && (
                 <RecordsApp />
               )}
@@ -100,7 +100,7 @@ export function Page({
                   "w-full",
                   mustBeLoggedOut
                     ? "max-h-screen"
-                    : "max-h-[calc(100dvh-56px)] md:max-h-screen",
+                    : "max-h-[calc(100dvh-3.5rem)] md:max-h-screen",
                 )}
               >
                 {children ??

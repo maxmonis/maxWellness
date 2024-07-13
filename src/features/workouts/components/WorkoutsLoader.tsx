@@ -12,7 +12,7 @@ export function WorkoutsLoader() {
         </div>
         <h1 className="text-xl font-bold max-md:hidden">Workouts</h1>
       </div>
-      <div className="mx-auto flex h-full max-h-[calc(100dvh-112px)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-56px)]">
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
         <div className="flex flex-1 flex-col overflow-hidden">
           <div className="h-full divide-y divide-slate-700">
             {Array.from({length: 5}).map((_, i) => (

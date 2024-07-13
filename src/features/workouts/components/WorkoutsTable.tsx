@@ -85,7 +85,7 @@ export function WorkoutsTable({
   }
 
   return (
-    <div className="flex min-h-screen w-full justify-center border-slate-700 xl:max-w-screen-lg xl:border-r">
+    <div className="flex min-h-screen w-full justify-center border-slate-700 xl:max-w-5xl xl:border-r">
       <div className="w-full flex-col divide-x divide-slate-700 overflow-hidden">
         <div className="flex w-full flex-1 flex-col items-center border-slate-700">
           <div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 text-lg md:px-6">
@@ -128,7 +128,7 @@ export function WorkoutsTable({
             />
           </div>
           <div className="h-full w-full">
-            <div className="max-h-[calc(100dvh-112px)] w-full overflow-y-auto border-slate-700 pb-28 md:max-h-[calc(100dvh-56px)]">
+            <div className="max-h-[calc(100dvh-7rem)] w-full overflow-y-auto border-slate-700 pb-28 md:max-h-[calc(100dvh-3.5rem)]">
               {filteredWorkouts.length > 0 ? (
                 <table className="w-full table-fixed border-b border-slate-700 bg-white text-center dark:bg-black">
                   <thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">

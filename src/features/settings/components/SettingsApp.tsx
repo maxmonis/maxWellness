@@ -147,7 +147,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
         )}
       </div>
       <div className="flex flex-grow flex-col border-t border-slate-700">
-        <div className="flex max-h-[calc(100dvh-112px)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-56px)]">
+        <div className="flex max-h-[calc(100dvh-7rem)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
             <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6">
               <h2 className="mx-auto mb-4 text-center text-lg font-bold">
