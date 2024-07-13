@@ -149,7 +149,10 @@ export function SettingsApp({profile}: {profile: Profile}) {
       <div className="flex flex-grow flex-col border-t border-slate-700">
         <div className="flex max-h-[calc(100dvh-112px)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-56px)]">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
+            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6">
+              <h2 className="mx-auto mb-4 text-center text-lg font-bold">
+                Exercises
+              </h2>
               <form onSubmit={handleLiftSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
                   <input
@@ -216,7 +219,10 @@ export function SettingsApp({profile}: {profile: Profile}) {
             </div>
           </div>
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
+            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6">
+              <h2 className="mx-auto mb-4 text-center text-lg font-bold">
+                Workouts
+              </h2>
               <form onSubmit={handleWorkoutSubmit}>
                 <div className="flex items-center justify-center gap-4 text-lg">
                   <input

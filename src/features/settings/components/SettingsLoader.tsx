@@ -5,7 +5,7 @@ import classNames from "classnames"
  */
 export function SettingsLoader() {
   return (
-    <div className="flex min-h-screen flex-col justify-between">
+    <div className="flex min-h-screen flex-col justify-between border-slate-700 xl:max-w-5xl xl:border-r">
       <div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 md:px-6">
         <h1 className="text-xl font-bold">Settings</h1>
       </div>
@@ -16,7 +16,10 @@ export function SettingsLoader() {
               className="flex w-full flex-grow flex-col items-center overflow-hidden"
               key={i}
             >
-              <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6 md:pt-6">
+              <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6">
+                <h2 className="mx-auto mb-4 text-center text-lg font-bold">
+                  {i ? "Workouts" : "Exercises"}
+                </h2>
                 <div className="flex">
                   <span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
                 </div>
