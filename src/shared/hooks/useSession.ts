@@ -1,6 +1,6 @@
 import {useQuery} from "react-query"
+import {getSession} from "~/firebase/client"
 import {useAuth} from "~/shared/context/AuthContext"
-import {sessionService} from "~/shared/services/SessionService"
 
 /**
  * Attempts to load the current session
@@ -10,13 +10,11 @@ export function useSession() {
   const userId = user?.uid
 
   return useQuery({
-    queryFn: () => loadSession(userId),
+    queryFn: () => {
+      if (userId) {
+        return getSession(userId)
+      }
+    },
     queryKey: ["session", {userId}],
   })
-}
-
-function loadSession(userId?: string) {
-  if (userId) {
-    return sessionService.getSession(userId)
-  }
 }

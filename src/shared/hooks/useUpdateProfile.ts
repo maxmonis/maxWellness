@@ -1,5 +1,5 @@
 import {useMutation} from "react-query"
-import {profileService} from "~/shared/services/ProfileService"
+import {updateProfile} from "~/firebase/client"
 import {useInvalidateSession} from "./useInvalidateSession"
 
 /**
@@ -9,8 +9,7 @@ export function useUpdateProfile({onSuccess}: {onSuccess: () => void}) {
   const onSettled = useInvalidateSession()
 
   return useMutation({
-    mutationFn: (...args: Parameters<typeof profileService.updateProfile>) =>
-      profileService.updateProfile(...args),
+    mutationFn: updateProfile,
     mutationKey: ["session", {type: "profile"}],
     onSettled,
     onSuccess,

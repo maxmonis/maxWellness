@@ -1,5 +1,5 @@
 import {useMutation} from "react-query"
-import {workoutService} from "~/shared/services/WorkoutService"
+import {deleteWorkout} from "~/firebase/client"
 import {useInvalidateSession} from "./useInvalidateSession"
 
 /**
@@ -9,8 +9,7 @@ export function useDeleteWorkout({onSuccess}: {onSuccess: () => void}) {
   const onSettled = useInvalidateSession()
 
   return useMutation({
-    mutationFn: (...args: Parameters<typeof workoutService.deleteWorkout>) =>
-      workoutService.deleteWorkout(...args),
+    mutationFn: deleteWorkout,
     mutationKey: ["session", {type: "delete"}],
     onSettled,
     onSuccess,
