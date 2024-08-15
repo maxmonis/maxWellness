@@ -7,7 +7,6 @@ import {
   faTable,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
 import Image from "next/image"
 import {useSession} from "../hooks/useSession"
 import {IconButton} from "./CTA"
@@ -18,9 +17,9 @@ import {UserMenu} from "./UserMenu"
  * the screen on narrow viewports and to the left on wider ones
  */
 export default function Navbar() {
-  const {data: session = {workouts: []}} = useSession()
-  const hasWorkouts = session.workouts.length > 0
-  const homeHref = hasWorkouts ? "/" : "/?view=create"
+  const {data: session} = useSession()
+  const hasWorkouts = Boolean(session?.workouts.length)
+  const homeHref = hasWorkouts ? "/" : session ? "/?view=create" : "/login"
 
   return (
     <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r md:pl-2">
@@ -44,48 +43,44 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
             <IconButton
-              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               href={homeHref}
               icon={<FontAwesomeIcon icon={faHome} size="lg" />}
               text="Home"
             />
             <IconButton
-              className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+              className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               color="blue"
-              href="/?view=create"
+              href={session ? "/?view=create" : homeHref}
               icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
               text="Create"
             />
-            <IconButton
-              className={classNames(
-                "rounded-full md:-ml-3 md:px-3 md:py-2",
-                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
-              )}
-              disabled={!hasWorkouts}
-              href={hasWorkouts ? "/?view=filters" : undefined}
-              icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
-              text="Filters"
-            />
-            <IconButton
-              className={classNames(
-                "rounded-full md:-ml-3 md:px-3 md:py-2",
-                hasWorkouts && "md:hover:bg-gray-100 dark:md:hover:bg-gray-800",
-              )}
-              disabled={!hasWorkouts}
-              href={hasWorkouts ? "/?view=table" : undefined}
-              icon={<FontAwesomeIcon icon={faTable} size="lg" />}
-              text="Table"
-            />
+            {(!session || hasWorkouts) && (
+              <>
+                <IconButton
+                  className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  href={session ? "/?view=filters" : homeHref}
+                  icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
+                  text="Filters"
+                />
+                <IconButton
+                  className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  href={session ? "/?view=table" : homeHref}
+                  icon={<FontAwesomeIcon icon={faTable} size="lg" />}
+                  text="Table"
+                />
+              </>
+            )}
           </div>
           <IconButton
-            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
-            href="/settings"
+            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+            href={session ? "/settings" : homeHref}
             icon={<FontAwesomeIcon icon={faGear} size="lg" />}
             text="Settings"
             textClass="max-xs:sr-only"
           />
           <IconButton
-            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 dark:md:hover:bg-gray-800"
+            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
             href="/info"
             icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
             text="Info"
