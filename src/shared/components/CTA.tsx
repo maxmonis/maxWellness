@@ -11,28 +11,48 @@ import {googleLogin} from "~/firebase/client"
 export function Button({
   children,
   className,
-  type,
+  loading,
+  type = "button",
   variant,
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  loading?: boolean
   variant?: "primary" | "secondary" | "danger"
 }) {
   return (
     <button
       className={classNames(
-        "flex justify-center rounded-lg text-lg font-bold leading-tight outline-none focus:ring-2",
-        variant === "primary"
-          ? "bg-blue-800 px-4 py-2 font-semibold text-white enabled:hover:bg-blue-700 disabled:bg-neutral-500"
-          : variant === "secondary"
-          ? "border border-blue-700 bg-white px-4 py-2 font-semibold text-blue-700 hover:border-blue-800 hover:bg-blue-50 hover:text-blue-800 dark:bg-blue-50 dark:hover:border-blue-600 dark:hover:bg-white dark:hover:text-blue-600"
-          : variant === "danger"
-          ? "text-red-800 hover:text-red-700 dark:text-red-500 dark:hover:text-red-400"
-          : "text-blue-700 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400",
+        "flex items-center justify-center gap-2 rounded-lg text-lg font-bold leading-tight outline-none focus:ring-2 aria-busy:cursor-default",
+        {
+          "bg-blue-800 px-4 py-2 font-semibold text-white":
+            variant === "primary",
+          "hover:bg-blue-700": variant === "primary" && !loading,
+          "border border-blue-700 bg-white px-4 py-2 font-semibold text-blue-700 dark:bg-blue-50":
+            variant === "secondary",
+          "hover:border-blue-800 hover:bg-blue-50 hover:text-blue-800 dark:hover:border-blue-600 dark:hover:bg-white dark:hover:text-blue-600":
+            variant === "secondary" && !loading,
+          "text-red-800 dark:text-red-500": variant === "danger",
+          "hover:text-red-700 dark:hover:text-red-400":
+            variant === "danger" && !loading,
+          "text-blue-700 dark:text-blue-500": !variant,
+          "hover:text-blue-600 dark:hover:text-blue-400": !variant && !loading,
+        },
         className,
       )}
-      type={type ?? "button"}
+      {...{type}}
+      {...(loading && {"aria-busy": true})}
       {...props}
     >
+      {loading && variant && ["primary", "secondary"].includes(variant) && (
+        <span
+          aria-busy="true"
+          className={classNames(
+            "h-4 w-4 animate-spin rounded-full border-2 border-r-transparent",
+            variant === "primary" ? "border-white" : "border-blue-700",
+          )}
+          role="alert"
+        />
+      )}
       {children}
     </button>
   )

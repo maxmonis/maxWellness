@@ -65,7 +65,12 @@ export default function ResetPasswordPage() {
                 <p className="text-sm text-red-500">{inputErrors.email}</p>
               )}
             </div>
-            <Button className="w-full" type="submit" variant="primary">
+            <Button
+              className="w-full"
+              loading={submitting}
+              type="submit"
+              variant="primary"
+            >
               Reset Password
             </Button>
             <div className="flex flex-col gap-2">

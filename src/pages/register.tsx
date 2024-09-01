@@ -97,7 +97,12 @@ export default function RegisterPage() {
               <p className="text-sm text-red-500">{inputErrors.password2}</p>
             )}
           </div>
-          <Button className="w-full" type="submit" variant="primary">
+          <Button
+            className="w-full"
+            loading={submitting}
+            type="submit"
+            variant="primary"
+          >
             Create Account
           </Button>
           <GoogleButton {...{handleError, submitting, setSubmitting}} />

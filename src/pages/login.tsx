@@ -70,7 +70,12 @@ export default function LoginPage() {
               <p className="text-sm text-red-500">{inputErrors.password}</p>
             )}
           </div>
-          <Button className="w-full" type="submit" variant="primary">
+          <Button
+            className="w-full"
+            loading={submitting}
+            type="submit"
+            variant="primary"
+          >
             Log In
           </Button>
           <GoogleButton {...{handleError, submitting, setSubmitting}} />

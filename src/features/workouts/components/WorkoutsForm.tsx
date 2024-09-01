@@ -273,7 +273,12 @@ export function WorkoutsForm({
           />
         </div>
         <div className="mt-2 flex items-center justify-between gap-3">
-          <Button className="flex-grow" onClick={handleSave} variant="primary">
+          <Button
+            className="flex-grow"
+            loading={mutating}
+            onClick={handleSave}
+            variant="primary"
+          >
             Save
           </Button>
           {routine.length > 0 && (
