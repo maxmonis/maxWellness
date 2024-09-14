@@ -35,6 +35,19 @@ html.dark input:not([type="checkbox"]) {
   border-color: #ffffff;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -59,6 +72,7 @@ input:not([type="checkbox"]) {
   border-width: 1px;
   font-size: 1rem;
   line-height: 1.5;
+  min-height: 2.25rem;
   outline: none;
   padding-block: 0.5rem;
   width: 100%;
@@ -70,13 +84,14 @@ input:not([type="checkbox"]):not(:focus) {
 }
 
 select,
-input:not([type="checkbox"]):not([inputmode="numeric"]):not([type="date"]) {
+input:not([type="checkbox"]):not([inputmode="numeric"]) {
   padding-inline: 0.75rem;
 }
 
-input[type="date"] {
-  min-height: 2.25rem;
-  padding-inline: 0.25rem;
+@media (max-width: 350px) {
+  input:not([type="checkbox"]):not([inputmode="numeric"])[type="date"] {
+    padding-inline: 0.25rem;
+  }
 }
 
 select:focus,

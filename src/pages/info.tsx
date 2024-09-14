@@ -15,8 +15,8 @@ export default function InfoPage() {
 
   return (
     <Page title="Info">
-      <div className=" w-full border-slate-700 xl:max-w-5xl xl:border-r">
-        <div className="flex h-14 items-end justify-between border-b border-slate-700 px-4 pb-2 md:px-6">
+      <div className="w-full border-slate-700 xl:max-w-5xl xl:border-r">
+        <div className="flex h-14 items-end justify-between border-b border-slate-700 px-4 pb-2 sm:px-6">
           <h1 className="text-xl font-bold">Information</h1>
           <IconButton
             color="blue"
@@ -25,24 +25,26 @@ export default function InfoPage() {
             text="Hide"
           />
         </div>
-        <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 pb-28 md:max-h-[calc(100dvh-3.5rem)]">
-          <div className="flex flex-col gap-6 divide-y divide-slate-700">
+        <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 sm:px-6 sm:text-lg md:max-h-[calc(100dvh-3.5rem)]">
+          <div className="flex flex-col gap-6 pb-12 pt-6">
             <div>
-              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
-                <h3 className="text-center text-lg font-bold">Overview</h3>
+              <div className="mx-auto flex max-w-prose flex-col gap-4">
+                <h3 className="text-center text-lg font-bold sm:text-xl">
+                  Overview
+                </h3>
                 <p>
                   This website allows you to create a free account using your
                   Google credentials (recommended) or an email/password
                   combination. It&apos;s a handy way to keep track of your
                   weightlifting workouts and personal bests, and can be used on
                   devices of any size. You can even install it as an application
-                  on your phone for easy access at the gym.
+                  on your phone for easy access at the gym!
                 </p>
               </div>
             </div>
             <div>
-              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
-                <h3 className="text-center text-lg font-bold">
+              <div className="mx-auto flex max-w-prose flex-col gap-4">
+                <h3 className="text-center text-lg font-bold sm:text-xl">
                   Creating Workouts
                 </h3>
                 <p>
@@ -60,9 +62,10 @@ export default function InfoPage() {
                   with zero weight.
                 </p>
                 <p>
-                  Back-to-back sets with the same weight and reps will
-                  automatically be combined. For example, 2(10x100) immediately
-                  followed by 3(10x100) will become 5(10x100).
+                  Back-to-back sets of the same exercise with the same weight
+                  and reps will automatically be combined. For example,
+                  2(10x100) immediately followed by 3(10x100) will become
+                  5(10x100).
                 </p>
                 <p>
                   Personal records will be indicated with asterisks (one
@@ -73,8 +76,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div>
-              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
-                <h3 className="text-center text-lg font-bold">
+              <div className="mx-auto flex max-w-prose flex-col gap-4">
+                <h3 className="text-center text-lg font-bold sm:text-xl">
                   Managing Names
                 </h3>
                 <p>
@@ -88,8 +91,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div>
-              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
-                <h3 className="text-center text-lg font-bold">
+              <div className="mx-auto flex max-w-prose flex-col gap-4">
+                <h3 className="text-center text-lg font-bold sm:text-xl">
                   Managing Workouts
                 </h3>
                 <p>
@@ -101,8 +104,8 @@ export default function InfoPage() {
               </div>
             </div>
             <div>
-              <div className="mx-auto flex max-w-prose flex-col gap-4 p-6">
-                <h3 className="text-center text-lg font-bold">
+              <div className="mx-auto flex max-w-prose flex-col gap-4">
+                <h3 className="text-center text-lg font-bold sm:text-xl">
                   Tips and Tricks
                 </h3>
                 <p>
@@ -115,7 +118,7 @@ export default function InfoPage() {
                   by clicking the question mark icon in the navbar. That&apos;s
                   all you need to know, time to add some workouts!
                 </p>
-                <div className="my-8 flex w-full justify-center">
+                <div className="mt-8 flex w-full justify-center">
                   <Link href={user ? "/" : "/register"}>
                     <Button className="flex-grow" variant="primary">
                       {user ? "My Workouts" : "Sign Up"}

@@ -73,14 +73,14 @@ export function WorkoutsListItem({
     <div
       key={workout.id}
       className={classNames(
-        "h-min justify-between gap-6 px-4 last:mb-28 sm:gap-10 md:px-6",
+        "h-min justify-between gap-6 p-4 last:mb-2 sm:gap-10 sm:p-6",
         editingWorkout?.id === workout.id && "italic",
-        view === "list" ? "flex py-6" : "py-4 sm:flex md:py-6",
+        view === "list" ? "flex" : "sm:flex",
       )}
     >
       <div>
-        <div className="mb-6">
-          <h1 className="text-xl leading-tight">
+        <div className="mb-4">
+          <h1 className="text-lg leading-tight sm:text-xl">
             <span
               className={classNames(
                 workoutNameText.split(" ").some(word => word.length > 9) &&
@@ -126,10 +126,10 @@ export function WorkoutsListItem({
             const liftName = liftNames.find(({id}) => id === liftId)
             const liftNameText = getLiftNameText(liftId, liftNames)
             return (
-              <li key={j} className="mt-4 flex flex-wrap">
+              <li key={j} className="mt-2 flex flex-wrap">
                 <span
                   className={classNames(
-                    "text-lg leading-tight",
+                    "leading-tight sm:text-lg",
                     liftNameText.split(" ").some(word => word.length > 9) &&
                       "break-all",
                     view === "create" &&
@@ -152,7 +152,7 @@ export function WorkoutsListItem({
                   <span
                     key={k}
                     className={classNames(
-                      "text-lg leading-tight",
+                      "leading-tight sm:text-lg",
                       view === "create" &&
                         !liftName?.isHidden &&
                         "cursor-pointer",

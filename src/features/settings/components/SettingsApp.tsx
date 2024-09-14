@@ -116,7 +116,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
           </dialog>
         </div>
       )}
-      <div className="flex h-14 items-end justify-between px-4 pb-2 md:px-6">
+      <div className="flex h-14 items-end justify-between px-4 pb-2 sm:px-6">
         <h1 className="text-xl font-bold">Settings</h1>
         {hasChangeOccurred ? (
           <div className="flex flex-row items-center justify-center gap-4">
@@ -149,8 +149,8 @@ export function SettingsApp({profile}: {profile: Profile}) {
       <div className="flex flex-grow flex-col border-t border-slate-700">
         <div className="flex max-h-[calc(100dvh-7rem)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6">
-              <h2 className="mx-auto mb-4 text-center text-lg font-bold">
+            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 sm:px-6">
+              <h2 className="mx-auto mb-4 text-center text-lg font-bold sm:text-xl">
                 Exercises
               </h2>
               <form onSubmit={handleLiftSubmit}>
@@ -219,8 +219,8 @@ export function SettingsApp({profile}: {profile: Profile}) {
             </div>
           </div>
           <div className="flex w-full flex-grow flex-col items-center overflow-hidden">
-            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 md:px-6">
-              <h2 className="mx-auto mb-4 text-center text-lg font-bold">
+            <div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 sm:px-6">
+              <h2 className="mx-auto mb-4 text-center text-lg font-bold sm:text-xl">
                 Workouts
               </h2>
               <form onSubmit={handleWorkoutSubmit}>

@@ -214,7 +214,7 @@ export function WorkoutsForm({
                         {...draggableProps}
                       >
                         <span
-                          className="overflow-hidden text-ellipsis text-lg leading-tight"
+                          className="overflow-hidden text-ellipsis leading-tight sm:text-lg"
                           {...dragHandleProps}
                         >
                           {`${getLiftNameText(

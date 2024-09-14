@@ -38,36 +38,38 @@ export function WorkoutsFilters({
 
   return (
     <div>
-      <h2 className="text-lg font-bold">Exercise Name</h2>
-      <div className="mb-10 mt-4 flex flex-col gap-3">
+      <h2 className="text-lg font-bold sm:text-xl">Exercise Name</h2>
+      <ul className="mb-10 mt-4 flex flex-col gap-3 sm:text-lg">
         {sortBy(appliedFilters.liftIds, ({id}) =>
           getLiftNameText(id, liftNames),
         ).map(({checked, id}) => (
-          <Checkbox
-            key={id}
-            onChange={e => updateWorkoutsFilter(e.target.value, "liftId")}
-            text={getLiftNameText(id, liftNames)}
-            value={id}
-            {...{checked}}
-          />
+          <li key={id}>
+            <Checkbox
+              onChange={e => updateWorkoutsFilter(e.target.value, "liftId")}
+              text={getLiftNameText(id, liftNames)}
+              value={id}
+              {...{checked}}
+            />
+          </li>
         ))}
-      </div>
-      <h2 className="text-lg font-bold">Workout Name</h2>
-      <div className="mb-10 mt-4 flex flex-col gap-3">
+      </ul>
+      <h2 className="text-lg font-bold sm:text-xl">Workout Name</h2>
+      <ul className="mb-10 mt-4 flex flex-col gap-3 sm:text-lg">
         {sortBy(appliedFilters.nameIds, ({id}) =>
           getWorkoutNameText(id, workoutNames),
         ).map(({checked, id}) => (
-          <Checkbox
-            key={id}
-            onChange={e => updateWorkoutsFilter(e.target.value, "nameId")}
-            text={getWorkoutNameText(id, workoutNames)}
-            value={id}
-            {...{checked}}
-          />
+          <li key={id}>
+            <Checkbox
+              onChange={e => updateWorkoutsFilter(e.target.value, "nameId")}
+              text={getWorkoutNameText(id, workoutNames)}
+              value={id}
+              {...{checked}}
+            />
+          </li>
         ))}
-      </div>
-      <h2 className="text-lg font-bold">Workout Date</h2>
-      <div className="mb-2 mt-4">
+      </ul>
+      <h2 className="text-lg font-bold sm:text-xl">Workout Date</h2>
+      <div className="mb-2 mt-4 sm:text-lg">
         <Checkbox
           key="chronology"
           checked={appliedFilters.newestFirst}
@@ -226,17 +228,15 @@ export function WorkoutsFilters({
           workout.date <= workoutDates.endDate &&
           (!nameIds.some(({checked}) => checked) ||
             nameIds.find(({id}) => id === workout.nameId)?.checked)
-            ? [
-                {
-                  ...workout,
-                  routine: !liftIds.some(({checked}) => checked)
-                    ? workout.routine
-                    : workout.routine.filter(
-                        ({liftId}) =>
-                          liftIds.find(({id}) => id === liftId)?.checked,
-                      ),
-                },
-              ]
+            ? {
+                ...workout,
+                routine: !liftIds.some(({checked}) => checked)
+                  ? workout.routine
+                  : workout.routine.filter(
+                      ({liftId}) =>
+                        liftIds.find(({id}) => id === liftId)?.checked,
+                    ),
+              }
             : [],
         )
         .filter(workout => workout.routine.length > 0)

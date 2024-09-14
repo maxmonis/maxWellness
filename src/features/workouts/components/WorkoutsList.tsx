@@ -94,7 +94,7 @@ export function WorkoutsList({
               ) : (
                 <>
                   {workouts.length ? (
-                    <div className="px-4 py-6 md:px-6">
+                    <div className="px-4 py-6 sm:px-6">
                       <div className="flex flex-wrap items-center gap-4">
                         <p className="text-lg font-bold text-red-500">
                           No results

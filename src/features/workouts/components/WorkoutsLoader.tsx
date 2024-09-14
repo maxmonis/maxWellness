@@ -4,21 +4,21 @@
 export function WorkoutsLoader() {
   return (
     <div className="min-h-screen">
-      <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-3 md:px-6 md:pb-2">
-        <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700 md:hidden" />
-        <div className="flex gap-6 md:hidden">
+      <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-3 sm:px-6 sm:pb-2">
+        <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:hidden" />
+        <div className="flex gap-6 sm:hidden">
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
           <span className="h-5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
         </div>
-        <h1 className="text-xl font-bold max-md:hidden">Workouts</h1>
+        <h1 className="text-xl font-bold max-sm:hidden">Workouts</h1>
       </div>
-      <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
+      <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t border-slate-700 sm:max-h-[calc(100dvh-3.5rem)]">
         <div className="flex flex-1 flex-col overflow-hidden">
           <div className="h-full divide-y divide-slate-700">
             {Array.from({length: 5}).map((_, i) => (
               <div
                 key={i}
-                className="flex justify-between gap-6 border-slate-700 px-4 py-6 md:px-6"
+                className="flex justify-between gap-6 border-slate-700 px-4 py-6 sm:px-6"
               >
                 <div className="flex flex-col">
                   <span className="mb-4 h-6 w-40 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
