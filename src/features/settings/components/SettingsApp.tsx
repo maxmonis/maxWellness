@@ -1,14 +1,10 @@
-import {
-  faArrowLeft,
-  faCheckCircle,
-  faXmarkSquare,
-} from "@fortawesome/free-solid-svg-icons"
+import {faCheckCircle, faXmarkSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {isEqual, omit, sortBy} from "lodash"
 import {nanoid} from "nanoid"
 import {useRouter} from "next/router"
 import React from "react"
-import {Button, IconButton} from "~/shared/components/CTA"
+import {BackButton, Button, IconButton} from "~/shared/components/CTA"
 import {useAlerts} from "~/shared/context/AlertContext"
 import {useMutating} from "~/shared/hooks/useMutating"
 import {useUpdateProfile} from "~/shared/hooks/useUpdateProfile"
@@ -118,15 +114,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
       )}
       <div className="flex h-14 items-end justify-between px-4 pb-2 sm:px-6">
         <div className="flex">
-          <IconButton
-            aria-label="go back"
-            className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-            icon={<FontAwesomeIcon icon={faArrowLeft} />}
-            onClick={() => {
-              if (history.length > 1) router.back()
-              else router.replace("/")
-            }}
-          />
+          <BackButton />
           <h1 className="text-xl font-bold">Settings</h1>
         </div>
         {hasChangeOccurred && (

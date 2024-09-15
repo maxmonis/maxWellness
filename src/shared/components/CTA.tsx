@@ -1,9 +1,12 @@
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import Image from "next/image"
 import Link from "next/link"
 import {useRouter} from "next/router"
 import React from "react"
 import {googleLogin} from "~/firebase/client"
+import {useAuth} from "../context/AuthContext"
 
 /**
  * A basic button which reflects its style variant (if any)
@@ -198,5 +201,27 @@ export function GoogleButton({
       />
       Continue with Google
     </button>
+  )
+}
+
+/**
+ * Takes the user back to the previous page if one exists,
+ * and otherwise to the home page if they're logged in or
+ * to the register page if they're not
+ */
+export function BackButton() {
+  const user = useAuth()
+  const router = useRouter()
+
+  return (
+    <IconButton
+      aria-label="go back"
+      className="mr-2 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 sm:mr-3"
+      icon={<FontAwesomeIcon icon={faArrowLeft} />}
+      onClick={() => {
+        if (history.length > 1) router.back()
+        else router.replace(user ? "/" : "/register")
+      }}
+    />
   )
 }

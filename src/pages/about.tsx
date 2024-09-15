@@ -1,8 +1,5 @@
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Link from "next/link"
-import {useRouter} from "next/router"
-import {Button, IconButton} from "~/shared/components/CTA"
+import {BackButton, Button} from "~/shared/components/CTA"
 import {Page} from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
 
@@ -11,21 +8,12 @@ import {useAuth} from "~/shared/context/AuthContext"
  */
 export default function InfoPage() {
   const user = useAuth()
-  const router = useRouter()
 
   return (
     <Page title="About">
       <div className="w-full border-slate-700 xl:max-w-5xl xl:border-r">
         <div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
-          <IconButton
-            aria-label="go back"
-            className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-            icon={<FontAwesomeIcon icon={faArrowLeft} />}
-            onClick={() => {
-              if (history.length > 1) router.back()
-              else router.replace(user ? "/" : "/register")
-            }}
-          />
+          <BackButton />
           <h1 className="text-xl font-bold">About</h1>
         </div>
         <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 sm:px-6 sm:text-lg md:max-h-[calc(100dvh-3.5rem)]">

@@ -5,13 +5,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
-import {useRouter} from "next/router"
 import React from "react"
 import {getDateText, getLiftNameText} from "~/shared/functions/parsers"
 import {useSession} from "~/shared/hooks/useSession"
 import {useViewport} from "~/shared/hooks/useViewport"
 import {Workout} from "~/shared/utils/models"
-import {Button, IconButton} from "../../../shared/components/CTA"
+import {BackButton, Button, IconButton} from "../../../shared/components/CTA"
 import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
 import {WorkoutsEmptyState} from "./WorkoutsEmptyState"
 
@@ -28,7 +27,6 @@ export function WorkoutsTable({
 }) {
   const width = useViewport()
   const {data: session, isLoading} = useSession()
-  const router = useRouter()
 
   const maxColumns = width < 550 ? 1 : width < 1000 ? 2 : width < 1200 ? 3 : 4
 
@@ -78,15 +76,7 @@ export function WorkoutsTable({
         <div className="flex w-full flex-1 flex-col items-center border-slate-700">
           <div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 sm:px-6 sm:text-lg">
             <div className="flex">
-              <IconButton
-                aria-label="go back"
-                className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-                icon={<FontAwesomeIcon icon={faArrowLeft} />}
-                onClick={() => {
-                  if (history.length > 1) router.back()
-                  else router.replace("/")
-                }}
-              />
+              <BackButton />
               <h1 className="text-xl font-bold">
                 {sortByDate ? "Dates" : "Exercises"}
               </h1>
