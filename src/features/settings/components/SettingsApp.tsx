@@ -1,6 +1,6 @@
 import {
+  faArrowLeft,
   faCheckCircle,
-  faChevronCircleLeft,
   faXmarkSquare,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -117,8 +117,21 @@ export function SettingsApp({profile}: {profile: Profile}) {
         </div>
       )}
       <div className="flex h-14 items-end justify-between px-4 pb-2 sm:px-6">
-        <h1 className="text-xl font-bold">Settings</h1>
-        {hasChangeOccurred ? (
+        <div className="flex">
+          {!hasChangeOccurred && (
+            <IconButton
+              aria-label="go back"
+              className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+              icon={<FontAwesomeIcon icon={faArrowLeft} />}
+              onClick={() => {
+                if (history.length > 1) router.back()
+                else router.replace("/")
+              }}
+            />
+          )}
+          <h1 className="text-xl font-bold">Settings</h1>
+        </div>
+        {hasChangeOccurred && (
           <div className="flex flex-row items-center justify-center gap-4">
             <IconButton
               color="blue"
@@ -137,13 +150,6 @@ export function SettingsApp({profile}: {profile: Profile}) {
               Cancel
             </Button>
           </div>
-        ) : (
-          <IconButton
-            color="blue"
-            icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-            onClick={() => router.push("/")}
-            text="Hide"
-          />
         )}
       </div>
       <div className="flex flex-grow flex-col border-t border-slate-700">

@@ -1,4 +1,4 @@
-import {faChevronCircleLeft} from "@fortawesome/free-solid-svg-icons"
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 import {useRouter} from "next/router"
@@ -16,14 +16,17 @@ export default function InfoPage() {
   return (
     <Page title="Info">
       <div className="w-full border-slate-700 xl:max-w-5xl xl:border-r">
-        <div className="flex h-14 items-end justify-between border-b border-slate-700 px-4 pb-2 sm:px-6">
-          <h1 className="text-xl font-bold">Information</h1>
+        <div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
           <IconButton
-            color="blue"
-            icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-            onClick={() => router.push(user ? "/" : "/register")}
-            text="Hide"
+            aria-label="go back"
+            className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+            icon={<FontAwesomeIcon icon={faArrowLeft} />}
+            onClick={() => {
+              if (history.length > 1) router.back()
+              else router.replace(user ? "/" : "/register")
+            }}
           />
+          <h1 className="text-xl font-bold">Information</h1>
         </div>
         <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 sm:px-6 sm:text-lg md:max-h-[calc(100dvh-3.5rem)]">
           <div className="flex flex-col gap-6 pb-12 pt-6">

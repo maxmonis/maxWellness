@@ -1,10 +1,11 @@
 import {
-  faChevronCircleLeft,
+  faArrowLeft,
   faCirclePlus,
   faFilter,
   faTable,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {useRouter} from "next/router"
 import {IconButton} from "~/shared/components/CTA"
 import {Workout} from "~/shared/utils/models"
 import {useWorkoutView} from "../workoutsHooks"
@@ -21,8 +22,9 @@ export function WorkoutsHeader({
   workouts: Array<Workout>
 }) {
   const {changeView, view} = useWorkoutView()
+  const router = useRouter()
   return (
-    <div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 sm:px-6">
+    <div className="mx-auto flex h-14 w-full items-end px-4 pb-2 sm:px-6">
       {view === "list" ? (
         <>
           <div className="flex w-full items-end justify-between md:hidden">
@@ -51,19 +53,22 @@ export function WorkoutsHeader({
         </>
       ) : (
         <>
+          {!editingWorkout && workouts.length > 0 && (
+            <IconButton
+              aria-label="go back"
+              className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+              icon={<FontAwesomeIcon icon={faArrowLeft} />}
+              onClick={() => {
+                if (history.length > 1) router.back()
+                else router.replace("/")
+              }}
+            />
+          )}
           <h1 className="text-xl font-bold">
             {view === "create"
               ? `${editingWorkout ? "Edit" : "New"} Workout`
               : "Filters"}
           </h1>
-          {!editingWorkout && workouts.length > 0 && (
-            <IconButton
-              color="blue"
-              icon={<FontAwesomeIcon icon={faChevronCircleLeft} />}
-              onClick={() => changeView("list")}
-              text="Hide"
-            />
-          )}
         </>
       )}
     </div>
