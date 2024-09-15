@@ -32,6 +32,7 @@ export function UserMenu({className = ""}) {
   return (
     <div className={classNames("relative w-min", className)} {...{ref}}>
       <IconButton
+        className="max-xs:p-4"
         icon={
           session?.profile.photoURL ? (
             <div className="relative h-6 w-6">

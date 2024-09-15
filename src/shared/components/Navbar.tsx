@@ -27,6 +27,7 @@ export default function Navbar() {
         <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-x-6 gap-y-4 sm:py-6 md:flex-col md:items-start md:justify-start">
           <div className="md:mb-6">
             <IconButton
+              className="max-sm:p-4"
               href={homeHref}
               icon={
                 <Image
@@ -73,14 +74,14 @@ export default function Navbar() {
             )}
           </div>
           <IconButton
-            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+            className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
             href={session ? "/settings" : homeHref}
             icon={<FontAwesomeIcon icon={faGear} size="lg" />}
             text="Settings"
             textClass="max-xs:sr-only"
           />
           <IconButton
-            className="rounded-full md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+            className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
             href="/info"
             icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
             text="Info"
