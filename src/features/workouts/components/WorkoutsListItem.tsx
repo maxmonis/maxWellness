@@ -73,132 +73,57 @@ export function WorkoutsListItem({
     <div
       key={workout.id}
       className={classNames(
-        "h-min justify-between gap-6 p-4 last:mb-2 sm:gap-10 sm:p-6",
+        "h-min justify-between gap-6 p-4 pb-6 last:mb-2 sm:gap-10 sm:p-6",
         editingWorkout?.id === workout.id && "italic",
         view === "list" ? "flex" : "sm:flex",
       )}
     >
-      <div>
-        <div className="mb-4">
-          <h1 className="text-lg leading-tight sm:text-xl">
-            <span
-              className={classNames(
-                workoutNameText.split(" ").some(word => word.length > 9) &&
-                  "break-all",
-                view === "create" && !workoutName?.isHidden && "cursor-pointer",
-              )}
-              {...(view === "create" &&
-                !workoutName?.isHidden && {
+      <div className="w-full">
+        <div className="mb-4 flex justify-between">
+          <div>
+            <h1 className="text-lg leading-tight sm:text-xl">
+              <span
+                className={classNames(
+                  workoutNameText.split(" ").some(word => word.length > 9) &&
+                    "break-all",
+                  view === "create" &&
+                    !workoutName?.isHidden &&
+                    "cursor-pointer",
+                )}
+                {...(view === "create" &&
+                  !workoutName?.isHidden && {
+                    onClick: () =>
+                      setValues({
+                        ...values,
+                        nameId: workout.nameId,
+                      }),
+                    title: "Click to copy",
+                  })}
+              >
+                {workoutNameText}
+              </span>
+            </h1>
+            <h2 className="mt-2 leading-tight">
+              <span
+                className={classNames(
+                  view === "create"
+                    ? "cursor-pointer"
+                    : "text-gray-600 dark:text-gray-400",
+                )}
+                {...(view === "create" && {
                   onClick: () =>
                     setValues({
                       ...values,
-                      nameId: workout.nameId,
+                      date: workout.date.split("T")[0],
                     }),
                   title: "Click to copy",
                 })}
-            >
-              {workoutNameText}
-            </span>
-          </h1>
-          <h2 className="mt-2 leading-tight">
-            <span
-              className={classNames(
-                view === "create"
-                  ? "cursor-pointer"
-                  : "text-gray-600 dark:text-gray-400",
-              )}
-              {...(view === "create" && {
-                onClick: () =>
-                  setValues({
-                    ...values,
-                    date: workout.date.split("T")[0],
-                  }),
-                title: "Click to copy",
-              })}
-            >
-              {getDateText(workout.date)}
-            </span>
-          </h2>
-        </div>
-        <ul>
-          {groupExercisesByLift(workout.routine).map((exerciseList, j) => {
-            const [{liftId}] = exerciseList
-            const liftName = liftNames.find(({id}) => id === liftId)
-            const liftNameText = getLiftNameText(liftId, liftNames)
-            return (
-              <li key={j} className="mt-2 flex flex-wrap">
-                <span
-                  className={classNames(
-                    "leading-tight sm:text-lg",
-                    liftNameText.split(" ").some(word => word.length > 9) &&
-                      "break-all",
-                    view === "create" &&
-                      !liftName?.isHidden &&
-                      "cursor-pointer",
-                  )}
-                  {...(view === "create" &&
-                    !liftName?.isHidden && {
-                      onClick: () =>
-                        setValues({
-                          ...values,
-                          liftId,
-                        }),
-                      title: "Click to copy",
-                    })}
-                >
-                  {liftNameText}:
-                </span>
-                {exerciseList.map((exercise, k) => (
-                  <span
-                    key={k}
-                    className={classNames(
-                      "leading-tight sm:text-lg",
-                      view === "create" &&
-                        !liftName?.isHidden &&
-                        "cursor-pointer",
-                    )}
-                    {...(view === "create" && {
-                      onClick() {
-                        setValues({
-                          ...values,
-                          liftId: !liftName?.isHidden ? liftId : values.liftId,
-                          sets: exercise.sets ? exercise.sets.toString() : "",
-                          reps: exercise.reps ? exercise.reps.toString() : "",
-                          weight: exercise.weight
-                            ? exercise.weight.toString()
-                            : "",
-                        })
-                        addExercise({
-                          ...omit(exercise, [
-                            "recordStartDate",
-                            "recordEndDate",
-                          ]),
-                          id: nanoid(),
-                        })
-                      },
-                      title: "Click to copy",
-                    })}
-                  >
-                    &nbsp;
-                    {getPrintout(exercise)}
-                    {k !== exerciseList.length - 1 && ","}
-                  </span>
-                ))}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-      {view === "list" && (
-        <>
-          {deletingId === workout.id ? (
-            <div className="flex flex-col items-center justify-evenly gap-4">
-              <Button onClick={() => handleDelete(workout.id)} variant="danger">
-                Delete
-              </Button>
-              <Button onClick={() => setDeletingId(null)}>Cancel</Button>
-            </div>
-          ) : (
+              >
+                {getDateText(workout.date)}
+              </span>
+            </h2>
+          </div>
+          {view === "list" && deletingId !== workout.id && (
             <div className="relative" {...{ref}}>
               <IconButton
                 aria-label="Toggle menu"
@@ -285,7 +210,83 @@ export function WorkoutsListItem({
               )}
             </div>
           )}
-        </>
+        </div>
+        <ul>
+          {groupExercisesByLift(workout.routine).map((exerciseList, j) => {
+            const [{liftId}] = exerciseList
+            const liftName = liftNames.find(({id}) => id === liftId)
+            const liftNameText = getLiftNameText(liftId, liftNames)
+            return (
+              <li key={j} className="mt-2 flex flex-wrap">
+                <span
+                  className={classNames(
+                    "leading-tight sm:text-lg",
+                    liftNameText.split(" ").some(word => word.length > 9) &&
+                      "break-all",
+                    view === "create" &&
+                      !liftName?.isHidden &&
+                      "cursor-pointer",
+                  )}
+                  {...(view === "create" &&
+                    !liftName?.isHidden && {
+                      onClick: () =>
+                        setValues({
+                          ...values,
+                          liftId,
+                        }),
+                      title: "Click to copy",
+                    })}
+                >
+                  {liftNameText}:
+                </span>
+                {exerciseList.map((exercise, k) => (
+                  <span
+                    key={k}
+                    className={classNames(
+                      "leading-tight sm:text-lg",
+                      view === "create" &&
+                        !liftName?.isHidden &&
+                        "cursor-pointer",
+                    )}
+                    {...(view === "create" && {
+                      onClick() {
+                        setValues({
+                          ...values,
+                          liftId: !liftName?.isHidden ? liftId : values.liftId,
+                          sets: exercise.sets ? exercise.sets.toString() : "",
+                          reps: exercise.reps ? exercise.reps.toString() : "",
+                          weight: exercise.weight
+                            ? exercise.weight.toString()
+                            : "",
+                        })
+                        addExercise({
+                          ...omit(exercise, [
+                            "recordStartDate",
+                            "recordEndDate",
+                          ]),
+                          id: nanoid(),
+                        })
+                      },
+                      title: "Click to copy",
+                    })}
+                  >
+                    &nbsp;
+                    {getPrintout(exercise)}
+                    {k !== exerciseList.length - 1 && ","}
+                  </span>
+                ))}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      {view === "list" && deletingId === workout.id && (
+        <div className="flex flex-col items-center justify-evenly gap-4">
+          <Button onClick={() => handleDelete(workout.id)} variant="danger">
+            Delete
+          </Button>
+          <Button onClick={() => setDeletingId(null)}>Cancel</Button>
+        </div>
       )}
     </div>
   )
