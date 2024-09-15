@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import Link from "next/link"
 import {BackButton, Button} from "~/shared/components/CTA"
 import {Page} from "~/shared/components/Page"
@@ -17,7 +18,7 @@ export default function InfoPage() {
           <h1 className="text-xl font-bold">About</h1>
         </div>
         <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 sm:px-6 sm:text-lg md:max-h-[calc(100dvh-3.5rem)]">
-          <div className="flex flex-col gap-6 pb-12 pt-6">
+          <div className="flex flex-col gap-12 pb-12 pt-6">
             <div>
               <div className="mx-auto flex max-w-prose flex-col gap-4">
                 <h3 className="text-center text-lg font-bold sm:text-xl">
@@ -31,6 +32,7 @@ export default function InfoPage() {
                   devices of any size. You can even install it as an application
                   on your phone for easy access at the gym!
                 </p>
+                <Video className="max-w-xs" src="mobile-view" />
               </div>
             </div>
             <div>
@@ -43,13 +45,14 @@ export default function InfoPage() {
                   name, sets, reps, and weight. You can drag and drop exercises
                   to reorder them, and clicking the x icon next to an exercise
                   will delete it. When you&apos;ve finished adding exercises,
-                  select a name and date for your workout and click
-                  &quot;Save&quot;.
+                  select a name and date for your workout and click the save
+                  button.
                 </p>
+                <Video src="creating-workouts" />
                 <p>
                   Each exercise must include a weight or at least one rep. This
                   is because you could do 10 bodyweight squats or you could
-                  squat 315 pounds one time, but you can&apos;t do zero reps
+                  squat 100 pounds one time, but you can&apos;t do zero reps
                   with zero weight.
                 </p>
                 <p>
@@ -79,6 +82,7 @@ export default function InfoPage() {
                   no longer use, which will cause them to no longer appear in
                   Filters and the New/Edit Workout forms.
                 </p>
+                <Video src="managing-names" />
               </div>
             </div>
             <div>
@@ -92,6 +96,7 @@ export default function InfoPage() {
                   delete it. Please note that edits and deletions cannot be
                   undone once confirmed.
                 </p>
+                <Video src="managing-workouts" />
               </div>
             </div>
             <div>
@@ -104,10 +109,13 @@ export default function InfoPage() {
                   name, date, or exercise of an existing workout to copy that
                   value. The Filters page allows you to sort or filter the
                   workouts list, and the Table page provides an alternate way to
-                  view your workouts sorted by date or exercise name. If you
-                  ever need help you can always return to this About page by
-                  clicking the question mark icon in the navbar. That&apos;s all
-                  you need to know, time to add some workouts!
+                  view your workouts sorted by date or exercise name.
+                </p>
+                <Video src="tips-and-tricks" />
+                <p>
+                  If you ever need help you can always return to this About page
+                  by clicking the question mark icon in the navbar. That&apos;s
+                  all you need to know, time to add some workouts!
                 </p>
                 <div className="mt-8 flex w-full justify-center">
                   <Link href={user ? "/" : "/register"}>
@@ -122,5 +130,22 @@ export default function InfoPage() {
         </div>
       </div>
     </Page>
+  )
+}
+
+function Video({className, src}: {className?: string; src: string}) {
+  return (
+    <video
+      className={classNames(
+        "mx-auto my-2 w-full border border-slate-700",
+        className,
+      )}
+      controls
+      height="240"
+      width="320"
+    >
+      <source src={`/info/${src}.mp4`} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
   )
 }
