@@ -82,9 +82,9 @@ export default function Navbar() {
           />
           <IconButton
             className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
-            href="/info"
+            href="/about"
             icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
-            text="Info"
+            text="About"
             textClass="max-xs:sr-only"
           />
           <UserMenu className="md:mt-10" />

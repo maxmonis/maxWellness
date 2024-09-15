@@ -84,7 +84,7 @@ export default function ResetPasswordPage() {
                 </Link>
               </div>
               <div>
-                <Link className="text-blue-300 hover:underline" href="/info">
+                <Link className="text-blue-300 hover:underline" href="/about">
                   Learn More
                 </Link>
               </div>

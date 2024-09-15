@@ -177,7 +177,7 @@ export function GoogleButton({
         setSubmitting(true)
         try {
           const isNewUser = await googleLogin()
-          router.push(isNewUser ? "/info" : "/")
+          router.push(isNewUser ? "/about" : "/")
         } catch (error) {
           handleError(error)
         } finally {

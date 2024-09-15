@@ -14,7 +14,7 @@ export default function InfoPage() {
   const router = useRouter()
 
   return (
-    <Page title="Info">
+    <Page title="About">
       <div className="w-full border-slate-700 xl:max-w-5xl xl:border-r">
         <div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
           <IconButton
@@ -26,7 +26,7 @@ export default function InfoPage() {
               else router.replace(user ? "/" : "/register")
             }}
           />
-          <h1 className="text-xl font-bold">Information</h1>
+          <h1 className="text-xl font-bold">About</h1>
         </div>
         <div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 sm:px-6 sm:text-lg md:max-h-[calc(100dvh-3.5rem)]">
           <div className="flex flex-col gap-6 pb-12 pt-6">
@@ -117,9 +117,9 @@ export default function InfoPage() {
                   value. The Filters page allows you to sort or filter the
                   workouts list, and the Table page provides an alternate way to
                   view your workouts sorted by date or exercise name. If you
-                  ever need help you can always return to this information page
-                  by clicking the question mark icon in the navbar. That&apos;s
-                  all you need to know, time to add some workouts!
+                  ever need help you can always return to this About page by
+                  clicking the question mark icon in the navbar. That&apos;s all
+                  you need to know, time to add some workouts!
                 </p>
                 <div className="mt-8 flex w-full justify-center">
                   <Link href={user ? "/" : "/register"}>

@@ -114,7 +114,7 @@ export default function RegisterPage() {
               </Link>
             </div>
             <div>
-              <Link className="text-blue-300 hover:underline" href="/info">
+              <Link className="text-blue-300 hover:underline" href="/about">
                 Learn More
               </Link>
             </div>
@@ -155,7 +155,7 @@ export default function RegisterPage() {
     setSubmitting(true)
     try {
       await signUp(userName, email, password)
-      router.push("/info")
+      router.push("/about")
     } catch (error) {
       handleError(error)
     } finally {

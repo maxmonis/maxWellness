@@ -27,7 +27,7 @@ export function WorkoutsEmptyState() {
       </p>
       <p>
         You can always visit the settings page if you&apos;d like to update the
-        names you&apos;ll use for your exercises and routines. The info page
+        names you&apos;ll use for your exercises and routines. The about page
         contains examples and additional tips and tricks.
       </p>
       <p>Get started by entering your first workout now 💪</p>
