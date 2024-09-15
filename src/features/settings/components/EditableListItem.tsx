@@ -28,9 +28,20 @@ export function EditableListItem({
   return (
     <li className="mt-3 flex items-center justify-between gap-4 sm:text-lg">
       {editing ? (
-        <form className="w-full" {...{onSubmit}}>
+        <form
+          className="w-full"
+          onSubmit={e => {
+            e.preventDefault()
+            handleSubmit()
+          }}
+        >
           <div className="flex items-center justify-center gap-4 px-1">
-            <input autoFocus value={newText} {...{onChange, onKeyUp}} />
+            <input
+              autoFocus
+              onBlur={handleSubmit}
+              value={newText}
+              {...{onChange, onKeyUp}}
+            />
             <IconButton
               aria-label="Discard changes"
               className="max-sm:hidden"
@@ -107,8 +118,7 @@ export function EditableListItem({
   /**
    * Attempts to save the user's changes
    */
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  function handleSubmit() {
     if (isDuplicate) {
       setNewText(editableName.text)
     } else if (!newText.trim()) {
