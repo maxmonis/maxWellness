@@ -118,17 +118,15 @@ export function SettingsApp({profile}: {profile: Profile}) {
       )}
       <div className="flex h-14 items-end justify-between px-4 pb-2 sm:px-6">
         <div className="flex">
-          {!hasChangeOccurred && (
-            <IconButton
-              aria-label="go back"
-              className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-              icon={<FontAwesomeIcon icon={faArrowLeft} />}
-              onClick={() => {
-                if (history.length > 1) router.back()
-                else router.replace("/")
-              }}
-            />
-          )}
+          <IconButton
+            aria-label="go back"
+            className="mr-3 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+            icon={<FontAwesomeIcon icon={faArrowLeft} />}
+            onClick={() => {
+              if (history.length > 1) router.back()
+              else router.replace("/")
+            }}
+          />
           <h1 className="text-xl font-bold">Settings</h1>
         </div>
         {hasChangeOccurred && (
