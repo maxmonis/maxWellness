@@ -7,6 +7,7 @@ export function SettingsLoader() {
   return (
     <div className="flex min-h-screen flex-col justify-between border-slate-700 xl:max-w-5xl xl:border-r">
       <div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
+        <span className="mb-1.5 mr-3 h-4 w-6 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700 sm:mr-4" />
         <h1 className="text-xl font-bold">Settings</h1>
       </div>
       <div className="flex w-full flex-grow justify-center">
@@ -25,7 +26,7 @@ export function SettingsLoader() {
                 </div>
                 <div className="flex h-full flex-col gap-5 pt-6">
                   {Array.from({length: 3 - i}).map((_, j) => (
-                    <div className="flex flex-col gap-5" key={`${i}-${j}`}>
+                    <div className="flex flex-col gap-4" key={`${i}-${j}`}>
                       {Array.from({length: 2}).map((_, k) => (
                         <div
                           className="flex items-center justify-between"
@@ -33,13 +34,13 @@ export function SettingsLoader() {
                         >
                           <span
                             className={classNames(
-                              "h-5 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
+                              "h-4 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:h-5",
                               k ? "w-16" : "w-20",
-                              ((i + j) * k) % 5 && "max-xs:h-8 xs:w-28",
+                              ((i + j) * k) % 5 && "max-xs:h-7 xs:w-28",
                             )}
                           />
                           <div className="flex gap-4">
-                            <span className="h-5 w-5 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
+                            <span className="h-3 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
                           </div>
                         </div>
                       ))}
