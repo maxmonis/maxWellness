@@ -11,7 +11,6 @@ import Image from "next/image"
 import {useRouter} from "next/router"
 import React from "react"
 import {logOut} from "~/firebase/client"
-import {useAuth} from "../context/AuthContext"
 import {useKeypress} from "../hooks/useKeypress"
 import {useOutsideClick} from "../hooks/useOutsideClick"
 import {useSession} from "../hooks/useSession"
@@ -21,24 +20,32 @@ import {IconButton} from "./CTA"
  * This menu allows the user to toggle dark mode or log out
  */
 export function UserMenu({className = ""}) {
-  const user = useAuth()
-  const {data: session} = useSession()
+  const {data: session, isLoading} = useSession()
   const router = useRouter()
 
   const [open, setOpen] = React.useState(false)
   const ref = useOutsideClick(() => setOpen(false))
   useKeypress("Escape", () => setOpen(false))
 
+  if (isLoading) return <></>
+
+  if (!session)
+    return (
+      <div className="max-sm:pr-4 md:mt-10">
+        <DarkModeToggle />
+      </div>
+    )
+
   return (
-    <div className={classNames("relative w-min", className)} {...{ref}}>
+    <div className={classNames("relative", className)} {...{ref}}>
       <IconButton
-        className="max-xs:p-4"
+        className="max-sm:p-4"
         icon={
-          session?.profile.photoURL ? (
-            <div className="relative h-6 w-6">
+          session.profile.photoURL ? (
+            <div className="relative flex h-6 w-6 flex-shrink-0">
               <Image
                 alt={`${session.profile.userName} profile photo`}
-                className="rounded-full"
+                className="flex flex-shrink-0 rounded-full"
                 fill
                 priority
                 src={session.profile.photoURL}
@@ -48,28 +55,29 @@ export function UserMenu({className = ""}) {
             <FontAwesomeIcon icon={faUser} size="lg" />
           )
         }
-        text={session?.profile.userName.split(" ")[0] ?? "Profile"}
-        textClass="max-xs:sr-only whitespace-nowrap max-w-[12ch] lg:max-w-[23ch] truncate"
+        text={session.profile.userName.split(" ")[0]}
+        textClass="max-sm:sr-only whitespace-nowrap max-w-[15ch] truncate"
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-md:-left-24 max-md:bottom-8 md:left-8 md:top-8">
+        <dialog className="absolute -left-24 bottom-8 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-sm:bottom-12 md:left-4">
           <DarkModeToggle />
-          {user && (
-            <IconButton
-              icon={
-                <FontAwesomeIcon
-                  aria-label="Sign out"
-                  icon={faSignOut}
-                  size="lg"
-                />
-              }
-              onClick={() => {
-                logOut().then(() => router.push("/login"))
-              }}
-              text="Logout"
-            />
-          )}
+          <p className="leading-tight">
+            Logged in as {session.profile.userName}
+          </p>
+          <IconButton
+            icon={
+              <FontAwesomeIcon
+                aria-label="Sign out"
+                icon={faSignOut}
+                size="lg"
+              />
+            }
+            onClick={() => {
+              logOut().then(() => router.push("/login"))
+            }}
+            text="Logout"
+          />
         </dialog>
       )}
     </div>

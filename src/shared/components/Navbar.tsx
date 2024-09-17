@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:border-r md:pl-2">
       <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 md:h-full md:justify-between md:overflow-y-scroll">
-        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-x-6 gap-y-4 sm:py-6 md:flex-col md:items-start md:justify-start">
+        <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 sm:py-6 md:flex-col md:items-start md:justify-start">
           <div className="md:mb-6">
             <IconButton
               className="max-sm:p-4"
