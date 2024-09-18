@@ -5,6 +5,7 @@ import {
   faHome,
   faQuestionCircle,
   faTable,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Image from "next/image"
@@ -17,7 +18,7 @@ import {UserMenu} from "./UserMenu"
  * the screen on narrow viewports and to the left on wider ones
  */
 export default function Navbar() {
-  const {data: session} = useSession()
+  const {data: session, isLoading} = useSession()
   const hasWorkouts = Boolean(session?.workouts.length)
   const homeHref = hasWorkouts ? "/" : session ? "/?view=create" : "/login"
 
@@ -42,51 +43,65 @@ export default function Navbar() {
               textClass="max-sm:sr-only"
             />
           </div>
-          <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
-            <IconButton
-              className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-              href={homeHref}
-              icon={<FontAwesomeIcon icon={faHome} size="lg" />}
-              text="Home"
-            />
-            <IconButton
-              className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-              color="blue"
-              href={session ? "/?view=create" : homeHref}
-              icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
-              text="Create"
-            />
-            {(!session || hasWorkouts) && (
-              <>
+          {isLoading ? (
+            <></>
+          ) : session ? (
+            <>
+              <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
                 <IconButton
                   className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  href={session ? "/?view=filters" : homeHref}
-                  icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
-                  text="Filters"
+                  href={homeHref}
+                  icon={<FontAwesomeIcon icon={faHome} size="lg" />}
+                  text="Home"
                 />
                 <IconButton
                   className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  href={session ? "/?view=table" : homeHref}
-                  icon={<FontAwesomeIcon icon={faTable} size="lg" />}
-                  text="Table"
+                  color="blue"
+                  href="/?view=create"
+                  icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
+                  text="Create"
                 />
-              </>
-            )}
-          </div>
-          <IconButton
-            className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
-            href={session ? "/settings" : homeHref}
-            icon={<FontAwesomeIcon icon={faGear} size="lg" />}
-            text="Settings"
-            textClass="max-xs:sr-only"
-          />
-          <IconButton
-            className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
-            href="/about"
-            icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
-            text="About"
-            textClass="max-xs:sr-only"
-          />
+                {hasWorkouts && (
+                  <>
+                    <IconButton
+                      className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      href="/?view=filters"
+                      icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
+                      text="Filters"
+                    />
+                    <IconButton
+                      className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      href="/?view=table"
+                      icon={<FontAwesomeIcon icon={faTable} size="lg" />}
+                      text="Table"
+                    />
+                  </>
+                )}
+              </div>
+              <IconButton
+                className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+                href="/settings"
+                icon={<FontAwesomeIcon icon={faGear} size="lg" />}
+                text="Settings"
+                textClass="max-xs:sr-only"
+              />
+              <IconButton
+                className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+                href="/about"
+                icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
+                text="About"
+                textClass="max-xs:sr-only"
+              />
+            </>
+          ) : (
+            <IconButton
+              className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+              href="/register"
+              icon={<FontAwesomeIcon icon={faUserPlus} size="lg" />}
+              text="Sign Up"
+              textClass="max-xs:sr-only"
+            />
+          )}
           <UserMenu className="md:mt-10" />
         </div>
         <footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 text-center text-sm max-md:hidden">
