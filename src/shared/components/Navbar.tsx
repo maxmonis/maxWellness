@@ -48,12 +48,14 @@ export default function Navbar() {
           ) : session ? (
             <>
               <div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
-                <IconButton
-                  className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  href={homeHref}
-                  icon={<FontAwesomeIcon icon={faHome} size="lg" />}
-                  text="Home"
-                />
+                {hasWorkouts && (
+                  <IconButton
+                    className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    href={homeHref}
+                    icon={<FontAwesomeIcon icon={faHome} size="lg" />}
+                    text="Home"
+                  />
+                )}
                 <IconButton
                   className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   color="blue"

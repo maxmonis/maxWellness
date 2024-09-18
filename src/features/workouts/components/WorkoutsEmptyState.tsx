@@ -11,24 +11,31 @@ export function WorkoutsEmptyState() {
         Hi {session?.profile.userName}, welcome to maxWellness!
       </h2>
       <p>
-        Once you&apos;ve saved workouts, they will be displayed here.
-        You&apos;ll be able to filter them or view their exercises in a table,
-        and they can be copied, edited, or deleted.
+        Use the New Workout page to add your first workout by selecting the
+        name, sets, reps, and weight of each exercise. After picking a name and
+        date for the workout, click the save button.
       </p>
       <p>
-        Personal records will be marked with two asterisks (**) if they&apos;re
+        Visit the Settings page if you&apos;d like to update the names
+        you&apos;ll use for your exercises and routines.
+      </p>
+      <p>
+        The About page contains helpful videos and additional tips and tricks.
+      </p>
+      <p>
+        Your workouts will be displayed in a scrollable list and you&apos;ll be
+        able to copy, edit, or delete them. Filters and a sortable table view
+        will make it a snap to visualize your data.
+      </p>
+      <p>
+        Personal bests will be marked with two asterisks (**) if they&apos;re
         unbroken, and with a single asterisk (*) if you&apos;ve subsequently
         surpassed them.
       </p>
       <p>
         While entering a new workout into the form on the left, you&apos;ll be
         able to click on existing exercises, workout names, and workout dates to
-        copy them.
-      </p>
-      <p>
-        You can always visit the settings page if you&apos;d like to update the
-        names you&apos;ll use for your exercises and routines. The about page
-        contains examples and additional tips and tricks.
+        copy them. You can drag and drop to reorder the exercises.
       </p>
       <p>Get started by entering your first workout now 💪</p>
     </div>

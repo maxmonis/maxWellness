@@ -15,6 +15,7 @@ import {useAlerts} from "~/shared/context/AlertContext"
 import {getLiftNameText} from "~/shared/functions/parsers"
 import {useAddWorkout} from "~/shared/hooks/useAddWorkout"
 import {useMutating} from "~/shared/hooks/useMutating"
+import {useSession} from "~/shared/hooks/useSession"
 import {useUpdateWorkout} from "~/shared/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/shared/utils/models"
 import {createNewExercise, getPrintout} from "../workoutsFunctions"
@@ -55,6 +56,7 @@ export function WorkoutsForm({
   const [errorMsg, setErrorMsg] = React.useState("")
   const [workoutError, setWorkoutError] = React.useState("")
 
+  const {data: session} = useSession()
   const {showAlert} = useAlerts()
   const getConfig = (action: "saved" | "updated") => ({
     onSuccess() {
@@ -301,15 +303,17 @@ export function WorkoutsForm({
             Discard Changes
           </Button>
         ) : (
-          <Button
-            onClick={() => {
-              updateRoutine([])
-              resetState()
-            }}
-            variant="danger"
-          >
-            Discard
-          </Button>
+          Boolean(session?.workouts.length) && (
+            <Button
+              onClick={() => {
+                updateRoutine([])
+                resetState()
+              }}
+              variant="danger"
+            >
+              Discard
+            </Button>
+          )
         )}
       </div>
     </DragDropContext>

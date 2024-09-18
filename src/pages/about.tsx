@@ -3,12 +3,16 @@ import Link from "next/link"
 import {BackButton, Button} from "~/shared/components/CTA"
 import {Page} from "~/shared/components/Page"
 import {useAuth} from "~/shared/context/AuthContext"
+import {useSession} from "~/shared/hooks/useSession"
 
 /**
  * Displays text and GIFs showing how to use the app
  */
 export default function InfoPage() {
   const user = useAuth()
+  const {data: session} = useSession()
+
+  const hasWorkouts = Boolean(session?.workouts.length)
 
   return (
     <Page title="About">
@@ -118,9 +122,17 @@ export default function InfoPage() {
                   all you need to know, time to add some workouts!
                 </p>
                 <div className="mt-8 flex w-full justify-center">
-                  <Link href={user ? "/" : "/register"}>
+                  <Link
+                    href={
+                      hasWorkouts ? "/" : user ? "/?view=create" : "/register"
+                    }
+                  >
                     <Button className="flex-grow" variant="primary">
-                      {user ? "My Workouts" : "Sign Up"}
+                      {hasWorkouts
+                        ? "My Workouts"
+                        : user
+                        ? "New Workout"
+                        : "Sign Up"}
                     </Button>
                   </Link>
                 </div>
