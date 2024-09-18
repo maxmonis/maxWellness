@@ -50,7 +50,7 @@ export function WorkoutsHeader({
         </>
       ) : (
         <>
-          {!editingWorkout && workouts.length > 0 && <BackButton />}
+          {workouts.length > 0 && <BackButton />}
           <h1 className="text-xl font-bold">
             {view === "create"
               ? `${editingWorkout ? "Edit" : "New"} Workout`
