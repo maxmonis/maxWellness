@@ -31,40 +31,42 @@ export function UserMenu({className = ""}) {
 
   if (!session)
     return (
-      <div className="max-sm:pr-4 md:mt-10">
+      <div className={classNames("max-sm:pr-4", className)}>
         <DarkModeToggle />
       </div>
     )
+
+  const {
+    profile: {photoURL, userName},
+  } = session
 
   return (
     <div className={classNames("relative", className)} {...{ref}}>
       <IconButton
         className="max-sm:p-4"
         icon={
-          session.profile.photoURL ? (
+          photoURL ? (
             <div className="relative flex h-6 w-6 flex-shrink-0">
               <Image
-                alt={`${session.profile.userName} profile photo`}
+                alt={`${userName} profile photo`}
                 className="flex flex-shrink-0 rounded-full"
                 fill
                 priority
-                src={session.profile.photoURL}
+                src={photoURL}
               />
             </div>
           ) : (
             <FontAwesomeIcon icon={faUser} size="lg" />
           )
         }
-        text={session.profile.userName.split(" ")[0]}
+        text={userName.split(" ")[0]}
         textClass="max-sm:sr-only whitespace-nowrap max-w-[15ch] truncate"
         onClick={() => setOpen(!open)}
       />
       {open && (
         <dialog className="absolute -left-24 bottom-8 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-sm:bottom-12 md:left-4">
           <DarkModeToggle />
-          <p className="leading-tight">
-            Logged in as {session.profile.userName}
-          </p>
+          <p className="leading-tight">Logged in as {userName}</p>
           <IconButton
             icon={
               <FontAwesomeIcon
