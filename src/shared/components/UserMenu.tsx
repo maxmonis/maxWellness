@@ -90,8 +90,8 @@ export function UserMenu({className = ""}) {
  * Allows the user to toggle light/dark mode
  */
 function DarkModeToggle() {
-  const {theme, setTheme} = useTheme()
-  const dark = theme === "dark"
+  const {resolvedTheme, setTheme} = useTheme()
+  const dark = resolvedTheme === "dark"
 
   return (
     <div className="flex items-center gap-2">
