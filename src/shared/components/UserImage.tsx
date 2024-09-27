@@ -1,29 +1,29 @@
 import {faUser} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
-import {getDownloadURL, ref, uploadBytes} from "firebase/storage"
 import Image from "next/image"
 import React from "react"
-import {storage} from "~/firebase/client"
+import {uploadImage} from "~/firebase/client"
 import {useSession} from "../hooks/useSession"
 import {useUpdateImage} from "../hooks/useUpdateImage"
 
-export function UserImage({editable}: {editable?: boolean}) {
+export function UserImage({editable = false}) {
   const {data: session} = useSession()
   const [newUrl, setNewUrl] = React.useState("")
-  const photoURL = newUrl || session?.profile.photoURL
   const {mutate: updateImage} = useUpdateImage()
   const [uploading, setUploading] = React.useState(false)
+
+  if (!session) return <></>
+
+  const {photoURL, userId, userName} = session.profile
+  const src = newUrl || photoURL
 
   return (
     <div
       className={classNames(
-        "relative flex flex-shrink-0",
-        editable ? "h-12 w-12" : "h-7 w-7",
+        "relative flex items-center",
+        src && (editable ? "h-12 w-12" : "h-8 w-8"),
       )}
-      {...(editable && {
-        title: (photoURL ? "Update" : "Upload") + " profile photo",
-      })}
     >
       {uploading ? (
         <span
@@ -31,34 +31,37 @@ export function UserImage({editable}: {editable?: boolean}) {
           className="h-12 w-12 animate-spin rounded-full border-2 border-slate-700 border-r-transparent"
           role="alert"
         />
-      ) : photoURL ? (
+      ) : src ? (
         <Image
-          alt={`${session?.profile.userName} profile photo`}
+          alt={`${userName} profile photo`}
           className="flex flex-shrink-0 rounded-full border border-slate-700 object-cover"
           fill
+          sizes="10rem"
           priority
-          src={photoURL}
+          {...{src}}
         />
       ) : (
-        <FontAwesomeIcon icon={faUser} size="lg" />
+        <FontAwesomeIcon icon={faUser} size={editable ? "2xl" : "lg"} />
       )}
       {editable && (
         <input
-          className="absolute opacity-0"
+          className="absolute left-0 top-0 opacity-0"
           onChange={async e => {
             const file = e.target.files?.[0]
             if (uploading || !file) return
             setUploading(true)
-            const storageRef = ref(storage, `images/${file.name}`)
             try {
-              await uploadBytes(storageRef, file)
-              const url = await getDownloadURL(storageRef)
+              const url = await uploadImage(
+                file,
+                `profile/${userId}/${file.name}`,
+              )
               setNewUrl(url)
               updateImage(url)
             } finally {
               setUploading(false)
             }
           }}
+          title={(src ? "Update" : "Upload") + " profile photo"}
           type="file"
         />
       )}

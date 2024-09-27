@@ -38,7 +38,7 @@ export function UserMenu({className = ""}) {
   return (
     <div className={classNames("relative", className)} {...{ref}}>
       <IconButton
-        className="max-sm:p-4"
+        className="max-sm:p-2"
         icon={<UserImage />}
         text={userName.split(" ")[0]}
         textClass="max-sm:sr-only whitespace-nowrap max-w-[15ch] truncate"

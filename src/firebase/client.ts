@@ -20,7 +20,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore"
-import {getStorage} from "firebase/storage"
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
 import omit from "lodash/omit"
 import {generateSession} from "~/shared/functions/session"
 import {isProfile, isWorkout} from "~/shared/functions/validators"
@@ -38,7 +38,7 @@ const app = initializeApp({
 
 export const auth = getAuth(app)
 const db = getFirestore(app)
-export const storage = getStorage(app)
+const storage = getStorage(app)
 
 /**
  * Deletes a workout from the database using its ID
@@ -98,6 +98,15 @@ export async function loadProfile(userId: string) {
   if (isProfile(profile)) {
     return profile
   }
+}
+
+export async function uploadImage(file: File, path: string) {
+  if (file.size > 5 * 1024 * 1024) {
+    throw Error("Max size is 5MB")
+  }
+  const storageRef = ref(storage, `images/${path}`)
+  await uploadBytes(storageRef, file)
+  return getDownloadURL(storageRef)
 }
 
 export async function updateImage(userId: string, photoURL: string) {
