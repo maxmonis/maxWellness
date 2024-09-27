@@ -1,13 +1,7 @@
-import {
-  faMoon,
-  faSignOut,
-  faSun,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons"
+import {faMoon, faSignOut, faSun} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import {useTheme} from "next-themes"
-import Image from "next/image"
 import {useRouter} from "next/router"
 import React from "react"
 import {logOut} from "~/firebase/client"
@@ -15,6 +9,7 @@ import {useKeypress} from "../hooks/useKeypress"
 import {useOutsideClick} from "../hooks/useOutsideClick"
 import {useSession} from "../hooks/useSession"
 import {IconButton} from "./CTA"
+import {UserImage} from "./UserImage"
 
 /**
  * This menu allows the user to toggle dark mode or log out
@@ -44,21 +39,7 @@ export function UserMenu({className = ""}) {
     <div className={classNames("relative", className)} {...{ref}}>
       <IconButton
         className="max-sm:p-4"
-        icon={
-          photoURL ? (
-            <div className="relative flex h-6 w-6 flex-shrink-0">
-              <Image
-                alt={`${userName} profile photo`}
-                className="flex flex-shrink-0 rounded-full"
-                fill
-                priority
-                src={photoURL}
-              />
-            </div>
-          ) : (
-            <FontAwesomeIcon icon={faUser} size="lg" />
-          )
-        }
+        icon={<UserImage />}
         text={userName.split(" ")[0]}
         textClass="max-sm:sr-only whitespace-nowrap max-w-[15ch] truncate"
         onClick={() => setOpen(!open)}
@@ -67,6 +48,7 @@ export function UserMenu({className = ""}) {
         <dialog className="absolute -left-24 bottom-8 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-sm:bottom-12 md:left-4">
           <DarkModeToggle />
           <p className="leading-tight">Logged in as {userName}</p>
+          <UserImage editable />
           <IconButton
             icon={
               <FontAwesomeIcon

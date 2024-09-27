@@ -20,6 +20,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore"
+import {getStorage} from "firebase/storage"
 import omit from "lodash/omit"
 import {generateSession} from "~/shared/functions/session"
 import {isProfile, isWorkout} from "~/shared/functions/validators"
@@ -37,6 +38,7 @@ const app = initializeApp({
 
 export const auth = getAuth(app)
 const db = getFirestore(app)
+export const storage = getStorage(app)
 
 /**
  * Deletes a workout from the database using its ID
@@ -96,6 +98,11 @@ export async function loadProfile(userId: string) {
   if (isProfile(profile)) {
     return profile
   }
+}
+
+export async function updateImage(userId: string, photoURL: string) {
+  const profile = await loadProfile(userId)
+  if (profile) return updateDoc(doc(db, "profile", profile.id), {photoURL})
 }
 
 /**

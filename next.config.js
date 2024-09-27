@@ -20,6 +20,13 @@ const nextConfig = {
         port: "",
         pathname: "/51540371/**",
       },
+      /* images the user has uploaded to Firebase */
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        port: "",
+        pathname: "/v0/b/max-wellness.appspot.com/o/images**",
+      },
     ],
   },
   reactStrictMode: false,
