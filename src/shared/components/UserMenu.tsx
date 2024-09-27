@@ -32,7 +32,7 @@ export function UserMenu({className = ""}) {
     )
 
   const {
-    profile: {photoURL, userName},
+    profile: {userName},
   } = session
 
   return (
@@ -45,7 +45,7 @@ export function UserMenu({className = ""}) {
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute -left-24 bottom-8 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-sm:bottom-12 md:left-4">
+        <dialog className="absolute -left-28 bottom-8 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-sm:bottom-10 md:left-6">
           <DarkModeToggle />
           <p className="leading-tight">Logged in as {userName}</p>
           <UserImage editable />

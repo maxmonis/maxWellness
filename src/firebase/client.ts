@@ -100,6 +100,10 @@ export async function loadProfile(userId: string) {
   }
 }
 
+/**
+ * Uploads an image to Firebase Storage
+ * @returns the URL of the uploaded image
+ */
 export async function uploadImage(file: File, path: string) {
   if (file.size > 5 * 1024 * 1024) {
     throw Error("Max size is 5MB")
@@ -109,9 +113,11 @@ export async function uploadImage(file: File, path: string) {
   return getDownloadURL(storageRef)
 }
 
-export async function updateImage(userId: string, photoURL: string) {
-  const profile = await loadProfile(userId)
-  if (profile) return updateDoc(doc(db, "profile", profile.id), {photoURL})
+/**
+ * Updates the user's profile image in the database
+ */
+export async function updateImage(profileId: string, photoURL: string) {
+  return updateDoc(doc(db, "profile", profileId), {photoURL})
 }
 
 /**
