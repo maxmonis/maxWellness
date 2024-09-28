@@ -1,7 +1,7 @@
 import classNames from "classnames"
-import {getPrintout} from "~/features/workouts/workoutsFunctions"
-import {getDateText, getLiftNameText} from "../functions/parsers"
-import {useSession} from "../hooks/useSession"
+import {useSession} from "~/hooks/useSession"
+import {getDateText, getLiftNameText} from "~/utils/parsers"
+import {getPrintout} from "../utils/functions"
 
 /**
  * Displays the user's personal records (if any exist)

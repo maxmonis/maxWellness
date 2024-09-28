@@ -9,9 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Image from "next/image"
-import {useSession} from "../hooks/useSession"
+import {UserMenu} from "~/components/UserMenu"
+import {useSession} from "~/hooks/useSession"
 import {IconButton} from "./CTA"
-import {UserMenu} from "./UserMenu"
 
 /**
  * The site's main navbar, which is displayed at the bottom of

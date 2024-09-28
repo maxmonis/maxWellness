@@ -1,8 +1,8 @@
 import {nanoid} from "nanoid"
-import {getPositiveInt} from "~/functions/parsers"
 import {Exercise} from "~/utils/models"
-import {validViews} from "./workoutsConstants"
-import {View} from "./workoutsModels"
+import {getPositiveInt} from "~/utils/parsers"
+import {validViews} from "./constants"
+import {View} from "./models"
 
 /**
  * @returns a new exercise if possible, or null if not

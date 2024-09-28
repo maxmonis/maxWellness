@@ -1,6 +1,6 @@
 import {useMutation} from "react-query"
 import {updateWorkout} from "~/firebase/client"
-import {useInvalidateSession} from "./useInvalidateSession"
+import {useInvalidateSession} from "~/hooks/useInvalidateSession"
 
 /**
  * Attempts to update a workout in the database

@@ -4,15 +4,16 @@ import classNames from "classnames"
 import {useTheme} from "next-themes"
 import {useRouter} from "next/router"
 import React from "react"
+import {IconButton} from "~/components/CTA"
 import {logOut} from "~/firebase/client"
-import {useKeypress} from "../hooks/useKeypress"
-import {useOutsideClick} from "../hooks/useOutsideClick"
-import {useSession} from "../hooks/useSession"
-import {IconButton} from "./CTA"
+import {useKeypress} from "~/hooks/useKeypress"
+import {useOutsideClick} from "~/hooks/useOutsideClick"
+import {useSession} from "~/hooks/useSession"
 import {UserImage} from "./UserImage"
 
 /**
- * This menu allows the user to toggle dark mode or log out
+ * This menu allows the user to toggle dark mode,
+ * update their profile image, or log out
  */
 export function UserMenu({className = ""}) {
   const {data: session, isLoading} = useSession()

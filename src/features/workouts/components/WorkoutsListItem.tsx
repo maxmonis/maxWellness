@@ -12,16 +12,12 @@ import {nanoid} from "nanoid"
 import React from "react"
 import {Button, IconButton} from "~/components/CTA"
 import {useAlerts} from "~/context/AlertContext"
-import {
-  getDateText,
-  getLiftNameText,
-  getWorkoutNameText,
-} from "~/functions/parsers"
 import {useKeypress} from "~/hooks/useKeypress"
 import {useOutsideClick} from "~/hooks/useOutsideClick"
 import {Exercise, Session, Workout} from "~/utils/models"
-import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
-import {View} from "../workoutsModels"
+import {getDateText, getLiftNameText, getWorkoutNameText} from "~/utils/parsers"
+import {getPrintout, groupExercisesByLift} from "../utils/functions"
+import {View} from "../utils/models"
 
 /**
  * A workout from the list view, along with a menu

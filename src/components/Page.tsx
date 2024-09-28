@@ -4,10 +4,10 @@ import Image from "next/image"
 import {useRouter} from "next/router"
 import React from "react"
 import {useAuth} from "~/context/AuthContext"
-import {extractErrorMessage} from "~/functions/parsers"
+import {RecordsApp} from "~/features/workouts/components/RecordsApp"
 import {useSession} from "~/hooks/useSession"
+import {extractErrorMessage} from "~/utils/parsers"
 import Navbar from "./Navbar"
-import {RecordsApp} from "./RecordsApp"
 
 /**
  * Displays a page of content or its loading state,

@@ -1,3 +1,3 @@
-import {validViews} from "./workoutsConstants"
+import {validViews} from "./constants"
 
 export type View = (typeof validViews)[number]

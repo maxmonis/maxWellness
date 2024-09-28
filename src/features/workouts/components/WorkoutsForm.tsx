@@ -12,13 +12,13 @@ import {
 } from "react-beautiful-dnd"
 import {Button, IconButton} from "~/components/CTA"
 import {useAlerts} from "~/context/AlertContext"
-import {getLiftNameText} from "~/functions/parsers"
-import {useAddWorkout} from "~/hooks/useAddWorkout"
 import {useMutating} from "~/hooks/useMutating"
 import {useSession} from "~/hooks/useSession"
-import {useUpdateWorkout} from "~/hooks/useUpdateWorkout"
 import {Exercise, Session, Workout} from "~/utils/models"
-import {createNewExercise, getPrintout} from "../workoutsFunctions"
+import {getLiftNameText} from "~/utils/parsers"
+import {useAddWorkout} from "../hooks/useAddWorkout"
+import {useUpdateWorkout} from "../hooks/useUpdateWorkout"
+import {createNewExercise, getPrintout} from "../utils/functions"
 
 /**
  * Allows the user to edit an existing workout or create a new one

@@ -6,7 +6,7 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {BackButton, IconButton} from "~/components/CTA"
 import {Workout} from "~/utils/models"
-import {useWorkoutView} from "../workoutsHooks"
+import {useWorkoutView} from "../hooks/useWorkoutView"
 
 /**
  * Displays the title of the selected view

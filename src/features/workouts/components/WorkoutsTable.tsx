@@ -6,12 +6,12 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import React from "react"
-import {getDateText, getLiftNameText} from "~/functions/parsers"
+import {BackButton, Button, IconButton} from "~/components/CTA"
 import {useSession} from "~/hooks/useSession"
 import {useViewport} from "~/hooks/useViewport"
 import {Workout} from "~/utils/models"
-import {BackButton, Button, IconButton} from "../../../components/CTA"
-import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
+import {getDateText, getLiftNameText} from "~/utils/parsers"
+import {getPrintout, groupExercisesByLift} from "../utils/functions"
 import {WorkoutsEmptyState} from "./WorkoutsEmptyState"
 
 /**

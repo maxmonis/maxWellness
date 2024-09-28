@@ -3,11 +3,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import Image from "next/image"
 import React from "react"
+import {Button} from "~/components/CTA"
 import {uploadImage} from "~/firebase/client"
-import {extractErrorMessage} from "../functions/parsers"
-import {useSession} from "../hooks/useSession"
-import {useUpdateImage} from "../hooks/useUpdateImage"
-import {Button} from "./CTA"
+import {useSession} from "~/hooks/useSession"
+import {useUpdateImage} from "~/hooks/useUpdateImage"
+import {extractErrorMessage} from "~/utils/parsers"
 
 /**
  * Displays the user's profile image, allowing them to

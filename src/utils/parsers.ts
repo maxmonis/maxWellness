@@ -1,5 +1,5 @@
-import {hasChars, hasMessage} from "~/functions/validators"
-import {EditableName} from "../utils/models"
+import {EditableName} from "./models"
+import {hasChars, hasMessage} from "./validators"
 
 /**
  * Attempts to extract an error message, returning a default one if necessary

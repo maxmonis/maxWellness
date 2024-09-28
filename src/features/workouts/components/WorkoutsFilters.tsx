@@ -2,7 +2,7 @@ import sortBy from "lodash/sortBy"
 import React from "react"
 import {Checkbox} from "~/components/CTA"
 import {useAlerts} from "~/context/AlertContext"
-import {getLiftNameText, getWorkoutNameText} from "~/functions/parsers"
+import {getLiftNameText, getWorkoutNameText} from "~/utils/parsers"
 import {Session} from "~/utils/models"
 
 /**

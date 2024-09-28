@@ -1,11 +1,11 @@
 import {useMutation} from "react-query"
 import {updateProfile} from "~/firebase/client"
-import {useInvalidateSession} from "./useInvalidateSession"
+import {useInvalidateSession} from "~/hooks/useInvalidateSession"
 
 /**
  * Attempts to update a user's profile in the database
  */
-export function useUpdateProfile({onSuccess}: {onSuccess: () => void}) {
+export function useUpdateNames({onSuccess}: {onSuccess: () => void}) {
   const onSettled = useInvalidateSession()
 
   return useMutation({

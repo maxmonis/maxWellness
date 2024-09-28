@@ -6,10 +6,10 @@ import {useRouter} from "next/router"
 import React from "react"
 import {BackButton, Button, IconButton} from "~/components/CTA"
 import {useAlerts} from "~/context/AlertContext"
+import {useUpdateNames} from "~/features/settings/hooks/useUpdateNames"
 import {useMutating} from "~/hooks/useMutating"
-import {useUpdateProfile} from "~/hooks/useUpdateProfile"
 import {EditableName, Profile} from "~/utils/models"
-import {isTextAlreadyInList} from "../settingsFunctions"
+import {isTextAlreadyInList} from "../utils/functions"
 import {EditableListItem} from "./EditableListItem"
 
 /**
@@ -20,7 +20,7 @@ export function SettingsApp({profile}: {profile: Profile}) {
   const router = useRouter()
   const {showAlert} = useAlerts()
 
-  const {mutate: updateProfile} = useUpdateProfile({
+  const {mutate: updateProfile} = useUpdateNames({
     onSuccess() {
       showAlert({
         text: "Settings updated",

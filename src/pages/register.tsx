@@ -5,8 +5,8 @@ import React from "react"
 import {Button, GoogleButton} from "~/components/CTA"
 import {Page} from "~/components/Page"
 import {signUp} from "~/firebase/client"
-import {extractErrorMessage} from "~/functions/parsers"
-import {validateAuthForm} from "~/functions/validators"
+import {extractErrorMessage} from "~/utils/parsers"
+import {validateAuthForm} from "~/utils/validators"
 
 /**
  * Allows new users to create an account with Google or email/password

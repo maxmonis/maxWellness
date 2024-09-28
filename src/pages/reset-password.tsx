@@ -4,16 +4,14 @@ import React from "react"
 import {Button} from "~/components/CTA"
 import {Page} from "~/components/Page"
 import {resetPassword} from "~/firebase/client"
-import {extractErrorMessage} from "~/functions/parsers"
-import {validateAuthForm} from "~/functions/validators"
+import {extractErrorMessage} from "~/utils/parsers"
+import {validateAuthForm} from "~/utils/validators"
 
 /**
  * Can send a password reset email to a user
  */
 export default function ResetPasswordPage() {
-  const [values, setValues] = React.useState({
-    email: "",
-  })
+  const [values, setValues] = React.useState({email: ""})
   const {email} = values
 
   const [inputErrors, setInputErrors] = React.useState<

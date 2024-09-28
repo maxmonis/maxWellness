@@ -5,8 +5,8 @@ import Image from "next/image"
 import Link from "next/link"
 import {useRouter} from "next/router"
 import React from "react"
+import {useAuth} from "~/context/AuthContext"
 import {googleLogin} from "~/firebase/client"
-import {useAuth} from "../context/AuthContext"
 
 /**
  * A basic button which reflects its style variant (if any)

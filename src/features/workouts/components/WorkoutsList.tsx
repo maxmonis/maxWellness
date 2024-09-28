@@ -1,9 +1,9 @@
 import React from "react"
 import {Button} from "~/components/CTA"
 import {useAlerts} from "~/context/AlertContext"
-import {useDeleteWorkout} from "~/hooks/useDeleteWorkout"
 import {useMutating} from "~/hooks/useMutating"
 import {Exercise, Session, Workout} from "~/utils/models"
+import {useDeleteWorkout} from "../hooks/useDeleteWorkout"
 import {WorkoutsEmptyState} from "./WorkoutsEmptyState"
 import {WorkoutsListItem} from "./WorkoutsListItem"
 
