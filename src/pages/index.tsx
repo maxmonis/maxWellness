@@ -10,13 +10,12 @@ export default function WorkoutsPage() {
 	const { error, loading, session } = useSession()
 
 	return (
-		<Page
-			component={WorkoutsApp}
-			Loader={WorkoutsLoader}
-			mustBeLoggedIn
-			props={session}
-			title="Workouts"
-			{...{ error, loading }}
-		/>
+		<Page mustBeLoggedIn title="Workouts" {...{ error }}>
+			{loading ? (
+				<WorkoutsLoader />
+			) : session ? (
+				<WorkoutsApp {...session} />
+			) : null}
+		</Page>
 	)
 }

@@ -10,13 +10,12 @@ export default function SettingsPage() {
 	const { error, loading, session } = useSession()
 
 	return (
-		<Page
-			component={SettingsApp}
-			Loader={SettingsLoader}
-			mustBeLoggedIn
-			props={session && { profile: session.profile }}
-			title="Settings"
-			{...{ error, loading }}
-		/>
+		<Page mustBeLoggedIn title="Settings" {...{ error }}>
+			{loading ? (
+				<SettingsLoader />
+			) : session ? (
+				<SettingsApp profile={session.profile} />
+			) : null}
+		</Page>
 	)
 }

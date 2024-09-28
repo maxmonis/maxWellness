@@ -16,16 +16,14 @@ import Navbar from "./Navbar"
  */
 export function Page({
 	children,
-	component,
 	error,
-	Loader,
 	loading,
-	loadingText,
+	loadingText = "Loading...",
 	mustBeLoggedIn,
 	mustBeLoggedOut,
-	props,
 	title = "Fitness First",
 }: {
+	children?: React.ReactNode
 	error?: unknown
 	title?: string
 } & (
@@ -39,26 +37,8 @@ export function Page({
 	  }
 ) &
 	(
-		| { Loader?: never; loading: boolean; loadingText?: string }
-		| { Loader?: React.ElementType; loading: boolean; loadingText?: never }
-		| { Loader?: never; loading?: never; loadingText?: never }
-	) &
-	(
-		| {
-				children: React.ReactNode
-				component?: never
-				props?: never
-		  }
-		| {
-				children?: never
-				component: React.ElementType
-				props?: object | null
-		  }
-		| {
-				children?: never
-				component?: never
-				props?: never
-		  }
+		| { loading: boolean; loadingText?: string }
+		| { loading?: never; loadingText?: never }
 	)) {
 	const user = useAuth()
 	const router = useRouter()
@@ -74,8 +54,6 @@ export function Page({
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user])
-
-	const element = props && React.createElement(component, props)
 
 	return (
 		<>
@@ -103,19 +81,11 @@ export function Page({
 										: "max-h-[calc(100dvh-3.5rem)] md:max-h-screen",
 								)}
 							>
-								{children ??
-									element ??
-									(loading && Loader ? (
-										<Loader />
-									) : (
-										<p className="p-6 text-lg">
-											{loading
-												? loadingText ?? "Loading..."
-												: error
-												? extractErrorMessage(error)
-												: null}
-										</p>
-									))}
+								{children ?? (
+									<p className="p-6 text-lg">
+										{loading ? loadingText : extractErrorMessage(error)}
+									</p>
+								)}
 							</div>
 							{mustBeLoggedOut ? <Wallpaper /> : <Navbar />}
 						</div>
