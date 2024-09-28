@@ -9,9 +9,12 @@ export function hasMessage(error: unknown): error is { message: string } {
 }
 
 function isEditableName(value: unknown): value is EditableName {
-	const name = value as EditableName | null
+	if (typeof value !== "object" || value === null) {
+		return false
+	}
+	const name = value as EditableName
 	return (
-		hasChars(name?.id) &&
+		hasChars(name.id) &&
 		hasChars(name.text) &&
 		["undefined", "boolean"].includes(typeof name.canDelete)
 	)
@@ -23,16 +26,20 @@ export function isEmail(email: unknown): email is Email {
 }
 
 function isExercise(value: unknown): value is Exercise {
-	const exercise = value as Exercise | null
-	return (
-		hasChars(exercise?.liftId) && (exercise.reps > 0 || exercise.weight > 0)
-	)
+	if (typeof value !== "object" || value === null) {
+		return false
+	}
+	const exercise = value as Exercise
+	return hasChars(exercise.liftId) && (exercise.reps > 0 || exercise.weight > 0)
 }
 
 export function isProfile(value: unknown): value is Profile {
-	const profile = value as Profile | null
+	if (typeof value !== "object" || value === null) {
+		return false
+	}
+	const profile = value as Profile
 	return (
-		hasChars(profile?.id) &&
+		hasChars(profile.id) &&
 		hasChars(profile.userId) &&
 		hasChars(profile.userName) &&
 		Array.isArray(profile.liftNames) &&
@@ -49,9 +56,12 @@ function isRoutine(routine: unknown): routine is Workout["routine"] {
 }
 
 function isWorkout(value: unknown): value is Workout {
-	const workout = value as Workout | null
+	if (typeof value !== "object" || value === null) {
+		return false
+	}
+	const workout = value as Workout
 	return (
-		hasChars(workout?.date) &&
+		hasChars(workout.date) &&
 		hasChars(workout.nameId) &&
 		isRoutine(workout.routine) &&
 		hasChars(workout.userId) &&
