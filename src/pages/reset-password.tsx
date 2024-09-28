@@ -74,6 +74,11 @@ export default function ResetPasswordPage() {
               Reset Password
             </Button>
             <div className="flex flex-col gap-2">
+              <div>
+                <Link className="text-blue-300 hover:underline" href="/login">
+                  Return to Login
+                </Link>
+              </div>
               <div className="flex flex-wrap gap-x-2">
                 <p className="whitespace-nowrap text-white">Need an account?</p>
                 <Link
