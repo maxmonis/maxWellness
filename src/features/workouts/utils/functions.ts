@@ -1,35 +1,35 @@
-import {nanoid} from "nanoid"
-import {Exercise} from "~/utils/models"
-import {getPositiveInt} from "~/utils/parsers"
-import {validViews} from "./constants"
-import {View} from "./models"
+import { nanoid } from "nanoid"
+import { Exercise } from "~/utils/models"
+import { getPositiveInt } from "~/utils/parsers"
+import { validViews } from "./constants"
+import { View } from "./models"
 
 /**
  * @returns a new exercise if possible, or null if not
  */
 export function createNewExercise(exerciseData: {
-  liftId: string
-  reps: string | number
-  sets: string | number
-  weight: string | number
+	liftId: string
+	reps: string | number
+	sets: string | number
+	weight: string | number
 }) {
-  const sets = getPositiveInt(exerciseData.sets)
-  const reps = getPositiveInt(exerciseData.reps)
-  const weight = getPositiveInt(exerciseData.weight)
+	const sets = getPositiveInt(exerciseData.sets)
+	const reps = getPositiveInt(exerciseData.reps)
+	const weight = getPositiveInt(exerciseData.weight)
 
-  if (!reps && !weight) {
-    return null
-  }
+	if (!reps && !weight) {
+		return null
+	}
 
-  const newExercise: Exercise = {
-    id: nanoid(),
-    liftId: exerciseData.liftId,
-    sets: sets > 1 ? sets : 1,
-    reps: reps > 1 ? reps : 1,
-    weight,
-  }
+	const newExercise: Exercise = {
+		id: nanoid(),
+		liftId: exerciseData.liftId,
+		sets: sets > 1 ? sets : 1,
+		reps: reps > 1 ? reps : 1,
+		weight,
+	}
 
-  return newExercise
+	return newExercise
 }
 
 /**
@@ -38,26 +38,26 @@ export function createNewExercise(exerciseData: {
  * for example: `2(8x50), 3(8x50) -> 5(8x50)`
  */
 export function eliminateRedundancy(routine: Array<Exercise>) {
-  const updatedRoutine: typeof routine = []
-  for (const exercise of routine) {
-    const previousExercise = updatedRoutine.at(-1)
-    if (
-      previousExercise &&
-      exercise.liftId === previousExercise.liftId &&
-      exercise.reps === previousExercise.reps &&
-      exercise.weight === previousExercise.weight
-    ) {
-      const updatedExercise = createNewExercise({
-        ...exercise,
-        sets: exercise.sets + previousExercise.sets,
-      })
-      if (updatedExercise) updatedRoutine.pop()
-      updatedRoutine.push(updatedExercise ?? exercise)
-    } else {
-      updatedRoutine.push(exercise)
-    }
-  }
-  return updatedRoutine
+	const updatedRoutine: typeof routine = []
+	for (const exercise of routine) {
+		const previousExercise = updatedRoutine.at(-1)
+		if (
+			previousExercise &&
+			exercise.liftId === previousExercise.liftId &&
+			exercise.reps === previousExercise.reps &&
+			exercise.weight === previousExercise.weight
+		) {
+			const updatedExercise = createNewExercise({
+				...exercise,
+				sets: exercise.sets + previousExercise.sets,
+			})
+			if (updatedExercise) updatedRoutine.pop()
+			updatedRoutine.push(updatedExercise ?? exercise)
+		} else {
+			updatedRoutine.push(exercise)
+		}
+	}
+	return updatedRoutine
 }
 
 /**
@@ -66,28 +66,28 @@ export function eliminateRedundancy(routine: Array<Exercise>) {
  * it was a personal record and whether that record stands
  */
 export function getPrintout({
-  recordEndDate,
-  recordStartDate,
-  reps,
-  sets,
-  weight,
+	recordEndDate,
+	recordStartDate,
+	reps,
+	sets,
+	weight,
 }: Exercise) {
-  let printout = ""
-  if (sets > 1 && reps && weight) {
-    printout = `${sets}(${reps}x${weight})`
-  } else if (sets > 1 && reps) {
-    printout = `${sets}(${reps})`
-  } else if (reps && weight) {
-    printout = `${reps}x${weight}`
-  } else if (weight) {
-    printout = `1x${weight}`
-  } else {
-    printout = `${reps}`
-  }
-  return (
-    printout +
-    (recordStartDate && !recordEndDate ? "**" : recordStartDate ? "*" : "")
-  )
+	let printout = ""
+	if (sets > 1 && reps && weight) {
+		printout = `${sets}(${reps}x${weight})`
+	} else if (sets > 1 && reps) {
+		printout = `${sets}(${reps})`
+	} else if (reps && weight) {
+		printout = `${reps}x${weight}`
+	} else if (weight) {
+		printout = `1x${weight}`
+	} else {
+		printout = `${reps}`
+	}
+	return (
+		printout +
+		(recordStartDate && !recordEndDate ? "**" : recordStartDate ? "*" : "")
+	)
 }
 
 /**
@@ -95,18 +95,18 @@ export function getPrintout({
  * consecutive exercises in the routine with the same lift ID
  */
 export function groupExercisesByLift(routine: Array<Exercise>) {
-  const organizedRoutine: Array<Array<Exercise>> = []
-  for (const exercise of routine) {
-    const previous = organizedRoutine.at(-1)
-    if (previous && previous[0].liftId === exercise.liftId) {
-      previous.push(exercise)
-    } else {
-      organizedRoutine.push([exercise])
-    }
-  }
-  return organizedRoutine
+	const organizedRoutine: Array<Array<Exercise>> = []
+	for (const exercise of routine) {
+		const previous = organizedRoutine.at(-1)
+		if (previous && previous[0].liftId === exercise.liftId) {
+			previous.push(exercise)
+		} else {
+			organizedRoutine.push([exercise])
+		}
+	}
+	return organizedRoutine
 }
 
 export function isValidView(view: unknown): view is View {
-  return validViews.includes(view as View)
+	return validViews.includes(view as View)
 }

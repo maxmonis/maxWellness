@@ -1,17 +1,17 @@
-import {useMutation} from "react-query"
-import {deleteWorkout} from "~/firebase/app"
-import {useInvalidateSession} from "~/hooks/useInvalidateSession"
+import { useMutation } from "react-query"
+import { deleteWorkout } from "~/firebase/app"
+import { useInvalidateSession } from "~/hooks/useInvalidateSession"
 
 /**
  * Attempts to delete a workout from the database
  */
-export function useDeleteWorkout({onSuccess}: {onSuccess: () => void}) {
-  const onSettled = useInvalidateSession()
+export function useDeleteWorkout({ onSuccess }: { onSuccess: () => void }) {
+	const onSettled = useInvalidateSession()
 
-  return useMutation({
-    mutationFn: deleteWorkout,
-    mutationKey: ["session", {type: "delete"}],
-    onSettled,
-    onSuccess,
-  })
+	return useMutation({
+		mutationFn: deleteWorkout,
+		mutationKey: ["session", { type: "delete" }],
+		onSettled,
+		onSuccess,
+	})
 }
