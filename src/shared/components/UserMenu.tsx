@@ -38,16 +38,15 @@ export function UserMenu({className = ""}) {
   return (
     <div className={classNames("relative", className)} {...{ref}}>
       <IconButton
-        className="max-sm:p-2"
+        className="max-md:flex-row-reverse max-sm:p-2"
         icon={<UserImage />}
-        text={userName.split(" ")[0]}
-        textClass="max-sm:sr-only whitespace-nowrap max-w-[15ch] truncate"
+        text={userName}
+        textClass="max-sm:sr-only text-right md:text-left leading-tight max-md:w-32 text-sm"
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute -left-28 bottom-10 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 sm:-left-16 md:left-0">
+        <dialog className="absolute -left-28 bottom-10 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 sm:left-0">
           <DarkModeToggle />
-          <p className="leading-tight">Logged in as {userName}</p>
           <UserImage editable />
           <IconButton
             icon={
