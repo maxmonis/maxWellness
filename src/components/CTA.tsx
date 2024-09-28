@@ -6,7 +6,7 @@ import Link from "next/link"
 import {useRouter} from "next/router"
 import React from "react"
 import {useAuth} from "~/context/AuthContext"
-import {googleLogin} from "~/firebase/client"
+import {googleLogin} from "~/firebase/app"
 
 /**
  * A basic button which reflects its style variant (if any)

@@ -1,6 +1,6 @@
 import {useQuery} from "react-query"
 import {useAuth} from "~/context/AuthContext"
-import {getSession} from "~/firebase/client"
+import {getSession} from "~/firebase/app"
 
 /**
  * Attempts to load the current session

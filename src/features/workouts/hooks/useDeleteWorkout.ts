@@ -1,5 +1,5 @@
 import {useMutation} from "react-query"
-import {deleteWorkout} from "~/firebase/client"
+import {deleteWorkout} from "~/firebase/app"
 import {useInvalidateSession} from "~/hooks/useInvalidateSession"
 
 /**

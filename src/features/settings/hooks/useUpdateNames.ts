@@ -1,5 +1,5 @@
 import {useMutation} from "react-query"
-import {updateProfile} from "~/firebase/client"
+import {updateProfile} from "~/firebase/app"
 import {useInvalidateSession} from "~/hooks/useInvalidateSession"
 
 /**

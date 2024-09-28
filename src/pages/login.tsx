@@ -4,7 +4,7 @@ import {useRouter} from "next/router"
 import React from "react"
 import {Button, GoogleButton} from "~/components/CTA"
 import {Page} from "~/components/Page"
-import {logIn} from "~/firebase/client"
+import {logIn} from "~/firebase/app"
 import {extractErrorMessage} from "~/utils/parsers"
 import {validateAuthForm} from "~/utils/validators"
 
