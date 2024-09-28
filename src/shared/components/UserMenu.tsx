@@ -45,7 +45,7 @@ export function UserMenu({className = ""}) {
         onClick={() => setOpen(!open)}
       />
       {open && (
-        <dialog className="absolute -left-28 bottom-8 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 max-sm:bottom-10 md:left-6">
+        <dialog className="absolute -left-28 bottom-10 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 sm:-left-16 md:left-0">
           <DarkModeToggle />
           <p className="leading-tight">Logged in as {userName}</p>
           <UserImage editable />
