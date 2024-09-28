@@ -4,6 +4,7 @@
 		"@fortawesome/free-regular-svg-icons": "^6.3.0",
 		"@fortawesome/free-solid-svg-icons": "^6.3.0",
 		"@fortawesome/react-fontawesome": "^0.2.0",
+		"@tanstack/@tanstack/react-query": "^5.56.2",
 		"classnames": "^2.3.2",
 		"firebase": "^9.18.0",
 		"lodash": "^4.17.21",
@@ -15,7 +16,6 @@
 		"react": "18.2.0",
 		"react-beautiful-dnd": "^13.1.1",
 		"react-dom": "18.2.0",
-		"react-query": "^3.39.3",
 		"react-transition-group": "^4.4.5"
 	},
 	"devDependencies": {

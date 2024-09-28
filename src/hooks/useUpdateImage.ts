@@ -1,7 +1,7 @@
 import { updateImage } from "@/firebase/app"
 import { useInvalidateSession } from "@/hooks/useInvalidateSession"
 import { useSession } from "@/hooks/useSession"
-import { useMutation } from "react-query"
+import { useMutation } from "@tanstack/react-query"
 
 export function useUpdateImage() {
 	const onSettled = useInvalidateSession()

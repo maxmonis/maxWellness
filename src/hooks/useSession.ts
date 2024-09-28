@@ -1,6 +1,6 @@
 import { useAuth } from "@/context/AuthContext"
 import { getSession } from "@/firebase/app"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 
 /**
  * Attempts to load the current session

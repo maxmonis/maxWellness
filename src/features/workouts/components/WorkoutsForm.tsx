@@ -1,11 +1,11 @@
 import { Button, IconButton } from "@/components/CTA"
 import { useAlerts } from "@/context/AlertContext"
-import { useMutating } from "@/hooks/useMutating"
 import { useSession } from "@/hooks/useSession"
 import { Exercise, Session, Workout } from "@/utils/models"
 import { getLiftNameText } from "@/utils/parsers"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useIsMutating } from "@tanstack/react-query"
 import classNames from "classnames"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
@@ -72,7 +72,8 @@ export function WorkoutsForm({
 	})
 	const { mutate: addWorkout } = useAddWorkout(getConfig("saved"))
 	const { mutate: updateWorkout } = useUpdateWorkout(getConfig("updated"))
-	const { mutating } = useMutating({ key: "session" })
+	const mutationCount = useIsMutating()
+	const mutating = mutationCount > 0
 
 	return (
 		<DragDropContext

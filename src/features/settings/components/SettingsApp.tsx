@@ -1,10 +1,10 @@
 import { BackButton, Button, IconButton } from "@/components/CTA"
 import { useAlerts } from "@/context/AlertContext"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
-import { useMutating } from "@/hooks/useMutating"
 import { EditableName, Profile } from "@/utils/models"
 import { faCheckCircle, faXmarkSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useIsMutating } from "@tanstack/react-query"
 import { isEqual, omit, sortBy } from "lodash"
 import { nanoid } from "nanoid"
 import { useRouter } from "next/router"
@@ -28,7 +28,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 			})
 		},
 	})
-	const { mutating } = useMutating({ key: "session" })
+	const mutationCount = useIsMutating()
+	const mutating = mutationCount > 0
 
 	const [liftNames, setLiftNames] = React.useState(profile.liftNames)
 	const [workoutNames, setWorkoutNames] = React.useState(profile.workoutNames)

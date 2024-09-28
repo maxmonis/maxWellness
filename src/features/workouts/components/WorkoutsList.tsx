@@ -1,7 +1,7 @@
 import { Button } from "@/components/CTA"
 import { useAlerts } from "@/context/AlertContext"
-import { useMutating } from "@/hooks/useMutating"
 import { Exercise, Session, Workout } from "@/utils/models"
+import { useIsMutating } from "@tanstack/react-query"
 import React from "react"
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
@@ -48,7 +48,8 @@ export function WorkoutsList({
 			})
 		},
 	})
-	const { mutating } = useMutating({ key: "session" })
+	const mutationCount = useIsMutating()
+	const mutating = mutationCount > 0
 
 	const [deletingId, setDeletingId] = React.useState<null | string>(null)
 
