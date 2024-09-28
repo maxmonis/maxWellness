@@ -8,7 +8,7 @@ export function useWorkoutView() {
 	const {
 		query: { view },
 	} = router
-	const { data: session } = useSession()
+	const { session } = useSession()
 
 	const hasWorkouts = Boolean(session?.workouts.length)
 	const defaultView: View = hasWorkouts ? "list" : "create"

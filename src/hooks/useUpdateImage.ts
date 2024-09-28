@@ -4,8 +4,8 @@ import { useSession } from "@/hooks/useSession"
 import { useMutation } from "@tanstack/react-query"
 
 export function useUpdateImage() {
-	const onSettled = useInvalidateSession()
-	const { data: session } = useSession()
+	const onSettled = useInvalidateSession("profile")
+	const { session } = useSession()
 
 	return useMutation({
 		mutationFn: async (photoURL: string) => {

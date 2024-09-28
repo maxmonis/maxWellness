@@ -52,7 +52,7 @@ export function Page({
 		| {
 				children?: never
 				component: React.ElementType
-				props?: object
+				props?: object | null
 		  }
 		| {
 				children?: never

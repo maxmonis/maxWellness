@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query"
  * Attempts to update a workout in the database
  */
 export function useUpdateWorkout({ onSuccess }: { onSuccess: () => void }) {
-	const onSettled = useInvalidateSession()
+	const onSettled = useInvalidateSession("workouts")
 
 	return useMutation({
 		mutationFn: updateWorkout,

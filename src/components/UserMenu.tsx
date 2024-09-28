@@ -16,14 +16,14 @@ import { UserImage } from "./UserImage"
  * update their profile image, or log out
  */
 export function UserMenu({ className = "" }) {
-	const { data: session, isLoading } = useSession()
+	const { loading, session } = useSession()
 	const router = useRouter()
 
 	const [open, setOpen] = React.useState(false)
 	const ref = useOutsideClick(() => setOpen(false))
 	useKeypress("Escape", () => setOpen(false))
 
-	if (isLoading) return <></>
+	if (loading) return <></>
 
 	if (!session)
 		return (

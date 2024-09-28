@@ -1,6 +1,7 @@
 import { useAuth } from "@/context/AuthContext"
-import { getSession } from "@/firebase/app"
-import { useQuery } from "@tanstack/react-query"
+import { loadProfile, loadWorkouts } from "@/firebase/app"
+import { generateSession } from "@/utils/session"
+import { useQueries } from "@tanstack/react-query"
 
 /**
  * Attempts to load the current session
@@ -9,12 +10,26 @@ export function useSession() {
 	const user = useAuth()
 	const userId = user?.uid
 
-	return useQuery({
-		queryFn: () => {
-			if (userId) {
-				return getSession(userId)
+	return useQueries({
+		queries: [
+			{
+				queryFn: () => (userId ? loadProfile(userId) : null),
+				queryKey: ["profile", { userId }],
+			},
+			{
+				queryFn: () => (userId ? loadWorkouts(userId) : null),
+				queryKey: ["workouts", { userId }],
+			},
+		],
+		combine(results) {
+			const profile = results[0].data
+			const workouts = results[1].data
+			return {
+				error: results.find(result => result.error),
+				loading: results.some(result => result.isPending),
+				session:
+					profile && workouts ? generateSession(profile, workouts) : null,
 			}
 		},
-		queryKey: ["session", { userId }],
 	})
 }

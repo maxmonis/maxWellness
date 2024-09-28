@@ -7,17 +7,16 @@ import { useSession } from "@/hooks/useSession"
  * Landing page which allows user to view and manage workouts
  */
 export default function WorkoutsPage() {
-	const { data, isLoading, error } = useSession()
+	const { error, loading, session } = useSession()
 
 	return (
 		<Page
 			component={WorkoutsApp}
 			Loader={WorkoutsLoader}
-			loading={isLoading}
 			mustBeLoggedIn
-			props={data}
+			props={session}
 			title="Workouts"
-			{...{ error }}
+			{...{ error, loading }}
 		/>
 	)
 }

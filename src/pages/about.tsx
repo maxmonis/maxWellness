@@ -10,7 +10,7 @@ import Link from "next/link"
  */
 export default function InfoPage() {
 	const user = useAuth()
-	const { data: session } = useSession()
+	const { session } = useSession()
 
 	const hasWorkouts = Boolean(session?.workouts.length)
 

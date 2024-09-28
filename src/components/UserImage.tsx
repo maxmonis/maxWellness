@@ -14,7 +14,7 @@ import React from "react"
  * upload a new one if they're in the editable view
  */
 export function UserImage({ editable = false }) {
-	const { data: session } = useSession()
+	const { session } = useSession()
 	const [newUrl, setNewUrl] = React.useState("")
 	const { mutate: updateImage } = useUpdateImage()
 	const [uploading, setUploading] = React.useState(false)

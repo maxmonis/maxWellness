@@ -7,7 +7,7 @@ import { getPrintout } from "../utils/functions"
  * Displays the user's personal records (if any exist)
  */
 export function RecordsApp() {
-	const { data: session, isLoading } = useSession()
+	const { loading, session } = useSession()
 	const records =
 		session?.workouts.flatMap(w => w.routine.filter(e => e.recordStartDate)) ??
 		[]
@@ -16,7 +16,7 @@ export function RecordsApp() {
 			<div className="h-full overflow-hidden pb-14">
 				<h2 className="mb-2 ml-1 mt-5 text-lg font-bold">Personal Bests</h2>
 				<div className="flex h-full flex-col gap-4 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
-					{isLoading ? (
+					{loading ? (
 						<p>Loading records...</p>
 					) : records.length === 0 ? (
 						<p>

@@ -4,7 +4,7 @@ import { useSession } from "@/hooks/useSession"
  * Contains a greeting and instructions on managing workouts
  */
 export function WorkoutsEmptyState() {
-	const { data: session } = useSession()
+	const { session } = useSession()
 	return (
 		<div className="flex flex-col gap-4 p-4 sm:p-6 sm:text-lg">
 			<h2 className="text-lg font-bold sm:text-xl">

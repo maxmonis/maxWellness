@@ -26,7 +26,7 @@ export function WorkoutsTable({
 	filteredWorkouts: Array<Workout>
 }) {
 	const width = useViewport()
-	const { data: session, isLoading } = useSession()
+	const { loading, session } = useSession()
 
 	const maxColumns = width < 550 ? 1 : width < 1000 ? 2 : width < 1200 ? 3 : 4
 
@@ -62,7 +62,7 @@ export function WorkoutsTable({
 		// eslint-disable-next-line
 	}, [liftArray, horizontalIndex])
 
-	if (!isLoading && session?.workouts.length === 0) {
+	if (!loading && session?.workouts.length === 0) {
 		return (
 			<div className="p-6">
 				<WorkoutsEmptyState />

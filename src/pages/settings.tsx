@@ -7,17 +7,16 @@ import { useSession } from "@/hooks/useSession"
  * Allows the user to manage the names of workouts and exercises
  */
 export default function SettingsPage() {
-	const { data, isLoading, error } = useSession()
+	const { error, loading, session } = useSession()
 
 	return (
 		<Page
 			component={SettingsApp}
 			Loader={SettingsLoader}
-			loading={isLoading}
 			mustBeLoggedIn
-			props={data && { profile: data.profile }}
+			props={session && { profile: session.profile }}
 			title="Settings"
-			{...{ error }}
+			{...{ error, loading }}
 		/>
 	)
 }

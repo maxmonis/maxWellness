@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query"
  * Attempts to delete a workout from the database
  */
 export function useDeleteWorkout({ onSuccess }: { onSuccess: () => void }) {
-	const onSettled = useInvalidateSession()
+	const onSettled = useInvalidateSession("workouts")
 
 	return useMutation({
 		mutationFn: deleteWorkout,

@@ -18,7 +18,7 @@ import { IconButton } from "./CTA"
  * the screen on narrow viewports and to the left on wider ones
  */
 export default function Navbar() {
-	const { data: session, isLoading } = useSession()
+	const { loading, session } = useSession()
 	const hasWorkouts = Boolean(session?.workouts.length)
 	const homeHref = hasWorkouts ? "/" : session ? "/?view=create" : "/login"
 
@@ -43,7 +43,7 @@ export default function Navbar() {
 							textClass="max-sm:sr-only"
 						/>
 					</div>
-					{isLoading ? (
+					{loading ? (
 						<></>
 					) : session ? (
 						<>

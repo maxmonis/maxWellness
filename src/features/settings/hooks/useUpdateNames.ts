@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query"
  * Attempts to update a user's profile in the database
  */
 export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
-	const onSettled = useInvalidateSession()
+	const onSettled = useInvalidateSession("profile")
 
 	return useMutation({
 		mutationFn: updateProfile,

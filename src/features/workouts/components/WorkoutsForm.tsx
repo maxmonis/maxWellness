@@ -56,7 +56,7 @@ export function WorkoutsForm({
 	const [errorMsg, setErrorMsg] = React.useState("")
 	const [workoutError, setWorkoutError] = React.useState("")
 
-	const { data: session } = useSession()
+	const { session } = useSession()
 	const { showAlert } = useAlerts()
 	const getConfig = (action: "saved" | "updated") => ({
 		onSuccess() {
