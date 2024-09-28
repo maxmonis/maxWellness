@@ -19,7 +19,11 @@ export function RecordsApp() {
           {isLoading ? (
             <p>Loading records...</p>
           ) : records.length === 0 ? (
-            <p>You haven&apos;t set any records yet</p>
+            <p>
+              Personal bests will be marked with two asterisks (**) if
+              they&apos;re unbroken, and with a single asterisk (*) if
+              you&apos;ve subsequently surpassed them.
+            </p>
           ) : (
             records.map(exercise => {
               const liftNameText = getLiftNameText(
