@@ -1,6 +1,6 @@
+import { useSession } from "@/hooks/useSession"
+import { getDateText, getLiftNameText } from "@/utils/parsers"
 import classNames from "classnames"
-import { useSession } from "~/hooks/useSession"
-import { getDateText, getLiftNameText } from "~/utils/parsers"
 import { getPrintout } from "../utils/functions"
 
 /**

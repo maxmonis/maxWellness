@@ -1,3 +1,9 @@
+import { Button, IconButton } from "@/components/CTA"
+import { useAlerts } from "@/context/AlertContext"
+import { useMutating } from "@/hooks/useMutating"
+import { useSession } from "@/hooks/useSession"
+import { Exercise, Session, Workout } from "@/utils/models"
+import { getLiftNameText } from "@/utils/parsers"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
@@ -10,12 +16,6 @@ import {
 	DropResult,
 	Droppable,
 } from "react-beautiful-dnd"
-import { Button, IconButton } from "~/components/CTA"
-import { useAlerts } from "~/context/AlertContext"
-import { useMutating } from "~/hooks/useMutating"
-import { useSession } from "~/hooks/useSession"
-import { Exercise, Session, Workout } from "~/utils/models"
-import { getLiftNameText } from "~/utils/parsers"
 import { useAddWorkout } from "../hooks/useAddWorkout"
 import { useUpdateWorkout } from "../hooks/useUpdateWorkout"
 import { createNewExercise, getPrintout } from "../utils/functions"

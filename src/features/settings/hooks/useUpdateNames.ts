@@ -1,6 +1,6 @@
+import { updateProfile } from "@/firebase/app"
+import { useInvalidateSession } from "@/hooks/useInvalidateSession"
 import { useMutation } from "react-query"
-import { updateProfile } from "~/firebase/app"
-import { useInvalidateSession } from "~/hooks/useInvalidateSession"
 
 /**
  * Attempts to update a user's profile in the database

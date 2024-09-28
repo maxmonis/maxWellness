@@ -1,12 +1,12 @@
+import { Button, GoogleButton } from "@/components/CTA"
+import { Page } from "@/components/Page"
+import { signUp } from "@/firebase/app"
+import { extractErrorMessage } from "@/utils/parsers"
+import { validateAuthForm } from "@/utils/validators"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React from "react"
-import { Button, GoogleButton } from "~/components/CTA"
-import { Page } from "~/components/Page"
-import { signUp } from "~/firebase/app"
-import { extractErrorMessage } from "~/utils/parsers"
-import { validateAuthForm } from "~/utils/validators"
 
 /**
  * Allows new users to create an account with Google or email/password

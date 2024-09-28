@@ -1,12 +1,12 @@
+import { Button, GoogleButton } from "@/components/CTA"
+import { Page } from "@/components/Page"
+import { logIn } from "@/firebase/app"
+import { extractErrorMessage } from "@/utils/parsers"
+import { validateAuthForm } from "@/utils/validators"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React from "react"
-import { Button, GoogleButton } from "~/components/CTA"
-import { Page } from "~/components/Page"
-import { logIn } from "~/firebase/app"
-import { extractErrorMessage } from "~/utils/parsers"
-import { validateAuthForm } from "~/utils/validators"
 
 /**
  * Allows existing users to log in using Google or email/password

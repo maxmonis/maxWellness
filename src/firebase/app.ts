@@ -1,3 +1,7 @@
+import { defaultLiftNames, defaultWorkoutNames } from "@/utils/constants"
+import { Profile, UnsavedWorkout, Workout } from "@/utils/models"
+import { generateSession } from "@/utils/session"
+import { isProfile, isWorkout } from "@/utils/validators"
 import { initializeApp } from "firebase/app"
 import {
 	createUserWithEmailAndPassword,
@@ -22,10 +26,6 @@ import {
 } from "firebase/firestore"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import omit from "lodash/omit"
-import { defaultLiftNames, defaultWorkoutNames } from "~/utils/constants"
-import { Profile, UnsavedWorkout, Workout } from "~/utils/models"
-import { generateSession } from "~/utils/session"
-import { isProfile, isWorkout } from "~/utils/validators"
 
 const app = initializeApp({
 	apiKey: process.env.NEXT_PUBLIC_API_KEY,

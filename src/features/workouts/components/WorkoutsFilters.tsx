@@ -1,9 +1,9 @@
+import { Checkbox } from "@/components/CTA"
+import { useAlerts } from "@/context/AlertContext"
+import { Session } from "@/utils/models"
+import { getLiftNameText, getWorkoutNameText } from "@/utils/parsers"
 import sortBy from "lodash/sortBy"
 import React from "react"
-import { Checkbox } from "~/components/CTA"
-import { useAlerts } from "~/context/AlertContext"
-import { Session } from "~/utils/models"
-import { getLiftNameText, getWorkoutNameText } from "~/utils/parsers"
 
 /**
  * Allows the user to filter workouts by name, date, etc.

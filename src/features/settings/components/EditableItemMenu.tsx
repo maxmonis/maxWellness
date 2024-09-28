@@ -1,3 +1,7 @@
+import { IconButton } from "@/components/CTA"
+import { useKeypress } from "@/hooks/useKeypress"
+import { useOutsideClick } from "@/hooks/useOutsideClick"
+import { EditableName } from "@/utils/models"
 import {
 	faEllipsis,
 	faMinusCircle,
@@ -7,10 +11,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import React from "react"
-import { IconButton } from "~/components/CTA"
-import { useKeypress } from "~/hooks/useKeypress"
-import { useOutsideClick } from "~/hooks/useOutsideClick"
-import { EditableName } from "~/utils/models"
 
 /**
  * Allows the user to update/hide a name, and also to delete it if it's unused

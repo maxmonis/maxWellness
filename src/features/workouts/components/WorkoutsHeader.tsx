@@ -1,11 +1,11 @@
+import { BackButton, IconButton } from "@/components/CTA"
+import { Workout } from "@/utils/models"
 import {
 	faCirclePlus,
 	faFilter,
 	faTable,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { BackButton, IconButton } from "~/components/CTA"
-import { Workout } from "~/utils/models"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 
 /**

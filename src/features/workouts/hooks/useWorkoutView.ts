@@ -1,5 +1,5 @@
+import { useSession } from "@/hooks/useSession"
 import { useRouter } from "next/router"
-import { useSession } from "~/hooks/useSession"
 import { isValidView } from "../utils/functions"
 import { View } from "../utils/models"
 

@@ -1,3 +1,5 @@
+import { UserMenu } from "@/components/UserMenu"
+import { useSession } from "@/hooks/useSession"
 import {
 	faCirclePlus,
 	faFilter,
@@ -9,8 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
-import { UserMenu } from "~/components/UserMenu"
-import { useSession } from "~/hooks/useSession"
 import { IconButton } from "./CTA"
 
 /**

@@ -1,9 +1,9 @@
+import { BackButton, Button } from "@/components/CTA"
+import { Page } from "@/components/Page"
+import { useAuth } from "@/context/AuthContext"
+import { useSession } from "@/hooks/useSession"
 import classNames from "classnames"
 import Link from "next/link"
-import { BackButton, Button } from "~/components/CTA"
-import { Page } from "~/components/Page"
-import { useAuth } from "~/context/AuthContext"
-import { useSession } from "~/hooks/useSession"
 
 /**
  * Displays text and GIFs showing how to use the app

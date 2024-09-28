@@ -1,6 +1,6 @@
+import { Page } from "@/components/Page"
+import { logOut } from "@/firebase/app"
 import { useRouter } from "next/router"
-import { Page } from "~/components/Page"
-import { logOut } from "~/firebase/app"
 
 /**
  * Hidden route to end the current session

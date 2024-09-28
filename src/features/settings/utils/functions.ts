@@ -1,4 +1,4 @@
-import { EditableName } from "~/utils/models"
+import { EditableName } from "@/utils/models"
 
 /**
  * Evaluates whether text exists in a list of names (case insensitive)

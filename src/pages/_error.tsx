@@ -1,7 +1,7 @@
+import { Button } from "@/components/CTA"
+import { useAuth } from "@/context/AuthContext"
 import { NextPageContext } from "next"
 import Link from "next/link"
-import { Button } from "~/components/CTA"
-import { useAuth } from "~/context/AuthContext"
 
 export default function ErrorPage({
 	message,

@@ -1,6 +1,6 @@
+import { Exercise } from "@/utils/models"
+import { getPositiveInt } from "@/utils/parsers"
 import { nanoid } from "nanoid"
-import { Exercise } from "~/utils/models"
-import { getPositiveInt } from "~/utils/parsers"
 import { validViews } from "./constants"
 import { View } from "./models"
 

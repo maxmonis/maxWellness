@@ -1,3 +1,13 @@
+import { Button, IconButton } from "@/components/CTA"
+import { useAlerts } from "@/context/AlertContext"
+import { useKeypress } from "@/hooks/useKeypress"
+import { useOutsideClick } from "@/hooks/useOutsideClick"
+import { Exercise, Session, Workout } from "@/utils/models"
+import {
+	getDateText,
+	getLiftNameText,
+	getWorkoutNameText,
+} from "@/utils/parsers"
 import {
 	faClipboard,
 	faCopy,
@@ -10,16 +20,6 @@ import classNames from "classnames"
 import omit from "lodash/omit"
 import { nanoid } from "nanoid"
 import React from "react"
-import { Button, IconButton } from "~/components/CTA"
-import { useAlerts } from "~/context/AlertContext"
-import { useKeypress } from "~/hooks/useKeypress"
-import { useOutsideClick } from "~/hooks/useOutsideClick"
-import { Exercise, Session, Workout } from "~/utils/models"
-import {
-	getDateText,
-	getLiftNameText,
-	getWorkoutNameText,
-} from "~/utils/parsers"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { View } from "../utils/models"
 

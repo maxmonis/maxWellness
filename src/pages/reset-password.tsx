@@ -1,11 +1,11 @@
+import { Button } from "@/components/CTA"
+import { Page } from "@/components/Page"
+import { resetPassword } from "@/firebase/app"
+import { extractErrorMessage } from "@/utils/parsers"
+import { validateAuthForm } from "@/utils/validators"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
-import { Button } from "~/components/CTA"
-import { Page } from "~/components/Page"
-import { resetPassword } from "~/firebase/app"
-import { extractErrorMessage } from "~/utils/parsers"
-import { validateAuthForm } from "~/utils/validators"
 
 /**
  * Can send a password reset email to a user

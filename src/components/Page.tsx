@@ -1,12 +1,12 @@
+import { useAuth } from "@/context/AuthContext"
+import { RecordsApp } from "@/features/workouts/components/RecordsApp"
+import { useSession } from "@/hooks/useSession"
+import { extractErrorMessage } from "@/utils/parsers"
 import classNames from "classnames"
 import Head from "next/head"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import React from "react"
-import { useAuth } from "~/context/AuthContext"
-import { RecordsApp } from "~/features/workouts/components/RecordsApp"
-import { useSession } from "~/hooks/useSession"
-import { extractErrorMessage } from "~/utils/parsers"
 import Navbar from "./Navbar"
 
 /**
