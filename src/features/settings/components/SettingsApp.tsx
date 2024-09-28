@@ -159,7 +159,9 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 											aria-label="Clear lift"
 											className="max-sm:hidden"
 											icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-											onClick={() => setValues({ ...values, lift: "" })}
+											onClick={() => {
+												setValues({ ...values, lift: "" })
+											}}
 										/>
 									)}
 								</div>
@@ -229,7 +231,9 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 											aria-label="Clear workout"
 											className="hidden sm:block"
 											icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-											onClick={() => setValues({ ...values, workout: "" })}
+											onClick={() => {
+												setValues({ ...values, workout: "" })
+											}}
 										/>
 									)}
 								</div>

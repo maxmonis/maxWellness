@@ -51,7 +51,9 @@ export function eliminateRedundancy(routine: Array<Exercise>) {
 				...exercise,
 				sets: exercise.sets + previousExercise.sets,
 			})
-			if (updatedExercise) updatedRoutine.pop()
+			if (updatedExercise) {
+				updatedRoutine.pop()
+			}
 			updatedRoutine.push(updatedExercise ?? exercise)
 		} else {
 			updatedRoutine.push(exercise)

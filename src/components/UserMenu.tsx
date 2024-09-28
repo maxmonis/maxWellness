@@ -20,30 +20,35 @@ export function UserMenu({ className = "" }) {
 	const router = useRouter()
 
 	const [open, setOpen] = React.useState(false)
-	const ref = useOutsideClick(() => setOpen(false))
-	useKeypress("Escape", () => setOpen(false))
+	const ref = useOutsideClick(() => {
+		setOpen(false)
+	})
+	useKeypress("Escape", () => {
+		setOpen(false)
+	})
 
-	if (loading) return <></>
+	if (loading) {
+		return <></>
+	}
 
-	if (!session)
+	if (!session) {
 		return (
 			<div className={classNames("max-sm:pr-4", className)}>
 				<DarkModeToggle />
 			</div>
 		)
-
-	const {
-		profile: { userName },
-	} = session
+	}
 
 	return (
 		<div className={classNames("relative", className)} {...{ ref }}>
 			<IconButton
 				className="max-md:flex-row-reverse max-sm:p-2"
 				icon={<UserImage />}
-				text={userName}
+				text={session.profile.userName}
 				textClass="max-sm:sr-only text-right md:text-left leading-tight max-md:w-32 text-sm"
-				onClick={() => setOpen(!open)}
+				onClick={() => {
+					setOpen(!open)
+				}}
 			/>
 			{open && (
 				<dialog className="absolute -left-28 bottom-10 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 sm:left-0">
@@ -58,7 +63,9 @@ export function UserMenu({ className = "" }) {
 							/>
 						}
 						onClick={() => {
-							logOut().then(() => router.push("/login"))
+							logOut().then(() => {
+								router.push("/login")
+							})
 						}}
 						text="Logout"
 					/>
@@ -83,7 +90,9 @@ function DarkModeToggle() {
 					aria-label="Toggle dark mode"
 					checked={dark}
 					className="peer sr-only"
-					onChange={() => setTheme(dark ? "light" : "dark")}
+					onChange={() => {
+						setTheme(dark ? "light" : "dark")
+					}}
 					type="checkbox"
 				/>
 				<div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800" />

@@ -103,14 +103,8 @@ function generateWorkoutsFilters({
 	workoutDates: Array<string>
 }) {
 	return {
-		liftIds: sortBy(liftIds).map(id => ({
-			checked: false,
-			id,
-		})),
-		nameIds: sortBy(nameIds).map(id => ({
-			checked: false,
-			id,
-		})),
+		liftIds: sortBy(liftIds).map(id => ({ checked: false, id })),
+		nameIds: sortBy(nameIds).map(id => ({ checked: false, id })),
 		newestFirst: true,
 		workoutDates: {
 			allDates: workoutDates,

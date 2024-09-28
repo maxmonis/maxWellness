@@ -1,10 +1,4 @@
-import {
-	EditableName,
-	Exercise,
-	Profile,
-	UnsavedWorkout,
-	Workout,
-} from "./models"
+import { EditableName, Exercise, Profile, Workout } from "./models"
 
 export function hasChars(string: unknown, minLength = 1): string is string {
 	return typeof string === "string" && string.trim().length >= minLength
@@ -14,11 +8,12 @@ export function hasMessage(error: unknown): error is { message: string } {
 	return hasChars((error as Error)?.message)
 }
 
-function isEditableName(name: unknown): name is EditableName {
+function isEditableName(value: unknown): value is EditableName {
+	const name = value as EditableName | null
 	return (
-		hasChars((name as EditableName)?.id) &&
-		hasChars((name as EditableName).text) &&
-		["undefined", "boolean"].includes(typeof (name as EditableName).canDelete)
+		hasChars(name?.id) &&
+		hasChars(name.text) &&
+		["undefined", "boolean"].includes(typeof name.canDelete)
 	)
 }
 
@@ -27,10 +22,25 @@ export function isEmail(email: unknown): email is Email {
 	return typeof email === "string" && /^\S+@\S+\.\S+$/.test(email)
 }
 
-function isExercise(exercise: unknown): exercise is Exercise {
+function isExercise(value: unknown): value is Exercise {
+	const exercise = value as Exercise | null
 	return (
-		hasChars((exercise as Exercise)?.liftId) &&
-		((exercise as Exercise).reps > 0 || (exercise as Exercise).weight > 0)
+		hasChars(exercise?.liftId) && (exercise.reps > 0 || exercise.weight > 0)
+	)
+}
+
+export function isProfile(value: unknown): value is Profile {
+	const profile = value as Profile | null
+	return (
+		hasChars(profile?.id) &&
+		hasChars(profile.userId) &&
+		hasChars(profile.userName) &&
+		Array.isArray(profile.liftNames) &&
+		profile.liftNames.length > 0 &&
+		profile.liftNames.every(isEditableName) &&
+		Array.isArray(profile.workoutNames) &&
+		profile.workoutNames.length > 0 &&
+		profile.workoutNames.every(isEditableName)
 	)
 }
 
@@ -38,30 +48,14 @@ function isRoutine(routine: unknown): routine is Workout["routine"] {
 	return Array.isArray(routine) && routine.every(isExercise)
 }
 
-export function isUnsavedWorkout(workout: unknown): workout is UnsavedWorkout {
+function isWorkout(value: unknown): value is Workout {
+	const workout = value as Workout | null
 	return (
-		hasChars((workout as Workout)?.date) &&
-		hasChars((workout as Workout).nameId) &&
-		isRoutine((workout as Workout).routine) &&
-		hasChars((workout as Workout).userId)
-	)
-}
-
-export function isWorkout(workout: unknown): workout is Workout {
-	return isUnsavedWorkout(workout) && hasChars((workout as Workout).id)
-}
-
-export function isProfile(profile: unknown): profile is Profile {
-	return (
-		hasChars((profile as Profile)?.id) &&
-		hasChars((profile as Profile).userId) &&
-		hasChars((profile as Profile).userName) &&
-		Array.isArray((profile as Profile).liftNames) &&
-		(profile as Profile).liftNames.length > 0 &&
-		(profile as Profile).liftNames.every(isEditableName) &&
-		Array.isArray((profile as Profile).workoutNames) &&
-		(profile as Profile).workoutNames.length > 0 &&
-		(profile as Profile).workoutNames.every(isEditableName)
+		hasChars(workout?.date) &&
+		hasChars(workout.nameId) &&
+		isRoutine(workout.routine) &&
+		hasChars(workout.userId) &&
+		hasChars(workout.id)
 	)
 }
 

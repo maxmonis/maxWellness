@@ -78,7 +78,9 @@ export function WorkoutsForm({
 	return (
 		<DragDropContext
 			onDragEnd={handleDragEnd}
-			onDragStart={() => setDragging(true)}
+			onDragStart={() => {
+				setDragging(true)
+			}}
 		>
 			<form className="flex h-40 flex-col" {...{ onSubmit }}>
 				<Droppable droppableId="ExerciseForm">

@@ -45,7 +45,9 @@ export function WorkoutsFilters({
 				).map(({ checked, id }) => (
 					<li key={id}>
 						<Checkbox
-							onChange={e => updateWorkoutsFilter(e.target.value, "liftId")}
+							onChange={e => {
+								updateWorkoutsFilter(e.target.value, "liftId")
+							}}
 							text={getLiftNameText(id, liftNames)}
 							value={id}
 							{...{ checked }}
@@ -60,7 +62,9 @@ export function WorkoutsFilters({
 				).map(({ checked, id }) => (
 					<li key={id}>
 						<Checkbox
-							onChange={e => updateWorkoutsFilter(e.target.value, "nameId")}
+							onChange={e => {
+								updateWorkoutsFilter(e.target.value, "nameId")
+							}}
 							text={getWorkoutNameText(id, workoutNames)}
 							value={id}
 							{...{ checked }}
@@ -73,7 +77,9 @@ export function WorkoutsFilters({
 				<Checkbox
 					key="chronology"
 					checked={appliedFilters.newestFirst}
-					onChange={e => updateWorkoutsFilter(e.target.value, "chronology")}
+					onChange={e => {
+						updateWorkoutsFilter(e.target.value, "chronology")
+					}}
 					text="Newest First"
 					value="chronology"
 				/>

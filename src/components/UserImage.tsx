@@ -21,7 +21,9 @@ export function UserImage({ editable = false }) {
 	const [error, setError] = React.useState("")
 	const inputRef = React.useRef<HTMLInputElement>(null)
 
-	if (!session) return <></>
+	if (!session) {
+		return <></>
+	}
 
 	const { photoURL, userId, userName } = session.profile
 	const src = newUrl || photoURL
@@ -64,7 +66,9 @@ export function UserImage({ editable = false }) {
 						className="hidden"
 						onChange={async e => {
 							const file = e.target.files?.[0]
-							if (uploading || !file) return
+							if (uploading || !file) {
+								return
+							}
 							setUploading(true)
 							try {
 								const url = await uploadImage(
@@ -107,7 +111,9 @@ function Wrapper({
 	children,
 	onClick,
 }: React.PropsWithChildren<{ onClick?: () => void }>) {
-	if (!onClick) return <>{children}</>
+	if (!onClick) {
+		return <>{children}</>
+	}
 	return (
 		<button title="Update profile image" {...{ onClick }}>
 			{children}

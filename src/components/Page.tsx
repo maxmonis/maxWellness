@@ -167,7 +167,9 @@ function Wallpaper() {
 					}
 					className="object-cover"
 					fill
-					onError={() => setError(true)}
+					onError={() => {
+						setError(true)
+					}}
 					priority
 					src="/barbell.jpg"
 				/>

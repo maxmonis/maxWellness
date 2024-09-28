@@ -14,10 +14,7 @@ import React from "react"
 export default function LoginPage() {
 	const router = useRouter()
 
-	const [values, setValues] = React.useState({
-		email: "",
-		password: "",
-	})
+	const [values, setValues] = React.useState({ email: "", password: "" })
 	const { email, password } = values
 
 	const [inputErrors, setInputErrors] = React.useState<

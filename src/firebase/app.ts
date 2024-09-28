@@ -1,12 +1,11 @@
 import { defaultLiftNames, defaultWorkoutNames } from "@/utils/constants"
 import { Profile, UnsavedWorkout, Workout } from "@/utils/models"
-import { generateSession } from "@/utils/session"
-import { isProfile, isWorkout } from "@/utils/validators"
+import { isProfile, isWorkoutList } from "@/utils/validators"
 import { initializeApp } from "firebase/app"
 import {
+	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	getAuth,
-	GoogleAuthProvider,
 	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
 	signInWithPopup,
@@ -43,21 +42,8 @@ const storage = getStorage(app)
 /**
  * Deletes a workout from the database using its ID
  */
-export async function deleteWorkout(id: string) {
-	await deleteDoc(doc(db, "workouts", id))
-}
-
-/**
- * @returns a session for the current user
- */
-export async function getSession(userId: string) {
-	const [profile, workouts] = await Promise.all([
-		loadProfile(userId),
-		loadWorkouts(userId),
-	])
-	if (profile && workouts) {
-		return generateSession(profile, workouts)
-	}
+export function deleteWorkout(id: string) {
+	return deleteDoc(doc(db, "workouts", id))
 }
 
 /**
@@ -93,11 +79,14 @@ export async function loadProfile(userId: string) {
 	} = await getDocs(
 		query(collection(db, "profile"), where("userId", "==", userId)),
 	)
-	if (!doc) return
-	const profile = { ...doc.data(), id: doc.id }
-	if (isProfile(profile)) {
-		return profile
+	if (!doc) {
+		return null
 	}
+	const profile = { ...doc.data(), id: doc.id }
+	if (!isProfile(profile)) {
+		return null
+	}
+	return profile
 }
 
 /**
@@ -132,9 +121,10 @@ export async function loadWorkouts(userId: string) {
 		),
 	)
 	const workouts = docs.map(doc => ({ ...doc.data(), id: doc.id }))
-	if (workouts.every(isWorkout)) {
-		return workouts
+	if (!isWorkoutList(workouts)) {
+		return null
 	}
+	return workouts
 }
 
 /**
@@ -161,9 +151,9 @@ export function resetPassword(email: string) {
 /**
  * Saves a new workout to the database
  */
-export async function saveWorkout({ date, ...workout }: UnsavedWorkout) {
+export function saveWorkout({ date, ...workout }: UnsavedWorkout) {
 	const [year, month, day] = date.split("T")[0].split("-").map(Number)
-	await addDoc(collection(db, "workouts"), {
+	return addDoc(collection(db, "workouts"), {
 		...workout,
 		date: new Date(year, month - 1, day).toISOString(),
 		routine: workout.routine.map(exercise =>
@@ -198,7 +188,9 @@ export async function updateProfile({
 }: Profile) {
 	const profile = await loadProfile(userId)
 	const workouts = await loadWorkouts(userId)
-	if (!profile || !workouts) return
+	if (!profile || !workouts) {
+		return
+	}
 	const updatedLiftNames = [...liftNames]
 	const updatedWorkoutNames = [...workoutNames]
 	const liftIds = new Set<string>()
@@ -237,7 +229,7 @@ export async function updateProfile({
 	for (const workoutName of updatedWorkoutNames) {
 		workoutName.isHidden ??= false
 	}
-	await updateDoc(doc(db, "profile", profile.id), {
+	return updateDoc(doc(db, "profile", profile.id), {
 		...profile,
 		liftNames: updatedLiftNames,
 		workoutNames: updatedWorkoutNames,
@@ -247,9 +239,9 @@ export async function updateProfile({
 /**
  * Updates an existing workout in the database
  */
-export async function updateWorkout({ date, id, ...workout }: Workout) {
+export function updateWorkout({ date, id, ...workout }: Workout) {
 	const [year, month, day] = date.split("T")[0].split("-").map(Number)
-	await updateDoc(doc(db, "workouts", id), {
+	return updateDoc(doc(db, "workouts", id), {
 		...workout,
 		date: new Date(year, month - 1, day).toISOString(),
 		routine: workout.routine.map(exercise =>

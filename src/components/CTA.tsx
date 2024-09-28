@@ -176,7 +176,9 @@ export function GoogleButton({
 			className="flex w-full items-center justify-center rounded border bg-white p-2 text-gray-900"
 			disabled={submitting}
 			onClick={async () => {
-				if (submitting) return
+				if (submitting) {
+					return
+				}
 				setSubmitting(true)
 				try {
 					const isNewUser = await googleLogin()
@@ -219,8 +221,11 @@ export function BackButton() {
 			className="mr-2 grid h-7 w-7 place-items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 sm:mr-3"
 			icon={<FontAwesomeIcon icon={faArrowLeft} />}
 			onClick={() => {
-				if (history.length > 1) router.back()
-				else router.replace(user ? "/" : "/register")
+				if (history.length > 1) {
+					router.back()
+				} else {
+					router.replace(user ? "/" : "/register")
+				}
 			}}
 		/>
 	)

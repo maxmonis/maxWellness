@@ -1,10 +1,7 @@
 import { nanoid } from "nanoid"
 
 export const defaultLiftNames = ["Bench Press", "Deadlift", "Squat"].map(
-	text => ({
-		id: nanoid(),
-		text,
-	}),
+	text => ({ id: nanoid(), text }),
 )
 
 export const defaultWorkoutNames = [

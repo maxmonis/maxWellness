@@ -82,13 +82,17 @@ export function EditableListItem({
 							editableName.isHidden && "line-through",
 							newText.split(" ").some(word => word.length > 9) && "break-all",
 						)}
-						onClick={() => setEditing(true)}
+						onClick={() => {
+							setEditing(true)
+						}}
 					>
 						{newText}
 					</span>
 					<EditableItemMenu
 						onDeleteClick={handleDelete}
-						onEditClick={() => setEditing(true)}
+						onEditClick={() => {
+							setEditing(true)
+						}}
 						{...{ canHide, editableName, newText, onHideClick }}
 					/>
 				</>

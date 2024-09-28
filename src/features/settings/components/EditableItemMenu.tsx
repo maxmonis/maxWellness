@@ -31,8 +31,12 @@ export function EditableItemMenu({
 	onHideClick: () => void
 }) {
 	const [open, setOpen] = React.useState(false)
-	const ref = useOutsideClick(() => setOpen(false))
-	useKeypress("Escape", () => setOpen(false))
+	const ref = useOutsideClick(() => {
+		setOpen(false)
+	})
+	useKeypress("Escape", () => {
+		setOpen(false)
+	})
 
 	return (
 		<div className="relative" {...{ ref }}>
@@ -45,7 +49,9 @@ export function EditableItemMenu({
 						: "border-transparent",
 				)}
 				icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
-				onClick={() => setOpen(!open)}
+				onClick={() => {
+					setOpen(!open)
+				}}
 			/>
 			{open && (
 				<dialog className="absolute -left-24 top-8 z-10 flex flex-col gap-4 rounded-lg border border-slate-700 p-4">

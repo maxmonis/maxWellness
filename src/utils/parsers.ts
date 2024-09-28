@@ -5,8 +5,12 @@ import { hasChars, hasMessage } from "./validators"
  * Attempts to extract an error message, returning a default one if necessary
  */
 export function extractErrorMessage(error: unknown) {
-	if (hasChars(error)) return error
-	if (hasMessage(error)) return error.message
+	if (hasChars(error)) {
+		return error
+	}
+	if (hasMessage(error)) {
+		return error.message
+	}
 	return "An unexpected error occurred"
 }
 
