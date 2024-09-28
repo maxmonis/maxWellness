@@ -22,10 +22,10 @@ import {
 } from "firebase/firestore"
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
 import omit from "lodash/omit"
-import {generateSession} from "~/shared/functions/session"
-import {isProfile, isWorkout} from "~/shared/functions/validators"
-import {defaultLiftNames, defaultWorkoutNames} from "~/shared/utils/constants"
-import {Profile, UnsavedWorkout, Workout} from "~/shared/utils/models"
+import {generateSession} from "~/functions/session"
+import {isProfile, isWorkout} from "~/functions/validators"
+import {defaultLiftNames, defaultWorkoutNames} from "~/utils/constants"
+import {Profile, UnsavedWorkout, Workout} from "~/utils/models"
 
 const app = initializeApp({
   apiKey: process.env.NEXT_PUBLIC_API_KEY,

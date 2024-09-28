@@ -1,5 +1,5 @@
 import {useRouter} from "next/router"
-import {useSession} from "~/shared/hooks/useSession"
+import {useSession} from "~/hooks/useSession"
 import {isValidView} from "./workoutsFunctions"
 import {View} from "./workoutsModels"
 

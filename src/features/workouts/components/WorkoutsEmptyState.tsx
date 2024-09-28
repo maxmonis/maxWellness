@@ -1,4 +1,4 @@
-import {useSession} from "~/shared/hooks/useSession"
+import {useSession} from "~/hooks/useSession"
 
 /**
  * Contains a greeting and instructions on managing workouts

@@ -10,16 +10,16 @@ import classNames from "classnames"
 import omit from "lodash/omit"
 import {nanoid} from "nanoid"
 import React from "react"
-import {Button, IconButton} from "~/shared/components/CTA"
-import {useAlerts} from "~/shared/context/AlertContext"
+import {Button, IconButton} from "~/components/CTA"
+import {useAlerts} from "~/context/AlertContext"
 import {
   getDateText,
   getLiftNameText,
   getWorkoutNameText,
-} from "~/shared/functions/parsers"
-import {useKeypress} from "~/shared/hooks/useKeypress"
-import {useOutsideClick} from "~/shared/hooks/useOutsideClick"
-import {Exercise, Session, Workout} from "~/shared/utils/models"
+} from "~/functions/parsers"
+import {useKeypress} from "~/hooks/useKeypress"
+import {useOutsideClick} from "~/hooks/useOutsideClick"
+import {Exercise, Session, Workout} from "~/utils/models"
 import {getPrintout, groupExercisesByLift} from "../workoutsFunctions"
 import {View} from "../workoutsModels"
 

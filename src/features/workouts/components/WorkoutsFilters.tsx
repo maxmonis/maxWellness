@@ -1,9 +1,9 @@
 import sortBy from "lodash/sortBy"
 import React from "react"
-import {Checkbox} from "~/shared/components/CTA"
-import {useAlerts} from "~/shared/context/AlertContext"
-import {getLiftNameText, getWorkoutNameText} from "~/shared/functions/parsers"
-import {Session} from "~/shared/utils/models"
+import {Checkbox} from "~/components/CTA"
+import {useAlerts} from "~/context/AlertContext"
+import {getLiftNameText, getWorkoutNameText} from "~/functions/parsers"
+import {Session} from "~/utils/models"
 
 /**
  * Allows the user to filter workouts by name, date, etc.

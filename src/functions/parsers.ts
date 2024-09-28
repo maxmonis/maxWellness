@@ -1,4 +1,4 @@
-import {hasChars, hasMessage} from "~/shared/functions/validators"
+import {hasChars, hasMessage} from "~/functions/validators"
 import {EditableName} from "../utils/models"
 
 /**

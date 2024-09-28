@@ -1,6 +1,6 @@
 import {nanoid} from "nanoid"
-import {getPositiveInt} from "~/shared/functions/parsers"
-import {Exercise} from "~/shared/utils/models"
+import {getPositiveInt} from "~/functions/parsers"
+import {Exercise} from "~/utils/models"
 import {validViews} from "./workoutsConstants"
 import {View} from "./workoutsModels"
 

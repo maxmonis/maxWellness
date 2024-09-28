@@ -1,5 +1,5 @@
 import sortBy from "lodash/sortBy"
-import {Exercise, Profile, Workout} from "~/shared/utils/models"
+import {Exercise, Profile, Workout} from "~/utils/models"
 import {getLiftNameText, getWorkoutNameText} from "./parsers"
 
 export function generateSession(profile: Profile, workoutList: Array<Workout>) {

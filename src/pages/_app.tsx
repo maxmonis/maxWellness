@@ -5,11 +5,11 @@ import type {AppProps} from "next/app"
 import {Lato} from "next/font/google"
 import Head from "next/head"
 import {QueryClient, QueryClientProvider} from "react-query"
-import {Alerts} from "~/shared/components/Alerts"
-import {AlertContextProvider} from "~/shared/context/AlertContext"
-import {AuthContextProvider} from "~/shared/context/AuthContext"
-import "~/shared/styles/globals.css"
-import "~/shared/styles/transitions.css"
+import {Alerts} from "~/components/Alerts"
+import {AlertContextProvider} from "~/context/AlertContext"
+import {AuthContextProvider} from "~/context/AuthContext"
+import "~/styles/globals.css"
+import "~/styles/transitions.css"
 
 config.autoAddCss = false
 

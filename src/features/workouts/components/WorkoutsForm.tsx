@@ -10,14 +10,14 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd"
-import {Button, IconButton} from "~/shared/components/CTA"
-import {useAlerts} from "~/shared/context/AlertContext"
-import {getLiftNameText} from "~/shared/functions/parsers"
-import {useAddWorkout} from "~/shared/hooks/useAddWorkout"
-import {useMutating} from "~/shared/hooks/useMutating"
-import {useSession} from "~/shared/hooks/useSession"
-import {useUpdateWorkout} from "~/shared/hooks/useUpdateWorkout"
-import {Exercise, Session, Workout} from "~/shared/utils/models"
+import {Button, IconButton} from "~/components/CTA"
+import {useAlerts} from "~/context/AlertContext"
+import {getLiftNameText} from "~/functions/parsers"
+import {useAddWorkout} from "~/hooks/useAddWorkout"
+import {useMutating} from "~/hooks/useMutating"
+import {useSession} from "~/hooks/useSession"
+import {useUpdateWorkout} from "~/hooks/useUpdateWorkout"
+import {Exercise, Session, Workout} from "~/utils/models"
 import {createNewExercise, getPrintout} from "../workoutsFunctions"
 
 /**

@@ -1,7 +1,7 @@
+import {Page} from "~/components/Page"
 import {WorkoutsApp} from "~/features/workouts/components/WorkoutsApp"
 import {WorkoutsLoader} from "~/features/workouts/components/WorkoutsLoader"
-import {Page} from "~/shared/components/Page"
-import {useSession} from "~/shared/hooks/useSession"
+import {useSession} from "~/hooks/useSession"
 
 /**
  * Landing page which allows user to view and manage workouts

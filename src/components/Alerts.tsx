@@ -1,6 +1,6 @@
 import classNames from "classnames"
 import {CSSTransition, TransitionGroup} from "react-transition-group"
-import {useAlerts} from "~/shared/context/AlertContext"
+import {useAlerts} from "~/context/AlertContext"
 import {Button} from "./CTA"
 
 const bgColors = {

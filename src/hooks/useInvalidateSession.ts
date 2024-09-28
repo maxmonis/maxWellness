@@ -1,5 +1,5 @@
 import {useQueryClient} from "react-query"
-import {useAuth} from "~/shared/context/AuthContext"
+import {useAuth} from "~/context/AuthContext"
 
 /**
  * @returns a function which invalidates the user's session query
