@@ -47,6 +47,7 @@
 			"react-app/jest"
 		]
 	},
+	"license": "MIT",
 	"name": "next-wellness",
 	"private": true,
 	"scripts": {
