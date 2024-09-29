@@ -18,7 +18,7 @@ import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
  * Displays workout exercises and dates in a calendar
  * which can be filtered and/or have its axes toggled
  */
-export function WorkoutsTable({
+export function WorkoutsCalendar({
 	clearFilters,
 	filteredWorkouts,
 }: {

@@ -7,11 +7,11 @@ import React from "react"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 import { today } from "../utils/constants"
 import { eliminateRedundancy } from "../utils/functions"
+import { WorkoutsCalendar } from "./WorkoutsCalendar"
 import { WorkoutsFilters } from "./WorkoutsFilters"
 import { WorkoutsForm } from "./WorkoutsForm"
 import { WorkoutsHeader } from "./WorkoutsHeader"
 import { WorkoutsList } from "./WorkoutsList"
-import { WorkoutsTable } from "./WorkoutsTable"
 
 /**
  * Allows the user to view, filter, and update their workouts
@@ -81,7 +81,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	if (view === "calendar") {
 		return (
-			<WorkoutsTable
+			<WorkoutsCalendar
 				{...{
 					clearFilters,
 					filteredWorkouts,

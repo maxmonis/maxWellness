@@ -15,15 +15,15 @@ export function WorkoutsLoader() {
 				view === "calendar" && "border-slate-700 xl:max-w-5xl xl:border-r",
 			)}
 		>
-			{view !== "calendar" ? (
-				<WorkoutsHeader loading />
-			) : (
+			{view === "calendar" ? (
 				<div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 sm:px-6">
 					<div className="flex w-full items-end">
 						<BackButton />
 						<h1 className="text-xl font-bold">Calendar</h1>
 					</div>
 				</div>
+			) : (
+				<WorkoutsHeader loading />
 			)}
 			<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
 				{view === "list" ? (

@@ -42,7 +42,9 @@ export function WorkoutsHeader({
 									size="lg"
 								/>
 							}
-							onClick={() => changeView("create")}
+							onClick={() => {
+								changeView("create")
+							}}
 							text="Create"
 						/>
 						{(loading || workouts.length > 0) && (
@@ -55,7 +57,9 @@ export function WorkoutsHeader({
 											size="lg"
 										/>
 									}
-									onClick={() => changeView("filters")}
+									onClick={() => {
+										changeView("filters")
+									}}
 									text="Filters"
 								/>
 								<IconButton
@@ -66,7 +70,9 @@ export function WorkoutsHeader({
 											size="lg"
 										/>
 									}
-									onClick={() => changeView("calendar")}
+									onClick={() => {
+										changeView("calendar")
+									}}
 									text="Calendar"
 								/>
 							</div>
