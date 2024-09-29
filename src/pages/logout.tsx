@@ -8,7 +8,9 @@ import { useRouter } from "next/router"
 export default function LogoutPage() {
 	const router = useRouter()
 
-	logOut().finally(() => router.replace("/login"))
+	logOut().finally(() => {
+		router.replace("/login")
+	})
 
 	return <Page loading loadingText="Logging out..." />
 }

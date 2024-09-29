@@ -4,19 +4,19 @@ import React from "react"
  * @returns the width of the window in px, updated on resize
  */
 export function useViewport() {
-  const [width, setWidth] = React.useState(window.innerWidth)
+	const [width, setWidth] = React.useState(window.innerWidth)
 
-  React.useEffect(() => {
-    window.addEventListener("resize", handleWindowResize)
+	React.useEffect(() => {
+		window.addEventListener("resize", handleWindowResize)
 
-    return () => {
-      window.removeEventListener("resize", handleWindowResize)
-    }
-  }, [])
+		return () => {
+			window.removeEventListener("resize", handleWindowResize)
+		}
+	}, [])
 
-  return width
+	return width
 
-  function handleWindowResize() {
-    setWidth(window.innerWidth)
-  }
+	function handleWindowResize() {
+		setWidth(window.innerWidth)
+	}
 }
