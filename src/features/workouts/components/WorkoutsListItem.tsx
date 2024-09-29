@@ -90,6 +90,7 @@ export function WorkoutsListItem({
 										!workoutName?.isHidden &&
 										"cursor-pointer",
 								)}
+								translate="no"
 								{...(view === "create" &&
 									!workoutName?.isHidden && {
 										onClick: () =>
@@ -227,6 +228,7 @@ export function WorkoutsListItem({
 											!liftName?.isHidden &&
 											"cursor-pointer",
 									)}
+									translate="no"
 									{...(view === "create" &&
 										!liftName?.isHidden && {
 											onClick: () =>

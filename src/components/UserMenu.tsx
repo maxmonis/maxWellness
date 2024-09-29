@@ -51,7 +51,7 @@ export function UserMenu({ className = "" }) {
 				}}
 			/>
 			{open && (
-				<dialog className="absolute -left-28 bottom-10 z-10 flex w-min flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 sm:left-0">
+				<dialog className="absolute -left-28 bottom-10 z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 text-left sm:-left-2">
 					<DarkModeToggle />
 					<UserImage editable />
 					<IconButton
@@ -68,6 +68,7 @@ export function UserMenu({ className = "" }) {
 							})
 						}}
 						text="Logout"
+						textClass="leading-tight"
 					/>
 				</dialog>
 			)}

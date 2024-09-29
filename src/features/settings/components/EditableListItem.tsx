@@ -85,6 +85,7 @@ export function EditableListItem({
 						onClick={() => {
 							setEditing(true)
 						}}
+						translate="no"
 					>
 						{newText}
 					</span>

@@ -36,7 +36,10 @@ export default function RegisterPage() {
 					className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
 					{...{ onSubmit }}
 				>
-					<h1 className="mx-auto flex items-center gap-2 text-xl font-bold text-slate-50">
+					<h1
+						className="mx-auto flex items-center gap-2 text-xl font-bold text-slate-50"
+						translate="no"
+					>
 						<Image
 							alt="Logo"
 							className="h-6 w-6 min-w-max rounded-md border"

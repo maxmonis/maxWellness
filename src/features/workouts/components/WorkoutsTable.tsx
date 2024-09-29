@@ -130,7 +130,7 @@ export function WorkoutsTable({
 														)
 														.map(workout => (
 															<th
-																className="px-4 py-2 text-lg shadow-sm shadow-slate-700"
+																className="px-4 py-2 text-lg leading-tight shadow-sm shadow-slate-700"
 																key={workout.id}
 															>
 																{getDateText(workout.date)}
@@ -155,6 +155,7 @@ export function WorkoutsTable({
 																			.some(word => word.length > 9) &&
 																			"break-all",
 																	)}
+																	translate="no"
 																	key={liftId}
 																>
 																	{liftNameText}
@@ -180,7 +181,10 @@ export function WorkoutsTable({
 															)}
 															key={liftId}
 														>
-															<td className="px-4 py-2 leading-tight sm:text-lg">
+															<td
+																className="px-4 py-2 leading-tight sm:text-lg"
+																translate="no"
+															>
 																{liftNameText}
 															</td>
 															{filteredWorkouts
@@ -214,7 +218,7 @@ export function WorkoutsTable({
 														className="divide-x divide-slate-700 border-t border-slate-700"
 														key={workout.id}
 													>
-														<td className="px-4 py-2 sm:text-lg">
+														<td className="px-4 py-2 leading-tight sm:text-lg">
 															{getDateText(workout.date)}
 														</td>
 														{sortedLifts

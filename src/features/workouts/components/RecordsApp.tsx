@@ -14,8 +14,10 @@ export function RecordsApp() {
 	return (
 		<div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l border-slate-700 px-6 pb-6 max-lg:hidden xl:w-full">
 			<div className="h-full overflow-hidden pb-14">
-				<h2 className="mb-2 ml-1 mt-5 text-lg font-bold">Personal Bests</h2>
-				<div className="flex h-full flex-col gap-4 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
+				<h2 className="mb-2 ml-1 mt-6 text-lg font-bold leading-tight">
+					Personal Bests
+				</h2>
+				<ul className="flex h-full flex-col gap-4 overflow-y-auto rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-900">
 					{loading ? (
 						<p>Loading records...</p>
 					) : records.length === 0 ? (
@@ -31,23 +33,24 @@ export function RecordsApp() {
 								session?.profile.liftNames ?? [],
 							)
 							return (
-								<div key={exercise.id}>
+								<li key={exercise.id}>
 									<p
 										className={classNames(
 											liftNameText.split(" ").some(word => word.length > 9) &&
 												"break-all",
 										)}
+										translate="no"
 									>
 										{liftNameText}: {getPrintout(exercise)}
 									</p>
 									<p className="text-sm text-gray-600 dark:text-gray-400">
 										{getDateText(exercise.recordStartDate ?? "")}
 									</p>
-								</div>
+								</li>
 							)
 						})
 					)}
-				</div>
+				</ul>
 			</div>
 		</div>
 	)

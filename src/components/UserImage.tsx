@@ -54,7 +54,7 @@ export function UserImage({ editable = false }) {
 						/>
 					</Wrapper>
 				) : editable ? (
-					<Button className="whitespace-nowrap text-sm" {...{ onClick }}>
+					<Button className="text-left text-sm" {...{ onClick }}>
 						Add profile image
 					</Button>
 				) : (

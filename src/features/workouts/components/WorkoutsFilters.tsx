@@ -43,7 +43,7 @@ export function WorkoutsFilters({
 				{sortBy(appliedFilters.liftIds, ({ id }) =>
 					getLiftNameText(id, liftNames),
 				).map(({ checked, id }) => (
-					<li key={id}>
+					<li key={id} translate="no">
 						<Checkbox
 							onChange={e => {
 								updateWorkoutsFilter(e.target.value, "liftId")
@@ -60,7 +60,7 @@ export function WorkoutsFilters({
 				{sortBy(appliedFilters.nameIds, ({ id }) =>
 					getWorkoutNameText(id, workoutNames),
 				).map(({ checked, id }) => (
-					<li key={id}>
+					<li key={id} translate="no">
 						<Checkbox
 							onChange={e => {
 								updateWorkoutsFilter(e.target.value, "nameId")

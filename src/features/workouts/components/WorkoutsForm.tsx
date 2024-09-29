@@ -113,7 +113,7 @@ export function WorkoutsForm({
 											{...{ onChange }}
 										>
 											{activeLiftNames.map(({ text, id }) => (
-												<option key={id} value={id}>
+												<option key={id} translate="no" value={id}>
 													{text}
 												</option>
 											))}
@@ -138,7 +138,11 @@ export function WorkoutsForm({
 											},
 										].map(({ label, ...field }, i) => (
 											<div key={i}>
-												<label className="text-sm" htmlFor={label}>
+												<label
+													className="text-sm"
+													htmlFor={label}
+													{...(label !== "Weight" && { translate: "no" })}
+												>
 													{label}
 												</label>
 												<input
@@ -225,6 +229,7 @@ export function WorkoutsForm({
 												<span
 													className="overflow-hidden text-ellipsis leading-tight sm:text-lg"
 													{...dragHandleProps}
+													translate="no"
 												>
 													{`${getLiftNameText(
 														exercise.liftId,
@@ -265,7 +270,7 @@ export function WorkoutsForm({
 						{...{ onChange }}
 					>
 						{activeWorkoutNames.map(({ id, text }) => (
-							<option key={id} value={id}>
+							<option key={id} translate="no" value={id}>
 								{text}
 							</option>
 						))}

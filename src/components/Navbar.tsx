@@ -41,6 +41,7 @@ export default function Navbar() {
 							}
 							text="maxWellness"
 							textClass="max-sm:sr-only"
+							translate="no"
 						/>
 					</div>
 					{loading ? (
