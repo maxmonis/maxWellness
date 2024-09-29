@@ -35,45 +35,33 @@ export function WorkoutsHeader({
 					<div className="flex w-full items-end justify-between md:hidden">
 						<IconButton
 							color="blue"
-							icon={
-								<FontAwesomeIcon
-									className="max-xs:text-lg"
-									icon={faCirclePlus}
-									size="lg"
-								/>
-							}
+							className="max-xs:text-sm"
+							icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
 							onClick={() => {
 								changeView("create")
 							}}
 							text="Create"
+							textClass="max-xs:text-lg"
 						/>
 						{(loading || workouts.length > 0) && (
 							<div className="flex gap-6">
 								<IconButton
-									icon={
-										<FontAwesomeIcon
-											className="max-xs:text-lg"
-											icon={faFilter}
-											size="lg"
-										/>
-									}
+									className="max-xs:text-sm"
+									icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
 									onClick={() => {
 										changeView("filters")
 									}}
 									text="Filters"
+									textClass="max-xs:text-lg"
 								/>
 								<IconButton
-									icon={
-										<FontAwesomeIcon
-											className="max-xs:text-lg"
-											icon={faTable}
-											size="lg"
-										/>
-									}
+									className="max-xs:text-sm"
+									icon={<FontAwesomeIcon icon={faTable} size="lg" />}
 									onClick={() => {
 										changeView("calendar")
 									}}
 									text="Calendar"
+									textClass="max-xs:text-lg"
 								/>
 							</div>
 						)}
