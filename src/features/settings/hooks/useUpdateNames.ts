@@ -1,4 +1,4 @@
-import { updateProfile } from "@/firebase/app"
+import { updateSettings } from "@/firebase/app"
 import { useInvalidateSession } from "@/hooks/useInvalidateSession"
 import { useMutation } from "@tanstack/react-query"
 
@@ -9,7 +9,7 @@ export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
 	const onSettled = useInvalidateSession("profile")
 
 	return useMutation({
-		mutationFn: updateProfile,
+		mutationFn: updateSettings,
 		mutationKey: ["session", { type: "profile" }],
 		onSettled,
 		onSuccess,

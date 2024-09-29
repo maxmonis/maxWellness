@@ -20,7 +20,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	const router = useRouter()
 	const { showAlert } = useAlerts()
 
-	const { mutate: updateProfile } = useUpdateNames({
+	const { mutate: updateSettings } = useUpdateNames({
 		onSuccess() {
 			showAlert({
 				text: "Settings updated",
@@ -297,7 +297,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	function saveChanges() {
 		if (!mutating && hasChangeOccurred) {
 			setShowLeaveConfirmDialog(false)
-			updateProfile({
+			updateSettings({
 				...profile,
 				liftNames: liftNames.map(({ id, text, isHidden }) => ({
 					id,

@@ -1,7 +1,7 @@
 import { Button } from "@/components/CTA"
 import { uploadImage } from "@/firebase/app"
 import { useSession } from "@/hooks/useSession"
-import { useUpdateImage } from "@/hooks/useUpdateImage"
+import { useUpdateProfile } from "@/hooks/useUpdateProfile"
 import { extractErrorMessage } from "@/utils/parsers"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -16,7 +16,7 @@ import React from "react"
 export function UserImage({ editable = false }) {
 	const { session } = useSession()
 	const [newUrl, setNewUrl] = React.useState("")
-	const { mutate: updateImage } = useUpdateImage()
+	const { mutate: updateProfile } = useUpdateProfile()
 	const [uploading, setUploading] = React.useState(false)
 	const [error, setError] = React.useState("")
 	const inputRef = React.useRef<HTMLInputElement>(null)
@@ -76,7 +76,7 @@ export function UserImage({ editable = false }) {
 									`profile/${userId}/${file.name}`,
 								)
 								setNewUrl(url)
-								updateImage(url)
+								updateProfile({ photoURL: url })
 							} catch (error) {
 								setError(extractErrorMessage(error))
 								setTimeout(() => {

@@ -105,8 +105,11 @@ export async function uploadImage(file: File, path: string) {
 /**
  * Updates the user's profile image in the database
  */
-export async function updateImage(profileId: string, photoURL: string) {
-	return updateDoc(doc(db, "profile", profileId), { photoURL })
+export async function updateProfile(
+	profileId: string,
+	newFields: Partial<Profile>,
+) {
+	return updateDoc(doc(db, "profile", profileId), newFields)
 }
 
 /**
@@ -181,7 +184,7 @@ export async function signUp(name: string, email: string, password: string) {
  * Saves the user's updated profile to the database,
  * ensuring that no name is deleted if currently in use
  */
-export async function updateProfile({
+export async function updateSettings({
 	liftNames,
 	userId,
 	workoutNames,

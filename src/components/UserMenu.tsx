@@ -1,9 +1,15 @@
-import { IconButton } from "@/components/CTA"
+import { Button, IconButton } from "@/components/CTA"
 import { logOut } from "@/firebase/app"
 import { useKeypress } from "@/hooks/useKeypress"
 import { useOutsideClick } from "@/hooks/useOutsideClick"
 import { useSession } from "@/hooks/useSession"
-import { faMoon, faSignOut, faSun } from "@fortawesome/free-solid-svg-icons"
+import { useUpdateProfile } from "@/hooks/useUpdateProfile"
+import {
+	faEdit,
+	faMoon,
+	faSignOut,
+	faSun,
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import { useTheme } from "next-themes"
@@ -20,12 +26,21 @@ export function UserMenu({ className = "" }) {
 	const router = useRouter()
 
 	const [open, setOpen] = React.useState(false)
-	const ref = useOutsideClick(() => {
-		setOpen(false)
-	})
-	useKeypress("Escape", () => {
-		setOpen(false)
-	})
+	const ref = useOutsideClick(closeDialogs)
+	useKeypress("Escape", closeDialogs)
+
+	const [newName, setNewName] = React.useState("")
+	const [editingName, setEditingName] = React.useState(false)
+	const { mutate: updateProfile } = useUpdateProfile()
+
+	const dialogRef = React.useRef<HTMLDialogElement>(null)
+	React.useLayoutEffect(() => {
+		if (dialogRef.current?.open && !editingName) {
+			dialogRef.current?.close()
+		} else if (!dialogRef.current?.open && editingName) {
+			dialogRef.current?.showModal()
+		}
+	}, [editingName])
 
 	if (loading) {
 		return <></>
@@ -41,6 +56,39 @@ export function UserMenu({ className = "" }) {
 
 	return (
 		<div className={classNames("relative", className)} {...{ ref }}>
+			<dialog
+				ref={dialogRef}
+				className="fixed bottom-0 left-0 z-10 rounded-br-lg border-b border-r border-slate-700 p-6"
+			>
+				<form
+					onSubmit={e => {
+						e.preventDefault()
+						const userName = newName.trim()
+						if (userName && userName !== session.profile.userName) {
+							updateProfile({ userName })
+						}
+						closeDialogs()
+					}}
+				>
+					<h1 className="mb-4 text-xl font-bold">Update Name</h1>
+					<label htmlFor="userName">Name</label>
+					<input
+						autoFocus
+						id="userName"
+						maxLength={40}
+						onChange={e => {
+							setNewName(e.target.value.trim())
+						}}
+						value={newName}
+					/>
+					<div className="mt-6 flex justify-end gap-4">
+						<Button type="submit">Save Changes</Button>
+						<Button onClick={closeDialogs} type="button" variant="danger">
+							Cancel
+						</Button>
+					</div>
+				</form>
+			</dialog>
 			<IconButton
 				className="max-md:flex-row-reverse max-sm:p-2"
 				icon={<UserImage />}
@@ -51,17 +99,25 @@ export function UserMenu({ className = "" }) {
 				}}
 			/>
 			{open && (
-				<dialog className="absolute -left-28 bottom-10 z-10 flex flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 text-left sm:-left-2">
+				<dialog
+					className={classNames(
+						"absolute -left-28 bottom-10 z-10 flex w-40 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 text-left sm:-left-2",
+						editingName && "hidden",
+					)}
+				>
 					<DarkModeToggle />
 					<UserImage editable />
 					<IconButton
-						icon={
-							<FontAwesomeIcon
-								aria-label="Sign out"
-								icon={faSignOut}
-								size="lg"
-							/>
-						}
+						icon={<FontAwesomeIcon icon={faEdit} />}
+						onClick={() => {
+							setNewName(session.profile.userName)
+							setEditingName(true)
+						}}
+						text="Edit Name"
+						textClass="leading-tight"
+					/>
+					<IconButton
+						icon={<FontAwesomeIcon aria-label="Sign out" icon={faSignOut} />}
 						onClick={() => {
 							logOut().then(() => {
 								router.push("/login")
@@ -74,6 +130,12 @@ export function UserMenu({ className = "" }) {
 			)}
 		</div>
 	)
+
+	function closeDialogs() {
+		setOpen(false)
+		setNewName("")
+		setEditingName(false)
+	}
 }
 
 /**

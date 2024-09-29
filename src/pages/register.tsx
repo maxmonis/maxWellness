@@ -53,6 +53,7 @@ export default function RegisterPage() {
 					<div className="w-full">
 						<input
 							className="w-full rounded px-3 py-2"
+							maxLength={40}
 							name="userName"
 							placeholder="Name"
 							value={userName}
