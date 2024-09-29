@@ -8,14 +8,14 @@ export function useWorkoutView() {
 	const {
 		query: { view },
 	} = router
-	const { session } = useSession()
+	const { loading, session } = useSession()
 
 	const hasWorkouts = Boolean(session?.workouts.length)
-	const defaultView: View = hasWorkouts ? "list" : "create"
+	const defaultView: View = loading || hasWorkouts ? "list" : "create"
 
 	if (view === "list" || (view && !isValidView(view))) {
 		changeView(defaultView)
-	} else if (!hasWorkouts && view !== "create") {
+	} else if (!loading && !hasWorkouts && view !== "create") {
 		router.replace("/?view=create")
 	}
 

@@ -14,11 +14,19 @@ import { useWorkoutView } from "../hooks/useWorkoutView"
  */
 export function WorkoutsHeader({
 	editingWorkout,
+	loading,
 	workouts,
-}: {
-	editingWorkout: Workout | null
-	workouts: Array<Workout>
-}) {
+}:
+	| {
+			editingWorkout: Workout | null
+			loading?: never
+			workouts: Array<Workout>
+	  }
+	| {
+			editingWorkout?: never
+			loading: true
+			workouts?: never
+	  }) {
 	const { changeView, view } = useWorkoutView()
 	return (
 		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 sm:px-6">
@@ -37,7 +45,7 @@ export function WorkoutsHeader({
 							onClick={() => changeView("create")}
 							text="Create"
 						/>
-						{workouts.length > 0 && (
+						{(loading || workouts.length > 0) && (
 							<div className="flex gap-6">
 								<IconButton
 									icon={
@@ -68,7 +76,7 @@ export function WorkoutsHeader({
 				</>
 			) : (
 				<>
-					{workouts.length > 0 && <BackButton />}
+					{(loading || workouts.length > 0) && <BackButton />}
 					<h1 className="text-xl font-bold">
 						{view === "create"
 							? `${editingWorkout ? "Edit" : "New"} Workout`

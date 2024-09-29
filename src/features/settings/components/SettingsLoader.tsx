@@ -1,3 +1,4 @@
+import { BackButton } from "@/components/CTA"
 import classNames from "classnames"
 
 /**
@@ -7,7 +8,7 @@ export function SettingsLoader() {
 	return (
 		<div className="flex min-h-screen flex-col justify-between border-slate-700 xl:max-w-5xl xl:border-r">
 			<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
-				<span className="mb-1.5 mr-3 h-4 w-6 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700 sm:mr-4" />
+				<BackButton />
 				<h1 className="text-xl font-bold">Settings</h1>
 			</div>
 			<div className="flex w-full flex-grow justify-center">
