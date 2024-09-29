@@ -15,7 +15,7 @@ import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
 
 /**
- * Displays workout exercises and dates in a table view
+ * Displays workout exercises and dates in a calendar
  * which can be filtered and/or have its axes toggled
  */
 export function WorkoutsTable({
@@ -77,9 +77,7 @@ export function WorkoutsTable({
 					<div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 sm:px-6 sm:text-lg">
 						<div className="flex">
 							<BackButton />
-							<h1 className="text-xl font-bold">
-								{sortByDate ? "Dates" : "Exercises"}
-							</h1>
+							<h1 className="text-xl font-bold">Calendar</h1>
 						</div>
 						<div className="flex items-center justify-center gap-5">
 							<FontAwesomeIcon
@@ -96,7 +94,7 @@ export function WorkoutsTable({
 								size="lg"
 							/>
 							<IconButton
-								aria-label="Reverse x and y axes of table"
+								aria-label="Reverse x and y axes of calendar"
 								icon={<FontAwesomeIcon icon={faRotate} size="lg" />}
 								onClick={() => setSortByDate(!sortByDate)}
 							/>

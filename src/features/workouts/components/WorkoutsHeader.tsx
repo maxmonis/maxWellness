@@ -66,8 +66,8 @@ export function WorkoutsHeader({
 											size="lg"
 										/>
 									}
-									onClick={() => changeView("table")}
-									text="Table"
+									onClick={() => changeView("calendar")}
+									text="Calendar"
 								/>
 							</div>
 						)}

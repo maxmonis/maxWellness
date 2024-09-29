@@ -74,9 +74,9 @@ export default function Navbar() {
 										/>
 										<IconButton
 											className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-											href="/?view=table"
+											href="/?view=calendar"
 											icon={<FontAwesomeIcon icon={faTable} size="lg" />}
-											text="Table"
+											text="Calendar"
 										/>
 									</>
 								)}

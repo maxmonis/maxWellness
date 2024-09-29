@@ -70,7 +70,7 @@ export function Page({
 						)}
 					>
 						<div className="mx-auto flex w-screen max-w-7xl flex-col justify-between md:flex-row-reverse md:justify-end">
-							{router.pathname === "/" && router.query.view !== "table" && (
+							{router.pathname === "/" && router.query.view !== "calendar" && (
 								<RecordsApp />
 							)}
 							<div

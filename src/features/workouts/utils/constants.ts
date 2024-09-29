@@ -4,4 +4,4 @@ const month = (now.getMonth() + 1).toString().padStart(2, "0")
 const day = now.getDate().toString().padStart(2, "0")
 export const today = [year, month, day].join("-")
 
-export const validViews = ["list", "table", "filters", "create"] as const
+export const validViews = ["list", "calendar", "filters", "create"] as const

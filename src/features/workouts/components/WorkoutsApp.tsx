@@ -79,7 +79,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	React.useEffect(() => () => setPersistentAlert(null), [])
 
-	if (view === "table") {
+	if (view === "calendar") {
 		return (
 			<WorkoutsTable
 				{...{

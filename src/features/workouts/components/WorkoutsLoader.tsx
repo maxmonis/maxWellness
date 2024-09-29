@@ -12,16 +12,16 @@ export function WorkoutsLoader() {
 		<div
 			className={classNames(
 				"min-h-screen",
-				view === "table" && "border-slate-700 xl:max-w-5xl xl:border-r",
+				view === "calendar" && "border-slate-700 xl:max-w-5xl xl:border-r",
 			)}
 		>
-			{view !== "table" ? (
+			{view !== "calendar" ? (
 				<WorkoutsHeader loading />
 			) : (
 				<div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 sm:px-6">
 					<div className="flex w-full items-end">
 						<BackButton />
-						<h1 className="text-xl font-bold">Exercises</h1>
+						<h1 className="text-xl font-bold">Calendar</h1>
 					</div>
 				</div>
 			)}

@@ -23,8 +23,8 @@ export function WorkoutsEmptyState() {
 			</p>
 			<p>
 				Your workouts will be displayed in a scrollable list and you&apos;ll be
-				able to copy, edit, or delete them. Filters and a sortable table view
-				make it a snap to visualize your data.
+				able to copy, edit, or delete them. Filters and a sortable calendar make
+				it a snap to visualize your data.
 			</p>
 			<p>
 				While entering a new workout into the form on the left, clicking
