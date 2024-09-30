@@ -48,7 +48,7 @@
 		]
 	},
 	"license": "MIT",
-	"name": "next-wellness",
+	"name": "max-wellness.ca",
 	"private": true,
 	"scripts": {
 		"build": "next build",
