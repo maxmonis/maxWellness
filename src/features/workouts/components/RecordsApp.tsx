@@ -36,7 +36,7 @@ export function RecordsApp() {
 								<li key={exercise.id}>
 									<p
 										className={classNames(
-											liftNameText.split(" ").some(word => word.length > 9) &&
+											liftNameText.split(" ").some(word => word.length >= 12) &&
 												"break-all",
 										)}
 										translate="no"

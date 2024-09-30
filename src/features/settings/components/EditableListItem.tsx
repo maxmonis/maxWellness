@@ -80,7 +80,7 @@ export function EditableListItem({
 						className={classNames(
 							"leading-tight",
 							editableName.isHidden && "line-through",
-							newText.split(" ").some(word => word.length > 9) && "break-all",
+							newText.split(" ").some(word => word.length >= 12) && "break-all",
 						)}
 						onClick={() => {
 							setEditing(true)

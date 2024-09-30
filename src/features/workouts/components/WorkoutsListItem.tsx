@@ -84,7 +84,7 @@ export function WorkoutsListItem({
 						<h1 className="text-lg leading-tight sm:text-xl">
 							<span
 								className={classNames(
-									workoutNameText.split(" ").some(word => word.length > 9) &&
+									workoutNameText.split(" ").some(word => word.length >= 12) &&
 										"break-all",
 									view === "create" &&
 										!workoutName?.isHidden &&
@@ -222,7 +222,7 @@ export function WorkoutsListItem({
 								<span
 									className={classNames(
 										"leading-tight sm:text-lg",
-										liftNameText.split(" ").some(word => word.length > 9) &&
+										liftNameText.split(" ").some(word => word.length >= 12) &&
 											"break-all",
 										view === "create" &&
 											!liftName?.isHidden &&

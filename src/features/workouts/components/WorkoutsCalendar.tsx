@@ -150,7 +150,7 @@ export function WorkoutsCalendar({
 																		"px-4 py-2 text-lg leading-tight shadow-sm shadow-slate-700",
 																		liftNameText
 																			.split(" ")
-																			.some(word => word.length > 9) &&
+																			.some(word => word.length >= 12) &&
 																			"break-all",
 																	)}
 																	translate="no"
@@ -175,7 +175,8 @@ export function WorkoutsCalendar({
 																"divide-x divide-slate-700 border-t border-slate-700",
 																liftNameText
 																	.split(" ")
-																	.some(word => word.length > 9) && "break-all",
+																	.some(word => word.length >= 12) &&
+																	"break-all",
 															)}
 															key={liftId}
 														>
