@@ -1,9 +1,16 @@
-import { Button } from "@/components/CTA"
+import { Button, IconButton } from "@/components/CTA"
 import { useAlerts } from "@/context/AlertContext"
 import { Exercise, Session, Workout } from "@/utils/models"
+import {
+	faChevronCircleLeft,
+	faChevronCircleRight,
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useIsMutating } from "@tanstack/react-query"
+import classNames from "classnames"
 import React from "react"
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout"
+import { View } from "../utils/models"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
 import { WorkoutsListItem } from "./WorkoutsListItem"
 
@@ -16,6 +23,8 @@ export function WorkoutsList({
 	editingWorkout,
 	filteredWorkouts,
 	resetState,
+	showList,
+	toggleHideList,
 	view,
 	workouts,
 	...props
@@ -28,12 +37,14 @@ export function WorkoutsList({
 	resetState: () => void
 	setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
 	setValues: React.Dispatch<React.SetStateAction<typeof props.values>>
+	showList: boolean
+	toggleHideList?: () => void
 	updateRoutine: (newRoutine: Array<Exercise>) => void
 	values: Record<
 		"date" | "liftId" | "nameId" | "reps" | "sets" | "weight",
 		string
 	>
-	view: "create" | "filters" | "list"
+	view: Exclude<View, "calendar">
 	workouts: Array<Workout>
 	workoutNames: Session["profile"]["workoutNames"]
 }) {
@@ -54,66 +65,89 @@ export function WorkoutsList({
 	const [deletingId, setDeletingId] = React.useState<null | string>(null)
 
 	return (
-		<div className="flex w-full flex-grow">
-			<div className="flex w-full flex-1 flex-col">
-				<div className="h-screen overflow-hidden">
-					{editingWorkout ? (
-						<div>
-							<WorkoutsListItem
-								{...{
-									deletingId,
-									editingWorkout,
-									handleDelete,
-									handleDeleteClick,
-									setDeletingId,
-									view,
-									workouts,
-								}}
-								{...props}
-								workout={editingWorkout}
-							/>
-						</div>
-					) : (
-						<div className="flex h-full flex-col divide-y divide-slate-700 overflow-y-auto overflow-x-hidden">
-							{filteredWorkouts.length ? (
-								filteredWorkouts.map(workout => (
-									<WorkoutsListItem
-										key={workout.id}
-										{...{
-											deletingId,
-											editingWorkout,
-											handleDelete,
-											handleDeleteClick,
-											setDeletingId,
-											view,
-											workout,
-											workouts,
-										}}
-										{...props}
-									/>
-								))
-							) : (
-								<>
-									{workouts.length ? (
-										<div className="px-4 py-6 sm:px-6">
-											<div className="flex flex-wrap items-center gap-4">
-												<p className="text-lg font-bold text-red-500">
-													No results
-												</p>
-												<Button onClick={clearFilters} variant="secondary">
-													Clear Filters
-												</Button>
+		<div
+			className={classNames(
+				"relative flex flex-shrink flex-grow",
+				showList && "w-full",
+			)}
+		>
+			{showList ? (
+				<div className="flex w-full flex-1 flex-col">
+					<div className="h-screen overflow-hidden">
+						{editingWorkout ? (
+							<div>
+								<WorkoutsListItem
+									{...{
+										deletingId,
+										editingWorkout,
+										handleDelete,
+										handleDeleteClick,
+										setDeletingId,
+										view,
+										workouts,
+									}}
+									{...props}
+									workout={editingWorkout}
+								/>
+							</div>
+						) : (
+							<div className="flex h-full flex-col divide-y divide-slate-700 overflow-y-auto overflow-x-hidden">
+								{filteredWorkouts.length ? (
+									filteredWorkouts.map(workout => (
+										<WorkoutsListItem
+											key={workout.id}
+											{...{
+												deletingId,
+												editingWorkout,
+												handleDelete,
+												handleDeleteClick,
+												setDeletingId,
+												view,
+												workout,
+												workouts,
+											}}
+											{...props}
+										/>
+									))
+								) : (
+									<>
+										{workouts.length ? (
+											<div className="p-4 sm:p-6">
+												<div className="flex flex-wrap items-center gap-4">
+													<p className="text-lg font-bold text-red-500">
+														No results
+													</p>
+													<Button onClick={clearFilters} variant="secondary">
+														Clear Filters
+													</Button>
+												</div>
 											</div>
-										</div>
-									) : (
-										<WorkoutsEmptyState />
-									)}
-								</>
-							)}
-						</div>
-					)}
+										) : (
+											<WorkoutsEmptyState />
+										)}
+									</>
+								)}
+							</div>
+						)}
+					</div>
 				</div>
-			</div>
+			) : (
+				<div className="h-screen max-h-full w-4" />
+			)}
+			{toggleHideList && (
+				<IconButton
+					className="absolute -left-3 top-4"
+					icon={
+						<FontAwesomeIcon
+							className="bg-white text-slate-700 dark:bg-black dark:text-white"
+							icon={showList ? faChevronCircleRight : faChevronCircleLeft}
+							size="lg"
+						/>
+					}
+					onClick={toggleHideList}
+					title={`${showList ? "Hide" : "Show"} workouts`}
+				/>
+			)}
 		</div>
 	)
 

@@ -1,7 +1,9 @@
 import { useAlerts } from "@/context/AlertContext"
 import { useUpdateEvent } from "@/hooks/useUpdateEvent"
+import { useViewport } from "@/hooks/useViewport"
 import { StorageService } from "@/services/StorageService"
 import { Exercise, Session, Workout } from "@/utils/models"
+import classNames from "classnames"
 import sortBy from "lodash/sortBy"
 import React from "react"
 import { useWorkoutView } from "../hooks/useWorkoutView"
@@ -29,6 +31,11 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	const { changeView, defaultView, view } = useWorkoutView()
 	const { setPersistentAlert } = useAlerts()
+
+	const width = useViewport()
+	const isMobile = width <= 425
+	const [hideList, setHideList] = React.useState(true)
+	const showList = view !== "create" || !hideList || !isMobile
 
 	const [editingWorkout, setEditingWorkout] = React.useState<Workout | null>(
 		null,
@@ -70,6 +77,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	}, [liftNames])
 
 	React.useEffect(() => {
+		setHideList(true)
 		if (editingWorkout && view !== "create") {
 			setEditingWorkout(null)
 		}
@@ -95,7 +103,12 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 			<WorkoutsHeader {...{ editingWorkout, workouts }} />
 			<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center divide-x divide-slate-700 border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
 				{view !== "list" && (
-					<div className="flex w-full min-w-[10rem] max-w-xs flex-grow overflow-x-hidden">
+					<div
+						className={classNames(
+							"relative flex w-full min-w-[10rem] flex-grow overflow-x-hidden",
+							showList && "max-w-sm",
+						)}
+					>
 						<div className="flex w-full flex-grow flex-col">
 							<div className="w-full overflow-hidden max-md:h-full">
 								<div className="h-full overflow-y-auto overflow-x-hidden p-4 sm:p-6">
@@ -144,12 +157,19 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 						resetState,
 						setEditingWorkout,
 						setValues,
+						showList,
 						updateRoutine,
 						values,
 						view,
 						workoutNames,
 						workouts,
 					}}
+					{...(isMobile &&
+						view === "create" && {
+							toggleHideList() {
+								setHideList(!hideList)
+							},
+						})}
 				/>
 			</div>
 		</div>
