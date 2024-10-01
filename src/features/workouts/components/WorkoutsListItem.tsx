@@ -135,7 +135,9 @@ export function WorkoutsListItem({
 										: "border-transparent",
 								)}
 								icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
-								onClick={() => setOpen(!open)}
+								onClick={() => {
+									setOpen(!open)
+								}}
 							/>
 							{open && (
 								<dialog className="absolute -left-28 top-8 z-10 flex flex-col gap-4 rounded-lg border border-slate-700 p-4">
@@ -190,20 +192,22 @@ export function WorkoutsListItem({
 											aria-label="Edit this workout"
 											className="text-lg"
 											icon={<FontAwesomeIcon icon={faPen} />}
-											onClick={() =>
+											onClick={() => {
 												setEditingWorkout(
 													editingWorkout?.id === workout.id
 														? null
 														: workouts.find(({ id }) => id === workout.id) ??
 																workout,
 												)
-											}
+											}}
 											text="Edit"
 										/>
 										<IconButton
 											aria-label="Delete this workout"
 											icon={<FontAwesomeIcon icon={faTrash} />}
-											onClick={() => handleDeleteClick(workout.id)}
+											onClick={() => {
+												handleDeleteClick(workout.id)
+											}}
 											text="Delete"
 										/>
 									</div>
@@ -284,10 +288,21 @@ export function WorkoutsListItem({
 			</div>
 			{view === "list" && deletingId === workout.id && (
 				<div className="flex flex-col items-center justify-evenly gap-4">
-					<Button onClick={() => handleDelete(workout.id)} variant="danger">
+					<Button
+						onClick={() => {
+							handleDelete(workout.id)
+						}}
+						variant="danger"
+					>
 						Delete
 					</Button>
-					<Button onClick={() => setDeletingId(null)}>Cancel</Button>
+					<Button
+						onClick={() => {
+							setDeletingId(null)
+						}}
+					>
+						Cancel
+					</Button>
 				</div>
 			)}
 		</div>

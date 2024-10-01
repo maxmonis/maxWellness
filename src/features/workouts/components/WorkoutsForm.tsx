@@ -172,14 +172,14 @@ export function WorkoutsForm({
 											{(sets || reps || weight) && (
 												<Button
 													className="mx-auto"
-													onClick={() =>
+													onClick={() => {
 														setValues({
 															...defaultValues,
 															date,
 															nameId,
 															liftId,
 														})
-													}
+													}}
 												>
 													Clear
 												</Button>
@@ -244,7 +244,9 @@ export function WorkoutsForm({
 												{draggingOver !== "ExerciseForm" && (
 													<IconButton
 														icon={<FontAwesomeIcon icon={faX} size="sm" />}
-														onClick={() => deleteExercise(exercise.id)}
+														onClick={() => {
+															deleteExercise(exercise.id)
+														}}
 													/>
 												)}
 											</li>
@@ -299,7 +301,9 @@ export function WorkoutsForm({
 						<Button
 							className="mx-auto"
 							type="button"
-							onClick={() => updateRoutine([])}
+							onClick={() => {
+								updateRoutine([])
+							}}
 						>
 							Reset
 						</Button>

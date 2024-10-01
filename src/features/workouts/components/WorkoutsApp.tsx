@@ -84,8 +84,12 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [view])
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	React.useEffect(() => () => setPersistentAlert(null), [])
+	React.useEffect(() => {
+		return () => {
+			setPersistentAlert(null)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	if (view === "calendar") {
 		return (

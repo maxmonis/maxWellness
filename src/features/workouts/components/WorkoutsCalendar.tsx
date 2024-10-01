@@ -87,25 +87,27 @@ export function WorkoutsCalendar({
 										? "cursor-pointer"
 										: "cursor-default opacity-0",
 								)}
-								onClick={() =>
+								onClick={() => {
 									horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
-								}
+								}}
 								icon={faArrowLeft}
 								size="lg"
 							/>
 							<IconButton
 								aria-label="Reverse x and y axes of calendar"
 								icon={<FontAwesomeIcon icon={faRotate} size="lg" />}
-								onClick={() => setSortByDate(!sortByDate)}
+								onClick={() => {
+									setSortByDate(!sortByDate)
+								}}
 							/>
 							<FontAwesomeIcon
 								aria-label="View next column"
 								className={classNames(
 									canIncrement ? "cursor-pointer" : "cursor-default opacity-0",
 								)}
-								onClick={() =>
+								onClick={() => {
 									canIncrement && setHorizontalIndex(horizontalIndex + 1)
-								}
+								}}
 								icon={faArrowRight}
 								size="lg"
 							/>
