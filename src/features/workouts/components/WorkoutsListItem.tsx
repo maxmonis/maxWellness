@@ -256,15 +256,6 @@ export function WorkoutsListItem({
 										)}
 										{...(view === "create" && {
 											onClick() {
-												setValues({
-													...values,
-													liftId: !liftName?.isHidden ? liftId : values.liftId,
-													sets: exercise.sets ? exercise.sets.toString() : "",
-													reps: exercise.reps ? exercise.reps.toString() : "",
-													weight: exercise.weight
-														? exercise.weight.toString()
-														: "",
-												})
 												addExercise({
 													...omit(exercise, [
 														"recordStartDate",
