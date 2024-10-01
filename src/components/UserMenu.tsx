@@ -126,6 +126,9 @@ export function UserMenu({ className = "" }) {
 						text="Logout"
 						textClass="leading-tight"
 					/>
+					<p className="text-sm leading-tight sm:hidden">
+						{session.profile.userName}
+					</p>
 				</dialog>
 			)}
 		</div>
