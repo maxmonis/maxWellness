@@ -217,64 +217,83 @@ export function WorkoutsListItem({
 					)}
 				</div>
 				<ul>
-					{groupExercisesByLift(workout.routine).map((exerciseList, j) => {
-						const [{ liftId }] = exerciseList
-						const liftName = liftNames.find(({ id }) => id === liftId)
-						const liftNameText = getLiftNameText(liftId, liftNames)
-						return (
-							<li key={j} className="mt-2 flex flex-wrap">
-								<span
-									className={classNames(
-										"leading-tight sm:text-lg",
-										liftNameText.split(" ").some(word => word.length >= 12) &&
-											"break-all",
-										view === "create" &&
-											!liftName?.isHidden &&
-											"cursor-pointer",
-									)}
-									translate="no"
-									{...(view === "create" &&
-										!liftName?.isHidden && {
-											onClick: () =>
-												setValues({
-													...values,
-													liftId,
-												}),
-											title: "Click to copy",
-										})}
-								>
-									{liftNameText}:
-								</span>
-								{exerciseList.map((exercise, k) => (
-									<span
-										key={k}
-										className={classNames(
-											"leading-tight sm:text-lg",
-											view === "create" &&
-												!liftName?.isHidden &&
-												"cursor-pointer",
-										)}
-										{...(view === "create" && {
-											onClick() {
-												addExercise({
-													...omit(exercise, [
-														"recordStartDate",
-														"recordEndDate",
-													]),
-													id: nanoid(),
-												})
-											},
-											title: "Click to copy",
-										})}
-									>
-										&nbsp;
-										{getPrintout(exercise)}
-										{k !== exerciseList.length - 1 && ","}
-									</span>
-								))}
-							</li>
-						)
-					})}
+					{view === "create"
+						? workout.routine.map((exercise, i) => {
+								const liftName = liftNames.find(
+									({ id }) => id === exercise.liftId,
+								)
+								const liftNameText = getLiftNameText(exercise.liftId, liftNames)
+								return (
+									<li key={i} className="mt-2 flex flex-wrap">
+										<span
+											className={classNames(
+												"leading-tight sm:text-lg",
+												liftName?.isHidden
+													? "text-gray-600 dark:text-gray-400"
+													: "cursor-pointer",
+											)}
+											{...(!liftName?.isHidden && {
+												onClick() {
+													addExercise({
+														...omit(exercise, [
+															"recordStartDate",
+															"recordEndDate",
+														]),
+														id: nanoid(),
+													})
+												},
+												title: "Click to copy",
+											})}
+										>
+											<span
+												className={classNames(
+													"leading-tight sm:text-lg",
+													liftNameText
+														.split(" ")
+														.some(word => word.length >= 12) && "break-all",
+												)}
+												translate="no"
+											>
+												{liftNameText}:&nbsp;
+											</span>
+											{getPrintout(exercise)}
+										</span>
+									</li>
+								)
+						  })
+						: groupExercisesByLift(workout.routine).map((exerciseList, j) => {
+								const [{ liftId }] = exerciseList
+								const liftName = liftNames.find(({ id }) => id === liftId)
+								const liftNameText = getLiftNameText(liftId, liftNames)
+								return (
+									<li key={j} className="mt-2 flex flex-wrap">
+										<span
+											className={classNames(
+												"leading-tight sm:text-lg",
+												liftNameText
+													.split(" ")
+													.some(word => word.length >= 12) && "break-all",
+											)}
+											translate="no"
+										>
+											{liftNameText}:
+										</span>
+										{exerciseList.map((exercise, k) => (
+											<span
+												key={k}
+												className={classNames(
+													"leading-tight sm:text-lg",
+													!liftName?.isHidden && "cursor-pointer",
+												)}
+											>
+												&nbsp;
+												{getPrintout(exercise)}
+												{k !== exerciseList.length - 1 && ","}
+											</span>
+										))}
+									</li>
+								)
+						  })}
 				</ul>
 			</div>
 			{view === "list" && deletingId === workout.id && (

@@ -198,7 +198,7 @@ export function WorkoutsForm({
 					)}
 				</Droppable>
 			</form>
-			{routine.length > 0 && (
+			{routine.length > 0 ? (
 				<div>
 					<Droppable droppableId="ExerciseList">
 						{({ droppableProps, innerRef: droppableRef, placeholder }) => (
@@ -258,6 +258,16 @@ export function WorkoutsForm({
 						)}
 					</Droppable>
 				</div>
+			) : (
+				<p className="pt-4">
+					Create your workout using the form above
+					{session?.workouts.length
+						? " and/or by clicking exercises in the list to the right. " +
+						  "You can also copy the name or date of an existing workout"
+						: ". Valid exercises must include either a weight or at least " +
+						  "one rep. You can drag and drop to reorder the list"}
+					.
+				</p>
 			)}
 			<div>
 				<div className="mt-6">

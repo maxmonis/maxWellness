@@ -35,7 +35,7 @@ export function useSession() {
 			const profile = results[0].data
 			const workouts = results[1].data
 			return {
-				error: results.find(result => result.error),
+				error: results.find(result => result.error)?.error,
 				loading: results.some(result => result.isPending),
 				session:
 					profile && workouts ? generateSession(profile, workouts) : null,
