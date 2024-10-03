@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 export function SettingsLoader() {
 	return (
 		<div className="flex min-h-screen flex-col justify-between border-slate-700 xl:max-w-5xl xl:border-r">
-			<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
+			<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 xl:px-6">
 				<BackButton />
 				<h1 className="text-xl font-bold">Settings</h1>
 			</div>
@@ -18,8 +18,8 @@ export function SettingsLoader() {
 							className="flex w-full flex-grow flex-col items-center overflow-hidden"
 							key={i}
 						>
-							<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 sm:px-6">
-								<h2 className="mx-auto mb-4 text-center text-lg font-bold sm:text-xl">
+							<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 xl:px-6">
+								<h2 className="mx-auto mb-4 text-center text-lg font-bold">
 									{i ? "Workouts" : "Exercises"}
 								</h2>
 								<div className="flex">

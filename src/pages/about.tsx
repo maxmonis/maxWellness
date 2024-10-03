@@ -17,17 +17,15 @@ export default function InfoPage() {
 	return (
 		<Page title="About">
 			<div className="w-full border-slate-700 xl:max-w-5xl xl:border-r">
-				<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 sm:px-6">
+				<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 xl:px-6">
 					<BackButton />
 					<h1 className="text-xl font-bold">About</h1>
 				</div>
-				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 sm:px-6 sm:text-lg md:max-h-[calc(100dvh-3.5rem)]">
+				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 md:max-h-[calc(100dvh-3.5rem)] xl:px-6">
 					<div className="flex flex-col gap-12 pb-12 pt-6">
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold sm:text-xl">
-									Overview
-								</h3>
+								<h3 className="text-center text-lg font-bold">Overview</h3>
 								<p>
 									This website allows you to create a free account using your
 									Google credentials (recommended) or an email/password
@@ -41,7 +39,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold sm:text-xl">
+								<h3 className="text-center text-lg font-bold">
 									Creating Workouts
 								</h3>
 								<p>
@@ -75,7 +73,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold sm:text-xl">
+								<h3 className="text-center text-lg font-bold">
 									Managing Names
 								</h3>
 								<p>
@@ -91,7 +89,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold sm:text-xl">
+								<h3 className="text-center text-lg font-bold">
 									Managing Workouts
 								</h3>
 								<p>
@@ -105,7 +103,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold sm:text-xl">
+								<h3 className="text-center text-lg font-bold">
 									Tips and Tricks
 								</h3>
 								<p>

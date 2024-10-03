@@ -79,7 +79,7 @@ export function WorkoutsForm({
 				setDragging(true)
 			}}
 		>
-			<form className="flex h-40 flex-col" {...{ onSubmit }}>
+			<form className="mt-1 flex h-40 flex-col" {...{ onSubmit }}>
 				<Droppable droppableId="ExerciseForm">
 					{(
 						{ droppableProps, innerRef: droppableRef, placeholder },
@@ -224,7 +224,7 @@ export function WorkoutsForm({
 												{...draggableProps}
 											>
 												<span
-													className="overflow-hidden text-ellipsis leading-tight sm:text-lg"
+													className="overflow-hidden text-ellipsis leading-tight"
 													{...dragHandleProps}
 													translate="no"
 												>

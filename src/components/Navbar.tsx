@@ -25,8 +25,8 @@ export default function Navbar() {
 
 	return (
 		<div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:max-w-min md:border-r">
-			<div className="flex h-full w-full flex-col items-center justify-center px-2 md:h-full md:justify-between md:overflow-y-scroll md:px-4">
-				<div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 sm:py-5 md:h-full md:flex-col md:items-start md:justify-start">
+			<div className="flex h-full w-full flex-col items-center justify-center px-2 md:h-full md:justify-between md:overflow-y-scroll md:px-4 xl:px-6">
+				<div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 md:h-full md:flex-col md:items-start md:justify-start md:py-5">
 					<div className="md:mb-4">
 						<Link
 							className={cn(
@@ -61,7 +61,7 @@ export default function Navbar() {
 										href={homeHref}
 									>
 										<HomeIcon className="h-5 w-5" />
-										<span className="font-bold">Home</span>
+										<span className="font-bold md:w-16">Home</span>
 									</Link>
 								)}
 								<Link
@@ -72,7 +72,7 @@ export default function Navbar() {
 									href="/?view=create"
 								>
 									<PlusIcon className="h-5 w-5" />
-									<span className="font-bold">Create</span>
+									<span className="font-bold md:w-16">Create</span>
 								</Link>
 								{hasWorkouts && (
 									<>
@@ -84,7 +84,7 @@ export default function Navbar() {
 											href="/?view=filters"
 										>
 											<MagnifyingGlassIcon className="h-5 w-5" />
-											<span className="font-bold">Filters</span>
+											<span className="font-bold md:w-16">Filters</span>
 										</Link>
 										<Link
 											className={cn(
@@ -94,7 +94,7 @@ export default function Navbar() {
 											href="/?view=calendar"
 										>
 											<CalendarIcon className="h-5 w-5" />
-											<span className="font-bold">Calendar</span>
+											<span className="font-bold md:w-16">Calendar</span>
 										</Link>
 									</>
 								)}
@@ -107,7 +107,9 @@ export default function Navbar() {
 								href="/settings"
 							>
 								<GearIcon className="h-5 w-5" />
-								<span className="font-bold max-xs:sr-only">Settings</span>
+								<span className="font-bold max-xs:sr-only md:w-16">
+									Settings
+								</span>
 							</Link>
 							<Link
 								className={cn(
@@ -117,7 +119,7 @@ export default function Navbar() {
 								href="/about"
 							>
 								<QuestionMarkCircledIcon className="h-5 w-5" />
-								<span className="font-bold max-xs:sr-only">About</span>
+								<span className="font-bold max-xs:sr-only md:w-16">About</span>
 							</Link>
 						</>
 					) : (
@@ -129,7 +131,7 @@ export default function Navbar() {
 							href="/register"
 						>
 							<PersonIcon className="h-5 w-5" />
-							<span className="font-bold">Sign Up</span>
+							<span className="font-bold md:w-16">Sign Up</span>
 						</Link>
 					)}
 					<div className="mb-6 max-md:hidden" />

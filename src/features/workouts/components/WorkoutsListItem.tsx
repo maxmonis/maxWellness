@@ -85,15 +85,15 @@ export function WorkoutsListItem({
 		<div
 			key={workout.id}
 			className={cn(
-				"h-min justify-between gap-6 p-4 pb-6 last:mb-2 sm:gap-10 sm:p-6",
+				"h-min justify-between gap-6 px-4 pb-6 pt-4 last:mb-2 sm:gap-10 xl:px-6",
 				editingWorkout?.id === workout.id && "italic",
 				view === "list" ? "flex" : "sm:flex",
 			)}
 		>
 			<div className="w-full">
-				<div className="mb-4 flex justify-between">
+				<div className="mb-2 flex justify-between">
 					<div>
-						<h1 className="text-lg leading-tight sm:text-xl">
+						<h1 className="text-lg leading-tight">
 							<span
 								className={cn(
 									workoutNameText.split(" ").some(word => word.length >= 12) &&
@@ -116,7 +116,7 @@ export function WorkoutsListItem({
 								{workoutNameText}
 							</span>
 						</h1>
-						<h2 className="mt-2 leading-tight">
+						<h2 className="mt-1 leading-tight">
 							<span
 								className={cn(
 									view === "create"
@@ -139,7 +139,11 @@ export function WorkoutsListItem({
 					{view === "list" && (
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button className="-mr-2 -mt-2" size="icon" variant="ghost">
+								<Button
+									className="-mr-1.5 max-xl:-mt-1.5"
+									size="icon"
+									variant="ghost"
+								>
 									<HamburgerMenuIcon className="h-5 w-5" />
 								</Button>
 							</DropdownMenuTrigger>
@@ -262,7 +266,7 @@ export function WorkoutsListItem({
 									<li key={i} className="mt-2 flex flex-wrap">
 										<span
 											className={cn(
-												"leading-tight sm:text-lg",
+												"leading-tight",
 												liftName?.isHidden
 													? "text-gray-600 dark:text-gray-400"
 													: "cursor-pointer",
@@ -282,7 +286,7 @@ export function WorkoutsListItem({
 										>
 											<span
 												className={cn(
-													"leading-tight sm:text-lg",
+													"leading-tight",
 													liftNameText
 														.split(" ")
 														.some(word => word.length >= 12) && "break-all",
@@ -303,7 +307,7 @@ export function WorkoutsListItem({
 									<li key={j} className="mt-2 flex flex-wrap">
 										<span
 											className={cn(
-												"leading-tight sm:text-lg",
+												"leading-tight",
 												liftNameText
 													.split(" ")
 													.some(word => word.length >= 12) && "break-all",
@@ -313,7 +317,7 @@ export function WorkoutsListItem({
 											{liftNameText}:
 										</span>
 										{exerciseList.map((exercise, k) => (
-											<span key={k} className="leading-tight sm:text-lg">
+											<span key={k} className="leading-tight">
 												&nbsp;
 												{getPrintout(exercise)}
 												{k !== exerciseList.length - 1 && ","}

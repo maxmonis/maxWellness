@@ -6,8 +6,8 @@ import { useSession } from "@/hooks/useSession"
 export function WorkoutsEmptyState() {
 	const { session } = useSession()
 	return (
-		<div className="flex flex-col gap-4 p-4 sm:p-6 sm:text-lg">
-			<h2 className="text-lg font-bold sm:text-xl">
+		<div className="flex flex-col gap-4 p-4 xl:p-6">
+			<h2 className="text-lg font-bold">
 				Hi {session?.profile.userName}, welcome to maxWellness!
 			</h2>
 			<p>

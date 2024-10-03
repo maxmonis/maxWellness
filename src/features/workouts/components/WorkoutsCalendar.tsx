@@ -74,7 +74,7 @@ export function WorkoutsCalendar({
 		<div className="flex min-h-screen w-full justify-center border-slate-700 xl:max-w-5xl xl:border-r">
 			<div className="w-full flex-col divide-x divide-slate-700 overflow-hidden">
 				<div className="flex w-full flex-1 flex-col items-center border-slate-700">
-					<div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 sm:px-6 sm:text-lg">
+					<div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 xl:px-6">
 						<div className="flex">
 							<BackButton />
 							<h1 className="text-xl font-bold">Calendar</h1>
@@ -183,7 +183,7 @@ export function WorkoutsCalendar({
 															key={liftId}
 														>
 															<td
-																className="px-4 py-2 leading-tight sm:text-lg"
+																className="px-4 py-2 leading-tight"
 																translate="no"
 															>
 																{liftNameText}
@@ -195,7 +195,7 @@ export function WorkoutsCalendar({
 																)
 																.map(workout => (
 																	<td
-																		className="px-4 py-2 sm:text-lg"
+																		className="px-4 py-2"
 																		key={liftId + workout.id}
 																	>
 																		{groupExercisesByLift(
@@ -219,7 +219,7 @@ export function WorkoutsCalendar({
 														className="divide-x divide-slate-700 border-t border-slate-700"
 														key={workout.id}
 													>
-														<td className="px-4 py-2 leading-tight sm:text-lg">
+														<td className="px-4 py-2 leading-tight">
 															{getDateText(workout.date)}
 														</td>
 														{sortedLifts
@@ -229,7 +229,7 @@ export function WorkoutsCalendar({
 															)
 															.map(({ liftId }) => (
 																<td
-																	className="px-4 py-2 sm:text-lg"
+																	className="px-4 py-2"
 																	key={liftId + workout.id}
 																>
 																	{groupExercisesByLift(
@@ -251,9 +251,7 @@ export function WorkoutsCalendar({
 								</table>
 							) : (
 								<div className="flex items-center justify-center gap-4 p-6">
-									<p className="font-bold text-red-500 sm:text-lg">
-										No results
-									</p>
+									<p className="font-bold text-red-500">No results</p>
 									<Button onClick={clearFilters} variant="secondary">
 										Clear Filters
 									</Button>

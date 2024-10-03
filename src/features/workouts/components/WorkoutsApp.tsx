@@ -115,7 +115,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 					>
 						<div className="flex w-full flex-grow flex-col">
 							<div className="w-full overflow-hidden max-md:h-full">
-								<div className="h-full overflow-y-auto overflow-x-hidden p-4 sm:p-6">
+								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 xl:px-6">
 									{view === "filters" ? (
 										<WorkoutsFilters
 											{...{

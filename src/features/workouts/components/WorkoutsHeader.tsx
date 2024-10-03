@@ -31,7 +31,7 @@ export function WorkoutsHeader({
 	  }) {
 	const { view } = useWorkoutView()
 	return (
-		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 sm:px-6">
+		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 xl:px-6">
 			{view === "list" ? (
 				<>
 					<div className="flex w-full items-end justify-between md:hidden">

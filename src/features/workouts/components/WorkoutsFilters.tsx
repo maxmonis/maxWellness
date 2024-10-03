@@ -38,8 +38,8 @@ export function WorkoutsFilters({
 
 	return (
 		<div>
-			<h2 className="text-lg font-bold sm:text-xl">Exercise Name</h2>
-			<ul className="mb-10 mt-4 flex flex-col gap-3 sm:text-lg">
+			<h2 className="text-lg font-bold">Exercise Name</h2>
+			<ul className="mb-8 mt-3 flex flex-col gap-3">
 				{sortBy(appliedFilters.liftIds, ({ id }) =>
 					getLiftNameText(id, liftNames),
 				).map(({ checked, id }) => (
@@ -55,8 +55,8 @@ export function WorkoutsFilters({
 					</li>
 				))}
 			</ul>
-			<h2 className="text-lg font-bold sm:text-xl">Workout Name</h2>
-			<ul className="mb-10 mt-4 flex flex-col gap-3 sm:text-lg">
+			<h2 className="text-lg font-bold">Workout Name</h2>
+			<ul className="mb-8 mt-3 flex flex-col gap-3">
 				{sortBy(appliedFilters.nameIds, ({ id }) =>
 					getWorkoutNameText(id, workoutNames),
 				).map(({ checked, id }) => (
@@ -72,8 +72,8 @@ export function WorkoutsFilters({
 					</li>
 				))}
 			</ul>
-			<h2 className="text-lg font-bold sm:text-xl">Workout Date</h2>
-			<div className="mb-2 mt-4 sm:text-lg">
+			<h2 className="text-lg font-bold">Workout Date</h2>
+			<div className="mb-2 mt-4">
 				<Checkbox
 					key="chronology"
 					checked={appliedFilters.newestFirst}
