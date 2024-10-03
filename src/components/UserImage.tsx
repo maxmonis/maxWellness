@@ -1,22 +1,23 @@
-import { Button } from "@/components/CTA"
 import { uploadImage } from "@/firebase/app"
 import { useSession } from "@/hooks/useSession"
-import { useUpdateProfile } from "@/hooks/useUpdateProfile"
+import { cn } from "@/lib/utils"
 import { extractErrorMessage } from "@/utils/parsers"
-import { faUser } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
-import Image from "next/image"
+import { PersonIcon } from "@radix-ui/react-icons"
 import React from "react"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 /**
  * Displays the user's profile image, allowing them to
  * upload a new one if they're in the editable view
  */
-export function UserImage({ editable = false }) {
-	const { session } = useSession()
+export function UserImage({
+	editable,
+	handleNewUrl,
+}:
+	| { editable?: never; handleNewUrl?: never }
+	| { editable: true; handleNewUrl: (url: string) => void }) {
+	const { loading, session } = useSession()
 	const [newUrl, setNewUrl] = React.useState("")
-	const { mutate: updateProfile } = useUpdateProfile()
 	const [uploading, setUploading] = React.useState(false)
 	const [error, setError] = React.useState("")
 	const inputRef = React.useRef<HTMLInputElement>(null)
@@ -31,34 +32,32 @@ export function UserImage({ editable = false }) {
 	return (
 		<div>
 			<div
-				className={classNames(
+				className={cn(
 					"relative flex items-center",
-					src && (editable ? "h-24 w-24" : "h-8 w-8"),
+					src && (editable ? "h-40 w-40" : "h-8 w-8"),
 				)}
 			>
 				{uploading ? (
 					<span
 						aria-busy="true"
-						className="h-24 w-24 animate-spin rounded-full border-2 border-slate-700 border-r-transparent"
+						className="h-40 w-40 animate-spin rounded-full border-2 border-slate-700 border-r-transparent"
 						role="alert"
 					/>
-				) : src ? (
-					<Wrapper {...(editable && { onClick })}>
-						<Image
-							alt={`${userName} profile image`}
-							className="flex flex-shrink-0 rounded-full border border-slate-700 object-cover"
-							fill
-							sizes="10rem"
-							priority
-							{...{ src }}
-						/>
-					</Wrapper>
-				) : editable ? (
-					<Button className="text-left text-sm" {...{ onClick }}>
-						Add profile image
-					</Button>
 				) : (
-					<FontAwesomeIcon icon={faUser} size="lg" />
+					<Wrapper {...(editable && { onClick })}>
+						<Avatar className="h-full w-full border border-slate-700">
+							<AvatarImage
+								alt={`${userName} profile image`}
+								className="object-cover"
+								{...{ src }}
+							/>
+							<AvatarFallback>
+								<PersonIcon
+									className={cn(editable ? "h-40 w-40" : "h-7 w-7")}
+								/>
+							</AvatarFallback>
+						</Avatar>
+					</Wrapper>
 				)}
 				{editable && (
 					<input
@@ -76,7 +75,7 @@ export function UserImage({ editable = false }) {
 									`profile/${userId}/${file.name}`,
 								)
 								setNewUrl(url)
-								updateProfile({ photoURL: url })
+								handleNewUrl(url)
 							} catch (error) {
 								setError(extractErrorMessage(error))
 								setTimeout(() => {
@@ -115,7 +114,12 @@ function Wrapper({
 		return <>{children}</>
 	}
 	return (
-		<button title="Update profile image" {...{ onClick }}>
+		<button
+			className="rounded-full"
+			title="Upload new profile image"
+			type="button"
+			{...{ onClick }}
+		>
 			{children}
 		</button>
 	)

@@ -1,5 +1,6 @@
 import { Button, IconButton } from "@/components/CTA"
-import { useAlerts } from "@/context/AlertContext"
+import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 import { Exercise, Session, Workout } from "@/utils/models"
 import {
 	faChevronCircleLeft,
@@ -7,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useIsMutating } from "@tanstack/react-query"
-import classNames from "classnames"
 import React from "react"
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout"
 import { View } from "../utils/models"
@@ -48,15 +48,12 @@ export function WorkoutsList({
 	workouts: Array<Workout>
 	workoutNames: Session["profile"]["workoutNames"]
 }) {
-	const { showAlert } = useAlerts()
+	const { toast } = useToast()
 
 	const { mutate: deleteWorkout } = useDeleteWorkout({
 		onSuccess() {
 			resetState()
-			showAlert({
-				text: "Workout Deleted",
-				type: "success",
-			})
+			toast({ title: "Workout Deleted" })
 		},
 	})
 	const mutationCount = useIsMutating()
@@ -66,7 +63,7 @@ export function WorkoutsList({
 
 	return (
 		<div
-			className={classNames(
+			className={cn(
 				"relative flex flex-shrink flex-grow",
 				showList && "w-full",
 			)}

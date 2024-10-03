@@ -1,6 +1,6 @@
 import { BackButton, Button, IconButton } from "@/components/CTA"
-import { useAlerts } from "@/context/AlertContext"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
+import { useToast } from "@/hooks/use-toast"
 import { EditableName, Profile } from "@/utils/models"
 import { faCheckCircle, faXmarkSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -18,14 +18,11 @@ import { EditableListItem } from "./EditableListItem"
  */
 export function SettingsApp({ profile }: { profile: Profile }) {
 	const router = useRouter()
-	const { showAlert } = useAlerts()
+	const { toast } = useToast()
 
 	const { mutate: updateSettings } = useUpdateNames({
 		onSuccess() {
-			showAlert({
-				text: "Settings updated",
-				type: "success",
-			})
+			toast({ title: "Settings updated" })
 		},
 	})
 	const mutationCount = useIsMutating()

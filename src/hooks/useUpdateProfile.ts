@@ -1,13 +1,14 @@
-import { useAlerts } from "@/context/AlertContext"
+import { ToastMessage } from "@/components/ToastMessage"
 import { updateProfile } from "@/firebase/app"
 import { useInvalidateSession } from "@/hooks/useInvalidateSession"
 import { useSession } from "@/hooks/useSession"
 import { useMutation } from "@tanstack/react-query"
+import { useToast } from "./use-toast"
 
 export function useUpdateProfile() {
 	const onSettled = useInvalidateSession("profile")
 	const { session } = useSession()
-	const { showAlert } = useAlerts()
+	const { toast } = useToast()
 
 	return useMutation({
 		async mutationFn(newFields: Parameters<typeof updateProfile>[1]) {
@@ -16,9 +17,9 @@ export function useUpdateProfile() {
 		mutationKey: ["session", { type: "profile" }],
 		onSettled,
 		onSuccess() {
-			showAlert({
-				text: "Profile updated",
-				type: "success",
+			toast({
+				description: ToastMessage(),
+				title: "Profile updated",
 			})
 		},
 	})

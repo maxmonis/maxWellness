@@ -1,16 +1,18 @@
-import { IconButton } from "@/components/CTA"
-import { useKeypress } from "@/hooks/useKeypress"
-import { useOutsideClick } from "@/hooks/useOutsideClick"
+import { Button } from "@/components/ui/button"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { EditableName } from "@/utils/models"
 import {
-	faEllipsis,
-	faMinusCircle,
-	faPen,
-	faTrash,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
-import React from "react"
+	HamburgerMenuIcon,
+	MinusCircledIcon,
+	Pencil2Icon,
+	PlusCircledIcon,
+	TrashIcon,
+} from "@radix-ui/react-icons"
 
 /**
  * Allows the user to update/hide a name, and also to delete it if it's unused
@@ -30,60 +32,31 @@ export function EditableItemMenu({
 	onEditClick: () => void
 	onHideClick: () => void
 }) {
-	const [open, setOpen] = React.useState(false)
-	const ref = useOutsideClick(() => {
-		setOpen(false)
-	})
-	useKeypress("Escape", () => {
-		setOpen(false)
-	})
-
 	return (
-		<div className="relative" {...{ ref }}>
-			<IconButton
-				aria-label="Toggle menu"
-				className={classNames(
-					"flex items-center justify-center rounded-lg border-2 p-1 hover:border-slate-300 dark:hover:border-slate-700",
-					open
-						? "border-slate-300 dark:border-slate-700"
-						: "border-transparent",
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button size="icon" variant="ghost">
+					<HamburgerMenuIcon className="h-5 w-5" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent>
+				<DropdownMenuItem className="flex gap-1.5" onClick={onEditClick}>
+					<Pencil2Icon />
+					Edit
+				</DropdownMenuItem>
+				{((canHide && !isHidden) || isHidden) && (
+					<DropdownMenuItem className="flex gap-1.5" onClick={onHideClick}>
+						{isHidden ? <PlusCircledIcon /> : <MinusCircledIcon />}
+						{isHidden ? "Unhide" : "Hide"}
+					</DropdownMenuItem>
 				)}
-				icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
-				onClick={() => {
-					setOpen(!open)
-				}}
-			/>
-			{open && (
-				<dialog className="absolute -left-24 top-8 z-10 flex flex-col gap-4 rounded-lg border border-slate-700 p-4">
-					<IconButton
-						aria-label={`Edit ${newText}`}
-						icon={<FontAwesomeIcon icon={faPen} />}
-						onClick={onEditClick}
-						text="Edit"
-						textClass="whitespace-nowrap"
-					/>
-					{((canHide && !isHidden) || isHidden) && (
-						<IconButton
-							aria-label={`${isHidden ? "Unhide" : "Hide"} ${newText}`}
-							icon={<FontAwesomeIcon icon={faMinusCircle} />}
-							onClick={onHideClick}
-							text={isHidden ? "Unhide" : "Hide"}
-						/>
-					)}
-					{canDelete && (
-						<IconButton
-							icon={
-								<FontAwesomeIcon
-									aria-label={`Delete ${newText}`}
-									icon={faTrash}
-								/>
-							}
-							onClick={onDeleteClick}
-							text="Delete"
-						/>
-					)}
-				</dialog>
-			)}
-		</div>
+				{canDelete && (
+					<DropdownMenuItem className="flex gap-1.5" onClick={onDeleteClick}>
+						<TrashIcon />
+						Delete
+					</DropdownMenuItem>
+				)}
+			</DropdownMenuContent>
+		</DropdownMenu>
 	)
 }

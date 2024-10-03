@@ -1,12 +1,12 @@
 import { Button, IconButton } from "@/components/CTA"
-import { useAlerts } from "@/context/AlertContext"
+import { useToast } from "@/hooks/use-toast"
 import { useSession } from "@/hooks/useSession"
+import { cn } from "@/lib/utils"
 import { Exercise, Session, Workout } from "@/utils/models"
 import { getLiftNameText } from "@/utils/parsers"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useIsMutating } from "@tanstack/react-query"
-import classNames from "classnames"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
 import React from "react"
@@ -57,17 +57,14 @@ export function WorkoutsForm({
 	const [workoutError, setWorkoutError] = React.useState("")
 
 	const { session } = useSession()
-	const { showAlert } = useAlerts()
+	const { toast } = useToast()
 	const getConfig = (action: "saved" | "updated") => ({
 		onSuccess() {
 			if (action === "saved") {
 				updateRoutine([])
 			}
 			resetState()
-			showAlert({
-				text: `Workout ${action}`,
-				type: "success",
-			})
+			toast({ title: `Workout ${action}` })
 		},
 	})
 	const { mutate: addWorkout } = useAddWorkout(getConfig("saved"))
@@ -91,7 +88,7 @@ export function WorkoutsForm({
 						<div ref={droppableRef} {...droppableProps}>
 							{dragging ? (
 								<div
-									className={classNames(
+									className={cn(
 										"grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700",
 										isDraggingOver
 											? "scale-105 border-blue-800 bg-blue-50 text-blue-800"
@@ -147,7 +144,7 @@ export function WorkoutsForm({
 												</label>
 												<input
 													autoFocus={i === 0 && routine.length === 0}
-													className={classNames(
+													className={cn(
 														"flex flex-shrink xs:pl-3",
 														field.value.length < 3 ? "pl-2" : "pl-1",
 													)}
@@ -218,7 +215,7 @@ export function WorkoutsForm({
 											{ draggingOver },
 										) => (
 											<li
-												className={classNames(
+												className={cn(
 													"flex items-center justify-between gap-2 py-2",
 													draggingOver === "ExerciseForm" &&
 														"rounded-lg border border-blue-900 bg-white px-2 text-blue-900",

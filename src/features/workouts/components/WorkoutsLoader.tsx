@@ -1,5 +1,5 @@
 import { BackButton } from "@/components/CTA"
-import classNames from "classnames"
+import { cn } from "@/lib/utils"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 import { WorkoutsHeader } from "./WorkoutsHeader"
 
@@ -10,7 +10,7 @@ export function WorkoutsLoader() {
 	const { view } = useWorkoutView()
 	return (
 		<div
-			className={classNames(
+			className={cn(
 				"min-h-screen",
 				view === "calendar" && "border-slate-700 xl:max-w-5xl xl:border-r",
 			)}
@@ -36,7 +36,7 @@ export function WorkoutsLoader() {
 								>
 									<div className="flex flex-col">
 										<span
-											className={classNames(
+											className={cn(
 												"mb-3 h-5 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
 												i % 2 ? "w-32" : "w-24",
 											)}

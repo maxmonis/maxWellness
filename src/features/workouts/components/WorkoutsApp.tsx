@@ -1,9 +1,9 @@
 import { useAlerts } from "@/context/AlertContext"
 import { useUpdateEvent } from "@/hooks/useUpdateEvent"
 import { useViewport } from "@/hooks/useViewport"
+import { cn } from "@/lib/utils"
 import { StorageService } from "@/services/StorageService"
 import { Exercise, Session, Workout } from "@/utils/models"
-import classNames from "classnames"
 import sortBy from "lodash/sortBy"
 import React from "react"
 import { useWorkoutView } from "../hooks/useWorkoutView"
@@ -108,7 +108,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 			<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center divide-x divide-slate-700 border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
 				{view !== "list" && (
 					<div
-						className={classNames(
+						className={cn(
 							"relative flex w-full min-w-[10rem] flex-grow overflow-x-hidden",
 							showList && "max-w-sm",
 						)}

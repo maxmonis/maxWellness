@@ -1,8 +1,8 @@
 import { useAuth } from "@/context/AuthContext"
 import { googleLogin } from "@/firebase/app"
+import { cn } from "@/lib/utils"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -24,7 +24,7 @@ export function Button({
 }) {
 	return (
 		<button
-			className={classNames(
+			className={cn(
 				"flex items-center justify-center gap-2 rounded-lg text-lg font-bold leading-tight outline-none focus:ring-2 aria-busy:cursor-default",
 				{
 					"bg-blue-800 px-4 py-2 font-semibold text-white":
@@ -49,7 +49,7 @@ export function Button({
 			{loading && variant && ["primary", "secondary"].includes(variant) && (
 				<span
 					aria-busy="true"
-					className={classNames(
+					className={cn(
 						"h-4 w-4 animate-spin rounded-full border-2 border-r-transparent",
 						variant === "primary" ? "border-white" : "border-blue-700",
 					)}
@@ -82,7 +82,7 @@ export function IconButton({
 		| { textClass?: string; text: string; textSide?: "left" | "right" }
 		| { textClass?: never; text?: never; textSide?: never }
 	)) {
-	const classes = classNames(
+	const classes = cn(
 		"flex gap-2 items-center text-lg font-bold",
 		props.disabled
 			? "text-gray-500 dark:text-gray-400 cursor-not-allowed"

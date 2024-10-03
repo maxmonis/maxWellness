@@ -1,8 +1,8 @@
 import { Button, IconButton } from "@/components/CTA"
+import { cn } from "@/lib/utils"
 import { EditableName } from "@/utils/models"
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
 import React from "react"
 import { isTextAlreadyInList } from "../utils/functions"
 import { EditableItemMenu } from "./EditableItemMenu"
@@ -77,7 +77,7 @@ export function EditableListItem({
 				<>
 					<span
 						aria-label={`Edit ${newText}`}
-						className={classNames(
+						className={cn(
 							"leading-tight",
 							editableName.isHidden && "line-through",
 							newText.split(" ").some(word => word.length >= 12) && "break-all",

@@ -1,11 +1,13 @@
-import { BackButton, IconButton } from "@/components/CTA"
+import { BackButton } from "@/components/CTA"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { Workout } from "@/utils/models"
 import {
-	faCirclePlus,
-	faFilter,
-	faTable,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+	CalendarIcon,
+	MagnifyingGlassIcon,
+	PlusIcon,
+} from "@radix-ui/react-icons"
+import Link from "next/link"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 
 /**
@@ -27,42 +29,47 @@ export function WorkoutsHeader({
 			loading: true
 			workouts?: never
 	  }) {
-	const { changeView, view } = useWorkoutView()
+	const { view } = useWorkoutView()
 	return (
 		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 sm:px-6">
 			{view === "list" ? (
 				<>
 					<div className="flex w-full items-end justify-between md:hidden">
-						<IconButton
-							color="blue"
-							className="max-xs:text-sm"
-							icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
-							onClick={() => {
-								changeView("create")
-							}}
-							text="Create"
-							textClass="max-xs:text-lg"
-						/>
+						<Link
+							className={cn(
+								"flex gap-1.5",
+								buttonVariants({ variant: "default" }),
+							)}
+							href="/?view=create"
+							shallow
+						>
+							<PlusIcon className="h-5 w-5" />
+							<span className="font-bold">Create</span>
+						</Link>
 						{(loading || workouts.length > 0) && (
-							<div className="flex gap-6">
-								<IconButton
-									className="max-xs:text-sm"
-									icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
-									onClick={() => {
-										changeView("filters")
-									}}
-									text="Filters"
-									textClass="max-xs:text-lg"
-								/>
-								<IconButton
-									className="max-xs:text-sm"
-									icon={<FontAwesomeIcon icon={faTable} size="lg" />}
-									onClick={() => {
-										changeView("calendar")
-									}}
-									text="Calendar"
-									textClass="max-xs:text-lg"
-								/>
+							<div className="flex gap-4">
+								<Link
+									className={cn(
+										"flex w-full gap-1.5",
+										buttonVariants({ variant: "outline" }),
+									)}
+									href="/?view=filters"
+									shallow
+								>
+									<MagnifyingGlassIcon className="h-5 w-5" />
+									<span className="font-bold max-xs:sr-only">Filters</span>
+								</Link>
+								<Link
+									className={cn(
+										"flex w-full gap-1.5",
+										buttonVariants({ variant: "outline" }),
+									)}
+									href="/?view=calendar"
+									shallow
+								>
+									<CalendarIcon className="h-5 w-5" />
+									<span className="font-bold max-xs:sr-only">Calendar</span>
+								</Link>
 							</div>
 						)}
 					</div>

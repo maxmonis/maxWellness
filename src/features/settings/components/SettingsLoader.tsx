@@ -1,5 +1,5 @@
 import { BackButton } from "@/components/CTA"
-import classNames from "classnames"
+import { cn } from "@/lib/utils"
 
 /**
  * Displays a loading skeleton for the /settings route
@@ -34,7 +34,7 @@ export function SettingsLoader() {
 													key={`${i}-${j}-${k}`}
 												>
 													<span
-														className={classNames(
+														className={cn(
 															"h-4 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:h-5",
 															k ? "w-16" : "w-20",
 															((i + j) * k) % 5 && "max-xs:h-7 xs:w-28",

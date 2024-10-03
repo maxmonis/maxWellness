@@ -1,7 +1,22 @@
-import { Button, IconButton } from "@/components/CTA"
-import { useAlerts } from "@/context/AlertContext"
-import { useKeypress } from "@/hooks/useKeypress"
-import { useOutsideClick } from "@/hooks/useOutsideClick"
+import { Button } from "@/components/ui/button"
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 import { Exercise, Session, Workout } from "@/utils/models"
 import {
 	getDateText,
@@ -9,14 +24,12 @@ import {
 	getWorkoutNameText,
 } from "@/utils/parsers"
 import {
-	faClipboard,
-	faCopy,
-	faEllipsis,
-	faPen,
-	faTrash,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
+	ClipboardCopyIcon,
+	ClipboardIcon,
+	HamburgerMenuIcon,
+	Pencil2Icon,
+	TrashIcon,
+} from "@radix-ui/react-icons"
 import omit from "lodash/omit"
 import { nanoid } from "nanoid"
 import React from "react"
@@ -63,16 +76,15 @@ export function WorkoutsListItem({
 	workouts: Array<Workout>
 	workoutNames: Session["profile"]["workoutNames"]
 }) {
-	const { showAlert } = useAlerts()
-	const [open, setOpen] = React.useState(false)
-	const ref = useOutsideClick(() => setOpen(false))
-	useKeypress("Escape", () => setOpen(false))
+	const { toast } = useToast()
 	const workoutName = workoutNames.find(n => n.id === workout.id)
 	const workoutNameText = getWorkoutNameText(workout.nameId, workoutNames)
+	const buttonRef = React.createRef<HTMLButtonElement>()
+
 	return (
 		<div
 			key={workout.id}
-			className={classNames(
+			className={cn(
 				"h-min justify-between gap-6 p-4 pb-6 last:mb-2 sm:gap-10 sm:p-6",
 				editingWorkout?.id === workout.id && "italic",
 				view === "list" ? "flex" : "sm:flex",
@@ -83,7 +95,7 @@ export function WorkoutsListItem({
 					<div>
 						<h1 className="text-lg leading-tight sm:text-xl">
 							<span
-								className={classNames(
+								className={cn(
 									workoutNameText.split(" ").some(word => word.length >= 12) &&
 										"break-all",
 									view === "create" &&
@@ -106,10 +118,10 @@ export function WorkoutsListItem({
 						</h1>
 						<h2 className="mt-2 leading-tight">
 							<span
-								className={classNames(
+								className={cn(
 									view === "create"
 										? "cursor-pointer"
-										: "text-gray-600 dark:text-gray-400",
+										: "text-sm text-gray-600 dark:text-gray-400",
 								)}
 								{...(view === "create" && {
 									onClick: () =>
@@ -124,96 +136,119 @@ export function WorkoutsListItem({
 							</span>
 						</h2>
 					</div>
-					{view === "list" && deletingId !== workout.id && (
-						<div className="relative" {...{ ref }}>
-							<IconButton
-								aria-label="Toggle menu"
-								className={classNames(
-									"flex items-center justify-center rounded-lg border-2 p-1 hover:border-slate-300 dark:hover:border-slate-700",
-									open
-										? "border-slate-300 dark:border-slate-700"
-										: "border-transparent",
-								)}
-								icon={<FontAwesomeIcon icon={faEllipsis} size="lg" />}
-								onClick={() => {
-									setOpen(!open)
-								}}
-							/>
-							{open && (
-								<dialog className="absolute -left-28 top-8 z-10 flex flex-col gap-4 rounded-lg border border-slate-700 p-4">
-									<div className="flex flex-col justify-evenly gap-y-4">
-										<IconButton
-											aria-label="Duplicate this workout's name and exercises"
-											icon={<FontAwesomeIcon icon={faCopy} />}
-											onClick={() => {
-												const copiedRoutine = workouts
-													.find(({ id }) => id === workout.id)
-													?.routine.map(exercise => ({
-														...exercise,
-														id: nanoid(),
-													}))
-												if (copiedRoutine) {
-													updateRoutine(copiedRoutine)
-													setValues({ ...values, nameId: workout.nameId })
-													setOpen(false)
-												} else {
-													showAlert({
-														text: "Duplication failed",
-														type: "danger",
-													})
-												}
-											}}
-											text="Duplicate"
-										/>
-										{navigator?.clipboard && (
-											<IconButton
-												aria-label="Copy this workout's name and exercises to clipboard"
-												icon={<FontAwesomeIcon icon={faClipboard} />}
-												onClick={() => {
-													navigator.clipboard
-														.writeText(
-															getClipboardText(
-																workouts.find(({ id }) => id === workout.id) ??
-																	workout,
-															),
-														)
-														.then(() => {
-															showAlert({
-																text: "Copied to clipboard",
-																type: "success",
-															})
-															setOpen(false)
-														})
-												}}
-												text="Clipboard"
-											/>
-										)}
-										<IconButton
-											aria-label="Edit this workout"
-											className="text-lg"
-											icon={<FontAwesomeIcon icon={faPen} />}
-											onClick={() => {
-												setEditingWorkout(
-													editingWorkout?.id === workout.id
-														? null
-														: workouts.find(({ id }) => id === workout.id) ??
-																workout,
+					{view === "list" && (
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button className="-mr-2 -mt-2" size="icon" variant="ghost">
+									<HamburgerMenuIcon className="h-5 w-5" />
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DropdownMenuItem
+									className="gap-2"
+									onClick={() => {
+										const copiedRoutine = workouts
+											.find(({ id }) => id === workout.id)
+											?.routine.map(exercise => ({
+												...exercise,
+												id: nanoid(),
+											}))
+										if (copiedRoutine) {
+											updateRoutine(copiedRoutine)
+											setValues({ ...values, nameId: workout.nameId })
+										} else {
+											toast({
+												title: "Duplication failed",
+												variant: "destructive",
+											})
+										}
+									}}
+								>
+									<ClipboardCopyIcon />
+									Duplicate
+								</DropdownMenuItem>
+								{navigator.clipboard && (
+									<DropdownMenuItem
+										className="gap-2"
+										onClick={() => {
+											navigator.clipboard
+												.writeText(
+													getClipboardText(
+														workouts.find(({ id }) => id === workout.id) ??
+															workout,
+													),
 												)
-											}}
-											text="Edit"
-										/>
-										<IconButton
-											aria-label="Delete this workout"
-											icon={<FontAwesomeIcon icon={faTrash} />}
-											onClick={() => {
-												handleDeleteClick(workout.id)
-											}}
-											text="Delete"
-										/>
-									</div>
-								</dialog>
-							)}
-						</div>
+												.then(() => {
+													toast({ title: "Copied to clipboard" })
+												})
+										}}
+									>
+										<ClipboardIcon />
+										Clipboard
+									</DropdownMenuItem>
+								)}
+								<DropdownMenuItem
+									className="gap-2"
+									onClick={() => {
+										setEditingWorkout(
+											editingWorkout?.id === workout.id
+												? null
+												: workouts.find(({ id }) => id === workout.id) ??
+														workout,
+										)
+									}}
+								>
+									<Pencil2Icon />
+									Edit
+								</DropdownMenuItem>
+								<Dialog
+									onOpenChange={open => {
+										if (!open) {
+											buttonRef.current?.click()
+										}
+									}}
+								>
+									<DialogTrigger asChild>
+										<Button
+											className="w-full cursor-default justify-start gap-2 px-2 py-1.5 font-normal"
+											variant="ghost"
+										>
+											<TrashIcon />
+											Delete
+										</Button>
+									</DialogTrigger>
+									<DialogContent className="gap-6">
+										<DialogHeader>
+											<DialogTitle>Delete workout?</DialogTitle>
+											<DialogDescription>
+												This action cannot be undone
+											</DialogDescription>
+										</DialogHeader>
+										<DialogFooter className="gap-y-2">
+											<DialogClose asChild>
+												<Button type="button" variant="ghost">
+													Cancel
+												</Button>
+											</DialogClose>
+											<DialogClose asChild>
+												<Button
+													onClick={() => {
+														handleDelete(workout.id)
+													}}
+													type="button"
+													variant="destructive"
+												>
+													Yes, delete
+												</Button>
+											</DialogClose>
+										</DialogFooter>
+									</DialogContent>
+								</Dialog>
+								<DropdownMenuItem className="hidden">
+									<button ref={buttonRef} />
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
 					)}
 				</div>
 				<ul>
@@ -226,7 +261,7 @@ export function WorkoutsListItem({
 								return (
 									<li key={i} className="mt-2 flex flex-wrap">
 										<span
-											className={classNames(
+											className={cn(
 												"leading-tight sm:text-lg",
 												liftName?.isHidden
 													? "text-gray-600 dark:text-gray-400"
@@ -246,7 +281,7 @@ export function WorkoutsListItem({
 											})}
 										>
 											<span
-												className={classNames(
+												className={cn(
 													"leading-tight sm:text-lg",
 													liftNameText
 														.split(" ")
@@ -263,12 +298,11 @@ export function WorkoutsListItem({
 						  })
 						: groupExercisesByLift(workout.routine).map((exerciseList, j) => {
 								const [{ liftId }] = exerciseList
-								const liftName = liftNames.find(({ id }) => id === liftId)
 								const liftNameText = getLiftNameText(liftId, liftNames)
 								return (
 									<li key={j} className="mt-2 flex flex-wrap">
 										<span
-											className={classNames(
+											className={cn(
 												"leading-tight sm:text-lg",
 												liftNameText
 													.split(" ")
@@ -279,13 +313,7 @@ export function WorkoutsListItem({
 											{liftNameText}:
 										</span>
 										{exerciseList.map((exercise, k) => (
-											<span
-												key={k}
-												className={classNames(
-													"leading-tight sm:text-lg",
-													!liftName?.isHidden && "cursor-pointer",
-												)}
-											>
+											<span key={k} className="leading-tight sm:text-lg">
 												&nbsp;
 												{getPrintout(exercise)}
 												{k !== exerciseList.length - 1 && ","}
@@ -296,25 +324,6 @@ export function WorkoutsListItem({
 						  })}
 				</ul>
 			</div>
-			{view === "list" && deletingId === workout.id && (
-				<div className="flex flex-col items-center justify-evenly gap-4">
-					<Button
-						onClick={() => {
-							handleDelete(workout.id)
-						}}
-						variant="danger"
-					>
-						Delete
-					</Button>
-					<Button
-						onClick={() => {
-							setDeletingId(null)
-						}}
-					>
-						Cancel
-					</Button>
-				</div>
-			)}
 		</div>
 	)
 

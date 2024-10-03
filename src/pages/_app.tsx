@@ -1,4 +1,5 @@
 import { Alerts } from "@/components/Alerts"
+import { Toaster } from "@/components/ui/toaster"
 import { AlertContextProvider } from "@/context/AlertContext"
 import { AuthContextProvider } from "@/context/AuthContext"
 import "@/styles/globals.css"
@@ -54,9 +55,10 @@ export default function App({ Component, pageProps }: AppProps) {
 			<QueryClientProvider client={queryClient}>
 				<AlertContextProvider>
 					<AuthContextProvider>
-						<ThemeProvider attribute="class">
+						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 							<main className={font.className}>
 								<Component {...pageProps} />
+								<Toaster />
 							</main>
 						</ThemeProvider>
 						<Alerts />

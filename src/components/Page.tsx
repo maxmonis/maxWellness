@@ -1,8 +1,8 @@
 import { useAuth } from "@/context/AuthContext"
 import { RecordsApp } from "@/features/workouts/components/RecordsApp"
 import { useSession } from "@/hooks/useSession"
+import { cn } from "@/lib/utils"
 import { extractErrorMessage } from "@/utils/parsers"
-import classNames from "classnames"
 import Head from "next/head"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -63,7 +63,7 @@ export function Page({
 			{redirect ? null : (
 				<div className="relative overflow-hidden">
 					<div
-						className={classNames(
+						className={cn(
 							"min-w-screen flex h-screen flex-col justify-between overflow-auto",
 							!mustBeLoggedOut &&
 								"bg-white text-gray-900 dark:bg-black dark:text-white",
@@ -74,7 +74,7 @@ export function Page({
 								<RecordsApp />
 							)}
 							<div
-								className={classNames(
+								className={cn(
 									"w-full",
 									mustBeLoggedOut
 										? "max-h-screen"

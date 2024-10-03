@@ -1,6 +1,7 @@
 import { BackButton, Button, IconButton } from "@/components/CTA"
 import { useSession } from "@/hooks/useSession"
 import { useViewport } from "@/hooks/useViewport"
+import { cn } from "@/lib/utils"
 import { Workout } from "@/utils/models"
 import { getDateText, getLiftNameText } from "@/utils/parsers"
 import {
@@ -9,7 +10,6 @@ import {
 	faRotate,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
 import React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
@@ -82,7 +82,7 @@ export function WorkoutsCalendar({
 						<div className="flex items-center justify-center gap-5">
 							<FontAwesomeIcon
 								aria-label="View previous column"
-								className={classNames(
+								className={cn(
 									horizontalIndex
 										? "cursor-pointer"
 										: "cursor-default opacity-0",
@@ -102,7 +102,7 @@ export function WorkoutsCalendar({
 							/>
 							<FontAwesomeIcon
 								aria-label="View next column"
-								className={classNames(
+								className={cn(
 									canIncrement ? "cursor-pointer" : "cursor-default opacity-0",
 								)}
 								onClick={() => {
@@ -148,7 +148,7 @@ export function WorkoutsCalendar({
 															)
 															return (
 																<th
-																	className={classNames(
+																	className={cn(
 																		"px-4 py-2 text-lg leading-tight shadow-sm shadow-slate-700",
 																		liftNameText
 																			.split(" ")
@@ -173,7 +173,7 @@ export function WorkoutsCalendar({
 													)
 													return (
 														<tr
-															className={classNames(
+															className={cn(
 																"divide-x divide-slate-700 border-t border-slate-700",
 																liftNameText
 																	.split(" ")

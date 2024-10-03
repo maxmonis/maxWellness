@@ -2,7 +2,7 @@ import { BackButton, Button } from "@/components/CTA"
 import { Page } from "@/components/Page"
 import { useAuth } from "@/context/AuthContext"
 import { useSession } from "@/hooks/useSession"
-import classNames from "classnames"
+import { cn } from "@/lib/utils"
 import Link from "next/link"
 
 /**
@@ -148,10 +148,7 @@ export default function InfoPage() {
 function Video({ className, src }: { className?: string; src: string }) {
 	return (
 		<video
-			className={classNames(
-				"mx-auto my-2 w-full border border-slate-700",
-				className,
-			)}
+			className={cn("mx-auto my-2 w-full border border-slate-700", className)}
 			controls
 			height="240"
 			width="320"

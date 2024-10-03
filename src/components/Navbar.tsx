@@ -1,17 +1,18 @@
 import { UserMenu } from "@/components/UserMenu"
+import { buttonVariants } from "@/components/ui/button"
 import { useSession } from "@/hooks/useSession"
+import { cn } from "@/lib/utils"
 import {
-	faCirclePlus,
-	faFilter,
-	faGear,
-	faHome,
-	faQuestionCircle,
-	faTable,
-	faUserPlus,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+	CalendarIcon,
+	GearIcon,
+	HomeIcon,
+	MagnifyingGlassIcon,
+	PersonIcon,
+	PlusIcon,
+	QuestionMarkCircledIcon,
+} from "@radix-ui/react-icons"
 import Image from "next/image"
-import { IconButton } from "./CTA"
+import Link from "next/link"
 
 /**
  * The site's main navbar, which is displayed at the bottom of
@@ -23,90 +24,118 @@ export default function Navbar() {
 	const homeHref = hasWorkouts ? "/" : session ? "/?view=create" : "/login"
 
 	return (
-		<div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:max-w-min md:border-r md:pl-2">
-			<div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4 sm:px-6 md:h-full md:justify-between md:overflow-y-scroll">
-				<div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 sm:py-6 md:h-full md:flex-col md:items-start md:justify-start">
-					<div className="md:mb-6">
-						<IconButton
-							className="max-sm:p-4"
+		<div className="flex max-h-screen items-center border-slate-700 max-md:h-14 max-md:w-screen max-md:border-t md:max-w-min md:border-r">
+			<div className="flex h-full w-full flex-col items-center justify-center px-2 md:h-full md:justify-between md:overflow-y-scroll md:px-4">
+				<div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 sm:py-5 md:h-full md:flex-col md:items-start md:justify-start">
+					<div className="md:mb-4">
+						<Link
+							className={cn(
+								"flex w-full gap-1.5",
+								buttonVariants({ variant: "ghost" }),
+							)}
 							href={homeHref}
-							icon={
-								<Image
-									alt="Logo"
-									className="h-6 w-6 min-w-max rounded-md border"
-									src="/android-chrome-192x192.png"
-									height={24}
-									width={24}
-								/>
-							}
-							text="maxWellness"
-							textClass="max-sm:sr-only"
-							translate="no"
-						/>
+						>
+							<Image
+								alt="Logo"
+								className="h-6 w-6 min-w-max rounded-md border max-sm:h-7 max-sm:w-7"
+								src="/android-chrome-192x192.png"
+								height={24}
+								width={24}
+							/>
+							<span className="text-lg max-sm:sr-only" translate="no">
+								maxWellness
+							</span>
+						</Link>
 					</div>
 					{loading ? (
 						<></>
 					) : session ? (
 						<>
-							<div className="flex flex-col gap-x-6 gap-y-4 max-md:hidden">
+							<div className="flex w-full flex-col gap-x-6 gap-y-4 max-md:hidden">
 								{hasWorkouts && (
-									<IconButton
-										className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+									<Link
+										className={cn(
+											"flex w-full gap-1.5",
+											buttonVariants({ variant: "outline" }),
+										)}
 										href={homeHref}
-										icon={<FontAwesomeIcon icon={faHome} size="lg" />}
-										text="Home"
-									/>
+									>
+										<HomeIcon className="h-5 w-5" />
+										<span className="font-bold">Home</span>
+									</Link>
 								)}
-								<IconButton
-									className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-									color="blue"
+								<Link
+									className={cn(
+										"flex w-full gap-1.5",
+										buttonVariants({ variant: "default" }),
+									)}
 									href="/?view=create"
-									icon={<FontAwesomeIcon icon={faCirclePlus} size="lg" />}
-									text="Create"
-								/>
+								>
+									<PlusIcon className="h-5 w-5" />
+									<span className="font-bold">Create</span>
+								</Link>
 								{hasWorkouts && (
 									<>
-										<IconButton
-											className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+										<Link
+											className={cn(
+												"flex w-full gap-1.5",
+												buttonVariants({ variant: "outline" }),
+											)}
 											href="/?view=filters"
-											icon={<FontAwesomeIcon icon={faFilter} size="lg" />}
-											text="Filters"
-										/>
-										<IconButton
-											className="-ml-3 rounded-full px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+										>
+											<MagnifyingGlassIcon className="h-5 w-5" />
+											<span className="font-bold">Filters</span>
+										</Link>
+										<Link
+											className={cn(
+												"flex w-full gap-1.5",
+												buttonVariants({ variant: "outline" }),
+											)}
 											href="/?view=calendar"
-											icon={<FontAwesomeIcon icon={faTable} size="lg" />}
-											text="Calendar"
-										/>
+										>
+											<CalendarIcon className="h-5 w-5" />
+											<span className="font-bold">Calendar</span>
+										</Link>
 									</>
 								)}
 							</div>
-							<IconButton
-								className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+							<Link
+								className={cn(
+									"flex w-full gap-1.5 max-md:max-w-min",
+									buttonVariants({ variant: "outline" }),
+								)}
 								href="/settings"
-								icon={<FontAwesomeIcon icon={faGear} size="lg" />}
-								text="Settings"
-								textClass="max-xs:sr-only"
-							/>
-							<IconButton
-								className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+							>
+								<GearIcon className="h-5 w-5" />
+								<span className="font-bold max-xs:sr-only">Settings</span>
+							</Link>
+							<Link
+								className={cn(
+									"flex w-full gap-1.5 max-md:max-w-min",
+									buttonVariants({ variant: "outline" }),
+								)}
 								href="/about"
-								icon={<FontAwesomeIcon icon={faQuestionCircle} size="lg" />}
-								text="About"
-								textClass="max-xs:sr-only"
-							/>
+							>
+								<QuestionMarkCircledIcon className="h-5 w-5" />
+								<span className="font-bold max-xs:sr-only">About</span>
+							</Link>
 						</>
 					) : (
-						<IconButton
-							className="rounded-full max-xs:p-4 md:-ml-3 md:px-3 md:py-2 md:hover:bg-gray-100 md:dark:hover:bg-gray-800"
+						<Link
+							className={cn(
+								"flex w-full gap-1.5 max-md:max-w-min",
+								buttonVariants({ variant: "outline" }),
+							)}
 							href="/register"
-							icon={<FontAwesomeIcon icon={faUserPlus} size="lg" />}
-							text="Sign Up"
-							textClass="max-xs:sr-only"
-						/>
+						>
+							<PersonIcon className="h-5 w-5" />
+							<span className="font-bold">Sign Up</span>
+						</Link>
 					)}
 					<div className="mb-6 max-md:hidden" />
-					<UserMenu className="md:mb-0 md:mt-auto" />
+					<div className="mb-0 mt-auto md:w-full">
+						<UserMenu />
+					</div>
 				</div>
 				<footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 text-center text-sm max-md:hidden">
 					<a

@@ -1,6 +1,6 @@
 import { useSession } from "@/hooks/useSession"
+import { cn } from "@/lib/utils"
 import { getDateText, getLiftNameText } from "@/utils/parsers"
-import classNames from "classnames"
 import { getPrintout } from "../utils/functions"
 
 /**
@@ -35,7 +35,7 @@ export function RecordsApp() {
 							return (
 								<li key={exercise.id}>
 									<p
-										className={classNames(
+										className={cn(
 											liftNameText.split(" ").some(word => word.length >= 12) &&
 												"break-all",
 										)}

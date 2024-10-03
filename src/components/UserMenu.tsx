@@ -1,46 +1,40 @@
-import { Button, IconButton } from "@/components/CTA"
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { logOut } from "@/firebase/app"
-import { useKeypress } from "@/hooks/useKeypress"
-import { useOutsideClick } from "@/hooks/useOutsideClick"
 import { useSession } from "@/hooks/useSession"
 import { useUpdateProfile } from "@/hooks/useUpdateProfile"
-import {
-	faEdit,
-	faMoon,
-	faSignOut,
-	faSun,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import classNames from "classnames"
+import { ExitIcon, MoonIcon, Pencil2Icon, SunIcon } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/router"
 import React from "react"
 import { UserImage } from "./UserImage"
+import { Button } from "./ui/button"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
 
 /**
  * This menu allows the user to toggle dark mode,
- * update their profile image, or log out
+ * update their profile, or log out
  */
-export function UserMenu({ className = "" }) {
+export function UserMenu() {
 	const { loading, session } = useSession()
-	const router = useRouter()
-
-	const [open, setOpen] = React.useState(false)
-	const ref = useOutsideClick(closeDialogs)
-	useKeypress("Escape", closeDialogs)
-
-	const [newName, setNewName] = React.useState("")
-	const [editingName, setEditingName] = React.useState(false)
 	const { mutate: updateProfile } = useUpdateProfile()
-
-	const dialogRef = React.useRef<HTMLDialogElement>(null)
-	React.useLayoutEffect(() => {
-		if (dialogRef.current?.open && !editingName) {
-			dialogRef.current?.close()
-		} else if (!dialogRef.current?.open && editingName) {
-			dialogRef.current?.showModal()
-		}
-	}, [editingName])
+	const router = useRouter()
+	const buttonRef = React.createRef<HTMLButtonElement>()
 
 	if (loading) {
 		return <></>
@@ -48,122 +42,176 @@ export function UserMenu({ className = "" }) {
 
 	if (!session) {
 		return (
-			<div className={classNames("max-sm:pr-4", className)}>
+			<div className="max-sm:pr-4">
 				<DarkModeToggle />
 			</div>
 		)
 	}
 
 	return (
-		<div className={classNames("relative", className)} {...{ ref }}>
-			<dialog
-				ref={dialogRef}
-				className="fixed bottom-0 left-0 z-10 rounded-br-lg border-b border-r border-slate-700 p-6"
-			>
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button
+					className="h-min gap-2 max-md:flex-row-reverse md:w-full md:px-2"
+					variant="ghost"
+				>
+					<UserImage />
+					<span className="w-32 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
+						{session.profile.userName}
+					</span>
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent>
+				<div className="p-1">
+					<DarkModeToggle />
+				</div>
+				<ProfileDialog
+					handleClose={() => {
+						buttonRef.current?.click()
+					}}
+					{...session}
+				/>
+				<DropdownMenuItem
+					className="gap-2"
+					onClick={() => {
+						logOut().then(() => {
+							router.push("/login")
+						})
+					}}
+				>
+					<ExitIcon />
+					<span className="leading-tight">Logout</span>
+				</DropdownMenuItem>
+				<DropdownMenuItem className="hidden">
+					<button ref={buttonRef} />
+				</DropdownMenuItem>
+				<p className="w-32 p-2 text-sm leading-tight sm:hidden">
+					{session.profile.userName}
+				</p>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	)
+}
+
+function DarkModeToggle() {
+	const { setTheme } = useTheme()
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button size="icon" variant="outline">
+					<SunIcon className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+					<MoonIcon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+					<span className="sr-only">Toggle theme</span>
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent>
+				<DropdownMenuItem
+					onClick={() => {
+						setTheme("light")
+					}}
+				>
+					Light
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					onClick={() => {
+						setTheme("dark")
+					}}
+				>
+					Dark
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					onClick={() => {
+						setTheme("system")
+					}}
+				>
+					System
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	)
+}
+
+function ProfileDialog({
+	handleClose,
+	profile,
+}: { handleClose: () => void } & NonNullable<
+	ReturnType<typeof useSession>["session"]
+>) {
+	const { mutate: updateProfile } = useUpdateProfile()
+	const [newName, setNewName] = React.useState(profile.userName)
+	const [newPhotoURL, setNewPhotoURL] = React.useState(profile.photoURL)
+
+	return (
+		<Dialog
+			onOpenChange={open => {
+				if (!open) {
+					handleClose()
+				}
+			}}
+		>
+			<DialogTrigger asChild>
+				<Button
+					className="w-full cursor-default justify-start gap-2 px-2 py-1.5 font-normal"
+					variant="ghost"
+				>
+					<Pencil2Icon />
+					<span className="leading-tight">Edit profile</span>
+				</Button>
+			</DialogTrigger>
+			<DialogContent className="gap-6">
 				<form
 					onSubmit={e => {
 						e.preventDefault()
 						const userName = newName.trim()
-						if (userName && userName !== session.profile.userName) {
-							updateProfile({ userName })
+						const args = {
+							...(userName && userName !== profile.userName && { userName }),
+							...(newPhotoURL &&
+								newPhotoURL !== profile.photoURL && { photoURL: newPhotoURL }),
 						}
-						closeDialogs()
+						if (Object.keys(args).length) {
+							updateProfile(args)
+						}
 					}}
 				>
-					<h1 className="mb-4 text-xl font-bold">Update Name</h1>
-					<label htmlFor="userName">Name</label>
-					<input
-						autoFocus
-						id="userName"
-						maxLength={40}
-						onChange={e => {
-							setNewName(e.target.value.trim())
-						}}
-						value={newName}
-					/>
-					<div className="mt-6 flex justify-end gap-4">
-						<Button type="submit">Save Changes</Button>
-						<Button onClick={closeDialogs} type="button" variant="danger">
-							Cancel
-						</Button>
+					<DialogHeader>
+						<DialogTitle>Edit profile</DialogTitle>
+						<DialogDescription>
+							Update your username or upload a&nbsp;
+							{profile.photoURL ? "new " : ""}profile image
+						</DialogDescription>
+					</DialogHeader>
+					<div className="my-4 grid gap-4">
+						<div>
+							<Label className="ml-1" htmlFor="name">
+								Name
+							</Label>
+							<Input
+								autoFocus
+								className="col-span-3"
+								id="name"
+								onChange={e => {
+									setNewName(e.target.value)
+								}}
+								value={newName}
+							/>
+						</div>
+						<div className="grid place-items-center">
+							<UserImage editable handleNewUrl={setNewPhotoURL} />
+						</div>
 					</div>
+					<DialogFooter className="gap-y-2">
+						<DialogClose asChild>
+							<Button type="button" variant="ghost">
+								Cancel
+							</Button>
+						</DialogClose>
+						<DialogClose asChild>
+							<Button type="submit">Save changes</Button>
+						</DialogClose>
+					</DialogFooter>
 				</form>
-			</dialog>
-			<IconButton
-				className="max-md:flex-row-reverse max-sm:p-2"
-				icon={<UserImage />}
-				text={session.profile.userName}
-				textClass="max-sm:sr-only text-right md:text-left leading-tight max-md:w-32 text-sm"
-				onClick={() => {
-					setOpen(!open)
-				}}
-			/>
-			{open && (
-				<dialog
-					className={classNames(
-						"absolute -left-28 bottom-10 z-10 flex w-40 flex-col items-start gap-4 rounded-lg border border-slate-700 p-4 text-left sm:-left-2",
-						editingName && "hidden",
-					)}
-				>
-					<DarkModeToggle />
-					<UserImage editable />
-					<IconButton
-						icon={<FontAwesomeIcon icon={faEdit} />}
-						onClick={() => {
-							setNewName(session.profile.userName)
-							setEditingName(true)
-						}}
-						text="Edit Name"
-						textClass="leading-tight"
-					/>
-					<IconButton
-						icon={<FontAwesomeIcon aria-label="Sign out" icon={faSignOut} />}
-						onClick={() => {
-							logOut().then(() => {
-								router.push("/login")
-							})
-						}}
-						text="Logout"
-						textClass="leading-tight"
-					/>
-					<p className="text-sm leading-tight sm:hidden">
-						{session.profile.userName}
-					</p>
-				</dialog>
-			)}
-		</div>
-	)
-
-	function closeDialogs() {
-		setOpen(false)
-		setNewName("")
-		setEditingName(false)
-	}
-}
-
-/**
- * Allows the user to toggle light/dark mode
- */
-function DarkModeToggle() {
-	const { resolvedTheme, setTheme } = useTheme()
-	const dark = resolvedTheme === "dark"
-
-	return (
-		<div className="flex items-center gap-2">
-			<FontAwesomeIcon icon={faSun} />
-			<label className="relative inline-flex cursor-pointer items-center">
-				<input
-					aria-label="Toggle dark mode"
-					checked={dark}
-					className="peer sr-only"
-					onChange={() => {
-						setTheme(dark ? "light" : "dark")
-					}}
-					type="checkbox"
-				/>
-				<div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800" />
-			</label>
-			<FontAwesomeIcon icon={faMoon} />
-		</div>
+			</DialogContent>
+		</Dialog>
 	)
 }
