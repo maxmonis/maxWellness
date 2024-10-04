@@ -59,11 +59,8 @@ export function WorkoutsList({
 						<div>
 							<WorkoutsListItem
 								{...{
-									deletingId,
 									editingWorkout,
 									handleDelete,
-									handleDeleteClick,
-									setDeletingId,
 									view,
 									workouts,
 								}}
@@ -78,11 +75,8 @@ export function WorkoutsList({
 									<WorkoutsListItem
 										key={workout.id}
 										{...{
-											deletingId,
 											editingWorkout,
 											handleDelete,
-											handleDeleteClick,
-											setDeletingId,
 											view,
 											workout,
 											workouts,
@@ -114,13 +108,6 @@ export function WorkoutsList({
 			</div>
 		</div>
 	)
-
-	/**
-	 * Asks the user if they're sure they'd like to delete a workout
-	 */
-	function handleDeleteClick(id: string) {
-		setDeletingId(id)
-	}
 
 	/**
 	 * Deletes a workout

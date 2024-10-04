@@ -42,12 +42,9 @@ import { View } from "../utils/models"
  */
 export function WorkoutsListItem({
 	addExercise,
-	deletingId,
 	editingWorkout,
 	handleDelete,
-	handleDeleteClick,
 	liftNames,
-	setDeletingId,
 	setEditingWorkout,
 	setValues,
 	updateRoutine,
@@ -58,12 +55,9 @@ export function WorkoutsListItem({
 	workouts,
 }: {
 	addExercise: (newExercise: Exercise) => void
-	deletingId: string | null
 	editingWorkout: Workout | null
 	handleDelete: (id: string) => void
-	handleDeleteClick: (id: string) => void
 	liftNames: Session["profile"]["liftNames"]
-	setDeletingId: React.Dispatch<React.SetStateAction<typeof deletingId>>
 	setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
 	setValues: React.Dispatch<React.SetStateAction<typeof values>>
 	updateRoutine: (newRoutine: Array<Exercise>) => void
@@ -85,30 +79,35 @@ export function WorkoutsListItem({
 		<div
 			key={workout.id}
 			className={cn(
-				"h-min justify-between gap-6 px-4 pb-6 pt-4 last:mb-2 sm:gap-10 xl:px-6",
+				"h-min justify-between gap-6 px-4 pt-4 last:mb-14 sm:gap-10 xl:px-6",
 				editingWorkout?.id === workout.id && "italic",
-				view === "list" ? "flex" : "sm:flex",
+				view === "list" ? "flex pb-6" : "pb-4 sm:flex",
 			)}
 		>
 			<div className="w-full">
 				<div className="mb-2 flex justify-between">
-					<div>
-						<h1 className="text-lg leading-tight">
-							<span
-								className={cn(
-									workoutNameText.split(" ").some(word => word.length >= 12) &&
-										"break-all",
-								)}
-								translate="no"
-							>
-								{workoutNameText}
-							</span>
+					<div
+						className={cn(
+							"flex w-full gap-x-4 gap-y-1",
+							view === "list"
+								? "mb-1 flex-col"
+								: "mt-1 flex-wrap items-center justify-between",
+						)}
+					>
+						<h1
+							className={cn(
+								"leading-tight",
+								workoutNameText.split(" ").some(word => word.length >= 12) &&
+									"break-all",
+								view === "list" && "text-lg",
+							)}
+							translate="no"
+						>
+							{workoutNameText}
 						</h1>
-						<h2 className="mt-1 leading-tight">
-							<span className="text-sm text-muted-foreground">
-								{getDateText(workout.date)}
-							</span>
-						</h2>
+						<small className="leading-tight text-muted-foreground">
+							{getDateText(workout.date)}
+						</small>
 					</div>
 					{view === "list" && (
 						<DropdownMenu>
