@@ -98,40 +98,14 @@ export function WorkoutsListItem({
 								className={cn(
 									workoutNameText.split(" ").some(word => word.length >= 12) &&
 										"break-all",
-									view === "create" &&
-										!workoutName?.isHidden &&
-										"cursor-pointer",
 								)}
 								translate="no"
-								{...(view === "create" &&
-									!workoutName?.isHidden && {
-										onClick: () =>
-											setValues({
-												...values,
-												nameId: workout.nameId,
-											}),
-										title: "Click to copy",
-									})}
 							>
 								{workoutNameText}
 							</span>
 						</h1>
 						<h2 className="mt-1 leading-tight">
-							<span
-								className={cn(
-									view === "create"
-										? "cursor-pointer"
-										: "text-sm text-gray-600 dark:text-gray-400",
-								)}
-								{...(view === "create" && {
-									onClick: () =>
-										setValues({
-											...values,
-											date: workout.date.split("T")[0],
-										}),
-									title: "Click to copy",
-								})}
-							>
+							<span className="text-sm text-muted-foreground">
 								{getDateText(workout.date)}
 							</span>
 						</h2>
@@ -263,40 +237,29 @@ export function WorkoutsListItem({
 								)
 								const liftNameText = getLiftNameText(exercise.liftId, liftNames)
 								return (
-									<li key={i} className="mt-2 flex flex-wrap">
-										<span
-											className={cn(
-												"leading-tight",
-												liftName?.isHidden
-													? "text-gray-600 dark:text-gray-400"
-													: "cursor-pointer",
-											)}
-											{...(!liftName?.isHidden && {
-												onClick() {
-													addExercise({
-														...omit(exercise, [
-															"recordStartDate",
-															"recordEndDate",
-														]),
-														id: nanoid(),
-													})
-												},
-												title: "Click to copy",
-											})}
+									<li key={i} className="flex flex-wrap">
+										<Button
+											className="-ml-4 flex h-auto whitespace-normal text-left leading-tight"
+											translate="no"
+											variant="ghost"
+											{...(liftName?.isHidden
+												? { disabled: true }
+												: {
+														onClick() {
+															addExercise({
+																...omit(exercise, [
+																	"recordStartDate",
+																	"recordEndDate",
+																]),
+																id: nanoid(),
+															})
+														},
+														title: "Click to copy",
+												  })}
 										>
-											<span
-												className={cn(
-													"leading-tight",
-													liftNameText
-														.split(" ")
-														.some(word => word.length >= 12) && "break-all",
-												)}
-												translate="no"
-											>
-												{liftNameText}:&nbsp;
-											</span>
+											{liftNameText}:&nbsp;
 											{getPrintout(exercise)}
-										</span>
+										</Button>
 									</li>
 								)
 						  })

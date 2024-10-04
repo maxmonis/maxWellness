@@ -38,5 +38,5 @@ type PersistentAlert = null | {
 		text: string
 	}>
 	text: string
-	type: "danger" | "information" | "success"
+	type: "danger" | "success"
 }

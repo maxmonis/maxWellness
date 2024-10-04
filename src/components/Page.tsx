@@ -62,13 +62,7 @@ export function Page({
 			</Head>
 			{redirect ? null : (
 				<div className="relative overflow-hidden">
-					<div
-						className={cn(
-							"min-w-screen flex h-screen flex-col justify-between overflow-auto",
-							!mustBeLoggedOut &&
-								"bg-white text-gray-900 dark:bg-black dark:text-white",
-						)}
-					>
+					<div className="min-w-screen flex h-screen flex-col justify-between overflow-auto">
 						<div className="mx-auto flex w-screen max-w-7xl flex-col justify-between md:flex-row-reverse md:justify-end">
 							{router.pathname === "/" && router.query.view !== "calendar" && (
 								<RecordsApp />
@@ -89,11 +83,7 @@ export function Page({
 							</div>
 							{mustBeLoggedOut ? <Wallpaper /> : <Navbar />}
 						</div>
-						<footer
-							className={
-								mustBeLoggedOut ? "text-white" : "border-slate-700 md:hidden"
-							}
-						>
+						<footer className={mustBeLoggedOut ? "text-white" : "md:hidden"}>
 							<div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center text-sm max-md:py-6 md:h-14">
 								<a
 									href="https://maxmonis.com/"

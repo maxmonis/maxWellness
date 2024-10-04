@@ -12,7 +12,7 @@ export function WorkoutsLoader() {
 		<div
 			className={cn(
 				"min-h-screen",
-				view === "calendar" && "border-slate-700 xl:max-w-5xl xl:border-r",
+				view === "calendar" && "xl:max-w-5xl xl:border-r",
 			)}
 		>
 			{view === "calendar" ? (
@@ -25,14 +25,14 @@ export function WorkoutsLoader() {
 			) : (
 				<WorkoutsHeader loading />
 			)}
-			<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
+			<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t md:max-h-[calc(100dvh-3.5rem)]">
 				{view === "list" ? (
 					<div className="flex flex-1 flex-col overflow-hidden">
-						<div className="h-full divide-y divide-slate-700">
+						<div className="h-full divide-y">
 							{Array.from({ length: 5 }).map((_, i) => (
 								<div
 									key={i}
-									className="flex justify-between gap-6 border-slate-700 p-4 pb-6 xl:p-6"
+									className="flex justify-between gap-6 p-4 pb-6 xl:p-6"
 								>
 									<div className="flex flex-col">
 										<span
@@ -58,7 +58,7 @@ export function WorkoutsLoader() {
 				) : (
 					<span
 						aria-busy="true"
-						className="mt-20 h-20 w-20 animate-spin rounded-full border-4 border-slate-700 border-r-transparent"
+						className="mt-20 h-20 w-20 animate-spin rounded-full border-4 border-r-transparent"
 					/>
 				)}
 			</div>

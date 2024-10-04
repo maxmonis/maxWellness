@@ -1,4 +1,4 @@
-import { Button } from "@/components/CTA"
+import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/AuthContext"
 import { NextPageContext } from "next"
 import Link from "next/link"
@@ -18,9 +18,7 @@ export default function ErrorPage({
 			</h1>
 			<p>{message ?? "Something went wrong in an unexpected way"}</p>
 			<Link href={user ? "/" : "/login"}>
-				<Button className="flex-grow" variant="primary">
-					{user ? "Return home" : "Log in"}
-				</Button>
+				<Button className="flex-grow">{user ? "Return home" : "Log in"}</Button>
 			</Link>
 		</div>
 	)

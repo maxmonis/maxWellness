@@ -1,11 +1,23 @@
-import { Button, IconButton } from "@/components/CTA"
+import { Button } from "@/components/ui/button"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { EditableName } from "@/utils/models"
-import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+	MinusCircledIcon,
+	Pencil2Icon,
+	PlusCircledIcon,
+	TrashIcon,
+} from "@radix-ui/react-icons"
 import React from "react"
 import { isTextAlreadyInList } from "../utils/functions"
-import { EditableItemMenu } from "./EditableItemMenu"
 
 /**
  * Allows the user to edit or delete a lift/workout name
@@ -26,7 +38,7 @@ export function EditableListItem({
 	const canHide = editableNameList.filter(n => !n.isHidden).length > 1
 
 	return (
-		<li className="mt-3 flex items-center justify-between gap-4">
+		<li className="mt-1 flex items-center justify-between gap-4">
 			{editing ? (
 				<form
 					className="w-full"
@@ -35,18 +47,12 @@ export function EditableListItem({
 						handleSubmit()
 					}}
 				>
-					<div className="flex items-center justify-center gap-4 px-1">
-						<input
+					<div className="px-1">
+						<Input
 							autoFocus
 							onBlur={handleSubmit}
 							value={newText}
 							{...{ onChange, onKeyUp }}
-						/>
-						<IconButton
-							aria-label="Discard changes"
-							className="max-sm:hidden"
-							icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-							onClick={handleReset}
 						/>
 					</div>
 					{newText !== editableName.text && (
@@ -62,7 +68,11 @@ export function EditableListItem({
 									Update Name
 								</Button>
 							) : editableName.canDelete ? (
-								<Button className="mt-3 w-fit" type="submit" variant="danger">
+								<Button
+									className="mt-3 w-fit"
+									type="submit"
+									variant="destructive"
+								>
 									Delete Name
 								</Button>
 							) : (
@@ -74,29 +84,51 @@ export function EditableListItem({
 					)}
 				</form>
 			) : (
-				<>
-					<span
-						aria-label={`Edit ${newText}`}
-						className={cn(
-							"leading-tight",
-							editableName.isHidden && "line-through",
-							newText.split(" ").some(word => word.length >= 12) && "break-all",
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button
+							className={cn(
+								"flex h-auto w-full justify-start whitespace-normal text-left leading-tight",
+								editableName.isHidden && "line-through",
+								newText.split(" ").some(word => word.length >= 12) &&
+									"break-all",
+							)}
+							translate="no"
+							variant="ghost"
+						>
+							{newText}
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuLabel>{editableName.text}</DropdownMenuLabel>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							className="flex gap-1.5"
+							onClick={() => {
+								setEditing(true)
+							}}
+						>
+							<Pencil2Icon />
+							Edit
+						</DropdownMenuItem>
+						{((canHide && !editableName.isHidden) || editableName.isHidden) && (
+							<DropdownMenuItem className="flex gap-1.5" onClick={onHideClick}>
+								{editableName.isHidden ? (
+									<PlusCircledIcon />
+								) : (
+									<MinusCircledIcon />
+								)}
+								{editableName.isHidden ? "Unhide" : "Hide"}
+							</DropdownMenuItem>
 						)}
-						onClick={() => {
-							setEditing(true)
-						}}
-						translate="no"
-					>
-						{newText}
-					</span>
-					<EditableItemMenu
-						onDeleteClick={handleDelete}
-						onEditClick={() => {
-							setEditing(true)
-						}}
-						{...{ canHide, editableName, newText, onHideClick }}
-					/>
-				</>
+						{editableName.canDelete && (
+							<DropdownMenuItem className="flex gap-1.5" onClick={handleDelete}>
+								<TrashIcon />
+								Delete
+							</DropdownMenuItem>
+						)}
+					</DropdownMenuContent>
+				</DropdownMenu>
 			)}
 		</li>
 	)

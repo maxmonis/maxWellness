@@ -1,5 +1,7 @@
-import { Button, GoogleButton } from "@/components/CTA"
+import { GoogleButton } from "@/components/CTA"
 import { Page } from "@/components/Page"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { signUp } from "@/firebase/app"
 import { extractErrorMessage } from "@/utils/parsers"
 import { validateAuthForm } from "@/utils/validators"
@@ -33,11 +35,11 @@ export default function RegisterPage() {
 		<Page mustBeLoggedOut title="Register">
 			<div className="flex h-full w-full flex-col items-center px-4 py-10">
 				<form
-					className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
+					className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-background p-6"
 					{...{ onSubmit }}
 				>
 					<h1
-						className="mx-auto flex items-center gap-2 text-xl font-bold text-slate-50"
+						className="mx-auto flex items-center gap-2 text-xl font-bold"
 						translate="no"
 					>
 						<Image
@@ -49,9 +51,13 @@ export default function RegisterPage() {
 						/>
 						maxWellness
 					</h1>
-					{authError && <p className="text-md text-red-500">{authError}</p>}
+					{authError && (
+						<p className="text-md text-red-600 dark:text-red-500">
+							{authError}
+						</p>
+					)}
 					<div className="w-full">
-						<input
+						<Input
 							className="w-full rounded px-3 py-2"
 							maxLength={40}
 							name="userName"
@@ -60,11 +66,13 @@ export default function RegisterPage() {
 							{...{ onChange }}
 						/>
 						{inputErrors.userName && (
-							<p className="text-sm text-red-500">{inputErrors.userName}</p>
+							<p className="text-sm text-red-600 dark:text-red-500">
+								{inputErrors.userName}
+							</p>
 						)}
 					</div>
 					<div className="w-full">
-						<input
+						<Input
 							className="w-full rounded px-3 py-2"
 							name="email"
 							placeholder="Email"
@@ -72,11 +80,13 @@ export default function RegisterPage() {
 							{...{ onChange }}
 						/>
 						{inputErrors.email && (
-							<p className="text-sm text-red-500">{inputErrors.email}</p>
+							<p className="text-sm text-red-600 dark:text-red-500">
+								{inputErrors.email}
+							</p>
 						)}
 					</div>
 					<div className="w-full">
-						<input
+						<Input
 							className="w-full rounded px-3 py-2"
 							name="password"
 							placeholder="Password"
@@ -85,11 +95,13 @@ export default function RegisterPage() {
 							{...{ onChange }}
 						/>
 						{inputErrors.password && (
-							<p className="text-sm text-red-500">{inputErrors.password}</p>
+							<p className="text-sm text-red-600 dark:text-red-500">
+								{inputErrors.password}
+							</p>
 						)}
 					</div>
 					<div className="w-full">
-						<input
+						<Input
 							className="w-full rounded px-3 py-2"
 							name="password2"
 							placeholder="Confirm Password"
@@ -98,27 +110,30 @@ export default function RegisterPage() {
 							{...{ onChange }}
 						/>
 						{inputErrors.password2 && (
-							<p className="text-sm text-red-500">{inputErrors.password2}</p>
+							<p className="text-sm text-red-600 dark:text-red-500">
+								{inputErrors.password2}
+							</p>
 						)}
 					</div>
-					<Button
-						className="w-full"
-						loading={submitting}
-						type="submit"
-						variant="primary"
-					>
+					<Button className="w-full" disabled={submitting} type="submit">
 						Create Account
 					</Button>
 					<GoogleButton {...{ handleError, submitting, setSubmitting }} />
 					<div className="flex flex-col gap-2">
 						<div className="flex flex-wrap gap-x-2">
-							<p className="whitespace-nowrap text-white">Already a member?</p>
-							<Link className="text-blue-300 hover:underline" href="/login">
+							<p className="whitespace-nowrap">Already a member?</p>
+							<Link
+								className="text-blue-700 hover:underline dark:text-blue-400"
+								href="/login"
+							>
 								Log In
 							</Link>
 						</div>
 						<div>
-							<Link className="text-blue-300 hover:underline" href="/about">
+							<Link
+								className="text-blue-700 hover:underline dark:text-blue-400"
+								href="/about"
+							>
 								Learn More
 							</Link>
 						</div>

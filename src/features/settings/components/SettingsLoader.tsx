@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils"
  */
 export function SettingsLoader() {
 	return (
-		<div className="flex min-h-screen flex-col justify-between border-slate-700 xl:max-w-5xl xl:border-r">
-			<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 xl:px-6">
+		<div className="flex min-h-screen flex-col justify-between xl:max-w-5xl xl:border-r">
+			<div className="flex h-14 items-end border-b px-4 pb-2 xl:px-6">
 				<BackButton />
 				<h1 className="text-xl font-bold">Settings</h1>
 			</div>
 			<div className="flex w-full flex-grow justify-center">
-				<div className="flex max-h-[calc(100dvh-7rem)] flex-grow divide-x divide-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
+				<div className="flex max-h-[calc(100dvh-7rem)] flex-grow divide-x md:max-h-[calc(100dvh-3.5rem)]">
 					{Array.from({ length: 2 }).map((_, i) => (
 						<div
 							className="flex w-full flex-grow flex-col items-center overflow-hidden"

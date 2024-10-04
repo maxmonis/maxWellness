@@ -1,9 +1,23 @@
-import { BackButton, Button, IconButton } from "@/components/CTA"
+import { BackButton } from "@/components/CTA"
+import { Button } from "@/components/ui/button"
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import {
+	ResizableHandle,
+	ResizablePanel,
+	ResizablePanelGroup,
+} from "@/components/ui/resizable"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
 import { useToast } from "@/hooks/use-toast"
 import { EditableName, Profile } from "@/utils/models"
-import { faCheckCircle, faXmarkSquare } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useIsMutating } from "@tanstack/react-query"
 import { isEqual, omit, sortBy } from "lodash"
 import { nanoid } from "nanoid"
@@ -70,97 +84,36 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	}, [profile])
 
 	return (
-		<div className="flex min-h-screen w-full flex-grow flex-col border-slate-700 xl:max-w-5xl xl:border-r">
-			{showLeaveConfirmDialog && (
-				<div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-50 p-4">
-					<dialog
-						className="mx-auto flex flex-col gap-4 rounded-lg border border-slate-700 p-6"
-						open
-					>
-						<h1 className="text-xl font-bold">You have unsaved changes</h1>
-						<Button
-							autoFocus
-							onClick={() => {
-								saveChanges()
-								onConfirmRouteChange()
-							}}
-							variant="primary"
-						>
-							Save Changes
-						</Button>
-						<Button
-							onClick={() => {
-								setNextRouterPath("")
-								setShowLeaveConfirmDialog(false)
-							}}
-							variant="secondary"
-						>
-							Continue Editing
-						</Button>
-						<Button
-							onClick={() => {
-								setLiftNames(profile.liftNames)
-								setWorkoutNames(profile.workoutNames)
-								onConfirmRouteChange()
-							}}
-							variant="danger"
-						>
-							Discard Changes
-						</Button>
-					</dialog>
-				</div>
-			)}
+		<div className="flex min-h-screen w-full flex-grow flex-col xl:max-w-5xl xl:border-r">
 			<div className="flex h-14 items-end justify-between px-4 pb-2 xl:px-6">
 				<div className="flex">
 					<BackButton />
 					<h1 className="text-xl font-bold">Settings</h1>
 				</div>
 				{hasChangeOccurred && (
-					<div className="flex flex-row items-center justify-center gap-4">
-						<IconButton
-							color="blue"
-							icon={<FontAwesomeIcon icon={faCheckCircle} />}
-							onClick={saveChanges}
-							text="Save"
-						/>
-						<Button
-							onClick={() => {
-								setLiftNames(profile.liftNames)
-								setWorkoutNames(profile.workoutNames)
-								router.push("/")
-							}}
-							variant="danger"
-						>
-							Cancel
-						</Button>
-					</div>
+					<Button onClick={saveChanges}>
+						{mutating ? "Saving..." : "Save Changes"}
+					</Button>
 				)}
 			</div>
-			<div className="flex flex-grow flex-col border-t border-slate-700">
-				<div className="flex max-h-[calc(100dvh-7rem)] flex-grow divide-x divide-slate-700 border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
-					<div className="flex w-full flex-grow flex-col items-center overflow-hidden">
+			<div className="flex flex-grow flex-col border-t">
+				<ResizablePanelGroup
+					className="flex max-h-[calc(100dvh-7rem)] flex-grow md:max-h-[calc(100dvh-3.5rem)]"
+					direction="horizontal"
+				>
+					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
 						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 xl:px-6">
 							<h2 className="mx-auto mb-4 text-center text-lg font-bold">
 								Exercises
 							</h2>
 							<form onSubmit={handleLiftSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
-									<input
+									<Input
 										name="lift"
 										value={lift}
 										placeholder="New exercise"
 										{...{ onChange }}
 									/>
-									{lift && (
-										<IconButton
-											aria-label="Clear lift"
-											className="max-sm:hidden"
-											icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-											onClick={() => {
-												setValues({ ...values, lift: "" })
-											}}
-										/>
-									)}
 								</div>
 								{lift && (
 									<>
@@ -184,7 +137,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 									</>
 								)}
 							</form>
-							<ul className="h-full overflow-y-scroll pb-6 pt-1">
+							<ul className="h-full overflow-y-scroll pb-6 pt-2">
 								{sortBy(
 									liftNames.filter(n => !n.isHidden),
 									"text",
@@ -209,30 +162,21 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 								))}
 							</ul>
 						</div>
-					</div>
-					<div className="flex w-full flex-grow flex-col items-center overflow-hidden">
+					</ResizablePanel>
+					<ResizableHandle withHandle />
+					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
 						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 xl:px-6">
 							<h2 className="mx-auto mb-4 text-center text-lg font-bold">
 								Workouts
 							</h2>
 							<form onSubmit={handleWorkoutSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
-									<input
+									<Input
 										name="workout"
 										value={workout}
 										placeholder="New workout"
 										{...{ onChange }}
 									/>
-									{workout && (
-										<IconButton
-											aria-label="Clear workout"
-											className="hidden sm:block"
-											icon={<FontAwesomeIcon icon={faXmarkSquare} size="lg" />}
-											onClick={() => {
-												setValues({ ...values, workout: "" })
-											}}
-										/>
-									)}
 								</div>
 								{workout && (
 									<>
@@ -257,7 +201,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 									</>
 								)}
 							</form>
-							<ul className="h-full overflow-y-scroll pb-6 pt-1">
+							<ul className="h-full overflow-y-scroll pb-6 pt-2">
 								{sortBy(
 									workoutNames.filter(n => !n.isHidden),
 									"text",
@@ -282,9 +226,57 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 								))}
 							</ul>
 						</div>
-					</div>
-				</div>
+					</ResizablePanel>
+				</ResizablePanelGroup>
 			</div>
+			<Dialog
+				open={showLeaveConfirmDialog}
+				onOpenChange={setShowLeaveConfirmDialog}
+			>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>Unsaved changes</DialogTitle>
+					</DialogHeader>
+					<DialogDescription>
+						Are you sure you want to leave? Your changes will be lost.
+					</DialogDescription>
+					<DialogFooter className="gap-y-2">
+						<DialogClose asChild>
+							<Button
+								onClick={() => {
+									setLiftNames(profile.liftNames)
+									setWorkoutNames(profile.workoutNames)
+									onConfirmRouteChange()
+								}}
+								variant="ghost"
+							>
+								Discard Changes
+							</Button>
+						</DialogClose>
+						<DialogClose asChild>
+							<Button
+								onClick={() => {
+									setNextRouterPath("")
+								}}
+								variant="secondary"
+							>
+								Continue Editing
+							</Button>
+						</DialogClose>
+						<DialogClose asChild>
+							<Button
+								autoFocus
+								onClick={() => {
+									saveChanges()
+									onConfirmRouteChange()
+								}}
+							>
+								Save Changes
+							</Button>
+						</DialogClose>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
 		</div>
 	)
 
@@ -423,7 +415,6 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	}
 
 	function onConfirmRouteChange() {
-		setShowLeaveConfirmDialog(false)
 		removeListener()
 		router.push(nextRouterPath)
 	}

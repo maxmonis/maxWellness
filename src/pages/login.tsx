@@ -1,5 +1,7 @@
-import { Button, GoogleButton } from "@/components/CTA"
+import { GoogleButton } from "@/components/CTA"
 import { Page } from "@/components/Page"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { logIn } from "@/firebase/app"
 import { extractErrorMessage } from "@/utils/parsers"
 import { validateAuthForm } from "@/utils/validators"
@@ -28,11 +30,11 @@ export default function LoginPage() {
 		<Page mustBeLoggedOut title="Login">
 			<div className="flex h-full w-full flex-col items-center px-4 py-10">
 				<form
-					className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
+					className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-background p-6"
 					{...{ onSubmit }}
 				>
 					<h1
-						className="mx-auto flex items-center gap-2 text-xl font-bold text-slate-50"
+						className="mx-auto flex items-center gap-2 text-xl font-bold"
 						translate="no"
 					>
 						<Image
@@ -44,9 +46,13 @@ export default function LoginPage() {
 						/>
 						maxWellness
 					</h1>
-					{authError && <p className="text-md text-red-500">{authError}</p>}
+					{authError && (
+						<p className="text-md text-red-600 dark:text-red-500">
+							{authError}
+						</p>
+					)}
 					<div className="w-full">
-						<input
+						<Input
 							className="w-full rounded px-3 py-2"
 							name="email"
 							placeholder="Email"
@@ -54,11 +60,13 @@ export default function LoginPage() {
 							{...{ onChange }}
 						/>
 						{inputErrors.email && (
-							<p className="text-sm text-red-500">{inputErrors.email}</p>
+							<p className="text-sm text-red-600 dark:text-red-500">
+								{inputErrors.email}
+							</p>
 						)}
 					</div>
 					<div className="w-full">
-						<input
+						<Input
 							className="w-full rounded px-3 py-2"
 							name="password"
 							placeholder="Password"
@@ -67,22 +75,19 @@ export default function LoginPage() {
 							{...{ onChange }}
 						/>
 						{inputErrors.password && (
-							<p className="text-sm text-red-500">{inputErrors.password}</p>
+							<p className="text-sm text-red-600 dark:text-red-500">
+								{inputErrors.password}
+							</p>
 						)}
 					</div>
-					<Button
-						className="w-full"
-						loading={submitting}
-						type="submit"
-						variant="primary"
-					>
+					<Button className="w-full" disabled={submitting} type="submit">
 						Log In
 					</Button>
 					<GoogleButton {...{ handleError, submitting, setSubmitting }} />
 					<div className="flex flex-col items-start gap-2">
 						<div>
 							<Link
-								className="text-blue-300 hover:underline"
+								className="text-blue-700 hover:underline dark:text-blue-400"
 								href="/reset-password"
 							>
 								Forgot Password
@@ -90,16 +95,19 @@ export default function LoginPage() {
 						</div>
 						<div className="flex flex-col gap-2">
 							<div className="flex flex-wrap gap-x-2">
-								<p className="whitespace-nowrap text-white">Need an account?</p>
+								<p className="whitespace-nowrap">Need an account?</p>
 								<Link
-									className="text-blue-300 hover:underline"
+									className="text-blue-700 hover:underline dark:text-blue-400"
 									href="/register"
 								>
 									Register
 								</Link>
 							</div>
 							<div>
-								<Link className="text-blue-300 hover:underline" href="/about">
+								<Link
+									className="text-blue-700 hover:underline dark:text-blue-400"
+									href="/about"
+								>
 									Learn More
 								</Link>
 							</div>

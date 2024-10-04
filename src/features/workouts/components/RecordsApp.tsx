@@ -12,7 +12,7 @@ export function RecordsApp() {
 		session?.workouts.flatMap(w => w.routine.filter(e => e.recordStartDate)) ??
 		[]
 	return (
-		<div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l border-slate-700 px-4 pb-6 max-lg:hidden xl:w-full xl:px-6">
+		<div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l px-4 pb-6 max-lg:hidden xl:w-full xl:px-6">
 			<div className="h-full overflow-hidden pb-14">
 				<h2 className="mb-2 ml-1 mt-6 text-lg font-bold leading-tight">
 					Personal Bests
@@ -43,7 +43,7 @@ export function RecordsApp() {
 									>
 										{liftNameText}: {getPrintout(exercise)}
 									</p>
-									<p className="text-sm text-gray-600 dark:text-gray-400">
+									<p className="text-sm text-muted-foreground">
 										{getDateText(exercise.recordStartDate ?? "")}
 									</p>
 								</li>

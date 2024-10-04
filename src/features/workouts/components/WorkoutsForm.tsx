@@ -1,11 +1,20 @@
-import { Button, IconButton } from "@/components/CTA"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
 import { useSession } from "@/hooks/useSession"
 import { cn } from "@/lib/utils"
 import { Exercise, Session, Workout } from "@/utils/models"
 import { getLiftNameText } from "@/utils/parsers"
-import { faX } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Cross1Icon } from "@radix-ui/react-icons"
 import { useIsMutating } from "@tanstack/react-query"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
@@ -99,22 +108,28 @@ export function WorkoutsForm({
 								</div>
 							) : (
 								<>
-									<div>
-										<label className="sr-only" htmlFor="exerciseName">
+									<div className="mb-1">
+										<Label className="sr-only" htmlFor="exerciseName">
 											Exercise Name
-										</label>
-										<select
-											id="exerciseName"
+										</Label>
+										<Select
+											onValueChange={liftId => {
+												setValues({ ...values, liftId })
+											}}
 											name="liftId"
 											value={liftId}
-											{...{ onChange }}
 										>
-											{activeLiftNames.map(({ text, id }) => (
-												<option key={id} translate="no" value={id}>
-													{text}
-												</option>
-											))}
-										</select>
+											<SelectTrigger translate="no">
+												<SelectValue />
+											</SelectTrigger>
+											<SelectContent>
+												{activeLiftNames.map(({ text, id }) => (
+													<SelectItem key={id} translate="no" value={id}>
+														{text}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
 									</div>
 									<div className="flex flex-shrink gap-1">
 										{[
@@ -134,15 +149,15 @@ export function WorkoutsForm({
 												value: weight,
 											},
 										].map(({ label, ...field }, i) => (
-											<div key={i}>
-												<label
+											<div className="w-full" key={i}>
+												<Label
 													className="text-sm"
 													htmlFor={label}
 													{...(label !== "Weight" && { translate: "no" })}
 												>
 													{label}
-												</label>
-												<input
+												</Label>
+												<Input
 													autoFocus={i === 0 && routine.length === 0}
 													className={cn(
 														"flex flex-shrink xs:pl-3",
@@ -177,6 +192,7 @@ export function WorkoutsForm({
 															liftId,
 														})
 													}}
+													variant="ghost"
 												>
 													Clear
 												</Button>
@@ -239,12 +255,16 @@ export function WorkoutsForm({
 													)}`}
 												</span>
 												{draggingOver !== "ExerciseForm" && (
-													<IconButton
-														icon={<FontAwesomeIcon icon={faX} size="sm" />}
+													<Button
+														className="h-4 w-4"
 														onClick={() => {
 															deleteExercise(exercise.id)
 														}}
-													/>
+														size="icon"
+														variant="ghost"
+													>
+														<Cross1Icon />
+													</Button>
 												)}
 											</li>
 										)}
@@ -259,8 +279,7 @@ export function WorkoutsForm({
 				<p className="pt-4">
 					Create your workout using the form above
 					{session?.workouts.length
-						? " and/or by clicking exercises in the list to the right. " +
-						  "You can also copy the name or date of an existing workout"
+						? " and/or by clicking exercises in the list to the right"
 						: ". Valid exercises must include either a weight or at least " +
 						  "one rep. You can drag and drop to reorder the list"}
 					.
@@ -268,39 +287,51 @@ export function WorkoutsForm({
 			)}
 			<div>
 				<div className="mt-6">
-					<label className="sr-only" htmlFor="workoutName">
-						Workout Name
-					</label>
-					<select
-						className="mb-2"
-						id="workoutName"
-						name="nameId"
-						value={nameId}
-						{...{ onChange }}
-					>
-						{activeWorkoutNames.map(({ id, text }) => (
-							<option key={id} translate="no" value={id}>
-								{text}
-							</option>
-						))}
-					</select>
-					<label className="sr-only" htmlFor="workoutDate">
+					<div className="mb-2">
+						<Label className="sr-only" htmlFor="exerciseName">
+							Workout Name
+						</Label>
+						<Select
+							onValueChange={nameId => {
+								setValues({ ...values, nameId })
+							}}
+							name="nameId"
+							value={nameId}
+						>
+							<SelectTrigger translate="no">
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{activeWorkoutNames.map(({ text, id }) => (
+									<SelectItem key={id} translate="no" value={id}>
+										{text}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
+					<Label className="sr-only" htmlFor="workoutDate">
 						Workout Date
-					</label>
-					<input
+					</Label>
+					<Calendar
 						id="workoutDate"
-						name="date"
-						type="date"
-						value={date}
-						{...{ onChange }}
+						mode="single"
+						selected={new Date(date.split("T")[0] + "T00:00:00")}
+						onSelect={newDate => {
+							if (newDate) {
+								setValues({
+									...values,
+									date: newDate.toISOString(),
+								})
+							}
+						}}
 					/>
 				</div>
 				<div className="mt-2 flex items-center justify-between gap-3">
 					<Button
 						className="flex-grow"
-						loading={mutating}
+						disabled={mutating}
 						onClick={handleSave}
-						variant="primary"
 					>
 						Save
 					</Button>
@@ -311,6 +342,7 @@ export function WorkoutsForm({
 							onClick={() => {
 								updateRoutine([])
 							}}
+							variant="ghost"
 						>
 							Reset
 						</Button>
@@ -322,7 +354,7 @@ export function WorkoutsForm({
 			</div>
 			<div className="mt-4 flex w-full justify-center">
 				{editingWorkout ? (
-					<Button onClick={resetState} variant="danger">
+					<Button onClick={resetState} variant="ghost">
 						Discard Changes
 					</Button>
 				) : (
@@ -332,7 +364,7 @@ export function WorkoutsForm({
 								updateRoutine([])
 								resetState()
 							}}
-							variant="danger"
+							variant="ghost"
 						>
 							Discard
 						</Button>
@@ -456,7 +488,7 @@ export function WorkoutsForm({
 			return
 		}
 		const newWorkout = {
-			date,
+			date: date.split("T")[0],
 			nameId,
 			routine,
 			userId,

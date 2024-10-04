@@ -40,12 +40,12 @@ export function UserImage({
 				{uploading ? (
 					<span
 						aria-busy="true"
-						className="h-40 w-40 animate-spin rounded-full border-2 border-slate-700 border-r-transparent"
+						className="h-40 w-40 animate-spin rounded-full border-2 border-r-transparent"
 						role="alert"
 					/>
 				) : (
 					<Wrapper {...(editable && { onClick })}>
-						<Avatar className="h-full w-full border border-slate-700">
+						<Avatar className="h-full w-full border">
 							<AvatarImage
 								alt={`${userName} profile image`}
 								className="object-cover"

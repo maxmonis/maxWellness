@@ -1,5 +1,6 @@
-import { Button } from "@/components/CTA"
 import { Page } from "@/components/Page"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { resetPassword } from "@/firebase/app"
 import { extractErrorMessage } from "@/utils/parsers"
 import { validateAuthForm } from "@/utils/validators"
@@ -24,24 +25,27 @@ export default function ResetPasswordPage() {
 
 	return (
 		<Page mustBeLoggedOut title="Reset Password">
-			<div className="flex h-full w-full flex-col items-center px-4 py-10 text-left text-white">
+			<div className="flex h-full w-full flex-col items-center px-4 py-10 text-left">
 				{emailSent ? (
-					<div className="flex w-full max-w-xs flex-col items-start gap-4 rounded-md border border-slate-700 bg-black p-6">
+					<div className="flex w-full max-w-xs flex-col items-start gap-4 rounded-md border bg-background p-6">
 						<h3 className="text-3xl">Email Sent</h3>
 						<p>
 							Please check {email} for instructions on resetting your password
 						</p>
-						<Link className="text-blue-300 hover:underline" href="/login">
+						<Link
+							className="text-blue-700 hover:underline dark:text-blue-400"
+							href="/login"
+						>
 							Return to Login
 						</Link>
 					</div>
 				) : (
 					<form
-						className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border border-slate-700 bg-black p-6"
+						className="flex w-full max-w-xs flex-col items-start gap-6 rounded-md border bg-background p-6"
 						{...{ onSubmit }}
 					>
 						<h1
-							className="mx-auto flex items-center gap-2 text-xl font-bold text-slate-50"
+							className="mx-auto flex items-center gap-2 text-xl font-bold"
 							translate="no"
 						>
 							<Image
@@ -53,9 +57,13 @@ export default function ResetPasswordPage() {
 							/>
 							maxWellness
 						</h1>
-						{authError && <p className="text-md text-red-500">{authError}</p>}
+						{authError && (
+							<p className="text-md text-red-600 dark:text-red-500">
+								{authError}
+							</p>
+						)}
 						<div className="w-full">
-							<input
+							<Input
 								className="w-full rounded px-3 py-2"
 								name="email"
 								placeholder="Email"
@@ -63,34 +71,37 @@ export default function ResetPasswordPage() {
 								{...{ onChange }}
 							/>
 							{inputErrors.email && (
-								<p className="text-sm text-red-500">{inputErrors.email}</p>
+								<p className="text-sm text-red-600 dark:text-red-500">
+									{inputErrors.email}
+								</p>
 							)}
 						</div>
-						<Button
-							className="w-full"
-							loading={submitting}
-							type="submit"
-							variant="primary"
-						>
+						<Button className="w-full" disabled={submitting} type="submit">
 							Reset Password
 						</Button>
 						<div className="flex flex-col gap-2">
 							<div>
-								<Link className="text-blue-300 hover:underline" href="/login">
+								<Link
+									className="text-blue-700 hover:underline dark:text-blue-400"
+									href="/login"
+								>
 									Return to Login
 								</Link>
 							</div>
 							<div className="flex flex-wrap gap-x-2">
-								<p className="whitespace-nowrap text-white">Need an account?</p>
+								<p className="whitespace-nowrap">Need an account?</p>
 								<Link
-									className="text-blue-300 hover:underline"
+									className="text-blue-700 hover:underline dark:text-blue-400"
 									href="/register"
 								>
 									Register
 								</Link>
 							</div>
 							<div>
-								<Link className="text-blue-300 hover:underline" href="/about">
+								<Link
+									className="text-blue-700 hover:underline dark:text-blue-400"
+									href="/about"
+								>
 									Learn More
 								</Link>
 							</div>

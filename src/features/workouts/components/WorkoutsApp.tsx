@@ -1,6 +1,10 @@
+import {
+	ResizableHandle,
+	ResizablePanel,
+	ResizablePanelGroup,
+} from "@/components/ui/resizable"
 import { useAlerts } from "@/context/AlertContext"
 import { useUpdateEvent } from "@/hooks/useUpdateEvent"
-import { useViewport } from "@/hooks/useViewport"
 import { cn } from "@/lib/utils"
 import { StorageService } from "@/services/StorageService"
 import { Exercise, Session, Workout } from "@/utils/models"
@@ -31,11 +35,6 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	const { changeView, defaultView, view } = useWorkoutView()
 	const { setPersistentAlert } = useAlerts()
-
-	const width = useViewport()
-	const isMobile = width <= 425
-	const [hideList, setHideList] = React.useState(true)
-	const showList = view !== "create" || !hideList || !isMobile
 
 	const [editingWorkout, setEditingWorkout] = React.useState<Workout | null>(
 		null,
@@ -77,7 +76,6 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	}, [liftNames])
 
 	React.useEffect(() => {
-		setHideList(true)
 		if (editingWorkout && view !== "create") {
 			setEditingWorkout(null)
 		}
@@ -105,77 +103,81 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	return (
 		<div className="min-h-screen">
 			<WorkoutsHeader {...{ editingWorkout, workouts }} />
-			<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center divide-x divide-slate-700 border-t border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
-				{view !== "list" && (
-					<div
-						className={cn(
-							"relative flex w-full min-w-[10rem] flex-grow overflow-x-hidden",
-							showList && "max-w-sm",
-						)}
-					>
-						<div className="flex w-full flex-grow flex-col">
-							<div className="w-full overflow-hidden max-md:h-full">
-								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 xl:px-6">
-									{view === "filters" ? (
-										<WorkoutsFilters
-											{...{
-												appliedFilters,
-												clearFilters,
-												filters,
-												liftNames,
-												setAppliedFilters,
-												setFilteredWorkouts,
-												workoutNames,
-												workouts,
-											}}
-										/>
-									) : (
-										<WorkoutsForm
-											{...{
-												activeLiftNames,
-												activeWorkoutNames,
-												defaultValues,
-												editingWorkout,
-												liftNames,
-												resetState,
-												routine,
-												setValues,
-												updateRoutine,
-												userId,
-												values,
-											}}
-										/>
-									)}
-								</div>
+			<ResizablePanelGroup
+				className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center border-t md:max-h-[calc(100dvh-3.5rem)]"
+				direction="horizontal"
+			>
+				<ResizablePanel
+					className={cn(
+						"relative flex w-min min-w-[50%] flex-grow overflow-x-hidden sm:min-w-[15rem]",
+						view === "list" && "hidden",
+					)}
+				>
+					<div className="flex w-full flex-grow flex-col">
+						<div className="w-full overflow-hidden max-md:h-full">
+							<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 xl:px-6">
+								{view === "filters" ? (
+									<WorkoutsFilters
+										{...{
+											appliedFilters,
+											clearFilters,
+											filters,
+											liftNames,
+											setAppliedFilters,
+											setFilteredWorkouts,
+											workoutNames,
+											workouts,
+										}}
+									/>
+								) : (
+									<WorkoutsForm
+										{...{
+											activeLiftNames,
+											activeWorkoutNames,
+											defaultValues,
+											editingWorkout,
+											liftNames,
+											resetState,
+											routine,
+											setValues,
+											updateRoutine,
+											userId,
+											values,
+										}}
+									/>
+								)}
 							</div>
 						</div>
 					</div>
-				)}
-				<WorkoutsList
-					{...{
-						addExercise,
-						clearFilters,
-						editingWorkout,
-						filteredWorkouts,
-						liftNames,
-						resetState,
-						setEditingWorkout,
-						setValues,
-						showList,
-						updateRoutine,
-						values,
-						view,
-						workoutNames,
-						workouts,
-					}}
-					{...(isMobile &&
-						view === "create" && {
-							toggleHideList() {
-								setHideList(!hideList)
-							},
-						})}
+				</ResizablePanel>
+				<ResizableHandle
+					className={cn(view === "list" && "hidden")}
+					withHandle
 				/>
-			</div>
+				<ResizablePanel
+					className={cn(
+						view === "list" ? "min-w-full" : "min-w-[1rem] sm:min-w-[15rem]",
+					)}
+				>
+					<WorkoutsList
+						{...{
+							addExercise,
+							clearFilters,
+							editingWorkout,
+							filteredWorkouts,
+							liftNames,
+							resetState,
+							setEditingWorkout,
+							setValues,
+							updateRoutine,
+							values,
+							view,
+							workoutNames,
+							workouts,
+						}}
+					/>
+				</ResizablePanel>
+			</ResizablePanelGroup>
 		</div>
 	)
 

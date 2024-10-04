@@ -1,15 +1,15 @@
-import { BackButton, Button, IconButton } from "@/components/CTA"
+import { BackButton } from "@/components/CTA"
+import { Button } from "@/components/ui/button"
 import { useSession } from "@/hooks/useSession"
 import { useViewport } from "@/hooks/useViewport"
 import { cn } from "@/lib/utils"
 import { Workout } from "@/utils/models"
 import { getDateText, getLiftNameText } from "@/utils/parsers"
 import {
-	faArrowLeft,
-	faArrowRight,
-	faRotate,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+	SymbolIcon,
+	ThickArrowLeftIcon,
+	ThickArrowRightIcon,
+} from "@radix-ui/react-icons"
 import React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
@@ -71,16 +71,16 @@ export function WorkoutsCalendar({
 	}
 
 	return (
-		<div className="flex min-h-screen w-full justify-center border-slate-700 xl:max-w-5xl xl:border-r">
-			<div className="w-full flex-col divide-x divide-slate-700 overflow-hidden">
-				<div className="flex w-full flex-1 flex-col items-center border-slate-700">
-					<div className="flex h-14 w-full items-end justify-between border-b border-slate-700 px-4 pb-2 xl:px-6">
+		<div className="flex min-h-screen w-full justify-center xl:max-w-5xl xl:border-r">
+			<div className="w-full flex-col divide-x overflow-hidden">
+				<div className="flex w-full flex-1 flex-col items-center">
+					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 xl:px-6">
 						<div className="flex">
 							<BackButton />
 							<h1 className="text-xl font-bold">Calendar</h1>
 						</div>
-						<div className="flex items-center justify-center gap-5">
-							<FontAwesomeIcon
+						<div className="-mb-1 flex items-end justify-center">
+							<Button
 								aria-label="View previous column"
 								className={cn(
 									horizontalIndex
@@ -90,17 +90,22 @@ export function WorkoutsCalendar({
 								onClick={() => {
 									horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
 								}}
-								icon={faArrowLeft}
-								size="lg"
-							/>
-							<IconButton
+								size="icon"
+								variant="ghost"
+							>
+								<ThickArrowLeftIcon className="h-5 w-5" />
+							</Button>
+							<Button
 								aria-label="Reverse x and y axes of calendar"
-								icon={<FontAwesomeIcon icon={faRotate} size="lg" />}
 								onClick={() => {
 									setSortByDate(!sortByDate)
 								}}
-							/>
-							<FontAwesomeIcon
+								size="icon"
+								variant="ghost"
+							>
+								<SymbolIcon className="h-5 w-5" />
+							</Button>
+							<Button
 								aria-label="View next column"
 								className={cn(
 									canIncrement ? "cursor-pointer" : "cursor-default opacity-0",
@@ -108,18 +113,20 @@ export function WorkoutsCalendar({
 								onClick={() => {
 									canIncrement && setHorizontalIndex(horizontalIndex + 1)
 								}}
-								icon={faArrowRight}
-								size="lg"
-							/>
+								size="icon"
+								variant="ghost"
+							>
+								<ThickArrowRightIcon className="h-5 w-5" />
+							</Button>
 						</div>
 					</div>
 					<div className="h-full w-full">
-						<div className="max-h-[calc(100dvh-7rem)] w-full overflow-y-auto border-slate-700 md:max-h-[calc(100dvh-3.5rem)]">
+						<div className="max-h-[calc(100dvh-7rem)] w-full overflow-y-auto md:max-h-[calc(100dvh-3.5rem)]">
 							{filteredWorkouts.length > 0 ? (
-								<table className="w-full table-fixed border-b border-slate-700 bg-white text-center dark:bg-black">
-									<thead className="sticky top-0 divide-x divide-slate-700 bg-white text-gray-900 shadow-sm shadow-slate-700 dark:bg-black dark:text-white">
-										<tr className="divide-x divide-slate-700 shadow-sm shadow-slate-700">
-											<th className="px-4 py-2 text-lg shadow-sm shadow-slate-700">
+								<table className="w-full table-fixed border-b bg-background text-center">
+									<thead className="sticky top-0 divide-x bg-background shadow-sm shadow-secondary">
+										<tr className="divide-x shadow-sm shadow-secondary">
+											<th className="px-4 py-2 text-lg shadow-sm shadow-secondary">
 												{sortByDate ? "Exercise" : "Date"}
 											</th>
 											{sortByDate
@@ -130,7 +137,7 @@ export function WorkoutsCalendar({
 														)
 														.map(workout => (
 															<th
-																className="px-4 py-2 text-lg leading-tight shadow-sm shadow-slate-700"
+																className="px-4 py-2 text-lg leading-tight shadow-sm shadow-secondary"
 																key={workout.id}
 															>
 																{getDateText(workout.date)}
@@ -149,7 +156,7 @@ export function WorkoutsCalendar({
 															return (
 																<th
 																	className={cn(
-																		"px-4 py-2 text-lg leading-tight shadow-sm shadow-slate-700",
+																		"px-4 py-2 text-lg leading-tight shadow-sm shadow-secondary",
 																		liftNameText
 																			.split(" ")
 																			.some(word => word.length >= 12) &&
@@ -174,7 +181,7 @@ export function WorkoutsCalendar({
 													return (
 														<tr
 															className={cn(
-																"divide-x divide-slate-700 border-t border-slate-700",
+																"divide-x border-t",
 																liftNameText
 																	.split(" ")
 																	.some(word => word.length >= 12) &&
@@ -215,10 +222,7 @@ export function WorkoutsCalendar({
 													)
 											  })
 											: filteredWorkouts.map(workout => (
-													<tr
-														className="divide-x divide-slate-700 border-t border-slate-700"
-														key={workout.id}
-													>
+													<tr className="divide-x border-t" key={workout.id}>
 														<td className="px-4 py-2 leading-tight">
 															{getDateText(workout.date)}
 														</td>

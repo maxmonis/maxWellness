@@ -1,7 +1,6 @@
-import { BackButton, Button } from "@/components/CTA"
+import { BackButton } from "@/components/CTA"
 import { Page } from "@/components/Page"
-import { useAuth } from "@/context/AuthContext"
-import { useSession } from "@/hooks/useSession"
+import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 
@@ -9,19 +8,14 @@ import Link from "next/link"
  * Displays text and GIFs showing how to use the app
  */
 export default function InfoPage() {
-	const user = useAuth()
-	const { session } = useSession()
-
-	const hasWorkouts = Boolean(session?.workouts.length)
-
 	return (
 		<Page title="About">
-			<div className="w-full border-slate-700 xl:max-w-5xl xl:border-r">
-				<div className="flex h-14 items-end border-b border-slate-700 px-4 pb-2 xl:px-6">
+			<div className="w-full xl:max-w-5xl xl:border-r">
+				<div className="flex h-14 items-end border-b px-4 pb-2 xl:px-6">
 					<BackButton />
 					<h1 className="text-xl font-bold">About</h1>
 				</div>
-				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto border-slate-700 px-4 md:max-h-[calc(100dvh-3.5rem)] xl:px-6">
+				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto px-4 md:max-h-[calc(100dvh-3.5rem)] xl:px-6">
 					<div className="flex flex-col gap-12 pb-12 pt-6">
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
@@ -121,17 +115,10 @@ export default function InfoPage() {
 								</p>
 								<div className="mt-8 flex w-full justify-center">
 									<Link
-										href={
-											hasWorkouts ? "/" : user ? "/?view=create" : "/register"
-										}
+										className={cn(buttonVariants({ variant: "default" }))}
+										href="/"
 									>
-										<Button className="flex-grow" variant="primary">
-											{hasWorkouts
-												? "My Workouts"
-												: user
-												? "New Workout"
-												: "Sign Up"}
-										</Button>
+										Get Started
 									</Link>
 								</div>
 							</div>
@@ -146,7 +133,7 @@ export default function InfoPage() {
 function Video({ className, src }: { className?: string; src: string }) {
 	return (
 		<video
-			className={cn("mx-auto my-2 w-full border border-slate-700", className)}
+			className={cn("mx-auto my-2 w-full border", className)}
 			controls
 			height="240"
 			width="320"
