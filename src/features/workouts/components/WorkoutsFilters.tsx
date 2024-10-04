@@ -1,9 +1,19 @@
 import { Checkbox } from "@/components/CTA"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select"
 import { useAlerts } from "@/context/AlertContext"
 import { Session } from "@/utils/models"
-import { getLiftNameText, getWorkoutNameText } from "@/utils/parsers"
+import {
+	getDateText,
+	getLiftNameText,
+	getWorkoutNameText,
+} from "@/utils/parsers"
 import sortBy from "lodash/sortBy"
 import React from "react"
 
@@ -85,31 +95,49 @@ export function WorkoutsFilters({
 				<div className="mt-3 flex flex-col gap-3">
 					<div>
 						<Label htmlFor="startDate">Start date:</Label>
-						<Input
-							className="mt-1"
-							min={filters.workoutDates.startDate}
-							max={appliedFilters.workoutDates.endDate.split("T")[0]}
-							id="startDate"
-							type="date"
-							value={appliedFilters.workoutDates.startDate.split("T")[0]}
-							onChange={e => {
-								updateWorkoutsFilter(e.target.value, "startDate")
+						<Select
+							name="startDate"
+							onValueChange={startDate => {
+								updateWorkoutsFilter(startDate, "startDate")
 							}}
-						/>
+							value={appliedFilters.workoutDates.startDate}
+						>
+							<SelectTrigger>
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{filters.workoutDates.allDates
+									.filter(d => d <= appliedFilters.workoutDates.endDate)
+									.map(date => (
+										<SelectItem key={date} value={date}>
+											{getDateText(date)}
+										</SelectItem>
+									))}
+							</SelectContent>
+						</Select>
 					</div>
 					<div>
 						<Label htmlFor="endDate">End date:</Label>
-						<Input
-							className="mt-1"
-							id="endDate"
-							min={appliedFilters.workoutDates.startDate.split("T")[0]}
-							max={filters.workoutDates.endDate.split("T")[0]}
-							type="date"
-							value={appliedFilters.workoutDates.endDate.split("T")[0]}
-							onChange={e => {
-								updateWorkoutsFilter(e.target.value, "endDate")
+						<Select
+							name="endDate"
+							onValueChange={endDate => {
+								updateWorkoutsFilter(endDate, "endDate")
 							}}
-						/>
+							value={appliedFilters.workoutDates.endDate}
+						>
+							<SelectTrigger>
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								{filters.workoutDates.allDates
+									.filter(d => d >= appliedFilters.workoutDates.startDate)
+									.map(date => (
+										<SelectItem key={date} value={date}>
+											{getDateText(date)}
+										</SelectItem>
+									))}
+							</SelectContent>
+						</Select>
 					</div>
 				</div>
 			</div>
