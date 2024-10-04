@@ -16,7 +16,7 @@ export function UserImage({
 }:
 	| { editable?: never; handleNewUrl?: never }
 	| { editable: true; handleNewUrl: (url: string) => void }) {
-	const { loading, session } = useSession()
+	const { session } = useSession()
 	const [newUrl, setNewUrl] = React.useState("")
 	const [uploading, setUploading] = React.useState(false)
 	const [error, setError] = React.useState("")

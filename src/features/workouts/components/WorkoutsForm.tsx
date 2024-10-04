@@ -277,12 +277,11 @@ export function WorkoutsForm({
 				</div>
 			) : (
 				<p className="pt-4">
-					Create your workout using the form above
-					{session?.workouts.length
-						? " and/or by clicking exercises in the list to the right"
-						: ". Valid exercises must include either a weight or at least " +
-						  "one rep. You can drag and drop to reorder the list"}
-					.
+					Add exercises using the form above
+					{Boolean(session?.workouts.length) &&
+						" or by clicking existing ones in the list to the right"}
+					. Each exercise must include either a weight or at least one rep. You
+					can drag and drop to edit the list.
 				</p>
 			)}
 			<div>
