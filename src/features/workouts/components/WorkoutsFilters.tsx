@@ -43,14 +43,14 @@ export function WorkoutsFilters({
 	if (workouts.length === 0) {
 		return (
 			<div>
-				<h2 className="text-lg font-bold">No filters available</h2>
+				<h2 className="font-bold">No filters available</h2>
 			</div>
 		)
 	}
 
 	return (
 		<div>
-			<h2 className="text-lg font-bold">Exercise Name</h2>
+			<h2 className="font-bold">Exercise Name</h2>
 			<ul className="mb-8 mt-3 flex flex-col gap-3">
 				{sortBy(appliedFilters.liftIds, ({ id }) =>
 					getLiftNameText(id, liftNames),
@@ -66,7 +66,7 @@ export function WorkoutsFilters({
 					</li>
 				))}
 			</ul>
-			<h2 className="text-lg font-bold">Workout Name</h2>
+			<h2 className="font-bold">Workout Name</h2>
 			<ul className="mb-8 mt-3 flex flex-col gap-3">
 				{sortBy(appliedFilters.nameIds, ({ id }) =>
 					getWorkoutNameText(id, workoutNames),
@@ -82,7 +82,7 @@ export function WorkoutsFilters({
 					</li>
 				))}
 			</ul>
-			<h2 className="text-lg font-bold">Workout Date</h2>
+			<h2 className="font-bold">Workout Date</h2>
 			<div className="mb-2 mt-4">
 				<Checkbox
 					checked={appliedFilters.newestFirst}

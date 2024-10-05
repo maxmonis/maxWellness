@@ -20,7 +20,7 @@ export function Alerts() {
 			)}
 		>
 			<div className="mx-auto flex items-center justify-center gap-4">
-				<p className="font-bold">{persistentAlert.text}</p>
+				<p className="text-sm">{persistentAlert.text}</p>
 				{persistentAlert.actions?.map(({ onClick, text }) => (
 					<Button key={text} variant="secondary" {...{ onClick }}>
 						{text}

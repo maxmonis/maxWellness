@@ -16,10 +16,10 @@ export function WorkoutsLoader() {
 			)}
 		>
 			{view === "calendar" ? (
-				<div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 xl:px-6">
+				<div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 lg:px-6">
 					<div className="flex w-full items-end">
 						<BackButton />
-						<h1 className="text-xl font-bold">Calendar</h1>
+						<h1 className="text-lg">Calendar</h1>
 					</div>
 				</div>
 			) : (
@@ -32,7 +32,7 @@ export function WorkoutsLoader() {
 							{Array.from({ length: 5 }).map((_, i) => (
 								<div
 									key={i}
-									className="flex justify-between gap-6 p-4 pb-6 xl:p-6"
+									className="flex justify-between gap-6 p-4 pb-6 lg:p-6"
 								>
 									<div className="flex flex-col">
 										<span

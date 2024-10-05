@@ -12,12 +12,10 @@ export function RecordsApp() {
 		session?.workouts.flatMap(w => w.routine.filter(e => e.recordStartDate)) ??
 		[]
 	return (
-		<div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l px-4 pb-6 max-lg:hidden xl:w-full xl:px-6">
+		<div className="h-full max-h-screen w-96 max-w-xs overflow-hidden border-l px-4 pb-6 max-lg:hidden lg:px-6 xl:w-full">
 			<div className="h-full overflow-hidden pb-14">
-				<h2 className="mb-2 ml-1 mt-6 text-lg font-bold leading-tight">
-					Personal Bests
-				</h2>
-				<ul className="flex h-full flex-col gap-4 overflow-y-auto rounded-lg bg-secondary px-4 py-4 xl:px-6">
+				<h2 className="mb-2 ml-1 mt-6 text-lg leading-tight">Personal Bests</h2>
+				<ul className="flex h-full flex-col gap-4 overflow-y-auto rounded-lg bg-secondary px-4 py-4 lg:px-6">
 					{loading ? (
 						<p>Loading records...</p>
 					) : records.length === 0 ? (
@@ -36,6 +34,7 @@ export function RecordsApp() {
 								<li key={exercise.id}>
 									<p
 										className={cn(
+											"text-sm",
 											liftNameText.split(" ").some(word => word.length >= 12) &&
 												"break-all",
 										)}
@@ -43,7 +42,7 @@ export function RecordsApp() {
 									>
 										{liftNameText}: {getPrintout(exercise)}
 									</p>
-									<p className="text-sm text-muted-foreground">
+									<p className="text-xs text-muted-foreground">
 										{getDateText(exercise.recordStartDate ?? "")}
 									</p>
 								</li>

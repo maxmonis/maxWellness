@@ -74,10 +74,10 @@ export function WorkoutsCalendar({
 		<div className="flex min-h-screen w-full justify-center xl:max-w-5xl xl:border-r">
 			<div className="w-full flex-col divide-x overflow-hidden">
 				<div className="flex w-full flex-1 flex-col items-center">
-					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 xl:px-6">
+					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 lg:px-6">
 						<div className="flex">
 							<BackButton />
-							<h1 className="text-xl font-bold">Calendar</h1>
+							<h1 className="text-lg">Calendar</h1>
 						</div>
 						<div className="-mb-1 flex items-end justify-center">
 							<Button
@@ -254,8 +254,8 @@ export function WorkoutsCalendar({
 									</tbody>
 								</table>
 							) : (
-								<div className="flex items-center justify-center gap-4 p-6">
-									<p className="font-bold text-red-500">No results</p>
+								<div className="flex items-center gap-4 p-4 lg:p-6">
+									<p>No results</p>
 									<Button onClick={clearFilters} variant="secondary">
 										Clear Filters
 									</Button>

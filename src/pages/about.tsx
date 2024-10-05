@@ -11,15 +11,15 @@ export default function InfoPage() {
 	return (
 		<Page title="About">
 			<div className="w-full xl:max-w-5xl xl:border-r">
-				<div className="flex h-14 items-end border-b px-4 pb-2 xl:px-6">
+				<div className="flex h-14 items-end border-b px-4 pb-2 lg:px-6">
 					<BackButton />
-					<h1 className="text-xl font-bold">About</h1>
+					<h1 className="text-lg">About</h1>
 				</div>
-				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto px-4 md:max-h-[calc(100dvh-3.5rem)] xl:px-6">
+				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto px-4 md:max-h-[calc(100dvh-3.5rem)] lg:px-6">
 					<div className="flex flex-col gap-12 pb-12 pt-6">
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold">Overview</h3>
+								<h3 className="text-center text-lg">Overview</h3>
 								<p>
 									This website allows you to create a free account using your
 									Google credentials (recommended) or an email/password
@@ -33,9 +33,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold">
-									Creating Workouts
-								</h3>
+								<h3 className="text-center text-lg">Creating Workouts</h3>
 								<p>
 									To create a new workout, add exercises by selecting their
 									name, sets, reps, and weight. You can drag and drop exercises
@@ -67,9 +65,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold">
-									Managing Names
-								</h3>
+								<h3 className="text-center text-lg">Managing Names</h3>
 								<p>
 									The Settings page allows you to add, update, or delete the
 									names you use for workouts and exercises. Names must be unique
@@ -83,9 +79,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold">
-									Managing Workouts
-								</h3>
+								<h3 className="text-center text-lg">Managing Workouts</h3>
 								<p>
 									The ellipsis icon to the right of each workout in the list
 									allows you to duplicate it, copy it to clipboard, edit it, or
@@ -97,9 +91,7 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg font-bold">
-									Tips and Tricks
-								</h3>
+								<h3 className="text-center text-lg">Tips and Tricks</h3>
 								<p>
 									While you&apos;re entering a new workout you can click on the
 									name, date, or exercise of an existing workout to copy that

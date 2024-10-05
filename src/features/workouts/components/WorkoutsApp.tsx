@@ -15,6 +15,7 @@ import { today } from "../utils/constants"
 import { eliminateRedundancy } from "../utils/functions"
 import { WorkoutsCalendar } from "./WorkoutsCalendar"
 import { WorkoutsFilters } from "./WorkoutsFilters"
+import { WorkoutsFiltersResults } from "./WorkoutsFiltersResults"
 import { WorkoutsForm } from "./WorkoutsForm"
 import { WorkoutsHeader } from "./WorkoutsHeader"
 import { WorkoutsList } from "./WorkoutsList"
@@ -101,7 +102,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	}
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen xl:max-w-5xl xl:border-r">
 			<WorkoutsHeader {...{ editingWorkout, workouts }} />
 			<ResizablePanelGroup
 				className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center border-t md:max-h-[calc(100dvh-3.5rem)]"
@@ -109,13 +110,13 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 			>
 				<ResizablePanel
 					className={cn(
-						"relative flex w-min min-w-[50%] flex-grow overflow-x-hidden sm:min-w-[15rem]",
+						"relative flex w-min min-w-[10rem] flex-grow overflow-x-hidden sm:min-w-[15rem]",
 						view === "list" && "hidden",
 					)}
 				>
 					<div className="flex w-full flex-grow flex-col">
 						<div className="w-full overflow-hidden max-md:h-full">
-							<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 xl:px-6">
+							<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
 								{view === "filters" ? (
 									<WorkoutsFilters
 										{...{
@@ -159,23 +160,29 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 						view === "list" ? "min-w-full" : "min-w-[1rem] sm:min-w-[15rem]",
 					)}
 				>
-					<WorkoutsList
-						{...{
-							addExercise,
-							clearFilters,
-							editingWorkout,
-							filteredWorkouts,
-							liftNames,
-							resetState,
-							setEditingWorkout,
-							setValues,
-							updateRoutine,
-							values,
-							view,
-							workoutNames,
-							workouts,
-						}}
-					/>
+					{view === "filters" ? (
+						<WorkoutsFiltersResults
+							{...{ appliedFilters, filteredWorkouts, liftNames }}
+						/>
+					) : (
+						<WorkoutsList
+							{...{
+								addExercise,
+								clearFilters,
+								editingWorkout,
+								filteredWorkouts,
+								liftNames,
+								resetState,
+								setEditingWorkout,
+								setValues,
+								updateRoutine,
+								values,
+								view,
+								workoutNames,
+								workouts,
+							}}
+						/>
+					)}
 				</ResizablePanel>
 			</ResizablePanelGroup>
 		</div>

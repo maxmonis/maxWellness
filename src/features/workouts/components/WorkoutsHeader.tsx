@@ -31,7 +31,7 @@ export function WorkoutsHeader({
 	  }) {
 	const { view } = useWorkoutView()
 	return (
-		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 xl:px-6">
+		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 lg:px-6">
 			{view === "list" ? (
 				<>
 					<div className="flex w-full items-end justify-between md:hidden">
@@ -73,12 +73,12 @@ export function WorkoutsHeader({
 							</div>
 						)}
 					</div>
-					<h1 className="text-xl font-bold max-md:hidden">Workouts</h1>
+					<h1 className="text-lg max-md:hidden">Workouts</h1>
 				</>
 			) : (
 				<>
 					{(loading || workouts.length > 0) && <BackButton />}
-					<h1 className="text-xl font-bold">
+					<h1 className="text-lg">
 						{view === "create"
 							? `${editingWorkout ? "Edit" : "New"} Workout`
 							: "Filters"}

@@ -79,7 +79,7 @@ export function WorkoutsListItem({
 		<div
 			key={workout.id}
 			className={cn(
-				"h-min justify-between gap-6 px-4 pt-4 last:mb-14 sm:gap-10 xl:px-6",
+				"h-min justify-between gap-6 px-4 pt-4 last:mb-14 sm:gap-10 lg:px-6",
 				editingWorkout?.id === workout.id && "italic",
 				view === "list" ? "flex pb-6" : "pb-4 sm:flex",
 			)}
@@ -99,7 +99,7 @@ export function WorkoutsListItem({
 								"leading-tight",
 								workoutNameText.split(" ").some(word => word.length >= 12) &&
 									"break-all",
-								view === "list" && "text-lg",
+								view === "list" && "font-bold",
 							)}
 							translate="no"
 						>

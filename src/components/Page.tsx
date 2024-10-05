@@ -1,5 +1,4 @@
 import { useAuth } from "@/context/AuthContext"
-import { RecordsApp } from "@/features/workouts/components/RecordsApp"
 import { useSession } from "@/hooks/useSession"
 import { cn } from "@/lib/utils"
 import { extractErrorMessage } from "@/utils/parsers"
@@ -64,9 +63,6 @@ export function Page({
 				<div className="relative overflow-hidden">
 					<div className="min-w-screen flex h-screen flex-col justify-between overflow-auto">
 						<div className="mx-auto flex w-screen max-w-7xl flex-col justify-between md:flex-row-reverse md:justify-end">
-							{router.pathname === "/" && router.query.view !== "calendar" && (
-								<RecordsApp />
-							)}
 							<div
 								className={cn(
 									"w-full",

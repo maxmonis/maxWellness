@@ -85,10 +85,10 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 
 	return (
 		<div className="flex min-h-screen w-full flex-grow flex-col xl:max-w-5xl xl:border-r">
-			<div className="flex h-14 items-end justify-between px-4 pb-2 xl:px-6">
+			<div className="flex h-14 items-end justify-between px-4 pb-2 lg:px-6">
 				<div className="flex">
 					<BackButton />
-					<h1 className="text-xl font-bold">Settings</h1>
+					<h1 className="text-lg">Settings</h1>
 				</div>
 				{hasChangeOccurred && (
 					<Button onClick={saveChanges}>
@@ -102,10 +102,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 					direction="horizontal"
 				>
 					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
-						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 xl:px-6">
-							<h2 className="mx-auto mb-4 text-center text-lg font-bold">
-								Exercises
-							</h2>
+						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 lg:px-6">
+							<h2 className="mx-auto mb-4 text-center font-bold">Exercises</h2>
 							<form onSubmit={handleLiftSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
 									<Input
@@ -165,10 +163,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 					</ResizablePanel>
 					<ResizableHandle withHandle />
 					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
-						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 xl:px-6">
-							<h2 className="mx-auto mb-4 text-center text-lg font-bold">
-								Workouts
-							</h2>
+						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 lg:px-6">
+							<h2 className="mx-auto mb-4 text-center font-bold">Workouts</h2>
 							<form onSubmit={handleWorkoutSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
 									<Input

@@ -87,11 +87,9 @@ export function WorkoutsList({
 							) : (
 								<>
 									{workouts.length ? (
-										<div className="p-4 xl:p-6">
+										<div className="p-4 lg:p-6">
 											<div className="flex flex-wrap items-center gap-4">
-												<p className="text-lg font-bold text-red-500">
-													No results
-												</p>
+												<p>No results</p>
 												<Button onClick={clearFilters} variant="secondary">
 													Clear Filters
 												</Button>

@@ -276,7 +276,7 @@ export function WorkoutsForm({
 					</Droppable>
 				</div>
 			) : (
-				<p className="pt-4">
+				<p className="pt-4 text-sm">
 					Add exercises using the form above
 					{Boolean(session?.workouts.length) &&
 						" or by clicking existing ones in the list to the right"}

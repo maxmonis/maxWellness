@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
 						{...{ onSubmit }}
 					>
 						<h1
-							className="mx-auto flex items-center gap-2 text-xl font-bold"
+							className="mx-auto flex items-center gap-2 text-lg"
 							translate="no"
 						>
 							<Image
