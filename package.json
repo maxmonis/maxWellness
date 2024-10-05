@@ -29,7 +29,8 @@
 		"react-resizable-panels": "^2.1.4",
 		"react-transition-group": "^4.4.5",
 		"tailwind-merge": "^2.5.2",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"vaul": "^1.0.0"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^7.6.0",

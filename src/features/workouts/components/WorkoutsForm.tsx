@@ -1,3 +1,4 @@
+import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
@@ -5,7 +6,9 @@ import { Label } from "@/components/ui/label"
 import {
 	Select,
 	SelectContent,
+	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
@@ -62,8 +65,6 @@ export function WorkoutsForm({
 }) {
 	const { date, liftId, nameId, reps, sets, weight } = values
 	const [dragging, setDragging] = React.useState(false)
-	const [errorMsg, setErrorMsg] = React.useState("")
-	const [workoutError, setWorkoutError] = React.useState("")
 
 	const { session } = useSession()
 	const { toast } = useToast()
@@ -109,9 +110,6 @@ export function WorkoutsForm({
 							) : (
 								<>
 									<div className="mb-1">
-										<Label className="sr-only" htmlFor="exerciseName">
-											Exercise Name
-										</Label>
 										<Select
 											onValueChange={liftId => {
 												setValues({ ...values, liftId })
@@ -123,11 +121,14 @@ export function WorkoutsForm({
 												<SelectValue />
 											</SelectTrigger>
 											<SelectContent>
-												{activeLiftNames.map(({ text, id }) => (
-													<SelectItem key={id} translate="no" value={id}>
-														{text}
-													</SelectItem>
-												))}
+												<SelectGroup>
+													<SelectLabel>Exercise Name</SelectLabel>
+													{activeLiftNames.map(({ id, text }) => (
+														<SelectItem key={id} translate="no" value={id}>
+															{text}
+														</SelectItem>
+													))}
+												</SelectGroup>
 											</SelectContent>
 										</Select>
 									</div>
@@ -194,15 +195,10 @@ export function WorkoutsForm({
 													}}
 													variant="ghost"
 												>
-													Clear
+													Reset
 												</Button>
 											)}
 										</div>
-										{errorMsg && (
-											<p className="text-center text-sm text-red-500">
-												{errorMsg}
-											</p>
-										)}
 									</div>
 								</>
 							)}
@@ -274,9 +270,90 @@ export function WorkoutsForm({
 							</ul>
 						)}
 					</Droppable>
+					<ResponsiveDialog
+						buttons={[
+							<Button className="w-min" key="cancel" variant="ghost">
+								Cancel
+							</Button>,
+							<Button
+								className="max-sm:w-full"
+								key="save"
+								disabled={mutating}
+								onClick={handleSave}
+							>
+								Save
+							</Button>,
+						]}
+						content={
+							<>
+								<div className="mt-4 max-sm:px-4">
+									<Select
+										name="nameId"
+										onValueChange={nameId => {
+											setValues({ ...values, nameId })
+										}}
+										value={nameId}
+									>
+										<SelectTrigger translate="no">
+											<SelectValue />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												<SelectLabel>Workout Name</SelectLabel>
+												{activeWorkoutNames.map(({ id, text }) => (
+													<SelectItem key={id} translate="no" value={id}>
+														{text}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
+								</div>
+								<Label className="sr-only" htmlFor="workoutDate">
+									Workout Date
+								</Label>
+								<Calendar
+									className="mx-auto"
+									id="workoutDate"
+									mode="single"
+									selected={new Date(date.split("T")[0] + "T00:00:00")}
+									onSelect={newDate => {
+										if (newDate) {
+											setValues({
+												...values,
+												date: newDate.toISOString(),
+											})
+										}
+									}}
+								/>
+							</>
+						}
+						description="Please select the name and date of this workout"
+						title="Save Workout"
+						trigger={<Button className="mt-6 w-full">Save</Button>}
+					/>
+					<div className="mx-auto mt-4 flex justify-center">
+						{editingWorkout ? (
+							<Button onClick={resetState} variant="ghost">
+								Discard Changes
+							</Button>
+						) : (
+							Boolean(session?.workouts.length) && (
+								<Button
+									onClick={() => {
+										updateRoutine([])
+										resetState()
+									}}
+									variant="ghost"
+								>
+									Discard
+								</Button>
+							)
+						)}
+					</div>
 				</div>
 			) : (
-				<p className="pt-4 text-sm">
+				<p className="pt-2 text-sm">
 					Add exercises using the form above
 					{Boolean(session?.workouts.length) &&
 						" or by clicking existing ones in the list to the right"}
@@ -284,92 +361,6 @@ export function WorkoutsForm({
 					can drag and drop to edit the list.
 				</p>
 			)}
-			<div>
-				<div className="mt-6">
-					<div className="mb-2">
-						<Label className="sr-only" htmlFor="exerciseName">
-							Workout Name
-						</Label>
-						<Select
-							onValueChange={nameId => {
-								setValues({ ...values, nameId })
-							}}
-							name="nameId"
-							value={nameId}
-						>
-							<SelectTrigger translate="no">
-								<SelectValue />
-							</SelectTrigger>
-							<SelectContent>
-								{activeWorkoutNames.map(({ text, id }) => (
-									<SelectItem key={id} translate="no" value={id}>
-										{text}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-					</div>
-					<Label className="sr-only" htmlFor="workoutDate">
-						Workout Date
-					</Label>
-					<Calendar
-						id="workoutDate"
-						mode="single"
-						selected={new Date(date.split("T")[0] + "T00:00:00")}
-						onSelect={newDate => {
-							if (newDate) {
-								setValues({
-									...values,
-									date: newDate.toISOString(),
-								})
-							}
-						}}
-					/>
-				</div>
-				<div className="mt-2 flex items-center justify-between gap-3">
-					<Button
-						className="flex-grow"
-						disabled={mutating}
-						onClick={handleSave}
-					>
-						Save
-					</Button>
-					{routine.length > 0 && (
-						<Button
-							className="mx-auto"
-							type="button"
-							onClick={() => {
-								updateRoutine([])
-							}}
-							variant="ghost"
-						>
-							Reset
-						</Button>
-					)}
-				</div>
-				{workoutError && (
-					<p className="text-center text-sm text-red-500">{workoutError}</p>
-				)}
-			</div>
-			<div className="mt-4 flex w-full justify-center">
-				{editingWorkout ? (
-					<Button onClick={resetState} variant="ghost">
-						Discard Changes
-					</Button>
-				) : (
-					Boolean(session?.workouts.length) && (
-						<Button
-							onClick={() => {
-								updateRoutine([])
-								resetState()
-							}}
-							variant="ghost"
-						>
-							Discard
-						</Button>
-					)
-				)}
-			</div>
 		</DragDropContext>
 	)
 
@@ -381,8 +372,6 @@ export function WorkoutsForm({
 		const exercise = createNewExercise(values)
 		if (exercise) {
 			addExercise(exercise)
-		} else {
-			showError("Invalid exercise")
 		}
 	}
 
@@ -392,7 +381,6 @@ export function WorkoutsForm({
 	function onChange({
 		target: { inputMode, name, value },
 	}: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-		setErrorMsg("")
 		if (inputMode === "numeric") {
 			value = value.replace(/\D/g, "")
 			if (
@@ -417,16 +405,6 @@ export function WorkoutsForm({
 	 */
 	function deleteExercise(exerciseId: string) {
 		updateRoutine(routine.filter(({ id }) => id !== exerciseId))
-	}
-
-	/**
-	 * Shows an error for a short interval
-	 */
-	function showError(text: string) {
-		setErrorMsg(text)
-		setTimeout(() => {
-			setErrorMsg("")
-		}, 3000)
 	}
 
 	/**
@@ -462,28 +440,10 @@ export function WorkoutsForm({
 	}
 
 	/**
-	 * Briefly shows an error
-	 */
-	function showWorkoutError(text: string) {
-		setWorkoutError(text)
-		setTimeout(() => {
-			setWorkoutError("")
-		}, 3000)
-	}
-
-	/**
 	 * Saves the workout the user has been creating or editing
 	 */
 	async function handleSave() {
 		if (mutating) {
-			return
-		}
-		if (!date) {
-			showWorkoutError("Invalid date")
-			return
-		}
-		if (routine.length === 0) {
-			showWorkoutError("Invalid workout")
 			return
 		}
 		const newWorkout = {
