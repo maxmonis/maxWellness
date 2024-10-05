@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
  */
 export function SettingsLoader() {
 	return (
-		<div className="flex min-h-screen flex-col justify-between xl:max-w-5xl xl:border-r">
+		<div className="flex min-h-screen flex-col justify-between lg:max-w-3xl lg:border-r">
 			<div className="flex h-14 items-end border-b px-4 pb-2 lg:px-6">
 				<BackButton />
 				<h1 className="text-lg">Settings</h1>

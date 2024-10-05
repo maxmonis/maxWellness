@@ -113,7 +113,7 @@ export function WorkoutsListItem({
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<Button
-									className="-mr-1.5 max-xl:-mt-1.5"
+									className="-mr-1.5 max-lg:-mt-1.5"
 									size="icon"
 									variant="ghost"
 								>

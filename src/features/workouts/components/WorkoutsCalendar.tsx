@@ -1,14 +1,17 @@
 import { BackButton } from "@/components/CTA"
 import { Button } from "@/components/ui/button"
+import { useElementWidth } from "@/hooks/useElementWidth"
+import { useFullscreen } from "@/hooks/useFullscreen"
 import { useSession } from "@/hooks/useSession"
-import { useViewport } from "@/hooks/useViewport"
 import { cn } from "@/lib/utils"
 import { Workout } from "@/utils/models"
 import { getDateText, getLiftNameText } from "@/utils/parsers"
 import {
+	DoubleArrowLeftIcon,
+	DoubleArrowRightIcon,
+	EnterFullScreenIcon,
+	ExitFullScreenIcon,
 	SymbolIcon,
-	ThickArrowLeftIcon,
-	ThickArrowRightIcon,
 } from "@radix-ui/react-icons"
 import React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
@@ -25,10 +28,12 @@ export function WorkoutsCalendar({
 	clearFilters: () => void
 	filteredWorkouts: Array<Workout>
 }) {
-	const width = useViewport()
 	const { loading, session } = useSession()
 
-	const maxColumns = width < 550 ? 1 : width < 1000 ? 2 : width < 1200 ? 3 : 4
+	const fullscreen = useFullscreen()
+	const ref = React.useRef<HTMLDivElement>(null)
+	const width = useElementWidth(ref)
+	const maxColumns = Math.floor(width ? width / 200 : 1)
 
 	const liftIds: Record<string, number> = {}
 	for (const { routine } of filteredWorkouts) {
@@ -62,6 +67,14 @@ export function WorkoutsCalendar({
 		// eslint-disable-next-line
 	}, [liftArray, horizontalIndex])
 
+	React.useEffect(() => {
+		return () => {
+			if (document.fullscreenElement) {
+				document.exitFullscreen()
+			}
+		}
+	}, [])
+
 	if (!loading && session?.workouts.length === 0) {
 		return (
 			<div className="p-6">
@@ -71,7 +84,14 @@ export function WorkoutsCalendar({
 	}
 
 	return (
-		<div className="flex min-h-screen w-full justify-center xl:max-w-5xl xl:border-r">
+		<div
+			className={cn(
+				fullscreen
+					? "fixed bottom-0 left-0 right-0 top-0 z-10 h-screen w-screen bg-background"
+					: "flex min-h-screen w-full justify-center lg:max-w-3xl lg:border-r",
+			)}
+			{...{ ref }}
+		>
 			<div className="w-full flex-col divide-x overflow-hidden">
 				<div className="flex w-full flex-1 flex-col items-center">
 					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 lg:px-6">
@@ -93,7 +113,7 @@ export function WorkoutsCalendar({
 								size="icon"
 								variant="ghost"
 							>
-								<ThickArrowLeftIcon className="h-5 w-5" />
+								<DoubleArrowLeftIcon className="h-5 w-5" />
 							</Button>
 							<Button
 								aria-label="Reverse x and y axes of calendar"
@@ -116,8 +136,22 @@ export function WorkoutsCalendar({
 								size="icon"
 								variant="ghost"
 							>
-								<ThickArrowRightIcon className="h-5 w-5" />
+								<DoubleArrowRightIcon className="h-5 w-5" />
 							</Button>
+							{document.fullscreenEnabled && (
+								<Button
+									className="ml-2 max-md:hidden"
+									onClick={toggleFullscreen}
+									size="icon"
+									variant="ghost"
+								>
+									{fullscreen ? (
+										<ExitFullScreenIcon className="h-5 w-5" />
+									) : (
+										<EnterFullScreenIcon className="h-5 w-5" />
+									)}
+								</Button>
+							)}
 						</div>
 					</div>
 					<div className="h-full w-full">
@@ -126,7 +160,7 @@ export function WorkoutsCalendar({
 								<table className="w-full table-fixed border-b bg-background text-center">
 									<thead className="sticky top-0 divide-x bg-background shadow-sm shadow-secondary">
 										<tr className="divide-x shadow-sm shadow-secondary">
-											<th className="px-4 py-2 text-lg shadow-sm shadow-secondary">
+											<th className="px-4 py-2 shadow-sm shadow-secondary">
 												{sortByDate ? "Exercise" : "Date"}
 											</th>
 											{sortByDate
@@ -137,7 +171,7 @@ export function WorkoutsCalendar({
 														)
 														.map(workout => (
 															<th
-																className="px-4 py-2 text-lg leading-tight shadow-sm shadow-secondary"
+																className="px-4 py-2 leading-tight shadow-sm shadow-secondary"
 																key={workout.id}
 															>
 																{getDateText(workout.date)}
@@ -156,7 +190,7 @@ export function WorkoutsCalendar({
 															return (
 																<th
 																	className={cn(
-																		"px-4 py-2 text-lg leading-tight shadow-sm shadow-secondary",
+																		"px-4 py-2 leading-tight shadow-sm shadow-secondary",
 																		liftNameText
 																			.split(" ")
 																			.some(word => word.length >= 12) &&
@@ -267,4 +301,12 @@ export function WorkoutsCalendar({
 			</div>
 		</div>
 	)
+
+	function toggleFullscreen() {
+		if (fullscreen) {
+			document.exitFullscreen()
+		} else {
+			document.documentElement.requestFullscreen()
+		}
+	}
 }

@@ -84,7 +84,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	}, [profile])
 
 	return (
-		<div className="flex min-h-screen w-full flex-grow flex-col xl:max-w-5xl xl:border-r">
+		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
 			<div className="flex h-14 items-end justify-between px-4 pb-2 lg:px-6">
 				<div className="flex">
 					<BackButton />

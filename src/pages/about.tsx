@@ -10,7 +10,7 @@ import Link from "next/link"
 export default function InfoPage() {
 	return (
 		<Page title="About">
-			<div className="w-full xl:max-w-5xl xl:border-r">
+			<div className="w-full lg:max-w-3xl lg:border-r">
 				<div className="flex h-14 items-end border-b px-4 pb-2 lg:px-6">
 					<BackButton />
 					<h1 className="text-lg">About</h1>

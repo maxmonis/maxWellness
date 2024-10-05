@@ -102,7 +102,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	}
 
 	return (
-		<div className="min-h-screen xl:max-w-5xl xl:border-r">
+		<div className="min-h-screen lg:max-w-3xl lg:border-r">
 			<WorkoutsHeader {...{ editingWorkout, workouts }} />
 			<ResizablePanelGroup
 				className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center border-t md:max-h-[calc(100dvh-3.5rem)]"

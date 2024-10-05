@@ -15,7 +15,7 @@ export function Alerts() {
 	return (
 		<div
 			className={cn(
-				"fixed bottom-0 right-0 flex h-14 items-center justify-center border-t px-4 max-md:w-screen md:rounded-tl-lg md:border-l",
+				"fixed bottom-0 right-0 z-20 flex h-14 items-center justify-center border-t px-4 max-md:w-screen md:rounded-tl-lg md:border-l",
 				persistentAlert.type === "danger" ? "bg-destructive" : "bg-background",
 			)}
 		>

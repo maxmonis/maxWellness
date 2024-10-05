@@ -12,7 +12,7 @@ export function WorkoutsLoader() {
 		<div
 			className={cn(
 				"min-h-screen",
-				view === "calendar" && "xl:max-w-5xl xl:border-r",
+				view === "calendar" && "lg:max-w-3xl lg:border-r",
 			)}
 		>
 			{view === "calendar" ? (

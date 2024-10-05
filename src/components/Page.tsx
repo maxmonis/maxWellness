@@ -62,7 +62,7 @@ export function Page({
 			{redirect ? null : (
 				<div className="relative overflow-hidden">
 					<div className="min-w-screen flex h-screen flex-col justify-between overflow-auto">
-						<div className="mx-auto flex w-screen max-w-7xl flex-col justify-between md:flex-row-reverse md:justify-end">
+						<div className="mx-auto flex w-screen max-w-5xl flex-col justify-between md:flex-row-reverse md:justify-end">
 							<div
 								className={cn(
 									"w-full",
