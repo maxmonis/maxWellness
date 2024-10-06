@@ -250,7 +250,7 @@ export function WorkoutsForm({
 												</span>
 												{draggingOver !== "ExerciseForm" && (
 													<Button
-														className="h-4 w-4"
+														className="h-5 w-5 rounded-full"
 														onClick={() => {
 															deleteExercise(exercise.id)
 														}}

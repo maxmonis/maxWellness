@@ -25,8 +25,7 @@ export default function InfoPage() {
 									Google credentials (recommended) or an email/password
 									combination. It&apos;s a handy way to keep track of your
 									weightlifting workouts and personal bests, and can be used on
-									devices of any size. You can even install it as an application
-									on your phone for easy access at the gym!
+									devices of any size.
 								</p>
 								<Video className="max-w-xs" src="mobile-view" />
 							</div>
@@ -108,7 +107,7 @@ export default function InfoPage() {
 								<div className="mt-8 flex w-full justify-center">
 									<Link
 										className={cn(buttonVariants({ variant: "default" }))}
-										href="/"
+										href="/register"
 									>
 										Get Started
 									</Link>
