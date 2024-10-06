@@ -1,6 +1,4 @@
-import { Alerts } from "@/components/Alerts"
 import { Toaster } from "@/components/ui/toaster"
-import { AlertContextProvider } from "@/context/AlertContext"
 import { AuthContextProvider } from "@/context/AuthContext"
 import "@/styles/globals.css"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -48,17 +46,14 @@ export default function App({ Component, pageProps }: AppProps) {
 				<link rel="manifest" href="/manifest.json" />
 			</Head>
 			<QueryClientProvider client={queryClient}>
-				<AlertContextProvider>
-					<AuthContextProvider>
-						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-							<main className={font.className}>
-								<Component {...pageProps} />
-								<Toaster />
-							</main>
-						</ThemeProvider>
-						<Alerts />
-					</AuthContextProvider>
-				</AlertContextProvider>
+				<AuthContextProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+						<main className={font.className}>
+							<Component {...pageProps} />
+							<Toaster />
+						</main>
+					</ThemeProvider>
+				</AuthContextProvider>
 			</QueryClientProvider>
 		</>
 	)

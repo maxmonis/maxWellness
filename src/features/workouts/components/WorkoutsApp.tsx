@@ -3,7 +3,8 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import { useAlerts } from "@/context/AlertContext"
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/hooks/use-toast"
 import { useUpdateEvent } from "@/hooks/useUpdateEvent"
 import { cn } from "@/lib/utils"
 import { StorageService } from "@/services/StorageService"
@@ -35,7 +36,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	)
 
 	const { changeView, defaultView, view } = useWorkoutView()
-	const { setPersistentAlert } = useAlerts()
+	const { toast } = useToast()
 
 	const [editingWorkout, setEditingWorkout] = React.useState<Workout | null>(
 		null,
@@ -56,8 +57,33 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	}
 	const [values, setValues] = React.useState(defaultValues)
 
-	const [appliedFilters, setAppliedFilters] = React.useState(filters)
 	const [filteredWorkouts, setFilteredWorkouts] = React.useState(workouts)
+	const [appliedFilters, setAppliedFilters] = React.useState(filters)
+	const [filtersToast, setFiltersToast] = React.useState<ReturnType<
+		typeof toast
+	> | null>(null)
+	useUpdateEvent(() => {
+		const count = countAppliedFilters(appliedFilters)
+		if (count > 0) {
+			setFiltersToast(
+				toast({
+					action: (
+						<ToastAction altText="Clear Filters" onClick={clearFilters}>
+							Clear Filters
+						</ToastAction>
+					),
+					duration: Infinity,
+					title: `${count} filter${count === 1 ? "" : "s"} applied`,
+					...(filteredWorkouts.length === 0 && {
+						description: "No results found",
+						variant: "destructive",
+					}),
+				}),
+			)
+		} else {
+			clearFilters()
+		}
+	}, [appliedFilters])
 
 	useUpdateEvent(() => {
 		if (editingWorkout) {
@@ -85,7 +111,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	React.useEffect(() => {
 		return () => {
-			setPersistentAlert(null)
+			clearFilters()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -239,6 +265,30 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	function clearFilters() {
 		setAppliedFilters(filters)
 		setFilteredWorkouts(workouts)
-		setPersistentAlert(null)
+		filtersToast?.dismiss()
+		setFiltersToast(null)
 	}
+}
+
+/**
+ * @returns the number of filters which the user has applied
+ */
+function countAppliedFilters(appliedFilters: Session["filters"]) {
+	let count = 0
+	if (appliedFilters.workoutDates.allDates.length === 0) {
+		return count
+	}
+	const {
+		liftIds,
+		nameIds,
+		workoutDates: { allDates, endDate, startDate },
+	} = appliedFilters
+	if (startDate !== allDates[0]) {
+		count++
+	}
+	if (endDate !== allDates.at(-1)) {
+		count++
+	}
+	count += [...liftIds, ...nameIds].filter(id => id.checked).length
+	return count
 }

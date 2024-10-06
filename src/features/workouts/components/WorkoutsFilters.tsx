@@ -7,7 +7,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
-import { useAlerts } from "@/context/AlertContext"
 import { Session } from "@/utils/models"
 import {
 	getDateText,
@@ -39,7 +38,6 @@ export function WorkoutsFilters({
 	workoutNames: Session["profile"]["workoutNames"]
 	workouts: Session["workouts"]
 }) {
-	const { setPersistentAlert } = useAlerts()
 	if (workouts.length === 0) {
 		return (
 			<div>
@@ -156,27 +154,6 @@ export function WorkoutsFilters({
 		const updatedWorkouts = filterWorkouts()
 		setFilteredWorkouts(updatedWorkouts)
 
-		const updatedFilterCount = countAppliedFilters()
-		if (updatedFilterCount === 0) {
-			setPersistentAlert(null)
-		} else {
-			setPersistentAlert({
-				actions: [
-					{
-						onClick: clearFilters,
-						text: "Clear Filters",
-					},
-				],
-				text:
-					updatedWorkouts.length === 0
-						? "No results"
-						: `${updatedFilterCount} filter${
-								updatedFilterCount === 1 ? "" : "s"
-						  } applied`,
-				type: updatedWorkouts.length === 0 ? "danger" : "success",
-			})
-		}
-
 		/**
 		 * Updates the workout filters based on a user action
 		 */
@@ -225,29 +202,6 @@ export function WorkoutsFilters({
 				default:
 					return appliedFilters
 			}
-		}
-
-		/**
-		 * @returns the number of filters which the user has applied
-		 */
-		function countAppliedFilters() {
-			let count = 0
-			if (updatedFilters.workoutDates.allDates.length === 0) {
-				return count
-			}
-			const {
-				liftIds,
-				nameIds,
-				workoutDates: { allDates, startDate, endDate },
-			} = updatedFilters
-			if (startDate !== allDates[0]) {
-				count++
-			}
-			if (endDate !== allDates.at(-1)) {
-				count++
-			}
-			count += [...liftIds, ...nameIds].filter(id => id.checked).length
-			return count
 		}
 
 		/**
