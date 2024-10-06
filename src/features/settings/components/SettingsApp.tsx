@@ -26,7 +26,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	const router = useRouter()
 	const { toast } = useToast()
 
-	const { mutate: updateSettings } = useUpdateNames({
+	const { isPending: updating, mutate: updateSettings } = useUpdateNames({
 		onSuccess() {
 			toast({ title: "Settings updated" })
 		},
@@ -83,8 +83,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 					<h1 className="text-lg">Settings</h1>
 				</div>
 				{hasChangeOccurred && (
-					<Button onClick={saveChanges}>
-						{mutating ? "Saving..." : "Save Changes"}
+					<Button loading={updating} onClick={saveChanges}>
+						Save Changes
 					</Button>
 				)}
 			</div>

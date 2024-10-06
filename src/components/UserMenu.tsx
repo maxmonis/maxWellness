@@ -160,7 +160,7 @@ function ProfileDialog({
 				</div>
 			}
 			buttons={[
-				<Button key="cancel" type="button" variant="ghost">
+				<Button key="cancel" variant="ghost">
 					Cancel
 				</Button>,
 				<Button className="max-sm:w-full" key="save" type="submit">

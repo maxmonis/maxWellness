@@ -318,7 +318,7 @@ export function WorkoutsForm({
 							<Button
 								className="max-sm:w-full"
 								key="save"
-								disabled={mutating}
+								loading={mutating}
 								onClick={handleSave}
 							>
 								Save

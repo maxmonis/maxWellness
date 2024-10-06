@@ -245,7 +245,7 @@ export function WorkoutsListItem({
 			</div>
 			<ResponsiveDialog
 				buttons={[
-					<Button key="cancel" type="button" variant="ghost">
+					<Button key="cancel" variant="ghost">
 						Cancel
 					</Button>,
 					<Button
@@ -254,7 +254,6 @@ export function WorkoutsListItem({
 						onClick={() => {
 							handleDelete(workout.id)
 						}}
-						type="button"
 						variant="destructive"
 					>
 						Yes, delete

@@ -76,7 +76,7 @@ export default function ResetPasswordPage() {
 								</p>
 							)}
 						</div>
-						<Button className="w-full" disabled={submitting} type="submit">
+						<Button className="w-full" loading={submitting} type="submit">
 							Reset Password
 						</Button>
 						<div className="flex flex-col gap-2">

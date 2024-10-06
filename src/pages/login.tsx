@@ -80,7 +80,7 @@ export default function LoginPage() {
 							</p>
 						)}
 					</div>
-					<Button className="w-full" disabled={submitting} type="submit">
+					<Button className="w-full" loading={submitting} type="submit">
 						Log In
 					</Button>
 					<GoogleButton {...{ handleError, submitting, setSubmitting }} />
