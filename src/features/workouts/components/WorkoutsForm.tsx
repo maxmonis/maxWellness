@@ -99,10 +99,8 @@ export function WorkoutsForm({
 							{dragging ? (
 								<div
 									className={cn(
-										"grid h-36 place-items-center rounded-lg border-2 border-dashed border-blue-700 p-2 text-center text-blue-700",
-										isDraggingOver
-											? "scale-105 border-blue-800 bg-blue-50 text-blue-800"
-											: "mb-2 bg-white",
+										"grid h-36 place-items-center rounded-lg border-2 border-dashed p-2 text-center",
+										isDraggingOver ? "scale-105" : "mb-2",
 									)}
 								>
 									Drop here to edit
@@ -230,7 +228,7 @@ export function WorkoutsForm({
 												className={cn(
 													"flex items-center justify-between gap-2 py-2",
 													draggingOver === "ExerciseForm" &&
-														"rounded-lg border border-blue-900 bg-white px-2 text-blue-900",
+														"rounded-lg border bg-foreground px-2 text-background",
 												)}
 												ref={draggableRef}
 												{...draggableProps}
