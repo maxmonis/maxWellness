@@ -33,7 +33,7 @@ export function WorkoutsCalendar({
 	const fullscreen = useFullscreen()
 	const ref = React.useRef<HTMLDivElement>(null)
 	const width = useElementWidth(ref)
-	const maxColumns = Math.floor(width ? width / 200 : 1)
+	const maxColumns = Math.floor(width ? width / 160 : 1)
 
 	const liftIds: Record<string, number> = {}
 	for (const { routine } of filteredWorkouts) {
@@ -157,7 +157,7 @@ export function WorkoutsCalendar({
 					<div className="h-full w-full">
 						<div className="max-h-[calc(100dvh-7rem)] w-full overflow-y-auto md:max-h-[calc(100dvh-3.5rem)]">
 							{filteredWorkouts.length > 0 ? (
-								<table className="w-full table-fixed border-b bg-background text-center">
+								<table className="w-full table-fixed border-b bg-background text-center text-sm">
 									<thead className="sticky top-0 divide-x bg-background shadow-sm shadow-secondary">
 										<tr className="divide-x shadow-sm shadow-secondary">
 											<th className="px-4 py-2 shadow-sm shadow-secondary">
