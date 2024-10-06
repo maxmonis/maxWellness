@@ -33,7 +33,7 @@ export function WorkoutsCalendar({
 	const fullscreen = useFullscreen()
 	const ref = React.useRef<HTMLDivElement>(null)
 	const width = useElementWidth(ref)
-	const maxColumns = Math.floor(width ? width / 160 : 1)
+	const maxColumns = width ? Math.floor((width - 176) / 176) || 1 : 1
 
 	const liftIds: Record<string, number> = {}
 	for (const { routine } of filteredWorkouts) {
@@ -160,7 +160,7 @@ export function WorkoutsCalendar({
 								<table className="w-full table-fixed border-b bg-background text-center text-sm">
 									<thead className="sticky top-0 divide-x bg-background shadow-sm shadow-secondary">
 										<tr className="divide-x shadow-sm shadow-secondary">
-											<th className="px-4 py-2 shadow-sm shadow-secondary">
+											<th className="p-2 shadow-sm shadow-secondary">
 												{sortByDate ? "Exercise" : "Date"}
 											</th>
 											{sortByDate
@@ -171,7 +171,7 @@ export function WorkoutsCalendar({
 														)
 														.map(workout => (
 															<th
-																className="px-4 py-2 leading-tight shadow-sm shadow-secondary"
+																className="p-2 leading-tight shadow-sm shadow-secondary"
 																key={workout.id}
 															>
 																{getDateText(workout.date)}
@@ -190,7 +190,7 @@ export function WorkoutsCalendar({
 															return (
 																<th
 																	className={cn(
-																		"px-4 py-2 leading-tight shadow-sm shadow-secondary",
+																		"p-2 leading-tight shadow-sm shadow-secondary",
 																		liftNameText
 																			.split(" ")
 																			.some(word => word.length >= 12) &&
@@ -223,10 +223,7 @@ export function WorkoutsCalendar({
 															)}
 															key={liftId}
 														>
-															<td
-																className="px-4 py-2 leading-tight"
-																translate="no"
-															>
+															<td className="p-2 leading-tight" translate="no">
 																{liftNameText}
 															</td>
 															{filteredWorkouts
@@ -235,10 +232,7 @@ export function WorkoutsCalendar({
 																	horizontalIndex + maxColumns,
 																)
 																.map(workout => (
-																	<td
-																		className="px-4 py-2"
-																		key={liftId + workout.id}
-																	>
+																	<td className="p-2" key={liftId + workout.id}>
 																		{groupExercisesByLift(
 																			workout.routine.filter(
 																				exercise => exercise.liftId === liftId,
@@ -257,7 +251,7 @@ export function WorkoutsCalendar({
 											  })
 											: filteredWorkouts.map(workout => (
 													<tr className="divide-x border-t" key={workout.id}>
-														<td className="px-4 py-2 leading-tight">
+														<td className="p-2 leading-tight">
 															{getDateText(workout.date)}
 														</td>
 														{sortedLifts
@@ -266,10 +260,7 @@ export function WorkoutsCalendar({
 																horizontalIndex + maxColumns,
 															)
 															.map(({ liftId }) => (
-																<td
-																	className="px-4 py-2"
-																	key={liftId + workout.id}
-																>
+																<td className="p-2" key={liftId + workout.id}>
 																	{groupExercisesByLift(
 																		workout.routine.filter(
 																			exercise => exercise.liftId === liftId,
