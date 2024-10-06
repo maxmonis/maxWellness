@@ -14,28 +14,20 @@ export function extractErrorMessage(error: unknown) {
 	return "An unexpected error occurred"
 }
 
-const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-const months = [
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
-]
+/**
+ * Generates a human-readable string representing the given date
+ * @param date A date string in the format "yyyy-mm-ddThh:mm:ss.sssZ"
+ * @returns "Weekday, Month Day, Year" if the year is different from
+ * the current year, otherwise simply "Weekday, Month Day"
+ */
 export function getDateText(date: string) {
 	const [year, month, day] = date.split("T")[0].split("-").map(Number)
-	const weekday = days[new Date(year, month - 1, day).getDay()]
-	return (
-		`${weekday}, ${months[month - 1]} ${day}` +
-		(year === new Date().getFullYear() ? "" : `, '${year.toString().slice(2)}`)
-	)
+	return new Date(year, month - 1, day).toLocaleDateString(undefined, {
+		day: "numeric",
+		month: "short",
+		weekday: "short",
+		...(year !== new Date().getFullYear() && { year: "2-digit" }),
+	})
 }
 
 /**
