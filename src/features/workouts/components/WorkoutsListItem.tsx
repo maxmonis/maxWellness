@@ -1,14 +1,5 @@
+import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -71,9 +62,8 @@ export function WorkoutsListItem({
 	workoutNames: Session["profile"]["workoutNames"]
 }) {
 	const { toast } = useToast()
-	const workoutName = workoutNames.find(n => n.id === workout.id)
+	const [deleting, setDeleting] = React.useState(false)
 	const workoutNameText = getWorkoutNameText(workout.nameId, workoutNames)
-	const buttonRef = React.createRef<HTMLButtonElement>()
 
 	return (
 		<div
@@ -178,51 +168,14 @@ export function WorkoutsListItem({
 									<Pencil2Icon />
 									Edit
 								</DropdownMenuItem>
-								<Dialog
-									onOpenChange={open => {
-										if (!open) {
-											buttonRef.current?.click()
-										}
+								<DropdownMenuItem
+									className="gap-2"
+									onClick={() => {
+										setDeleting(true)
 									}}
 								>
-									<DialogTrigger asChild>
-										<Button
-											className="w-full cursor-default justify-start gap-2 px-2 py-1.5 font-normal"
-											variant="ghost"
-										>
-											<TrashIcon />
-											Delete
-										</Button>
-									</DialogTrigger>
-									<DialogContent className="gap-6">
-										<DialogHeader>
-											<DialogTitle>Delete workout?</DialogTitle>
-											<DialogDescription>
-												This action cannot be undone
-											</DialogDescription>
-										</DialogHeader>
-										<DialogFooter className="gap-y-2">
-											<DialogClose asChild>
-												<Button type="button" variant="ghost">
-													Cancel
-												</Button>
-											</DialogClose>
-											<DialogClose asChild>
-												<Button
-													onClick={() => {
-														handleDelete(workout.id)
-													}}
-													type="button"
-													variant="destructive"
-												>
-													Yes, delete
-												</Button>
-											</DialogClose>
-										</DialogFooter>
-									</DialogContent>
-								</Dialog>
-								<DropdownMenuItem className="hidden">
-									<button ref={buttonRef} />
+									<TrashIcon />
+									Delete
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
@@ -290,6 +243,28 @@ export function WorkoutsListItem({
 						  })}
 				</ul>
 			</div>
+			<ResponsiveDialog
+				buttons={[
+					<Button key="cancel" type="button" variant="ghost">
+						Cancel
+					</Button>,
+					<Button
+						className="max-sm:w-full"
+						key="delete"
+						onClick={() => {
+							handleDelete(workout.id)
+						}}
+						type="button"
+						variant="destructive"
+					>
+						Yes, delete
+					</Button>,
+				]}
+				description="This action cannot be undone"
+				open={deleting}
+				onOpenChange={setDeleting}
+				title="Delete workout?"
+			/>
 		</div>
 	)
 

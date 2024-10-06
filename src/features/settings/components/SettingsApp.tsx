@@ -1,14 +1,6 @@
 import { BackButton } from "@/components/CTA"
+import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import {
 	ResizableHandle,
@@ -225,54 +217,46 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 					</ResizablePanel>
 				</ResizablePanelGroup>
 			</div>
-			<Dialog
+			<ResponsiveDialog
+				buttons={[
+					<Button
+						className="text-destructive hover:text-destructive"
+						key="discard"
+						onClick={() => {
+							setLiftNames(profile.liftNames)
+							setWorkoutNames(profile.workoutNames)
+							onConfirmRouteChange()
+						}}
+						variant="ghost"
+					>
+						Discard Changes
+					</Button>,
+					<Button
+						key="continue"
+						onClick={() => {
+							setNextRouterPath("")
+						}}
+						variant="ghost"
+					>
+						Continue Editing
+					</Button>,
+					<Button
+						autoFocus
+						className="max-sm:w-full"
+						key="save"
+						onClick={() => {
+							saveChanges()
+							onConfirmRouteChange()
+						}}
+					>
+						Save Changes
+					</Button>,
+				]}
+				description="Are you sure you want to leave? Your changes will be lost"
 				open={showLeaveConfirmDialog}
 				onOpenChange={setShowLeaveConfirmDialog}
-			>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>Unsaved changes</DialogTitle>
-					</DialogHeader>
-					<DialogDescription>
-						Are you sure you want to leave? Your changes will be lost.
-					</DialogDescription>
-					<DialogFooter className="gap-y-2">
-						<DialogClose asChild>
-							<Button
-								onClick={() => {
-									setLiftNames(profile.liftNames)
-									setWorkoutNames(profile.workoutNames)
-									onConfirmRouteChange()
-								}}
-								variant="ghost"
-							>
-								Discard Changes
-							</Button>
-						</DialogClose>
-						<DialogClose asChild>
-							<Button
-								onClick={() => {
-									setNextRouterPath("")
-								}}
-								variant="secondary"
-							>
-								Continue Editing
-							</Button>
-						</DialogClose>
-						<DialogClose asChild>
-							<Button
-								autoFocus
-								onClick={() => {
-									saveChanges()
-									onConfirmRouteChange()
-								}}
-							>
-								Save Changes
-							</Button>
-						</DialogClose>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+				title="Unsaved Changes"
+			/>
 		</div>
 	)
 

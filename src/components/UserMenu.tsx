@@ -1,13 +1,3 @@
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { logOut } from "@/firebase/app"
@@ -17,6 +7,7 @@ import { ExitIcon, MoonIcon, Pencil2Icon, SunIcon } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/router"
 import React from "react"
+import { ResponsiveDialog } from "./ReponsiveDialog"
 import { UserImage } from "./UserImage"
 import { Button } from "./ui/button"
 import {
@@ -32,9 +23,8 @@ import {
  */
 export function UserMenu() {
 	const { loading, session } = useSession()
-	const { mutate: updateProfile } = useUpdateProfile()
 	const router = useRouter()
-	const buttonRef = React.createRef<HTMLButtonElement>()
+	const [editing, setEditing] = React.useState(false)
 
 	if (loading) {
 		return <></>
@@ -49,47 +39,50 @@ export function UserMenu() {
 	}
 
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button
-					className="h-min gap-2 max-md:flex-row-reverse md:w-full md:px-2"
-					variant="ghost"
-				>
-					<UserImage />
-					<span className="w-32 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
+		<>
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button
+						className="h-min gap-2 max-md:flex-row-reverse md:w-full md:px-2"
+						variant="ghost"
+					>
+						<UserImage />
+						<span className="w-32 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
+							{session.profile.userName}
+						</span>
+					</Button>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent>
+					<div className="p-1">
+						<DarkModeToggle />
+					</div>
+					<DropdownMenuItem
+						className="gap-2"
+						onClick={() => {
+							setEditing(true)
+						}}
+					>
+						<Pencil2Icon />
+						<span className="leading-tight">Edit Profile</span>
+					</DropdownMenuItem>
+					<DropdownMenuItem
+						className="gap-2"
+						onClick={() => {
+							logOut().then(() => {
+								router.push("/login")
+							})
+						}}
+					>
+						<ExitIcon />
+						<span className="leading-tight">Logout</span>
+					</DropdownMenuItem>
+					<p className="w-32 p-2 text-sm leading-tight sm:hidden">
 						{session.profile.userName}
-					</span>
-				</Button>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent>
-				<div className="p-1">
-					<DarkModeToggle />
-				</div>
-				<ProfileDialog
-					handleClose={() => {
-						buttonRef.current?.click()
-					}}
-					{...session}
-				/>
-				<DropdownMenuItem
-					className="gap-2"
-					onClick={() => {
-						logOut().then(() => {
-							router.push("/login")
-						})
-					}}
-				>
-					<ExitIcon />
-					<span className="leading-tight">Logout</span>
-				</DropdownMenuItem>
-				<DropdownMenuItem className="hidden">
-					<button ref={buttonRef} />
-				</DropdownMenuItem>
-				<p className="w-32 p-2 text-sm leading-tight sm:hidden">
-					{session.profile.userName}
-				</p>
-			</DropdownMenuContent>
-		</DropdownMenu>
+					</p>
+				</DropdownMenuContent>
+			</DropdownMenu>
+			<ProfileDialog onOpenChange={setEditing} open={editing} {...session} />
+		</>
 	)
 }
 
@@ -133,85 +126,63 @@ function DarkModeToggle() {
 }
 
 function ProfileDialog({
-	handleClose,
+	onOpenChange,
+	open,
 	profile,
-}: { handleClose: () => void } & NonNullable<
-	ReturnType<typeof useSession>["session"]
->) {
+}: {
+	onOpenChange: (open: boolean) => void
+	open: boolean
+} & NonNullable<ReturnType<typeof useSession>["session"]>) {
 	const { mutate: updateProfile } = useUpdateProfile()
 	const [newName, setNewName] = React.useState(profile.userName)
 	const [newPhotoURL, setNewPhotoURL] = React.useState(profile.photoURL)
 
 	return (
-		<Dialog
-			onOpenChange={open => {
-				if (!open) {
-					handleClose()
+		<ResponsiveDialog
+			body={
+				<div className="my-4 grid gap-4">
+					<div>
+						<Label className="ml-1" htmlFor="username">
+							Name
+						</Label>
+						<Input
+							className="col-span-3"
+							id="username"
+							onChange={e => {
+								setNewName(e.target.value)
+							}}
+							value={newName}
+						/>
+					</div>
+					<div className="grid place-items-center">
+						<UserImage editable handleNewUrl={setNewPhotoURL} />
+					</div>
+				</div>
+			}
+			buttons={[
+				<Button key="cancel" type="button" variant="ghost">
+					Cancel
+				</Button>,
+				<Button className="max-sm:w-full" key="save" type="submit">
+					Save changes
+				</Button>,
+			]}
+			description={`Update your username or upload a ${
+				profile.photoURL ? "new " : ""
+			}profile image`}
+			onSubmit={() => {
+				const userName = newName.trim()
+				const args = {
+					...(userName && userName !== profile.userName && { userName }),
+					...(newPhotoURL &&
+						newPhotoURL !== profile.photoURL && { photoURL: newPhotoURL }),
+				}
+				if (Object.keys(args).length) {
+					updateProfile(args)
 				}
 			}}
-		>
-			<DialogTrigger asChild>
-				<Button
-					className="w-full cursor-default justify-start gap-2 px-2 py-1.5 font-normal"
-					variant="ghost"
-				>
-					<Pencil2Icon />
-					<span className="leading-tight">Edit profile</span>
-				</Button>
-			</DialogTrigger>
-			<DialogContent className="gap-6">
-				<form
-					onSubmit={e => {
-						e.preventDefault()
-						const userName = newName.trim()
-						const args = {
-							...(userName && userName !== profile.userName && { userName }),
-							...(newPhotoURL &&
-								newPhotoURL !== profile.photoURL && { photoURL: newPhotoURL }),
-						}
-						if (Object.keys(args).length) {
-							updateProfile(args)
-						}
-					}}
-				>
-					<DialogHeader>
-						<DialogTitle>Edit profile</DialogTitle>
-						<DialogDescription>
-							Update your username or upload a&nbsp;
-							{profile.photoURL ? "new " : ""}profile image
-						</DialogDescription>
-					</DialogHeader>
-					<div className="my-4 grid gap-4">
-						<div>
-							<Label className="ml-1" htmlFor="name">
-								Name
-							</Label>
-							<Input
-								autoFocus
-								className="col-span-3"
-								id="name"
-								onChange={e => {
-									setNewName(e.target.value)
-								}}
-								value={newName}
-							/>
-						</div>
-						<div className="grid place-items-center">
-							<UserImage editable handleNewUrl={setNewPhotoURL} />
-						</div>
-					</div>
-					<DialogFooter className="gap-y-2">
-						<DialogClose asChild>
-							<Button type="button" variant="ghost">
-								Cancel
-							</Button>
-						</DialogClose>
-						<DialogClose asChild>
-							<Button type="submit">Save changes</Button>
-						</DialogClose>
-					</DialogFooter>
-				</form>
-			</DialogContent>
-		</Dialog>
+			title="Edit profile"
+			{...{ onOpenChange, open }}
+		/>
 	)
 }

@@ -23,25 +23,46 @@ import * as React from "react"
 import { screens } from "tailwindcss/defaultTheme"
 
 export function ResponsiveDialog({
-	content,
-	description,
+	body,
 	buttons,
+	description,
+	onSubmit,
 	title,
 	trigger,
+	...props
 }: {
-	content?: JSX.Element
-	description?: string
 	buttons: Array<JSX.Element>
+	description?: string
 	title: string
-	trigger: JSX.Element
-}) {
+} & (
+	| {
+			onOpenChange?: never
+			open?: never
+			trigger: JSX.Element
+	  }
+	| {
+			onOpenChange: (open: boolean) => void
+			open: boolean
+			trigger?: never
+	  }
+) &
+	(
+		| { body: JSX.Element; onSubmit?: () => void }
+		| { body?: never; onSubmit?: never }
+	)) {
 	const dialog = useMediaQuery(`(min-width: ${screens.sm})`)
 	const [open, setOpen] = React.useState(false)
+	const commonProps = {
+		open: props.open ?? open,
+		onOpenChange: newOpen => {
+			props.onOpenChange ? props.onOpenChange(newOpen) : setOpen(newOpen)
+		},
+	}
 
 	if (dialog) {
 		return (
-			<Dialog open={open} onOpenChange={setOpen}>
-				<DialogTrigger asChild>{trigger}</DialogTrigger>
+			<Dialog {...commonProps}>
+				{trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle>{title}</DialogTitle>
@@ -49,7 +70,7 @@ export function ResponsiveDialog({
 							<DialogDescription>{description}</DialogDescription>
 						)}
 					</DialogHeader>
-					{content}
+					<Body {...{ body, onSubmit }} />
 					<DialogFooter>
 						{buttons.map(button => (
 							<DialogClose asChild key={button.key}>
@@ -63,14 +84,14 @@ export function ResponsiveDialog({
 	}
 
 	return (
-		<Drawer open={open} onOpenChange={setOpen}>
+		<Drawer {...commonProps}>
 			<DrawerTrigger asChild>{trigger}</DrawerTrigger>
 			<DrawerContent>
 				<DrawerHeader className="text-left">
 					<DrawerTitle>{title}</DrawerTitle>
 					{description && <DrawerDescription>{description}</DrawerDescription>}
 				</DrawerHeader>
-				{content}
+				<Body {...{ body, onSubmit }} />
 				<DrawerFooter className="flex-col-reverse items-center">
 					{buttons.map(button => (
 						<DrawerClose asChild key={button.key}>
@@ -81,4 +102,32 @@ export function ResponsiveDialog({
 			</DrawerContent>
 		</Drawer>
 	)
+}
+
+function Body({
+	body,
+	onSubmit,
+}: {
+	body?: JSX.Element
+	onSubmit?: () => void
+}) {
+	if (!body) {
+		return <></>
+	}
+
+	if (onSubmit) {
+		return (
+			<form
+				className="max-sm:px-4"
+				onSubmit={e => {
+					e.preventDefault()
+					onSubmit()
+				}}
+			>
+				{body}
+			</form>
+		)
+	}
+
+	return <div className="max-sm:px-4">{body}</div>
 }

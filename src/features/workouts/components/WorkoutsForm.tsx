@@ -271,49 +271,34 @@ export function WorkoutsForm({
 						)}
 					</Droppable>
 					<ResponsiveDialog
-						buttons={[
-							<Button className="w-min" key="cancel" variant="ghost">
-								Cancel
-							</Button>,
-							<Button
-								className="max-sm:w-full"
-								key="save"
-								disabled={mutating}
-								onClick={handleSave}
-							>
-								Save
-							</Button>,
-						]}
-						content={
+						body={
 							<>
-								<div className="mt-4 max-sm:px-4">
-									<Select
-										name="nameId"
-										onValueChange={nameId => {
-											setValues({ ...values, nameId })
-										}}
-										value={nameId}
-									>
-										<SelectTrigger translate="no">
-											<SelectValue />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectGroup>
-												<SelectLabel>Workout Name</SelectLabel>
-												{activeWorkoutNames.map(({ id, text }) => (
-													<SelectItem key={id} translate="no" value={id}>
-														{text}
-													</SelectItem>
-												))}
-											</SelectGroup>
-										</SelectContent>
-									</Select>
-								</div>
+								<Select
+									name="nameId"
+									onValueChange={nameId => {
+										setValues({ ...values, nameId })
+									}}
+									value={nameId}
+								>
+									<SelectTrigger translate="no">
+										<SelectValue />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectGroup>
+											<SelectLabel>Workout Name</SelectLabel>
+											{activeWorkoutNames.map(({ id, text }) => (
+												<SelectItem key={id} translate="no" value={id}>
+													{text}
+												</SelectItem>
+											))}
+										</SelectGroup>
+									</SelectContent>
+								</Select>
 								<Label className="sr-only" htmlFor="workoutDate">
 									Workout Date
 								</Label>
 								<Calendar
-									className="mx-auto"
+									className="mx-auto mt-4 w-min"
 									id="workoutDate"
 									mode="single"
 									selected={new Date(date.split("T")[0] + "T00:00:00")}
@@ -328,6 +313,19 @@ export function WorkoutsForm({
 								/>
 							</>
 						}
+						buttons={[
+							<Button className="w-min" key="cancel" variant="ghost">
+								Cancel
+							</Button>,
+							<Button
+								className="max-sm:w-full"
+								key="save"
+								disabled={mutating}
+								onClick={handleSave}
+							>
+								Save
+							</Button>,
+						]}
 						description="Please select the name and date of this workout"
 						title="Save Workout"
 						trigger={<Button className="mt-6 w-full">Save</Button>}
