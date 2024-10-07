@@ -77,8 +77,12 @@ export function WorkoutsForm({
 			toast({ title: `Workout ${action}` })
 		},
 	})
-	const { mutate: addWorkout } = useAddWorkout(getConfig("saved"))
-	const { mutate: updateWorkout } = useUpdateWorkout(getConfig("updated"))
+	const { isPending: isAdding, mutate: addWorkout } = useAddWorkout(
+		getConfig("saved"),
+	)
+	const { isPending: isUpdating, mutate: updateWorkout } = useUpdateWorkout(
+		getConfig("updated"),
+	)
 	const mutationCount = useIsMutating()
 	const mutating = mutationCount > 0
 
@@ -315,18 +319,17 @@ export function WorkoutsForm({
 							<Button className="w-min" key="cancel" variant="ghost">
 								Cancel
 							</Button>,
-							<Button
-								className="max-sm:w-full"
-								key="save"
-								loading={mutating}
-								onClick={handleSave}
-							>
+							<Button className="max-sm:w-full" key="save" onClick={handleSave}>
 								Save
 							</Button>,
 						]}
 						description="Please select the name and date of this workout"
 						title="Save Workout"
-						trigger={<Button className="mt-6 w-full">Save</Button>}
+						trigger={
+							<Button className="mt-6 w-full" loading={isAdding || isUpdating}>
+								Save
+							</Button>
+						}
 					/>
 					<div className="mx-auto mt-4 flex justify-center">
 						{editingWorkout ? (
