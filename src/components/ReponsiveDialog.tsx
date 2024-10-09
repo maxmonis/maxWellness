@@ -70,14 +70,15 @@ export function ResponsiveDialog({
 							<DialogDescription>{description}</DialogDescription>
 						)}
 					</DialogHeader>
-					<Body {...{ body, onSubmit }} />
-					<DialogFooter>
-						{buttons.map(button => (
-							<DialogClose asChild key={button.key}>
-								{button}
-							</DialogClose>
-						))}
-					</DialogFooter>
+					<Body {...{ body, onSubmit }}>
+						<DialogFooter>
+							{buttons.map(button => (
+								<DialogClose asChild key={button.key}>
+									{button}
+								</DialogClose>
+							))}
+						</DialogFooter>
+					</Body>
 				</DialogContent>
 			</Dialog>
 		)
@@ -91,14 +92,15 @@ export function ResponsiveDialog({
 					<DrawerTitle>{title}</DrawerTitle>
 					{description && <DrawerDescription>{description}</DrawerDescription>}
 				</DrawerHeader>
-				<Body {...{ body, onSubmit }} />
-				<DrawerFooter className="flex-col-reverse items-center">
-					{buttons.map(button => (
-						<DrawerClose asChild key={button.key}>
-							{button}
-						</DrawerClose>
-					))}
-				</DrawerFooter>
+				<Body {...{ body, onSubmit }}>
+					<DrawerFooter className="flex-col-reverse items-center">
+						{buttons.map(button => (
+							<DrawerClose asChild key={button.key}>
+								{button}
+							</DrawerClose>
+						))}
+					</DrawerFooter>
+				</Body>
 			</DrawerContent>
 		</Drawer>
 	)
@@ -106,15 +108,12 @@ export function ResponsiveDialog({
 
 function Body({
 	body,
+	children,
 	onSubmit,
-}: {
+}: React.PropsWithChildren<{
 	body?: JSX.Element
 	onSubmit?: () => void
-}) {
-	if (!body) {
-		return <></>
-	}
-
+}>) {
 	if (onSubmit) {
 		return (
 			<form
@@ -125,9 +124,15 @@ function Body({
 				}}
 			>
 				{body}
+				{children}
 			</form>
 		)
 	}
 
-	return <div className="max-sm:px-4">{body}</div>
+	return (
+		<div className="max-sm:px-4">
+			{body}
+			{children}
+		</div>
+	)
 }
