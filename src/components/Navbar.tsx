@@ -26,21 +26,19 @@ export default function Navbar() {
 	return (
 		<div className="flex max-h-screen items-center max-md:h-14 max-md:w-screen max-md:border-t md:max-w-min md:border-r">
 			<div className="flex h-full w-full flex-col items-center justify-center px-2 md:h-full md:justify-between md:overflow-y-scroll md:px-4 lg:px-6">
-				<div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 md:h-full md:w-44 md:flex-col md:items-start md:justify-start md:py-5">
+				<nav className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 md:h-full md:w-44 md:flex-col md:items-start md:justify-start md:py-5">
 					<div className="md:mb-4">
 						<Link
-							className={cn(
-								"flex w-full gap-1.5",
-								buttonVariants({ variant: "ghost" }),
-							)}
+							className="ml-4 flex w-full items-center gap-1.5 max-sm:p-2"
 							href={homeHref}
 						>
 							<Image
-								alt="Logo"
+								alt="maxWellness logo"
 								className="h-6 w-6 min-w-max rounded-md border max-sm:h-7 max-sm:w-7"
+								height={28}
+								priority
 								src="/android-chrome-192x192.png"
-								height={24}
-								width={24}
+								width={28}
 							/>
 							<span className="text-lg max-sm:sr-only" translate="no">
 								maxWellness
@@ -138,7 +136,7 @@ export default function Navbar() {
 					<div className="mb-0 mt-auto md:w-full">
 						<UserMenu />
 					</div>
-				</div>
+				</nav>
 				<footer className="flex w-full flex-col items-center justify-end gap-4 whitespace-nowrap pb-2 text-center text-sm max-md:hidden">
 					<a
 						href="https://maxmonis.com/"

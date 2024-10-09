@@ -51,8 +51,8 @@ export function UserImage({
 								alt={`${userName} profile image`}
 								className="object-cover"
 								fill
-								priority
-								sizes="200px"
+								sizes={editable ? "160px" : "28px"}
+								{...(!editable && { priority: true })}
 								{...{ src }}
 							/>
 							<AvatarFallback>
