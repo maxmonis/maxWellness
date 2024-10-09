@@ -3,8 +3,9 @@ import { useSession } from "@/hooks/useSession"
 import { cn } from "@/lib/utils"
 import { extractErrorMessage } from "@/utils/parsers"
 import { PersonIcon } from "@radix-ui/react-icons"
+import Image from "next/image"
 import React from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { Avatar, AvatarFallback } from "./ui/avatar"
 
 /**
  * Displays the user's profile image, allowing them to
@@ -46,9 +47,12 @@ export function UserImage({
 				) : (
 					<Wrapper {...(editable && { onClick })}>
 						<Avatar className="h-full w-full border">
-							<AvatarImage
+							<Image
 								alt={`${userName} profile image`}
 								className="object-cover"
+								fill
+								priority
+								sizes="200px"
 								{...{ src }}
 							/>
 							<AvatarFallback>
