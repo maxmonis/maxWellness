@@ -23,7 +23,7 @@ export function SettingsLoader() {
 									{i ? "Workouts" : "Exercises"}
 								</h2>
 								<div className="flex">
-									<span className="h-9 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+									<span className="h-7 w-full animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 								</div>
 								<div className="flex h-full flex-col gap-5 pt-6">
 									{Array.from({ length: 3 - i }).map((_, j) => (
@@ -35,14 +35,11 @@ export function SettingsLoader() {
 												>
 													<span
 														className={cn(
-															"h-4 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:h-5",
+															"ml-1 h-3 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
 															k ? "w-16" : "w-20",
-															((i + j) * k) % 5 && "max-xs:h-7 xs:w-28",
+															((i + j) * k) % 5 && "max-xs:h-5 xs:w-28",
 														)}
 													/>
-													<div className="flex gap-4">
-														<span className="h-3 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
-													</div>
 												</div>
 											))}
 										</div>

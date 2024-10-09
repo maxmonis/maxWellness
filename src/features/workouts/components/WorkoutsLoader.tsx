@@ -9,12 +9,7 @@ import { WorkoutsHeader } from "./WorkoutsHeader"
 export function WorkoutsLoader() {
 	const { view } = useWorkoutView()
 	return (
-		<div
-			className={cn(
-				"min-h-screen",
-				view === "calendar" && "lg:max-w-3xl lg:border-r",
-			)}
-		>
+		<div className="min-h-screen lg:max-w-3xl lg:border-r">
 			{view === "calendar" ? (
 				<div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 lg:px-6">
 					<div className="flex w-full items-end">
@@ -32,24 +27,24 @@ export function WorkoutsLoader() {
 							{Array.from({ length: 5 }).map((_, i) => (
 								<div
 									key={i}
-									className="flex justify-between gap-6 p-4 pb-6 lg:p-6"
+									className="flex justify-between gap-6 px-4 pb-6 pt-4 lg:px-6"
 								>
 									<div className="flex flex-col">
 										<span
 											className={cn(
-												"mb-3 h-5 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
+												"mb-2 h-4 animate-pulse rounded bg-slate-300 dark:bg-slate-700",
 												i % 2 ? "w-32" : "w-24",
 											)}
 										/>
-										<span className="mb-4 h-3 w-20 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:mb-5" />
-										<span className="mb-2 h-4 w-28 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:mb-3" />
+										<span className="mb-4 h-2.5 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+										<span className="mb-2 h-3.5 w-28 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 										{i % 2 === 0 && (
-											<span className="mb-2 h-4 w-16 animate-pulse rounded bg-slate-300 dark:bg-slate-700 sm:mb-3" />
+											<span className="mb-2 h-3.5 w-20 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 										)}
-										<span className="h-4 w-36 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
+										<span className="h-3.5 w-36 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 									</div>
 									<div className="flex flex-col items-center gap-y-4">
-										<span className="h-3 w-7 animate-pulse rounded-full bg-slate-300 dark:bg-slate-700" />
+										<span className="h-5 w-5 animate-pulse rounded-sm bg-slate-300 dark:bg-slate-700" />
 									</div>
 								</div>
 							))}
