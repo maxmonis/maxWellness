@@ -81,7 +81,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 				}),
 			)
 		} else {
-			clearFilters()
+			removeFiltersToast()
 		}
 	}, [appliedFilters])
 
@@ -265,6 +265,10 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	function clearFilters() {
 		setAppliedFilters(filters)
 		setFilteredWorkouts(workouts)
+		removeFiltersToast()
+	}
+
+	function removeFiltersToast() {
 		filtersToast?.dismiss()
 		setFiltersToast(null)
 	}
