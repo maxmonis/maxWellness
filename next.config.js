@@ -13,13 +13,6 @@ const nextConfig = {
 				port: "",
 				pathname: "/**",
 			},
-			/* images I've uploaded to Github */
-			{
-				protocol: "https",
-				hostname: "user-images.githubusercontent.com",
-				port: "",
-				pathname: "/51540371/**",
-			},
 			/* images the user has uploaded to Firebase */
 			{
 				protocol: "https",

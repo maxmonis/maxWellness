@@ -77,10 +77,7 @@ export function GoogleButton({
 				alt="google logo"
 				className="mr-3 w-6"
 				height={30}
-				src={
-					"https://user-images.githubusercontent.com/51540371/" +
-					"209448811-2b88004b-4abd-4b68-9944-9d47b350a735.png"
-				}
+				src="/google-logo.png"
 				width={30}
 			/>
 			Continue with Google
