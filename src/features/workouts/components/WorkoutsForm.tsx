@@ -17,17 +17,17 @@ import { useSession } from "@/hooks/useSession"
 import { cn } from "@/lib/utils"
 import { Exercise, Session, Workout } from "@/utils/models"
 import { getLiftNameText } from "@/utils/parsers"
-import { Cross1Icon } from "@radix-ui/react-icons"
-import { useIsMutating } from "@tanstack/react-query"
-import isEqual from "lodash/isEqual"
-import omit from "lodash/omit"
-import React from "react"
 import {
 	DragDropContext,
 	Draggable,
 	DropResult,
 	Droppable,
-} from "react-beautiful-dnd"
+} from "@hello-pangea/dnd"
+import { Cross1Icon } from "@radix-ui/react-icons"
+import { useIsMutating } from "@tanstack/react-query"
+import isEqual from "lodash/isEqual"
+import omit from "lodash/omit"
+import React from "react"
 import { useAddWorkout } from "../hooks/useAddWorkout"
 import { useUpdateWorkout } from "../hooks/useUpdateWorkout"
 import { createNewExercise, getPrintout } from "../utils/functions"
