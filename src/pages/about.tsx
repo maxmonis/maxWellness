@@ -1,6 +1,7 @@
 import { BackButton } from "@/components/CTA"
 import { Page } from "@/components/Page"
 import { buttonVariants } from "@/components/ui/button"
+import { useAuth } from "@/context/AuthContext"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 
@@ -8,6 +9,8 @@ import Link from "next/link"
  * Displays text and GIFs showing how to use the app
  */
 export default function InfoPage() {
+	const user = useAuth()
+
 	return (
 		<Page title="About">
 			<div className="w-full lg:max-w-3xl lg:border-r">
@@ -107,9 +110,9 @@ export default function InfoPage() {
 								<div className="mt-8 flex w-full justify-center">
 									<Link
 										className={cn(buttonVariants({ variant: "default" }))}
-										href="/register"
+										href={user ? "/?view=create" : "/register"}
 									>
-										Get Started
+										{user ? "New Workout" : "Get Started"}
 									</Link>
 								</div>
 							</div>
