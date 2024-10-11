@@ -84,10 +84,10 @@ export function WorkoutsFilters({
 			<div className="mb-2 mt-4">
 				<Checkbox
 					checked={appliedFilters.newestFirst}
-					key="chronology"
+					key="newestFirst"
 					label="Newest First"
 					onCheckedChange={() => {
-						updateWorkoutsFilter("chronology", "chronology")
+						updateWorkoutsFilter("newestFirst", "newestFirst")
 					}}
 				/>
 				<div className="mt-3 flex flex-col gap-3">
@@ -147,7 +147,7 @@ export function WorkoutsFilters({
 	 */
 	function updateWorkoutsFilter(
 		clickedFilter: string,
-		filterType: "nameId" | "liftId" | "startDate" | "endDate" | "chronology",
+		filterType: "nameId" | "liftId" | "startDate" | "endDate" | "newestFirst",
 	) {
 		const updatedFilters = updateFilters()
 		setAppliedFilters(updatedFilters)
@@ -194,7 +194,7 @@ export function WorkoutsFilters({
 							endDate: clickedFilter,
 						},
 					}
-				case "chronology":
+				case "newestFirst":
 					return {
 						...appliedFilters,
 						newestFirst: !newestFirst,

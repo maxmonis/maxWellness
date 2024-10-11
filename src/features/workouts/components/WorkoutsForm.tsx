@@ -1,7 +1,7 @@
+import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
 	Select,
@@ -151,28 +151,23 @@ export function WorkoutsForm({
 												name: "weight",
 												value: weight,
 											},
-										].map(({ label, ...field }, i) => (
-											<div className="w-full" key={i}>
-												<Label
-													className="text-sm"
-													htmlFor={label}
-													{...(label !== "Weight" && { translate: "no" })}
-												>
-													{label}
-												</Label>
-												<Input
-													autoFocus={i === 0 && routine.length === 0}
-													className={cn(
-														"flex flex-shrink xs:pl-3",
-														field.value.length < 3 ? "pl-2" : "pl-1",
-													)}
-													id={label}
-													inputMode="numeric"
-													pattern="\d*"
-													{...{ onChange }}
-													{...field}
-												/>
-											</div>
+										].map(({ label, ...field }) => (
+											<Input
+												id={label}
+												inputMode="numeric"
+												inputClass={cn(
+													"xs:pl-3",
+													field.value.length < 3 ? "pl-2" : "pl-1",
+												)}
+												key={label}
+												pattern="\d*"
+												{...{ label, onChange }}
+												{...(label === "Sets" && { autoFocus: true })}
+												{...(label !== "Weight" && {
+													labelProps: { translate: "no" as const },
+												})}
+												{...field}
+											/>
 										))}
 									</div>
 									<div className="mt-2">
@@ -180,7 +175,7 @@ export function WorkoutsForm({
 											<Button
 												className="flex-grow"
 												type="submit"
-												variant="secondary"
+												variant="outline"
 											>
 												Enter
 											</Button>

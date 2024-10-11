@@ -1,7 +1,7 @@
 import { BackButton } from "@/components/CTA"
+import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import {
 	ResizableHandle,
 	ResizablePanel,
@@ -99,6 +99,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 							<form onSubmit={handleLiftSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
 									<Input
+										className="w-full"
+										id="lift"
 										name="lift"
 										value={lift}
 										placeholder="New exercise"
@@ -118,7 +120,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 												<Button
 													className="mt-3 w-fit"
 													type="submit"
-													variant="secondary"
+													variant="outline"
 												>
 													Add Name
 												</Button>
@@ -160,6 +162,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 							<form onSubmit={handleWorkoutSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
 									<Input
+										className="w-full"
+										id="workout"
 										name="workout"
 										value={workout}
 										placeholder="New workout"
@@ -180,7 +184,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 												<Button
 													className="mt-3 w-fit"
 													type="submit"
-													variant="secondary"
+													variant="outline"
 												>
 													Add Name
 												</Button>

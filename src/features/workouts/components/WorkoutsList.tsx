@@ -90,7 +90,7 @@ export function WorkoutsList({
 										<div className="p-4 lg:p-6">
 											<div className="flex flex-wrap items-center gap-4">
 												<p>No results</p>
-												<Button onClick={clearFilters} variant="secondary">
+												<Button onClick={clearFilters} variant="outline">
 													Clear Filters
 												</Button>
 											</div>

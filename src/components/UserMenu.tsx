@@ -1,5 +1,4 @@
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Input } from "@/components/Input"
 import { logOut } from "@/firebase/app"
 import { useSession } from "@/hooks/useSession"
 import { useUpdateProfile } from "@/hooks/useUpdateProfile"
@@ -140,21 +139,18 @@ function ProfileDialog({
 	return (
 		<ResponsiveDialog
 			body={
-				<div className="my-4 grid gap-4">
-					<div>
-						<Label className="ml-1" htmlFor="username">
-							Name
-						</Label>
-						<Input
-							className="col-span-3"
-							id="username"
-							onChange={e => {
-								setNewName(e.target.value)
-							}}
-							value={newName}
-						/>
-					</div>
-					<div className="grid place-items-center">
+				<div className="flex flex-col gap-4 sm:mb-4">
+					<Input
+						className="col-span-3"
+						id="username"
+						label="Name"
+						name="username"
+						onChange={e => {
+							setNewName(e.target.value)
+						}}
+						value={newName}
+					/>
+					<div className="grid w-full place-items-center">
 						<UserImage editable handleNewUrl={setNewPhotoURL} />
 					</div>
 				</div>

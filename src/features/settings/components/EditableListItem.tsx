@@ -1,3 +1,4 @@
+import { Input } from "@/components/Input"
 import { Button } from "@/components/ui/button"
 import {
 	DropdownMenu,
@@ -7,7 +8,6 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { EditableName } from "@/utils/models"
 import {
@@ -47,24 +47,24 @@ export function EditableListItem({
 						handleSubmit()
 					}}
 				>
-					<div className="px-1">
-						<Input
-							autoFocus
-							onBlur={handleSubmit}
-							value={newText}
-							{...{ onChange, onKeyUp }}
-						/>
-					</div>
+					<Input
+						autoFocus
+						className="px-1"
+						id="newText"
+						name="newText"
+						onBlur={handleSubmit}
+						placeholder={newText}
+						value={newText}
+						{...{ onChange, onKeyUp }}
+					/>
 					{newText !== editableName.text && (
 						<div className="mb-2 flex justify-center">
 							{isDuplicate ? (
-								<p className="mt-1 text-center text-red-500">Duplicate name</p>
+								<p className="mt-1 text-center text-red-600 dark:text-red-500">
+									Duplicate name
+								</p>
 							) : newText ? (
-								<Button
-									className="mt-3 w-fit"
-									type="submit"
-									variant="secondary"
-								>
+								<Button className="mt-3 w-fit" type="submit" variant="outline">
 									Update Name
 								</Button>
 							) : editableName.canDelete ? (
@@ -76,7 +76,7 @@ export function EditableListItem({
 									Delete Name
 								</Button>
 							) : (
-								<p className="mt-1 text-center text-sm text-red-500">
+								<p className="mt-1 text-center text-sm text-red-600 dark:text-red-500">
 									Can&apos;t delete, used in workout(s)
 								</p>
 							)}

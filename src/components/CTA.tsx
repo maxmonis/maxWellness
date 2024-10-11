@@ -1,10 +1,7 @@
 import { Checkbox as CheckboxPrimitive } from "@/components/ui/checkbox"
 import { useAuth } from "@/context/AuthContext"
-import { googleLogin } from "@/firebase/app"
 import { ArrowLeftIcon } from "@radix-ui/react-icons"
-import Image from "next/image"
 import { useRouter } from "next/router"
-import React from "react"
 import { Button } from "./ui/button"
 
 /**
@@ -34,54 +31,6 @@ export function Checkbox({
 				{subtext && <p className="text-sm text-muted-foreground">{subtext}</p>}
 			</div>
 		</div>
-	)
-}
-
-/**
- * Opens a modal which prompts the user for their Google
- * credentials, then logs them in (if they've created an
- * account with us) or creates a new account for them (if not)
- */
-export function GoogleButton({
-	handleError,
-	setSubmitting,
-	submitting,
-}: {
-	handleError: (error: unknown) => void
-	setSubmitting: React.Dispatch<React.SetStateAction<typeof submitting>>
-	submitting: boolean
-}) {
-	const router = useRouter()
-
-	return (
-		<button
-			className="flex w-full items-center justify-center rounded border bg-white p-2 text-gray-900"
-			disabled={submitting}
-			onClick={async () => {
-				if (submitting) {
-					return
-				}
-				setSubmitting(true)
-				try {
-					const isNewUser = await googleLogin()
-					router.push(isNewUser ? "/about" : "/")
-				} catch (error) {
-					handleError(error)
-				} finally {
-					setSubmitting(false)
-				}
-			}}
-			type="button"
-		>
-			<Image
-				alt="google logo"
-				className="mr-3 w-6"
-				height={30}
-				src="/google-logo.png"
-				width={30}
-			/>
-			Continue with Google
-		</button>
 	)
 }
 

@@ -281,7 +281,7 @@ export function WorkoutsCalendar({
 							) : (
 								<div className="flex items-center gap-4 p-4 lg:p-6">
 									<p>No results</p>
-									<Button onClick={clearFilters} variant="secondary">
+									<Button onClick={clearFilters} variant="outline">
 										Clear Filters
 									</Button>
 								</div>
