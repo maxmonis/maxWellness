@@ -1,17 +1,40 @@
+import { useAuth } from "@/context/AuthContext"
 import { deleteWorkout } from "@/firebase/app"
-import { useInvalidateSession } from "@/hooks/useInvalidateSession"
-import { useMutation } from "@tanstack/react-query"
+import { useToast } from "@/hooks/use-toast"
+import { Session } from "@/utils/models"
+import { extractErrorMessage } from "@/utils/parsers"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 /**
  * Attempts to delete a workout from the database
  */
 export function useDeleteWorkout({ onSuccess }: { onSuccess: () => void }) {
-	const onSettled = useInvalidateSession("workouts")
+	const queryClient = useQueryClient()
+	const user = useAuth()
+	const { toast } = useToast()
+	const queryKey = ["workouts", { userId: user?.uid }]
 
 	return useMutation({
 		mutationFn: deleteWorkout,
-		mutationKey: ["session", { type: "delete" }],
-		onSettled,
+		mutationKey: ["deleteWorkout"],
+		onError(error) {
+			toast({
+				description: extractErrorMessage(error),
+				title: "Delete Workout Error",
+				variant: "destructive",
+			})
+		},
+		async onMutate(id) {
+			await queryClient.cancelQueries({ queryKey })
+			const previousWorkouts = queryClient.getQueryData(queryKey)
+			queryClient.setQueryData(queryKey, (workouts: Session["workouts"]) =>
+				workouts.filter(w => w.id !== id),
+			)
+			return { previousWorkouts }
+		},
+		onSettled() {
+			queryClient.invalidateQueries({ queryKey })
+		},
 		onSuccess,
 	})
 }
