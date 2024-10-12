@@ -156,7 +156,7 @@ export function WorkoutsForm({
 												id={label}
 												inputMode="numeric"
 												inputClass={cn(
-													"xs:pl-3",
+													"xs:pl-3 pr-0",
 													field.value.length < 3 ? "pl-2" : "pl-1",
 												)}
 												key={label}
@@ -171,7 +171,7 @@ export function WorkoutsForm({
 										))}
 									</div>
 									<div className="mt-2">
-										<div className="flex items-center justify-between gap-3">
+										<div className="flex items-center justify-between">
 											<Button
 												className="flex-grow"
 												type="submit"
