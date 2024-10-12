@@ -13,20 +13,14 @@ export function useSession() {
 	return useQueries({
 		queries: [
 			{
-				queryFn: () => {
-					if (!userId) {
-						return null
-					}
-					return loadProfile(userId)
+				queryFn() {
+					return userId ? loadProfile(userId) : null
 				},
 				queryKey: ["profile", { userId }],
 			},
 			{
-				queryFn: () => {
-					if (!userId) {
-						return null
-					}
-					return loadWorkouts(userId)
+				queryFn() {
+					return userId ? loadWorkouts(userId) : null
 				},
 				queryKey: ["workouts", { userId }],
 			},
