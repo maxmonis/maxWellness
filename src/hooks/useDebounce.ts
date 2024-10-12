@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 
 /**
  * Calls a callback if a text value does not change

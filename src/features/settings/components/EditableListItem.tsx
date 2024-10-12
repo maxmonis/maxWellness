@@ -16,7 +16,7 @@ import {
 	PlusCircledIcon,
 	TrashIcon,
 } from "@radix-ui/react-icons"
-import React from "react"
+import * as React from "react"
 import { isTextAlreadyInList } from "../utils/functions"
 
 /**

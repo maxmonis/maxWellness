@@ -23,7 +23,7 @@ import {
 } from "@radix-ui/react-icons"
 import omit from "lodash/omit"
 import { nanoid } from "nanoid"
-import React from "react"
+import * as React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { View } from "../utils/models"
 

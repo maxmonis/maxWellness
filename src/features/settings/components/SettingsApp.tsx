@@ -14,7 +14,7 @@ import { useIsMutating } from "@tanstack/react-query"
 import { isEqual, omit, sortBy } from "lodash"
 import { nanoid } from "nanoid"
 import { useRouter } from "next/router"
-import React from "react"
+import * as React from "react"
 import { isTextAlreadyInList } from "../utils/functions"
 import { EditableListItem } from "./EditableListItem"
 

@@ -14,7 +14,7 @@ import {
 	getWorkoutNameText,
 } from "@/utils/parsers"
 import sortBy from "lodash/sortBy"
-import React from "react"
+import * as React from "react"
 
 /**
  * Allows the user to filter workouts by name, date, etc.

@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 
 /**
  * @returns the width of the element in px, updated on resize events

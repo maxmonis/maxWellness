@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { extractErrorMessage } from "@/utils/parsers"
 import { PersonIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
-import React from "react"
+import * as React from "react"
 import { Avatar, AvatarFallback } from "./ui/avatar"
 
 /**

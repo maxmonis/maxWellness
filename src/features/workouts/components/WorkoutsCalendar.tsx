@@ -13,7 +13,7 @@ import {
 	ExitFullScreenIcon,
 	SymbolIcon,
 } from "@radix-ui/react-icons"
-import React from "react"
+import * as React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
 
