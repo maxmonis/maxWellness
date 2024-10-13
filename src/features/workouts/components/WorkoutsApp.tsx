@@ -59,27 +59,23 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	const [filteredWorkouts, setFilteredWorkouts] = React.useState(workouts)
 	const [appliedFilters, setAppliedFilters] = React.useState(filters)
-	const [filtersToast, setFiltersToast] = React.useState<ReturnType<
-		typeof toast
-	> | null>(null)
+	const filtersToastRef = React.useRef<ReturnType<typeof toast> | null>(null)
 	useUpdateEvent(() => {
 		const count = countAppliedFilters(appliedFilters)
 		if (count > 0) {
-			setFiltersToast(
-				toast({
-					action: (
-						<ToastAction altText="Clear Filters" onClick={clearFilters}>
-							Clear Filters
-						</ToastAction>
-					),
-					duration: Infinity,
-					title: `${count} filter${count === 1 ? "" : "s"} applied`,
-					...(filteredWorkouts.length === 0 && {
-						description: "No results found",
-						variant: "destructive",
-					}),
+			filtersToastRef.current = toast({
+				action: (
+					<ToastAction altText="Clear Filters" onClick={clearFilters}>
+						Clear Filters
+					</ToastAction>
+				),
+				duration: Infinity,
+				title: `${count} filter${count === 1 ? "" : "s"} applied`,
+				...(filteredWorkouts.length === 0 && {
+					description: "No results found",
+					variant: "destructive",
 				}),
-			)
+			})
 		} else {
 			removeFiltersToast()
 		}
@@ -269,8 +265,8 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	}
 
 	function removeFiltersToast() {
-		filtersToast?.dismiss()
-		setFiltersToast(null)
+		filtersToastRef.current?.dismiss()
+		filtersToastRef.current = null
 	}
 }
 
