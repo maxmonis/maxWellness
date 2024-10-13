@@ -1,9 +1,7 @@
 import { useAuth } from "@/context/AuthContext"
 import { useSession } from "@/hooks/useSession"
-import { cn } from "@/lib/utils"
 import { extractErrorMessage } from "@/utils/parsers"
 import Head from "next/head"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import * as React from "react"
 import Navbar from "./Navbar"
@@ -19,26 +17,16 @@ export function Page({
 	loading,
 	loadingText = "Loading...",
 	mustBeLoggedIn,
-	mustBeLoggedOut,
 	title = "Fitness First",
 }: {
 	children?: React.ReactNode
 	error?: unknown
+	mustBeLoggedIn?: boolean
 	title?: string
 } & (
-	| {
-			mustBeLoggedIn?: true
-			mustBeLoggedOut?: never
-	  }
-	| {
-			mustBeLoggedIn?: never
-			mustBeLoggedOut?: true
-	  }
-) &
-	(
-		| { loading: boolean; loadingText?: string }
-		| { loading?: never; loadingText?: never }
-	)) {
+	| { loading: boolean; loadingText?: string }
+	| { loading?: never; loadingText?: never }
+)) {
 	const user = useAuth()
 	const router = useRouter()
 	useSession()
@@ -46,9 +34,7 @@ export function Page({
 	const [redirect, setRedirect] = React.useState(false)
 
 	React.useEffect(() => {
-		if (user && mustBeLoggedOut) {
-			handleRedirect("/")
-		} else if (!user && mustBeLoggedIn) {
+		if (!user && mustBeLoggedIn) {
 			handleRedirect("/login")
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,23 +49,16 @@ export function Page({
 				<div className="relative overflow-hidden">
 					<div className="min-w-screen flex h-screen flex-col justify-between overflow-auto">
 						<div className="mx-auto flex w-screen max-w-5xl flex-col justify-between md:flex-row-reverse md:justify-end">
-							<div
-								className={cn(
-									"w-full",
-									mustBeLoggedOut
-										? "max-h-screen"
-										: "max-h-[calc(100dvh-3.5rem)] md:max-h-screen",
-								)}
-							>
+							<div className="h-screen max-h-[calc(100dvh-3.5rem)] w-full md:max-h-screen">
 								{children ?? (
-									<p className="p-6 text-lg">
+									<p className="p-6">
 										{loading ? loadingText : extractErrorMessage(error)}
 									</p>
 								)}
 							</div>
-							{mustBeLoggedOut ? <Wallpaper /> : <Navbar />}
+							<Navbar />
 						</div>
-						<footer className={mustBeLoggedOut ? "text-white" : "md:hidden"}>
+						<footer className="md:hidden">
 							<div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center text-sm max-md:py-6 md:h-14">
 								<a
 									href="https://maxmonis.com/"
@@ -103,33 +82,4 @@ export function Page({
 		setRedirect(true)
 		router.replace(route)
 	}
-}
-
-/**
- * Background image for select pages
- */
-function Wallpaper() {
-	const [error, setError] = React.useState(false)
-
-	return error ? (
-		<></>
-	) : (
-		<div className="fixed left-0 top-0 -z-10">
-			<div className="relative h-screen w-screen">
-				<Image
-					alt={
-						"Barbell on the Floor by Leon Ardho from Pexels: " +
-						"https://www.pexels.com/photo/barbell-on-the-floor-1552252/"
-					}
-					className="object-cover"
-					fill
-					onError={() => {
-						setError(true)
-					}}
-					priority
-					src="/barbell.jpg"
-				/>
-			</div>
-		</div>
-	)
 }
