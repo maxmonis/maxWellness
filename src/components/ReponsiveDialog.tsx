@@ -21,6 +21,7 @@ import {
 import { useMediaQuery } from "@/hooks/use-media-query"
 import * as React from "react"
 import { screens } from "tailwindcss/defaultTheme"
+import { Form } from "./Form"
 
 export function ResponsiveDialog({
 	body,
@@ -116,16 +117,10 @@ function Body({
 }>) {
 	if (onSubmit) {
 		return (
-			<form
-				className="max-sm:px-4"
-				onSubmit={e => {
-					e.preventDefault()
-					onSubmit()
-				}}
-			>
+			<Form className="max-sm:px-4" {...{ onSubmit }}>
 				{body}
 				{children}
-			</form>
+			</Form>
 		)
 	}
 

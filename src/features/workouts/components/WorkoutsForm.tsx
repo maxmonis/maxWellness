@@ -1,3 +1,4 @@
+import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
@@ -93,7 +94,7 @@ export function WorkoutsForm({
 				setDragging(true)
 			}}
 		>
-			<form className="mt-1 flex h-40 flex-col" {...{ onSubmit }}>
+			<Form className="mt-1 flex h-40 flex-col" {...{ onSubmit }}>
 				<Droppable droppableId="ExerciseForm">
 					{(
 						{ droppableProps, innerRef: droppableRef, placeholder },
@@ -203,7 +204,7 @@ export function WorkoutsForm({
 						</div>
 					)}
 				</Droppable>
-			</form>
+			</Form>
 			{routine.length > 0 ? (
 				<div>
 					<Droppable droppableId="ExerciseList">
@@ -361,8 +362,7 @@ export function WorkoutsForm({
 	/**
 	 * Attempts to add the current exercise to the routine
 	 */
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault()
+	function onSubmit() {
 		const exercise = createNewExercise(values)
 		if (exercise) {
 			addExercise(exercise)

@@ -1,3 +1,4 @@
+import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { Button } from "@/components/ui/button"
 import {
@@ -40,13 +41,7 @@ export function EditableListItem({
 	return (
 		<li className="mt-1 flex items-center justify-between gap-4">
 			{editing ? (
-				<form
-					className="w-full"
-					onSubmit={e => {
-						e.preventDefault()
-						handleSubmit()
-					}}
-				>
+				<Form className="w-full" onSubmit={handleSubmit}>
 					<Input
 						autoFocus
 						className="px-1"
@@ -82,7 +77,7 @@ export function EditableListItem({
 							)}
 						</div>
 					)}
-				</form>
+				</Form>
 			) : (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>

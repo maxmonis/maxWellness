@@ -1,4 +1,5 @@
 import { BackButton } from "@/components/CTA"
+import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
@@ -96,7 +97,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
 						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 lg:px-6">
 							<h2 className="mx-auto mb-4 text-center font-bold">Exercises</h2>
-							<form onSubmit={handleLiftSubmit}>
+							<Form onSubmit={handleLiftSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
 									<Input
 										className="w-full"
@@ -128,7 +129,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 										)}
 									</>
 								)}
-							</form>
+							</Form>
 							<ul className="h-full overflow-y-scroll pb-6 pt-2">
 								{sortBy(
 									liftNames.filter(n => !n.isHidden),
@@ -159,7 +160,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
 						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 lg:px-6">
 							<h2 className="mx-auto mb-4 text-center font-bold">Workouts</h2>
-							<form onSubmit={handleWorkoutSubmit}>
+							<Form onSubmit={handleWorkoutSubmit}>
 								<div className="flex items-center justify-center gap-4 text-lg">
 									<Input
 										className="w-full"
@@ -192,7 +193,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 										)}
 									</>
 								)}
-							</form>
+							</Form>
 							<ul className="h-full overflow-y-scroll pb-6 pt-2">
 								{sortBy(
 									workoutNames.filter(n => !n.isHidden),
@@ -303,8 +304,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	/**
 	 * Saves a lift name unless it is a duplicate
 	 */
-	function handleLiftSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault()
+	function handleLiftSubmit() {
 		if (
 			lift &&
 			!liftNames.some(
@@ -328,8 +328,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	/**
 	 * Saves a workout name unless it is a duplicate
 	 */
-	function handleWorkoutSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault()
+	function handleWorkoutSubmit() {
 		if (
 			workout &&
 			!workoutNames.some(
