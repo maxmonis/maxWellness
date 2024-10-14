@@ -23,7 +23,7 @@ export function PageWithBackdrop({
 									maxWellness
 								</span>
 							</div>
-							<h1 className="font-bold">{title}</h1>
+							<h1 className="mb-2 font-bold">{title}</h1>
 						</div>
 						{children}
 					</div>

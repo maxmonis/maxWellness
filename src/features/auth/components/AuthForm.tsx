@@ -51,7 +51,7 @@ export function AuthForm({ route }: { route: AuthRoute }) {
 
 	return (
 		<PageWithBackdrop title={pageTitles[route]}>
-			<Form className="mt-2 grid gap-2" {...{ onSubmit }}>
+			<Form className="grid gap-2" {...{ onSubmit }}>
 				{error && (
 					<div className="rounded-lg bg-destructive px-4 py-2 text-sm text-slate-50">
 						{error}
