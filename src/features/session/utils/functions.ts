@@ -1,6 +1,10 @@
+import { Profile } from "@/features/profile/utils/models"
+import {
+	getLiftNameText,
+	getWorkoutNameText,
+} from "@/features/settings/utils/parsers"
+import { Exercise, Workout } from "@/features/workouts/utils/models"
 import sortBy from "lodash/sortBy"
-import { Exercise, Profile, Workout } from "./models"
-import { getLiftNameText, getWorkoutNameText } from "./parsers"
 
 export function generateSession(profile: Profile, workoutList: Array<Workout>) {
 	const liftIds = new Set<string>()

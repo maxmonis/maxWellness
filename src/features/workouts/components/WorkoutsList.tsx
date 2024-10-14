@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button"
+import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
-import { Exercise, Session, Workout } from "@/utils/models"
 import { useIsMutating } from "@tanstack/react-query"
 import * as React from "react"
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout"
-import { View } from "../utils/models"
+import { Exercise, View, Workout } from "../utils/models"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
 import { WorkoutsListItem } from "./WorkoutsListItem"
 

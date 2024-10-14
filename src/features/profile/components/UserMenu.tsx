@@ -1,20 +1,20 @@
 import { Input } from "@/components/Input"
-import { logOut } from "@/firebase/app"
-import { useSession } from "@/hooks/useSession"
-import { useUpdateProfile } from "@/hooks/useUpdateProfile"
-import { ExitIcon, MoonIcon, Pencil2Icon, SunIcon } from "@radix-ui/react-icons"
-import { useTheme } from "next-themes"
-import { useRouter } from "next/router"
-import * as React from "react"
-import { ResponsiveDialog } from "./ReponsiveDialog"
-import { UserImage } from "./UserImage"
-import { Button } from "./ui/button"
+import { ResponsiveDialog } from "@/components/ReponsiveDialog"
+import { Button } from "@/components/ui/button"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "./ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
+import { logOut } from "@/features/auth/firebase/logOut"
+import { useSession } from "@/features/session/hooks/useSession"
+import { ExitIcon, MoonIcon, Pencil2Icon, SunIcon } from "@radix-ui/react-icons"
+import { useTheme } from "next-themes"
+import { useRouter } from "next/router"
+import * as React from "react"
+import { useUpdateProfile } from "../hooks/useUpdateProfile"
+import { UserImage } from "./UserImage"
 
 /**
  * This menu allows the user to toggle dark mode,

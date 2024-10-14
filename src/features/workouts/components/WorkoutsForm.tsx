@@ -13,11 +13,11 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
+import { useSession } from "@/features/session/hooks/useSession"
+import { Session } from "@/features/session/utils/models"
+import { getLiftNameText } from "@/features/settings/utils/parsers"
 import { useToast } from "@/hooks/use-toast"
-import { useSession } from "@/hooks/useSession"
 import { cn } from "@/lib/utils"
-import { Exercise, Session, Workout } from "@/utils/models"
-import { getLiftNameText } from "@/utils/parsers"
 import {
 	DragDropContext,
 	Draggable,
@@ -32,6 +32,7 @@ import * as React from "react"
 import { useAddWorkout } from "../hooks/useAddWorkout"
 import { useUpdateWorkout } from "../hooks/useUpdateWorkout"
 import { createNewExercise, getPrintout } from "../utils/functions"
+import { Exercise, Workout } from "../utils/models"
 
 /**
  * Allows the user to edit an existing workout or create a new one

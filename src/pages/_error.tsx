@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { NextPageContext } from "next"
 import Link from "next/link"
 

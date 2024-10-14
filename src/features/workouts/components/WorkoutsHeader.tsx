@@ -1,7 +1,6 @@
-import { BackButton } from "@/components/CTA"
+import { BackButton } from "@/components/BackButton"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Workout } from "@/utils/models"
 import {
 	CalendarIcon,
 	MagnifyingGlassIcon,
@@ -9,6 +8,7 @@ import {
 } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { useWorkoutView } from "../hooks/useWorkoutView"
+import { Workout } from "../utils/models"
 
 /**
  * Displays the title of the selected view

@@ -1,6 +1,7 @@
-import { useAuth } from "@/context/AuthContext"
-import { loadProfile, loadWorkouts } from "@/firebase/app"
-import { generateSession } from "@/utils/session"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import { loadProfile } from "@/features/profile/firebase/loadProfile"
+import { generateSession } from "@/features/session/utils/functions"
+import { loadWorkouts } from "@/features/workouts/firebase/loadWorkouts"
 import { useQueries } from "@tanstack/react-query"
 
 /**

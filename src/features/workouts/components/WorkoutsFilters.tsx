@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/CTA"
+import { Checkbox } from "@/components/Checkbox"
 import { Label } from "@/components/ui/label"
 import {
 	Select,
@@ -7,12 +7,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
-import { Session } from "@/utils/models"
+import { Session } from "@/features/session/utils/models"
 import {
-	getDateText,
 	getLiftNameText,
 	getWorkoutNameText,
-} from "@/utils/parsers"
+} from "@/features/settings/utils/parsers"
+import { getDateText } from "@/utils/parsers"
 import sortBy from "lodash/sortBy"
 import * as React from "react"
 
@@ -21,7 +21,6 @@ import * as React from "react"
  */
 export function WorkoutsFilters({
 	appliedFilters,
-	clearFilters,
 	filters,
 	liftNames,
 	setAppliedFilters,

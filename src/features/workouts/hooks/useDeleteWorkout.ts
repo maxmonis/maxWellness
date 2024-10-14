@@ -1,9 +1,9 @@
-import { useAuth } from "@/context/AuthContext"
-import { deleteWorkout } from "@/firebase/app"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
-import { Session } from "@/utils/models"
-import { extractErrorMessage } from "@/utils/parsers"
+import { getErrorMessage } from "@/utils/parsers"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { deleteWorkout } from "../firebase/deleteWorkout"
 
 /**
  * Attempts to delete a workout from the database
@@ -19,7 +19,7 @@ export function useDeleteWorkout({ onSuccess }: { onSuccess: () => void }) {
 		mutationKey: ["deleteWorkout"],
 		onError(error) {
 			toast({
-				description: extractErrorMessage(error),
+				description: getErrorMessage(error),
 				title: "Delete Workout Error",
 				variant: "destructive",
 			})

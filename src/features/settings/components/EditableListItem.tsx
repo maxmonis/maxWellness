@@ -9,8 +9,8 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { EditableName } from "@/features/settings/utils/models"
 import { cn } from "@/lib/utils"
-import { EditableName } from "@/utils/models"
 import {
 	MinusCircledIcon,
 	Pencil2Icon,

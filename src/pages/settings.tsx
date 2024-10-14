@@ -1,7 +1,7 @@
 import { Page } from "@/components/Page"
+import { useSession } from "@/features/session/hooks/useSession"
 import { SettingsApp } from "@/features/settings/components/SettingsApp"
 import { SettingsLoader } from "@/features/settings/components/SettingsLoader"
-import { useSession } from "@/hooks/useSession"
 
 /**
  * Allows the user to manage the names of workouts and exercises

@@ -1,6 +1,6 @@
-import { UserMenu } from "@/components/UserMenu"
 import { buttonVariants } from "@/components/ui/button"
-import { useSession } from "@/hooks/useSession"
+import { UserMenu } from "@/features/profile/components/UserMenu"
+import { useSession } from "@/features/session/hooks/useSession"
 import { cn } from "@/lib/utils"
 import {
 	CalendarIcon,

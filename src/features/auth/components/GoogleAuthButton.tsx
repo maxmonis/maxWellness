@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
-import { googleLogin } from "@/firebase/app"
 import Image from "next/image"
+import { googleLogin } from "../firebase/googleLogin"
 
 /**
  * Opens a modal which prompts the user for their Google

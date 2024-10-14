@@ -1,16 +1,9 @@
 import { auth } from "@/firebase/app"
 import { onAuthStateChanged, User } from "firebase/auth"
 import * as React from "react"
+import { AuthContext } from "./AuthContext"
 
-const AuthContext = React.createContext<User | null>(null)
-
-export const useAuth = () => React.useContext(AuthContext)
-
-export const AuthContextProvider = ({
-	children,
-}: {
-	children: React.ReactNode
-}) => {
+export function AuthContextProvider({ children }: React.PropsWithChildren) {
 	const [user, setUser] = React.useState<User | null>(null)
 	const [loading, setLoading] = React.useState(true)
 

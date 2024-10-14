@@ -1,18 +1,4 @@
-import { EditableName } from "./models"
-import { hasChars, hasMessage } from "./validators"
-
-/**
- * Attempts to extract an error message, returning a default one if necessary
- */
-export function extractErrorMessage(error: unknown) {
-	if (hasChars(error)) {
-		return error
-	}
-	if (hasMessage(error)) {
-		return error.message
-	}
-	return "An unexpected error occurred"
-}
+import { hasChars } from "./validators"
 
 /**
  * Generates a human-readable string representing the given date
@@ -31,28 +17,17 @@ export function getDateText(date: string) {
 }
 
 /**
+ * Attempts to extract an error message, returning a default one if necessary
+ */
+export function getErrorMessage(value: unknown) {
+	if (value instanceof Error && hasChars(value.message)) return value.message
+	if (hasChars(value)) return value
+	return "An unexpected error occurred"
+}
+
+/**
  * Parses a value to an integer greater than or equal to zero
  */
 export function getPositiveInt(value: string | number) {
 	return Math.abs(parseInt(value + "")) || 0
-}
-
-/**
- * Gets the lift name text which corresponds to an ID
- */
-export function getLiftNameText(
-	liftId: string,
-	liftNames: Array<EditableName>,
-) {
-	return liftNames.find(({ id }) => id === liftId)?.text ?? ""
-}
-
-/**
- * Gets the workout name text which corresponds to an ID
- */
-export function getWorkoutNameText(
-	workoutId: string,
-	workoutNames: Array<EditableName>,
-) {
-	return workoutNames.find(({ id }) => id === workoutId)?.text ?? ""
 }

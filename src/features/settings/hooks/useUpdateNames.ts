@@ -1,8 +1,8 @@
-import { useAuth } from "@/context/AuthContext"
-import { updateSettings } from "@/firebase/app"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { useToast } from "@/hooks/use-toast"
-import { extractErrorMessage } from "@/utils/parsers"
+import { getErrorMessage } from "@/utils/parsers"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { updateSettings } from "../firebase/updateSettings"
 
 /**
  * Attempts to update a user's profile in the database
@@ -18,7 +18,7 @@ export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
 		mutationKey: ["updateNames"],
 		onError(error) {
 			toast({
-				description: extractErrorMessage(error),
+				description: getErrorMessage(error),
 				title: "Settings Update Error",
 				variant: "destructive",
 			})

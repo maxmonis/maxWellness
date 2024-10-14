@@ -1,11 +1,11 @@
-import { uploadImage } from "@/firebase/app"
-import { useSession } from "@/hooks/useSession"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useSession } from "@/features/session/hooks/useSession"
+import { uploadImage } from "@/firebase/uploadImage"
 import { cn } from "@/lib/utils"
-import { extractErrorMessage } from "@/utils/parsers"
+import { getErrorMessage } from "@/utils/parsers"
 import { PersonIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import * as React from "react"
-import { Avatar, AvatarFallback } from "./ui/avatar"
 
 /**
  * Displays the user's profile image, allowing them to
@@ -81,7 +81,7 @@ export function UserImage({
 								setNewUrl(url)
 								handleNewUrl(url)
 							} catch (error) {
-								setError(extractErrorMessage(error))
+								setError(getErrorMessage(error))
 								setTimeout(() => {
 									setError("")
 								}, 3000)

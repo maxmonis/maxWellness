@@ -1,5 +1,5 @@
 import { Page } from "@/components/Page"
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { useRouter } from "next/router"
 
 export default function FourOhFourPage() {

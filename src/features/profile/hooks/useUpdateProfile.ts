@@ -1,10 +1,10 @@
 import { ToastMessage } from "@/components/ToastMessage"
-import { useAuth } from "@/context/AuthContext"
-import { updateProfile } from "@/firebase/app"
-import { useSession } from "@/hooks/useSession"
-import { extractErrorMessage } from "@/utils/parsers"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import { useSession } from "@/features/session/hooks/useSession"
+import { useToast } from "@/hooks/use-toast"
+import { getErrorMessage } from "@/utils/parsers"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useToast } from "./use-toast"
+import { updateProfile } from "../firebase/updateProfile"
 
 export function useUpdateProfile() {
 	const queryClient = useQueryClient()
@@ -20,7 +20,7 @@ export function useUpdateProfile() {
 		mutationKey: ["updateProfile"],
 		onError(error) {
 			toast({
-				description: extractErrorMessage(error),
+				description: getErrorMessage(error),
 				title: "Profile Update Error",
 				variant: "destructive",
 			})

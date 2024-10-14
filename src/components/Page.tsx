@@ -1,6 +1,6 @@
-import { useAuth } from "@/context/AuthContext"
-import { useSession } from "@/hooks/useSession"
-import { extractErrorMessage } from "@/utils/parsers"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import { useSession } from "@/features/session/hooks/useSession"
+import { getErrorMessage } from "@/utils/parsers"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import * as React from "react"
@@ -52,7 +52,7 @@ export function Page({
 							<div className="h-screen max-h-[calc(100dvh-3.5rem)] w-full md:max-h-screen">
 								{children ?? (
 									<p className="p-6">
-										{loading ? loadingText : extractErrorMessage(error)}
+										{loading ? loadingText : getErrorMessage(error)}
 									</p>
 								)}
 							</div>

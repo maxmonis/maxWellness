@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/CTA"
+import { BackButton } from "@/components/BackButton"
 import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
@@ -8,9 +8,10 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { Profile } from "@/features/profile/utils/models"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
+import { EditableName } from "@/features/settings/utils/models"
 import { useToast } from "@/hooks/use-toast"
-import { EditableName, Profile } from "@/utils/models"
 import { useIsMutating } from "@tanstack/react-query"
 import { isEqual, omit, sortBy } from "lodash"
 import { nanoid } from "nanoid"

@@ -5,11 +5,13 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion"
 import { buttonVariants } from "@/components/ui/button"
+import { Session } from "@/features/session/utils/models"
+import { getLiftNameText } from "@/features/settings/utils/parsers"
 import { cn } from "@/lib/utils"
-import { Session, Workout } from "@/utils/models"
-import { getDateText, getLiftNameText } from "@/utils/parsers"
+import { getDateText } from "@/utils/parsers"
 import Link from "next/link"
 import { getPrintout } from "../utils/functions"
+import { Workout } from "../utils/models"
 
 export function WorkoutsFiltersResults({
 	appliedFilters,

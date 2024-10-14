@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/CTA"
+import { BackButton } from "@/components/BackButton"
 import { cn } from "@/lib/utils"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 import { WorkoutsHeader } from "./WorkoutsHeader"

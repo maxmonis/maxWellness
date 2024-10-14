@@ -1,11 +1,11 @@
-import { BackButton } from "@/components/CTA"
+import { BackButton } from "@/components/BackButton"
 import { Button } from "@/components/ui/button"
+import { useSession } from "@/features/session/hooks/useSession"
+import { getLiftNameText } from "@/features/settings/utils/parsers"
 import { useElementWidth } from "@/hooks/useElementWidth"
 import { useFullscreen } from "@/hooks/useFullscreen"
-import { useSession } from "@/hooks/useSession"
 import { cn } from "@/lib/utils"
-import { Workout } from "@/utils/models"
-import { getDateText, getLiftNameText } from "@/utils/parsers"
+import { getDateText } from "@/utils/parsers"
 import {
 	DoubleArrowLeftIcon,
 	DoubleArrowRightIcon,
@@ -15,6 +15,7 @@ import {
 } from "@radix-ui/react-icons"
 import * as React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
+import { Workout } from "../utils/models"
 import { WorkoutsEmptyState } from "./WorkoutsEmptyState"
 
 /**

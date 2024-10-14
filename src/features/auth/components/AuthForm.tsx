@@ -2,12 +2,14 @@ import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { PageWithBackdrop } from "@/components/PageWithBackdrop"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/context/AuthContext"
-import { logIn, resetPassword, signUp } from "@/firebase/app"
-import { extractErrorMessage } from "@/utils/parsers"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import { getErrorMessage } from "@/utils/parsers"
 import { hasChars } from "@/utils/validators"
 import { useRouter } from "next/router"
 import * as React from "react"
+import { logIn } from "../firebase/logIn"
+import { resetPassword } from "../firebase/resetPassword"
+import { signUp } from "../firebase/signUp"
 import {
 	buttonText,
 	fieldKeys,
@@ -131,7 +133,7 @@ export function AuthForm({ route }: { route: AuthRoute }) {
 	}
 
 	function handleError(error: unknown) {
-		setError(extractErrorMessage(error))
+		setError(getErrorMessage(error))
 		setTimeout(() => {
 			setError("")
 		}, 3000)

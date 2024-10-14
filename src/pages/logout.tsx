@@ -1,5 +1,5 @@
 import { Page } from "@/components/Page"
-import { logOut } from "@/firebase/app"
+import { logOut } from "@/features/auth/firebase/logOut"
 import { useRouter } from "next/router"
 
 /**

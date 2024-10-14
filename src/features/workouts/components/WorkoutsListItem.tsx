@@ -6,14 +6,14 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useToast } from "@/hooks/use-toast"
-import { cn } from "@/lib/utils"
-import { Exercise, Session, Workout } from "@/utils/models"
+import { Session } from "@/features/session/utils/models"
 import {
-	getDateText,
 	getLiftNameText,
 	getWorkoutNameText,
-} from "@/utils/parsers"
+} from "@/features/settings/utils/parsers"
+import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
+import { getDateText } from "@/utils/parsers"
 import {
 	ClipboardCopyIcon,
 	ClipboardIcon,
@@ -25,7 +25,7 @@ import omit from "lodash/omit"
 import { nanoid } from "nanoid"
 import * as React from "react"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
-import { View } from "../utils/models"
+import { Exercise, View, Workout } from "../utils/models"
 
 /**
  * A workout from the list view, along with a menu

@@ -1,9 +1,9 @@
-import { useAuth } from "@/context/AuthContext"
-import { updateWorkout } from "@/firebase/app"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
-import { Session } from "@/utils/models"
-import { extractErrorMessage } from "@/utils/parsers"
+import { getErrorMessage } from "@/utils/parsers"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { updateWorkout } from "../firebase/updateWorkout"
 
 /**
  * Attempts to update a workout in the database
@@ -19,7 +19,7 @@ export function useUpdateWorkout({ onSuccess }: { onSuccess: () => void }) {
 		mutationKey: ["updateWorkout"],
 		onError(error) {
 			toast({
-				description: extractErrorMessage(error),
+				description: getErrorMessage(error),
 				title: "Add Workout Error",
 				variant: "destructive",
 			})

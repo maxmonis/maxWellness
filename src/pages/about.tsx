@@ -1,7 +1,7 @@
-import { BackButton } from "@/components/CTA"
+import { BackButton } from "@/components/BackButton"
 import { Page } from "@/components/Page"
 import { buttonVariants } from "@/components/ui/button"
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 
