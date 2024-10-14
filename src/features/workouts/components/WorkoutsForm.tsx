@@ -409,11 +409,11 @@ export function WorkoutsForm({
 		setDragging(false)
 		const exerciseIds = routine.map(({ id }) => id)
 		if (destination?.droppableId === "ExerciseForm") {
-			const exercise = routine[source.index]
+			const exercise = routine[source.index]!
 			exerciseIds.splice(source.index, 1)
 			setValues({
 				...values,
-				liftId: exercise.liftId ?? activeLiftNames[0].id,
+				liftId: exercise.liftId ?? activeLiftNames[0]!.id,
 				sets: exercise.sets ? exercise.sets.toString() : "",
 				reps: exercise.reps ? exercise.reps.toString() : "",
 				weight: exercise.weight ? exercise.weight.toString() : "",
@@ -442,14 +442,14 @@ export function WorkoutsForm({
 			return
 		}
 		const newWorkout = {
-			date: date.split("T")[0],
+			date: date.split("T")[0]!,
 			nameId,
 			routine,
 			userId,
 		}
 		const { id, ...originalWorkout } = editingWorkout ?? {}
 		if ("date" in originalWorkout) {
-			originalWorkout.date = originalWorkout.date.split("T")[0]
+			originalWorkout.date = originalWorkout.date.split("T")[0]!
 			if (isEqual(originalWorkout, newWorkout)) {
 				resetState()
 				return

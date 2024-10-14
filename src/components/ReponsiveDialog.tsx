@@ -55,7 +55,7 @@ export function ResponsiveDialog({
 	const [open, setOpen] = React.useState(false)
 	const commonProps = {
 		open: props.open ?? open,
-		onOpenChange: newOpen => {
+		onOpenChange: (newOpen: boolean) => {
 			props.onOpenChange ? props.onOpenChange(newOpen) : setOpen(newOpen)
 		},
 	}

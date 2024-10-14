@@ -104,7 +104,7 @@ export function WorkoutsFilters({
 							</SelectTrigger>
 							<SelectContent>
 								{filters.workoutDates.allDates
-									.filter(d => d <= appliedFilters.workoutDates.endDate)
+									.filter(d => d <= appliedFilters.workoutDates.endDate!)
 									.map(date => (
 										<SelectItem key={date} value={date}>
 											{getDateText(date)}
@@ -127,7 +127,7 @@ export function WorkoutsFilters({
 							</SelectTrigger>
 							<SelectContent>
 								{filters.workoutDates.allDates
-									.filter(d => d >= appliedFilters.workoutDates.startDate)
+									.filter(d => d >= appliedFilters.workoutDates.startDate!)
 									.map(date => (
 										<SelectItem key={date} value={date}>
 											{getDateText(date)}
@@ -210,8 +210,8 @@ export function WorkoutsFilters({
 			const { workoutDates, nameIds, liftIds, newestFirst } = updatedFilters
 			const filteredWorkouts = workouts
 				.flatMap(workout =>
-					workout.date >= workoutDates.startDate &&
-					workout.date <= workoutDates.endDate &&
+					workout.date >= workoutDates.startDate! &&
+					workout.date <= workoutDates.endDate! &&
 					(!nameIds.some(({ checked }) => checked) ||
 						nameIds.find(({ id }) => id === workout.nameId)?.checked)
 						? {

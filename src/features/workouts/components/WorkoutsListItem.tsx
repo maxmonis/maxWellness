@@ -216,7 +216,7 @@ export function WorkoutsListItem({
 								)
 						  })
 						: groupExercisesByLift(workout.routine).map((exerciseList, j) => {
-								const [{ liftId }] = exerciseList
+								const { liftId } = exerciseList[0]!
 								const liftNameText = getLiftNameText(liftId, liftNames)
 								return (
 									<li key={j} className="mt-2 flex flex-wrap">
@@ -276,7 +276,7 @@ ${getDateText(workout.date)}
 ${groupExercisesByLift(workout.routine)
 	.map(
 		exerciseList =>
-			`${getLiftNameText(exerciseList[0].liftId, liftNames)}: ${exerciseList
+			`${getLiftNameText(exerciseList[0]!.liftId, liftNames)}: ${exerciseList
 				.map(getPrintout)
 				.join(", ")}`,
 	)

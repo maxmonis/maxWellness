@@ -99,7 +99,7 @@ export function groupExercisesByLift(routine: Array<Exercise>) {
 	const organizedRoutine: Array<Array<Exercise>> = []
 	for (const exercise of routine) {
 		const previous = organizedRoutine.at(-1)
-		if (previous && previous[0].liftId === exercise.liftId) {
+		if (previous?.[0]?.liftId === exercise.liftId) {
 			previous.push(exercise)
 		} else {
 			organizedRoutine.push([exercise])

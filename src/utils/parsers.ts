@@ -7,7 +7,12 @@ import { hasChars } from "./validators"
  * the current year, otherwise simply "Weekday, Month Day"
  */
 export function getDateText(date: string) {
-	const [year, month, day] = date.split("T")[0].split("-").map(Number)
+	const [year, month, day] = date.split("T")[0]!.split("-").map(Number)
+
+	if (!year || !month || !day) {
+		throw Error("Invalid date")
+	}
+
 	return new Date(year, month - 1, day).toLocaleDateString(undefined, {
 		day: "numeric",
 		month: "short",

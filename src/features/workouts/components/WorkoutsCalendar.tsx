@@ -39,7 +39,7 @@ export function WorkoutsCalendar({
 	const liftIds: Record<string, number> = {}
 	for (const { routine } of filteredWorkouts) {
 		for (const { liftId } of routine) {
-			liftIds[liftId] = liftIds[liftId] + 1 || 1
+			liftIds[liftId] = liftIds[liftId]! + 1 || 1
 		}
 	}
 	const liftArray: Array<{
@@ -47,7 +47,7 @@ export function WorkoutsCalendar({
 		total: number
 	}> = []
 	for (const liftId in liftIds) {
-		liftArray.push({ liftId, total: liftIds[liftId] })
+		liftArray.push({ liftId, total: liftIds[liftId]! })
 	}
 	const sortedLifts = liftArray.sort((a, b) => b.total - a.total)
 

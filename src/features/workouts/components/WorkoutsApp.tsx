@@ -50,8 +50,8 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	const defaultValues = {
 		date: today,
-		liftId: activeLiftNames[0].id,
-		nameId: activeWorkoutNames[0].id,
+		liftId: activeLiftNames[0]!.id,
+		nameId: activeWorkoutNames[0]!.id,
 		reps: "",
 		sets: "",
 		weight: "",
@@ -88,7 +88,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 			setValues({
 				...defaultValues,
 				nameId: editingWorkout.nameId,
-				date: editingWorkout.date.split("T")[0],
+				date: editingWorkout.date.split("T")[0]!,
 			})
 		}
 	}, [editingWorkout])

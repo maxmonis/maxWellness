@@ -49,8 +49,6 @@ export function WorkoutsList({
 	const mutationCount = useIsMutating()
 	const mutating = mutationCount > 0
 
-	const [deletingId, setDeletingId] = React.useState<null | string>(null)
-
 	return (
 		<div className="relative flex flex-shrink flex-grow">
 			<div className="flex w-full flex-1 flex-col">

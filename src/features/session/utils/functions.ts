@@ -49,8 +49,8 @@ export function generateSession(profile: Profile, workoutList: Array<Workout>) {
 		pendingWorkouts: Array<Workout>,
 		workouts: Array<Workout> = [],
 		records: Array<Exercise> = [],
-	) {
-		if (pendingWorkouts.length > 0) {
+	): Array<Workout> {
+		if (pendingWorkouts[0]) {
 			const updated = updateRecords(pendingWorkouts[0], records)
 			return recursiveChecker(
 				pendingWorkouts.slice(1),
