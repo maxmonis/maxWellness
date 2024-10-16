@@ -10,7 +10,7 @@ import { saveWorkout } from "../firebase/saveWorkout"
  */
 export function useAddWorkout({ onSuccess }: { onSuccess: () => void }) {
 	const queryClient = useQueryClient()
-	const user = useAuth()
+	const { user } = useAuth()
 	const { toast } = useToast()
 	const queryKey = ["workouts", { userId: user?.uid }]
 

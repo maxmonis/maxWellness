@@ -8,7 +8,7 @@ import { useQueries } from "@tanstack/react-query"
  * Attempts to load the current session
  */
 export function useSession() {
-	const user = useAuth()
+	const { user } = useAuth()
 	const userId = user?.uid
 
 	return useQueries({

@@ -9,7 +9,7 @@ import { updateSettings } from "../firebase/updateSettings"
  */
 export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
 	const queryClient = useQueryClient()
-	const user = useAuth()
+	const { user } = useAuth()
 	const { toast } = useToast()
 	const queryKey = ["profile", { userId: user?.uid }]
 

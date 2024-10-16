@@ -8,7 +8,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { logOut } from "@/features/auth/firebase/logOut"
-import { useSession } from "@/features/session/hooks/useSession"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { ExitIcon, MoonIcon, Pencil2Icon, SunIcon } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/router"
@@ -21,15 +21,11 @@ import { UserImage } from "./UserImage"
  * update their profile, or log out
  */
 export function UserMenu() {
-	const { loading, session } = useSession()
+	const { user } = useAuth()
 	const router = useRouter()
 	const [editing, setEditing] = React.useState(false)
 
-	if (loading) {
-		return <></>
-	}
-
-	if (!session) {
+	if (!user) {
 		return (
 			<div className="max-lg:pr-4">
 				<DarkModeToggle />
@@ -47,7 +43,7 @@ export function UserMenu() {
 					>
 						<UserImage />
 						<span className="w-32 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
-							{session.profile.userName}
+							{user.displayName}
 						</span>
 					</Button>
 				</DropdownMenuTrigger>
@@ -76,11 +72,11 @@ export function UserMenu() {
 						<span className="leading-tight">Logout</span>
 					</DropdownMenuItem>
 					<p className="w-32 p-2 text-sm leading-tight sm:hidden">
-						{session.profile.userName}
+						{user.displayName}
 					</p>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<ProfileDialog onOpenChange={setEditing} open={editing} {...session} />
+			<ProfileDialog onOpenChange={setEditing} open={editing} user={user} />
 		</>
 	)
 }
@@ -127,14 +123,15 @@ function DarkModeToggle() {
 function ProfileDialog({
 	onOpenChange,
 	open,
-	profile,
+	user,
 }: {
 	onOpenChange: (open: boolean) => void
 	open: boolean
-} & NonNullable<ReturnType<typeof useSession>["session"]>) {
-	const { mutate: updateProfile } = useUpdateProfile()
-	const [newName, setNewName] = React.useState(profile.userName)
-	const [newPhotoURL, setNewPhotoURL] = React.useState(profile.photoURL)
+	user: NonNullable<ReturnType<typeof useAuth>["user"]>
+}) {
+	const { mutate: updateProfile } = useUpdateProfile(user)
+	const [newName, setNewName] = React.useState(user.displayName ?? "")
+	const [newPhotoURL, setNewPhotoURL] = React.useState(user.photoURL ?? "")
 
 	return (
 		<ResponsiveDialog
@@ -164,14 +161,15 @@ function ProfileDialog({
 				</Button>,
 			]}
 			description={`Update your username or upload a ${
-				profile.photoURL ? "new " : ""
+				user.photoURL ? "new " : ""
 			}profile image`}
 			onSubmit={() => {
-				const userName = newName.trim()
+				const updatedName = newName.trim()
 				const args = {
-					...(userName && userName !== profile.userName && { userName }),
+					...(updatedName &&
+						updatedName !== user.displayName && { displayName: updatedName }),
 					...(newPhotoURL &&
-						newPhotoURL !== profile.photoURL && { photoURL: newPhotoURL }),
+						newPhotoURL !== user.photoURL && { photoURL: newPhotoURL }),
 				}
 				if (Object.keys(args).length) {
 					updateProfile(args)

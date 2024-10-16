@@ -27,7 +27,7 @@ export function Page({
 	| { loading: boolean; loadingText?: string }
 	| { loading?: never; loadingText?: never }
 )) {
-	const user = useAuth()
+	const { user } = useAuth()
 	const router = useRouter()
 	useSession()
 

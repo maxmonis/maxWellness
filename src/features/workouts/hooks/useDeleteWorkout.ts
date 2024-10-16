@@ -10,7 +10,7 @@ import { deleteWorkout } from "../firebase/deleteWorkout"
  */
 export function useDeleteWorkout({ onSuccess }: { onSuccess: () => void }) {
 	const queryClient = useQueryClient()
-	const user = useAuth()
+	const { user } = useAuth()
 	const { toast } = useToast()
 	const queryKey = ["workouts", { userId: user?.uid }]
 

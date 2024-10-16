@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { useSession } from "@/features/session/hooks/useSession"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { uploadImage } from "@/firebase/uploadImage"
 import { cn } from "@/lib/utils"
 import { getErrorMessage } from "@/utils/parsers"
@@ -17,17 +17,17 @@ export function UserImage({
 }:
 	| { editable?: never; handleNewUrl?: never }
 	| { editable: true; handleNewUrl: (url: string) => void }) {
-	const { session } = useSession()
+	const { user } = useAuth()
 	const [newUrl, setNewUrl] = React.useState("")
 	const [uploading, setUploading] = React.useState(false)
 	const [error, setError] = React.useState("")
 	const inputRef = React.useRef<HTMLInputElement>(null)
 
-	if (!session) {
+	if (!user) {
 		return <></>
 	}
 
-	const { photoURL, userId, userName } = session.profile
+	const { displayName, photoURL, uid } = user
 	const src = newUrl || photoURL
 
 	return (
@@ -47,14 +47,16 @@ export function UserImage({
 				) : (
 					<Wrapper {...(editable && { onClick })}>
 						<Avatar className="h-full w-full border">
-							<Image
-								alt={`${userName} profile image`}
-								className="object-cover"
-								fill
-								sizes={editable ? "160px" : "28px"}
-								{...(!editable && { priority: true })}
-								{...{ src }}
-							/>
+							{src && (
+								<Image
+									alt={`${displayName} profile image`}
+									className="object-cover"
+									fill
+									sizes={editable ? "160px" : "28px"}
+									src={src}
+									{...(!editable && { priority: true })}
+								/>
+							)}
 							<AvatarFallback>
 								<PersonIcon
 									className={cn(editable ? "h-40 w-40" : "h-7 w-7")}
@@ -76,7 +78,7 @@ export function UserImage({
 							try {
 								const url = await uploadImage(
 									file,
-									`profile/${userId}/${file.name}`,
+									`profile/${uid}/${file.name}`,
 								)
 								setNewUrl(url)
 								handleNewUrl(url)

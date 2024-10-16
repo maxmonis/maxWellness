@@ -9,7 +9,7 @@ import Link from "next/link"
  * Displays text and GIFs showing how to use the app
  */
 export default function InfoPage() {
-	const user = useAuth()
+	const { user } = useAuth()
 
 	return (
 		<Page title="About">

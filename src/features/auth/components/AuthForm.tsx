@@ -37,7 +37,7 @@ export function AuthForm({ route }: { route: AuthRoute }) {
 	const [emailSent, setEmailSent] = React.useState(false)
 	const [redirect, setRedirect] = React.useState(false)
 
-	const user = useAuth()
+	const { setUser, user } = useAuth()
 	React.useEffect(() => {
 		if (user) {
 			setRedirect(true)
@@ -126,7 +126,7 @@ export function AuthForm({ route }: { route: AuthRoute }) {
 				await resetPassword(email!)
 				setEmailSent(true)
 			} else if (route === "login") await logIn(email!, password!)
-			else await signUp(userName!, email!, password!)
+			else setUser(await signUp(userName!, email!, password!))
 		} catch (error) {
 			handleError(error)
 		}

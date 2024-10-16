@@ -1,14 +1,14 @@
-import { useSession } from "@/features/session/hooks/useSession"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 
 /**
  * Contains a greeting and instructions on managing workouts
  */
 export function WorkoutsEmptyState() {
-	const { session } = useSession()
+	const { user } = useAuth()
 	return (
-		<div className="flex flex-col gap-4 p-4 lg:p-6">
-			<h2 className="text-lg">
-				Hi {session?.profile.userName}, welcome to maxWellness!
+		<div className="flex flex-col gap-4 p-4 text-sm lg:p-6">
+			<h2 className="text-base">
+				Hi {user!.displayName}, welcome to maxWellness!
 			</h2>
 			<p>
 				The New Workout page allows you to create and upload workouts, and they

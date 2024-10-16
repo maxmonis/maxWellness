@@ -20,7 +20,7 @@ export function AuthContextProvider({ children }: React.PropsWithChildren) {
 	}, [])
 
 	return (
-		<AuthContext.Provider value={user}>
+		<AuthContext.Provider value={{ setUser, user }}>
 			{loading ? null : children}
 		</AuthContext.Provider>
 	)

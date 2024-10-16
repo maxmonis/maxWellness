@@ -9,7 +9,7 @@ import { Button } from "./ui/button"
  * to the register page if they're not
  */
 export function BackButton() {
-	const user = useAuth()
+	const { user } = useAuth()
 	const router = useRouter()
 
 	return (

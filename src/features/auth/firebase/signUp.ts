@@ -3,7 +3,7 @@ import {
 	defaultWorkoutNames,
 } from "@/features/settings/utils/constants"
 import { auth, db } from "@/firebase/app"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { addDoc, collection } from "firebase/firestore"
 
 /**
@@ -11,6 +11,7 @@ import { addDoc, collection } from "firebase/firestore"
  */
 export async function signUp(name: string, email: string, password: string) {
 	const { user } = await createUserWithEmailAndPassword(auth, email, password)
+	await updateProfile(user, { displayName: name })
 	await addDoc(collection(db, "profile"), {
 		liftNames: defaultLiftNames,
 		photoURL: "",
@@ -18,5 +19,5 @@ export async function signUp(name: string, email: string, password: string) {
 		userName: name,
 		workoutNames: defaultWorkoutNames,
 	})
-	return user
+	return { ...user, displayName: name }
 }
