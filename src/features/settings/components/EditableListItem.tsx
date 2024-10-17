@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { EditableName } from "@/features/settings/utils/models"
 import { cn } from "@/lib/utils"
-import {
-	MinusCircledIcon,
-	Pencil2Icon,
-	PlusCircledIcon,
-	TrashIcon,
-} from "@radix-ui/react-icons"
+import { Pencil2Icon, PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons"
 import * as React from "react"
 import { isTextAlreadyInList } from "../utils/functions"
 
@@ -36,7 +31,7 @@ export function EditableListItem({
 	const [editing, setEditing] = React.useState(false)
 
 	const isDuplicate = isTextAlreadyInList(newText, editableNameList)
-	const canHide = editableNameList.filter(n => !n.isHidden).length > 1
+	const canDelete = editableNameList.filter(n => !n.deleted).length > 1
 
 	return (
 		<li className="mt-1 flex items-center justify-between gap-4">
@@ -62,7 +57,7 @@ export function EditableListItem({
 								<Button className="mt-3 w-fit" type="submit" variant="outline">
 									Update Name
 								</Button>
-							) : editableName.canDelete ? (
+							) : (
 								<Button
 									className="mt-3 w-fit"
 									type="submit"
@@ -70,10 +65,6 @@ export function EditableListItem({
 								>
 									Delete Name
 								</Button>
-							) : (
-								<p className="mt-1 text-center text-sm text-red-600 dark:text-red-500">
-									Can&apos;t delete, used in workout(s)
-								</p>
 							)}
 						</div>
 					)}
@@ -84,7 +75,7 @@ export function EditableListItem({
 						<Button
 							className={cn(
 								"flex h-auto w-full justify-start whitespace-normal text-left leading-tight",
-								editableName.isHidden && "line-through",
+								editableName.deleted && "line-through",
 								newText.split(" ").some(word => word.length >= 12) &&
 									"break-all",
 							)}
@@ -106,20 +97,13 @@ export function EditableListItem({
 							<Pencil2Icon />
 							Edit
 						</DropdownMenuItem>
-						{((canHide && !editableName.isHidden) || editableName.isHidden) && (
-							<DropdownMenuItem className="flex gap-1.5" onClick={onHideClick}>
-								{editableName.isHidden ? (
-									<PlusCircledIcon />
-								) : (
-									<MinusCircledIcon />
-								)}
-								{editableName.isHidden ? "Unhide" : "Hide"}
-							</DropdownMenuItem>
-						)}
-						{editableName.canDelete && (
-							<DropdownMenuItem className="flex gap-1.5" onClick={handleDelete}>
-								<TrashIcon />
-								Delete
+						{((canDelete && !editableName.deleted) || editableName.deleted) && (
+							<DropdownMenuItem
+								className="flex gap-1.5"
+								onClick={onDeleteClick}
+							>
+								{editableName.deleted ? <PlusCircledIcon /> : <TrashIcon />}
+								{editableName.deleted ? "Restore" : "Delete"}
 							</DropdownMenuItem>
 						)}
 					</DropdownMenuContent>
@@ -167,8 +151,8 @@ export function EditableListItem({
 	 * Deletes the name (if allowed)
 	 */
 	function handleDelete() {
-		if (editableName.canDelete && editableNameList.length > 1) {
-			updateOptions({ ...editableName, text: "" }, editableName)
+		if (editableNameList.length > 1) {
+			updateOptions({ ...editableName, deleted: true }, editableName)
 		} else {
 			handleReset()
 		}
@@ -177,10 +161,10 @@ export function EditableListItem({
 	/**
 	 * Updates whether a name is hidden (if possible)
 	 */
-	function onHideClick() {
-		const newHidden = !editableName.isHidden
-		if ((canHide && newHidden) || !newHidden) {
-			updateOptions({ ...editableName, isHidden: newHidden }, editableName)
+	function onDeleteClick() {
+		const newHidden = !editableName.deleted
+		if ((canDelete && newHidden) || !newHidden) {
+			updateOptions({ ...editableName, deleted: newHidden }, editableName)
 		}
 	}
 

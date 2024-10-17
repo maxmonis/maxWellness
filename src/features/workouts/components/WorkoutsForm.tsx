@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select"
 import { useSession } from "@/features/session/hooks/useSession"
 import { Session } from "@/features/session/utils/models"
-import { getLiftNameText } from "@/features/settings/utils/parsers"
+import { getExerciseNameText } from "@/features/settings/utils/parsers"
 import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 import {
@@ -38,34 +38,34 @@ import { Exercise, Workout } from "../utils/models"
  * Allows the user to edit an existing workout or create a new one
  */
 export function WorkoutsForm({
-	activeLiftNames,
+	activeExerciseNames,
 	activeWorkoutNames,
 	defaultValues,
 	editingWorkout,
-	liftNames,
+	exerciseNames,
 	resetState,
-	routine,
+	exercises,
 	setValues,
 	updateRoutine,
 	userId,
 	values,
 }: {
-	activeLiftNames: typeof liftNames
-	activeWorkoutNames: Session["profile"]["workoutNames"]
+	activeExerciseNames: typeof exerciseNames
+	activeWorkoutNames: Session["workoutNames"]
 	defaultValues: typeof values
 	editingWorkout: Workout | null
-	liftNames: Session["profile"]["liftNames"]
+	exerciseNames: Session["exerciseNames"]
 	resetState: () => void
-	routine: Workout["routine"]
-	updateRoutine: (newRoutine: typeof routine) => void
+	exercises: Workout["exercises"]
+	updateRoutine: (newRoutine: typeof exercises) => void
 	userId: string
 	setValues: React.Dispatch<React.SetStateAction<typeof values>>
 	values: Record<
-		"date" | "liftId" | "nameId" | "reps" | "sets" | "weight",
+		"date" | "exerciseNameId" | "workoutNameId" | "reps" | "sets" | "weight",
 		string
 	>
 }) {
-	const { date, liftId, nameId, reps, sets, weight } = values
+	const { date, exerciseNameId, workoutNameId, reps, sets, weight } = values
 	const [dragging, setDragging] = React.useState(false)
 
 	const { session } = useSession()
@@ -115,11 +115,11 @@ export function WorkoutsForm({
 								<>
 									<div className="mb-1">
 										<Select
-											onValueChange={liftId => {
-												setValues({ ...values, liftId })
+											onValueChange={exerciseNameId => {
+												setValues({ ...values, exerciseNameId })
 											}}
-											name="liftId"
-											value={liftId}
+											name="exerciseNameId"
+											value={exerciseNameId}
 										>
 											<SelectTrigger translate="no">
 												<SelectValue />
@@ -127,7 +127,7 @@ export function WorkoutsForm({
 											<SelectContent>
 												<SelectGroup>
 													<SelectLabel>Exercise Name</SelectLabel>
-													{activeLiftNames.map(({ id, text }) => (
+													{activeExerciseNames.map(({ id, text }) => (
 														<SelectItem key={id} translate="no" value={id}>
 															{text}
 														</SelectItem>
@@ -188,8 +188,8 @@ export function WorkoutsForm({
 														setValues({
 															...defaultValues,
 															date,
-															nameId,
-															liftId,
+															exerciseNameId,
+															workoutNameId,
 														})
 													}}
 													variant="ghost"
@@ -206,12 +206,12 @@ export function WorkoutsForm({
 					)}
 				</Droppable>
 			</Form>
-			{routine.length > 0 ? (
+			{exercises.length > 0 ? (
 				<div>
 					<Droppable droppableId="ExerciseList">
 						{({ droppableProps, innerRef: droppableRef, placeholder }) => (
 							<ul className="mt-4" ref={droppableRef} {...droppableProps}>
-								{routine.map((exercise, i) => (
+								{exercises.map((exercise, i) => (
 									<Draggable
 										draggableId={exercise.id}
 										index={i}
@@ -239,9 +239,9 @@ export function WorkoutsForm({
 													{...dragHandleProps}
 													translate="no"
 												>
-													{`${getLiftNameText(
-														exercise.liftId,
-														liftNames,
+													{`${getExerciseNameText(
+														exercise.nameId,
+														exerciseNames,
 													)}: ${getPrintout(
 														omit(exercise, [
 															"recordEndDate",
@@ -273,11 +273,11 @@ export function WorkoutsForm({
 						body={
 							<>
 								<Select
-									name="nameId"
-									onValueChange={nameId => {
-										setValues({ ...values, nameId })
+									name="workoutNameId"
+									onValueChange={workoutNameId => {
+										setValues({ ...values, workoutNameId })
 									}}
-									value={nameId}
+									value={workoutNameId}
 								>
 									<SelectTrigger translate="no">
 										<SelectValue />
@@ -361,10 +361,10 @@ export function WorkoutsForm({
 	)
 
 	/**
-	 * Attempts to add the current exercise to the routine
+	 * Attempts to add the current exercise to the exercises
 	 */
 	function onSubmit() {
-		const exercise = createNewExercise(values)
+		const exercise = createNewExercise({ ...values, nameId: exerciseNameId })
 		if (exercise) {
 			addExercise(exercise)
 		}
@@ -389,17 +389,17 @@ export function WorkoutsForm({
 	}
 
 	/**
-	 * Adds a new exercise to the routine
+	 * Adds a new exercise to the exercises
 	 */
 	function addExercise(newExercise: Exercise) {
-		updateRoutine([...routine, newExercise])
+		updateRoutine([...exercises, newExercise])
 	}
 
 	/**
-	 * Removes an exercise from the routine
+	 * Removes an exercise from the exercises
 	 */
 	function deleteExercise(exerciseId: string) {
-		updateRoutine(routine.filter(({ id }) => id !== exerciseId))
+		updateRoutine(exercises.filter(({ id }) => id !== exerciseId))
 	}
 
 	/**
@@ -407,13 +407,13 @@ export function WorkoutsForm({
 	 */
 	function handleDragEnd({ destination, source, draggableId }: DropResult) {
 		setDragging(false)
-		const exerciseIds = routine.map(({ id }) => id)
+		const exerciseIds = exercises.map(({ id }) => id)
 		if (destination?.droppableId === "ExerciseForm") {
-			const exercise = routine[source.index]!
+			const exercise = exercises[source.index]!
 			exerciseIds.splice(source.index, 1)
 			setValues({
 				...values,
-				liftId: exercise.liftId ?? activeLiftNames[0]!.id,
+				exerciseNameId: exercise.nameId ?? activeExerciseNames[0]!.id,
 				sets: exercise.sets ? exercise.sets.toString() : "",
 				reps: exercise.reps ? exercise.reps.toString() : "",
 				weight: exercise.weight ? exercise.weight.toString() : "",
@@ -424,7 +424,7 @@ export function WorkoutsForm({
 		}
 		const reorderedRoutine: Array<Exercise> = []
 		for (const exerciseId of exerciseIds) {
-			for (const exercise of routine) {
+			for (const exercise of exercises) {
 				if (exercise.id === exerciseId) {
 					reorderedRoutine.push(exercise)
 					break
@@ -443,8 +443,8 @@ export function WorkoutsForm({
 		}
 		const newWorkout = {
 			date: date.split("T")[0]!,
-			nameId,
-			routine,
+			nameId: workoutNameId,
+			exercises,
 			userId,
 		}
 		const { id, ...originalWorkout } = editingWorkout ?? {}

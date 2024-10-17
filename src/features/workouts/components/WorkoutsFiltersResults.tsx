@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion"
 import { buttonVariants } from "@/components/ui/button"
 import { Session } from "@/features/session/utils/models"
-import { getLiftNameText } from "@/features/settings/utils/parsers"
+import { getExerciseNameText } from "@/features/settings/utils/parsers"
 import { cn } from "@/lib/utils"
 import { getDateText } from "@/utils/parsers"
 import Link from "next/link"
@@ -16,11 +16,11 @@ import { Workout } from "../utils/models"
 export function WorkoutsFiltersResults({
 	appliedFilters,
 	filteredWorkouts,
-	liftNames,
+	exerciseNames,
 }: {
 	appliedFilters: Session["filters"]
 	filteredWorkouts: Array<Workout>
-	liftNames: Session["profile"]["liftNames"]
+	exerciseNames: Session["exerciseNames"]
 }) {
 	const personalBests = filteredWorkouts.flatMap(w =>
 		w.routine.filter(e => e.recordStartDate),
@@ -69,7 +69,7 @@ export function WorkoutsFiltersResults({
 							{previousPersonalBests.map(e => (
 								<li className="flex flex-wrap gap-x-2" key={e.id}>
 									{appliedFilters.liftIds.filter(l => l.checked).length !== 1
-										? `${getLiftNameText(e.liftId, liftNames)}: `
+										? `${getExerciseNameText(e.nameId, exerciseNames)}: `
 										: ""}
 									{getPrintout(e).replace(/\*/g, "")}
 									<span className="text-muted-foreground">
@@ -90,7 +90,7 @@ export function WorkoutsFiltersResults({
 							{currentPersonalBests.map(e => (
 								<li className="flex flex-wrap gap-x-2" key={e.id}>
 									{appliedFilters.liftIds.filter(l => l.checked).length !== 1
-										? `${getLiftNameText(e.liftId, liftNames)}: `
+										? `${getExerciseNameText(e.nameId, exerciseNames)}: `
 										: ""}
 									{getPrintout(e).replace(/\*/g, "")}
 									<span className="text-muted-foreground">

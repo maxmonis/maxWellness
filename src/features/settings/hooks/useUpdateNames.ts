@@ -14,7 +14,8 @@ export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
 	const queryKey = ["profile", { userId: user?.uid }]
 
 	return useMutation({
-		mutationFn: updateSettings,
+		mutationFn: (newNames: Parameters<typeof updateSettings>[1]) =>
+			updateSettings(user!.uid, newNames),
 		mutationKey: ["updateNames"],
 		onError(error) {
 			toast({

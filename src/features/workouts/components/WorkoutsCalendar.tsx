@@ -1,7 +1,7 @@
 import { BackButton } from "@/components/BackButton"
 import { Button } from "@/components/ui/button"
 import { useSession } from "@/features/session/hooks/useSession"
-import { getLiftNameText } from "@/features/settings/utils/parsers"
+import { getExerciseNameText } from "@/features/settings/utils/parsers"
 import { useElementWidth } from "@/hooks/useElementWidth"
 import { useFullscreen } from "@/hooks/useFullscreen"
 import { cn } from "@/lib/utils"
@@ -38,16 +38,16 @@ export function WorkoutsCalendar({
 
 	const liftIds: Record<string, number> = {}
 	for (const { routine } of filteredWorkouts) {
-		for (const { liftId } of routine) {
-			liftIds[liftId] = liftIds[liftId]! + 1 || 1
+		for (const { nameId } of routine) {
+			liftIds[nameId] = liftIds[nameId]! + 1 || 1
 		}
 	}
 	const liftArray: Array<{
-		liftId: string
+		nameId: string
 		total: number
 	}> = []
-	for (const liftId in liftIds) {
-		liftArray.push({ liftId, total: liftIds[liftId]! })
+	for (const nameId in liftIds) {
+		liftArray.push({ nameId, total: liftIds[nameId]! })
 	}
 	const sortedLifts = liftArray.sort((a, b) => b.total - a.total)
 
@@ -183,24 +183,24 @@ export function WorkoutsCalendar({
 															horizontalIndex,
 															horizontalIndex + maxColumns,
 														)
-														.map(({ liftId }) => {
-															const liftNameText = getLiftNameText(
-																liftId,
-																session?.profile.liftNames ?? [],
+														.map(({ nameId }) => {
+															const exerciseNameText = getExerciseNameText(
+																nameId,
+																session?.profile.exerciseNames ?? [],
 															)
 															return (
 																<th
 																	className={cn(
 																		"p-2 leading-tight shadow-sm shadow-secondary",
-																		liftNameText
+																		exerciseNameText
 																			.split(" ")
 																			.some(word => word.length >= 12) &&
 																			"break-all",
 																	)}
 																	translate="no"
-																	key={liftId}
+																	key={nameId}
 																>
-																	{liftNameText}
+																	{exerciseNameText}
 																</th>
 															)
 														})}
@@ -208,24 +208,24 @@ export function WorkoutsCalendar({
 									</thead>
 									<tbody>
 										{sortByDate
-											? sortedLifts.map(({ liftId }) => {
-													const liftNameText = getLiftNameText(
-														liftId,
-														session?.profile.liftNames ?? [],
+											? sortedLifts.map(({ nameId }) => {
+													const exerciseNameText = getExerciseNameText(
+														nameId,
+														session?.profile.exerciseNames ?? [],
 													)
 													return (
 														<tr
 															className={cn(
 																"divide-x border-t",
-																liftNameText
+																exerciseNameText
 																	.split(" ")
 																	.some(word => word.length >= 12) &&
 																	"break-all",
 															)}
-															key={liftId}
+															key={nameId}
 														>
 															<td className="p-2 leading-tight" translate="no">
-																{liftNameText}
+																{exerciseNameText}
 															</td>
 															{filteredWorkouts
 																.slice(
@@ -233,10 +233,10 @@ export function WorkoutsCalendar({
 																	horizontalIndex + maxColumns,
 																)
 																.map(workout => (
-																	<td className="p-2" key={liftId + workout.id}>
+																	<td className="p-2" key={nameId + workout.id}>
 																		{groupExercisesByLift(
 																			workout.routine.filter(
-																				exercise => exercise.liftId === liftId,
+																				exercise => exercise.nameId === nameId,
 																			),
 																		).map(exerciseList =>
 																			exerciseList
@@ -260,11 +260,11 @@ export function WorkoutsCalendar({
 																horizontalIndex,
 																horizontalIndex + maxColumns,
 															)
-															.map(({ liftId }) => (
-																<td className="p-2" key={liftId + workout.id}>
+															.map(({ nameId }) => (
+																<td className="p-2" key={nameId + workout.id}>
 																	{groupExercisesByLift(
 																		workout.routine.filter(
-																			exercise => exercise.liftId === liftId,
+																			exercise => exercise.nameId === nameId,
 																		),
 																	).map(exerciseList =>
 																		exerciseList

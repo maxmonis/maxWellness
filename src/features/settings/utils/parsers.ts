@@ -3,11 +3,11 @@ import { EditableName } from "./models"
 /**
  * Gets the lift name text which corresponds to an ID
  */
-export function getLiftNameText(
-	liftId: string,
-	liftNames: Array<EditableName>,
+export function getExerciseNameText(
+	nameId: string,
+	exerciseNames: Array<EditableName>,
 ) {
-	return liftNames.find(({ id }) => id === liftId)?.text ?? ""
+	return exerciseNames.find(({ id }) => id === nameId)?.text ?? ""
 }
 
 /**

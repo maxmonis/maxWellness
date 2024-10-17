@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Session } from "@/features/session/utils/models"
 import {
-	getLiftNameText,
+	getExerciseNameText,
 	getWorkoutNameText,
 } from "@/features/settings/utils/parsers"
 import { useToast } from "@/hooks/use-toast"
@@ -35,7 +35,7 @@ export function WorkoutsListItem({
 	addExercise,
 	editingWorkout,
 	handleDelete,
-	liftNames,
+	exerciseNames,
 	setEditingWorkout,
 	setValues,
 	updateRoutine,
@@ -48,18 +48,18 @@ export function WorkoutsListItem({
 	addExercise: (newExercise: Exercise) => void
 	editingWorkout: Workout | null
 	handleDelete: (id: string) => void
-	liftNames: Session["profile"]["liftNames"]
+	exerciseNames: Session["exerciseNames"]
 	setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
 	setValues: React.Dispatch<React.SetStateAction<typeof values>>
 	updateRoutine: (newRoutine: Array<Exercise>) => void
 	values: Record<
-		"date" | "liftId" | "nameId" | "reps" | "sets" | "weight",
+		"date" | "exerciseNameId" | "workoutNameId" | "reps" | "sets" | "weight",
 		string
 	>
 	view: View
 	workout: Workout
 	workouts: Array<Workout>
-	workoutNames: Session["profile"]["workoutNames"]
+	workoutNames: Session["workoutNames"]
 }) {
 	const { toast } = useToast()
 	const [deleting, setDeleting] = React.useState(false)
@@ -116,13 +116,13 @@ export function WorkoutsListItem({
 									onClick={() => {
 										const copiedRoutine = workouts
 											.find(({ id }) => id === workout.id)
-											?.routine.map(exercise => ({
+											?.exercises.map(exercise => ({
 												...exercise,
 												id: nanoid(),
 											}))
 										if (copiedRoutine) {
 											updateRoutine(copiedRoutine)
-											setValues({ ...values, nameId: workout.nameId })
+											setValues({ ...values, workoutNameId: workout.nameId })
 										} else {
 											toast({
 												title: "Duplication failed",
@@ -183,18 +183,21 @@ export function WorkoutsListItem({
 				</div>
 				<ul>
 					{view === "create"
-						? workout.routine.map((exercise, i) => {
-								const liftName = liftNames.find(
-									({ id }) => id === exercise.liftId,
+						? workout.exercises.map((exercise, i) => {
+								const exerciseName = exerciseNames.find(
+									({ id }) => id === exercise.nameId,
 								)
-								const liftNameText = getLiftNameText(exercise.liftId, liftNames)
+								const exerciseNameText = getExerciseNameText(
+									exercise.nameId,
+									exerciseNames,
+								)
 								return (
 									<li key={i} className="flex flex-wrap">
 										<Button
 											className="-ml-4 flex h-auto whitespace-normal text-left leading-tight"
 											translate="no"
 											variant="ghost"
-											{...(liftName?.isHidden
+											{...(exerciseName?.deleted
 												? { disabled: true }
 												: {
 														onClick() {
@@ -209,27 +212,30 @@ export function WorkoutsListItem({
 														title: "Click to copy",
 												  })}
 										>
-											{liftNameText}:&nbsp;
+											{exerciseNameText}:&nbsp;
 											{getPrintout(exercise)}
 										</Button>
 									</li>
 								)
 						  })
-						: groupExercisesByLift(workout.routine).map((exerciseList, j) => {
-								const { liftId } = exerciseList[0]!
-								const liftNameText = getLiftNameText(liftId, liftNames)
+						: groupExercisesByLift(workout.exercises).map((exerciseList, j) => {
+								const { nameId } = exerciseList[0]!
+								const exerciseNameText = getExerciseNameText(
+									nameId,
+									exerciseNames,
+								)
 								return (
 									<li key={j} className="mt-2 flex flex-wrap">
 										<span
 											className={cn(
 												"leading-tight",
-												liftNameText
+												exerciseNameText
 													.split(" ")
 													.some(word => word.length >= 12) && "break-all",
 											)}
 											translate="no"
 										>
-											{liftNameText}:
+											{exerciseNameText}:
 										</span>
 										{exerciseList.map((exercise, k) => (
 											<span key={k} className="leading-tight">
@@ -273,12 +279,13 @@ export function WorkoutsListItem({
 	function getClipboardText(workout: Workout) {
 		return `${getWorkoutNameText(workout.nameId, workoutNames)}
 ${getDateText(workout.date)}
-${groupExercisesByLift(workout.routine)
+${groupExercisesByLift(workout.exercises)
 	.map(
 		exerciseList =>
-			`${getLiftNameText(exerciseList[0]!.liftId, liftNames)}: ${exerciseList
-				.map(getPrintout)
-				.join(", ")}`,
+			`${getExerciseNameText(
+				exerciseList[0]!.nameId,
+				exerciseNames,
+			)}: ${exerciseList.map(getPrintout).join(", ")}`,
 	)
 	.join("\n")}`
 	}

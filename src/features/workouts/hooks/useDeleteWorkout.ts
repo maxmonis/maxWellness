@@ -15,7 +15,7 @@ export function useDeleteWorkout({ onSuccess }: { onSuccess: () => void }) {
 	const queryKey = ["workouts", { userId: user?.uid }]
 
 	return useMutation({
-		mutationFn: deleteWorkout,
+		mutationFn: (id: string) => deleteWorkout(user!.uid, id),
 		mutationKey: ["deleteWorkout"],
 		onError(error) {
 			toast({

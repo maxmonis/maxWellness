@@ -1,8 +1,8 @@
 import { Workout } from "@/features/workouts/utils/models"
 
 export class StorageService<
-	K extends `wip-routine_${string}`,
-	T extends Workout["routine"],
+	K extends `exercises_${string}`,
+	T extends Workout["exercises"],
 > {
 	private readonly key: string
 	constructor(key: K) {

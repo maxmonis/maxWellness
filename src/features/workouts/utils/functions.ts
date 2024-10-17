@@ -7,7 +7,7 @@ import { Exercise, View } from "./models"
  * @returns a new exercise if possible, or null if not
  */
 export function createNewExercise(exerciseData: {
-	liftId: string
+	nameId: string
 	reps: string | number
 	sets: string | number
 	weight: string | number
@@ -22,7 +22,7 @@ export function createNewExercise(exerciseData: {
 
 	const newExercise: Exercise = {
 		id: nanoid(),
-		liftId: exerciseData.liftId,
+		nameId: exerciseData.nameId,
 		sets: sets > 1 ? sets : 1,
 		reps: reps > 1 ? reps : 1,
 		weight,
@@ -42,7 +42,7 @@ export function eliminateRedundancy(routine: Array<Exercise>) {
 		const previousExercise = updatedRoutine.at(-1)
 		if (
 			previousExercise &&
-			exercise.liftId === previousExercise.liftId &&
+			exercise.nameId === previousExercise.nameId &&
 			exercise.reps === previousExercise.reps &&
 			exercise.weight === previousExercise.weight
 		) {
@@ -99,7 +99,7 @@ export function groupExercisesByLift(routine: Array<Exercise>) {
 	const organizedRoutine: Array<Array<Exercise>> = []
 	for (const exercise of routine) {
 		const previous = organizedRoutine.at(-1)
-		if (previous?.[0]?.liftId === exercise.liftId) {
+		if (previous?.[0]?.nameId === exercise.nameId) {
 			previous.push(exercise)
 		} else {
 			organizedRoutine.push([exercise])

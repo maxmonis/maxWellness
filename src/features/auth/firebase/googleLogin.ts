@@ -1,10 +1,7 @@
-import {
-	defaultLiftNames,
-	defaultWorkoutNames,
-} from "@/features/settings/utils/constants"
+import { createDefaultSettings } from "@/features/settings/firebase/createDefaultSettings"
 import { auth, db } from "@/firebase/app"
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore"
+import { collection, getDocs, query, where } from "firebase/firestore"
 
 /**
  * Opens a popup which prompts the user for their Google
@@ -18,14 +15,6 @@ export async function googleLogin() {
 		query(collection(db, "profile"), where("userId", "==", user.uid)),
 	)
 	const isNewUser = docs.length === 0
-	if (isNewUser) {
-		await addDoc(collection(db, "profile"), {
-			liftNames: defaultLiftNames,
-			photoURL: user.photoURL,
-			userId: user.uid,
-			userName: user.displayName,
-			workoutNames: defaultWorkoutNames,
-		})
-	}
+	if (isNewUser) await createDefaultSettings(user.uid)
 	return isNewUser
 }

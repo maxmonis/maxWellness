@@ -2,7 +2,7 @@ import { validViews } from "./constants"
 
 export interface Exercise {
 	id: string
-	liftId: string
+	nameId: string
 	recordEndDate?: string
 	recordStartDate?: string
 	reps: number
@@ -14,8 +14,8 @@ export type View = (typeof validViews)[number]
 
 export interface Workout {
 	date: string
+	exercises: Array<Exercise>
 	id: string
 	nameId: string
-	routine: Array<Exercise>
 	userId: string
 }

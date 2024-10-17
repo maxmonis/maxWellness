@@ -8,12 +8,11 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import { Profile } from "@/features/profile/utils/models"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
 import { EditableName } from "@/features/settings/utils/models"
 import { useToast } from "@/hooks/use-toast"
 import { useIsMutating } from "@tanstack/react-query"
-import { isEqual, omit, sortBy } from "lodash"
+import { isEqual, sortBy } from "lodash"
 import { nanoid } from "nanoid"
 import { useRouter } from "next/router"
 import * as React from "react"
@@ -24,7 +23,13 @@ import { EditableListItem } from "./EditableListItem"
  * Displays the user's workout and exercise names, allowing
  * them to add new ones and edit/delete existing ones
  */
-export function SettingsApp({ profile }: { profile: Profile }) {
+export function SettingsApp({
+	originalExerciseNames,
+	originalWorkoutNames,
+}: {
+	originalExerciseNames: Array<EditableName>
+	originalWorkoutNames: Array<EditableName>
+}) {
 	const router = useRouter()
 	const { toast } = useToast()
 
@@ -36,17 +41,13 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	const mutationCount = useIsMutating()
 	const mutating = mutationCount > 0
 
-	const [liftNames, setLiftNames] = React.useState(profile.liftNames)
-	const [workoutNames, setWorkoutNames] = React.useState(profile.workoutNames)
+	const [exerciseNames, setExerciseNames] = React.useState(
+		originalExerciseNames,
+	)
+	const [workoutNames, setWorkoutNames] = React.useState(originalWorkoutNames)
 	const hasChangeOccurred =
-		!isEqual(
-			workoutNames.map(name => omit(name, "canDelete")),
-			profile.workoutNames.map(name => omit(name, "canDelete")),
-		) ||
-		!isEqual(
-			liftNames.map(name => omit(name, "canDelete")),
-			profile.liftNames.map(name => omit(name, "canDelete")),
-		)
+		!isEqual(workoutNames, originalWorkoutNames) ||
+		!isEqual(exerciseNames, originalExerciseNames)
 
 	const [values, setValues] = React.useState({ lift: "", workout: "" })
 	const { lift, workout } = values
@@ -73,9 +74,9 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	}, [onRouteChangeStart])
 
 	React.useEffect(() => {
-		setLiftNames(profile.liftNames)
-		setWorkoutNames(profile.workoutNames)
-	}, [profile])
+		setExerciseNames(originalExerciseNames)
+		setWorkoutNames(originalWorkoutNames)
+	}, [originalExerciseNames, originalWorkoutNames])
 
 	return (
 		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
@@ -111,7 +112,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 								</div>
 								{lift && (
 									<>
-										{liftNames.some(
+										{exerciseNames.some(
 											({ text }) => text.toLowerCase() === lift.toLowerCase(),
 										) ? (
 											<p className="mt-1 text-center text-red-500">
@@ -133,25 +134,25 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 							</Form>
 							<ul className="h-full overflow-y-scroll pb-6 pt-2">
 								{sortBy(
-									liftNames.filter(n => !n.isHidden),
+									exerciseNames.filter(n => !n.deleted),
 									"text",
-								).map(liftName => (
+								).map(exerciseName => (
 									<EditableListItem
-										editableName={liftName}
-										editableNameList={liftNames}
-										key={liftName.id}
-										updateOptions={updateLiftNames}
+										editableName={exerciseName}
+										editableNameList={exerciseNames}
+										key={exerciseName.id}
+										updateOptions={updateExerciseNames}
 									/>
 								))}
 								{sortBy(
-									liftNames.filter(n => n.isHidden),
+									exerciseNames.filter(n => n.deleted),
 									"text",
-								).map(liftName => (
+								).map(exerciseName => (
 									<EditableListItem
-										editableName={liftName}
-										editableNameList={liftNames}
-										key={liftName.id}
-										updateOptions={updateLiftNames}
+										editableName={exerciseName}
+										editableNameList={exerciseNames}
+										key={exerciseName.id}
+										updateOptions={updateExerciseNames}
 									/>
 								))}
 							</ul>
@@ -197,7 +198,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 							</Form>
 							<ul className="h-full overflow-y-scroll pb-6 pt-2">
 								{sortBy(
-									workoutNames.filter(n => !n.isHidden),
+									workoutNames.filter(n => !n.deleted),
 									"text",
 								).map(workoutName => (
 									<EditableListItem
@@ -208,7 +209,7 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 									/>
 								))}
 								{sortBy(
-									workoutNames.filter(n => n.isHidden),
+									workoutNames.filter(n => n.deleted),
 									"text",
 								).map(workoutName => (
 									<EditableListItem
@@ -229,8 +230,8 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 						className="text-destructive hover:text-destructive"
 						key="discard"
 						onClick={() => {
-							setLiftNames(profile.liftNames)
-							setWorkoutNames(profile.workoutNames)
+							setExerciseNames(originalExerciseNames)
+							setWorkoutNames(originalWorkoutNames)
 							onConfirmRouteChange()
 						}}
 						variant="ghost"
@@ -273,16 +274,15 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 		if (!mutating && hasChangeOccurred) {
 			setShowLeaveConfirmDialog(false)
 			updateSettings({
-				...profile,
-				liftNames: liftNames.map(({ id, text, isHidden }) => ({
+				exerciseNames: exerciseNames.map(({ id, text, deleted }) => ({
 					id,
 					text,
-					isHidden,
+					deleted,
 				})),
-				workoutNames: workoutNames.map(({ id, text, isHidden }) => ({
+				workoutNames: workoutNames.map(({ id, text, deleted }) => ({
 					id,
 					text,
-					isHidden,
+					deleted,
 				})),
 			})
 		}
@@ -308,18 +308,18 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	function handleLiftSubmit() {
 		if (
 			lift &&
-			!liftNames.some(
+			!exerciseNames.some(
 				({ text }) =>
 					text.toLowerCase().replace(/\s/g, "") ===
 					lift.toLowerCase().replace(/\s/g, ""),
 			)
 		) {
-			setLiftNames([
-				...liftNames,
+			setExerciseNames([
+				...exerciseNames,
 				{
+					deleted: false,
 					id: nanoid(),
 					text: lift.trim(),
-					canDelete: true,
 				},
 			])
 			setValues({ ...values, lift: "" })
@@ -341,9 +341,9 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 			setWorkoutNames([
 				...workoutNames,
 				{
+					deleted: false,
 					id: nanoid(),
 					text: workout.trim(),
-					canDelete: true,
 				},
 			])
 			setValues({ ...values, workout: "" })
@@ -354,21 +354,19 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	 * Handles deleted or updated workout names
 	 */
 	function updateWorkoutNames(
-		{ text, isHidden }: EditableName,
+		{ deleted, text }: EditableName,
 		workoutName: EditableName,
 	) {
-		if (!text && workoutName.canDelete && workoutNames.length > 1) {
-			setWorkoutNames(workoutNames.filter(({ id }) => id !== workoutName.id))
+		if ((!text || deleted) && workoutNames.length > 1) {
+			setWorkoutNames(
+				workoutNames.map(name =>
+					name.id === workoutName.id ? { ...name, deleted } : name,
+				),
+			)
 		} else if (text && !isTextAlreadyInList(text, workoutNames)) {
 			setWorkoutNames(
 				workoutNames.map(name =>
 					name.id === workoutName.id ? { ...name, text } : name,
-				),
-			)
-		} else {
-			setWorkoutNames(
-				workoutNames.map(name =>
-					name.id === workoutName.id ? { ...name, isHidden } : name,
 				),
 			)
 		}
@@ -377,22 +375,20 @@ export function SettingsApp({ profile }: { profile: Profile }) {
 	/**
 	 * Handles deleted or updated lift names
 	 */
-	function updateLiftNames(
-		{ text, isHidden }: EditableName,
-		liftName: EditableName,
+	function updateExerciseNames(
+		{ text, deleted }: EditableName,
+		exerciseName: EditableName,
 	) {
-		if (!text && liftName.canDelete && liftNames.length > 1) {
-			setLiftNames(liftNames.filter(({ id }) => id !== liftName.id))
-		} else if (text && !isTextAlreadyInList(text, liftNames)) {
-			setLiftNames(
-				liftNames.map(name =>
-					name.id === liftName.id ? { ...name, text } : name,
+		if ((!text || deleted) && exerciseNames.length > 1) {
+			setExerciseNames(
+				exerciseNames.map(name =>
+					name.id === exerciseName.id ? { ...name, deleted } : name,
 				),
 			)
-		} else {
-			setLiftNames(
-				liftNames.map(name =>
-					name.id === liftName.id ? { ...name, isHidden } : name,
+		} else if (text && !isTextAlreadyInList(text, exerciseNames)) {
+			setExerciseNames(
+				exerciseNames.map(name =>
+					name.id === exerciseName.id ? { ...name, text } : name,
 				),
 			)
 		}

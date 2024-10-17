@@ -25,18 +25,18 @@ export function WorkoutsList({
 	clearFilters: () => void
 	editingWorkout: Workout | null
 	filteredWorkouts: Array<Workout>
-	liftNames: Session["profile"]["liftNames"]
+	exerciseNames: Session["exerciseNames"]
 	resetState: () => void
 	setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
 	setValues: React.Dispatch<React.SetStateAction<typeof props.values>>
 	updateRoutine: (newRoutine: Array<Exercise>) => void
 	values: Record<
-		"date" | "liftId" | "nameId" | "reps" | "sets" | "weight",
+		"date" | "exerciseNameId" | "workoutNameId" | "reps" | "sets" | "weight",
 		string
 	>
 	view: Exclude<View, "calendar">
 	workouts: Array<Workout>
-	workoutNames: Session["profile"]["workoutNames"]
+	workoutNames: Session["workoutNames"]
 }) {
 	const { toast } = useToast()
 

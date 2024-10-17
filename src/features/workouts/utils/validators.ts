@@ -6,11 +6,7 @@ function isExercise(value: unknown): value is Exercise {
 		return false
 	}
 	const exercise = value as Exercise
-	return hasChars(exercise.liftId) && (exercise.reps > 0 || exercise.weight > 0)
-}
-
-function isRoutine(routine: unknown): routine is Workout["routine"] {
-	return Array.isArray(routine) && routine.every(isExercise)
+	return hasChars(exercise.nameId) && (exercise.reps > 0 || exercise.weight > 0)
 }
 
 function isWorkout(value: unknown): value is Workout {
@@ -21,8 +17,9 @@ function isWorkout(value: unknown): value is Workout {
 	return (
 		hasChars(workout.date) &&
 		hasChars(workout.nameId) &&
-		isRoutine(workout.routine) &&
-		hasChars(workout.userId) &&
+		Array.isArray(workout.exercises) &&
+		workout.exercises.length > 0 &&
+		workout.exercises.every(isExercise) &&
 		hasChars(workout.id)
 	)
 }

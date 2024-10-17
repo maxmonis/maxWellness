@@ -4,6 +4,7 @@ import {
 	ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { ToastAction } from "@/components/ui/toast"
+import { useAuth } from "@/features/auth/hooks/useAuth"
 import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
 import { useUpdateEvent } from "@/hooks/useUpdateEvent"
@@ -25,14 +26,20 @@ import { WorkoutsList } from "./WorkoutsList"
 /**
  * Allows the user to view, filter, and update their workouts
  */
-export function WorkoutsApp({ filters, profile, workouts }: Session) {
-	const { liftNames, userId, workoutNames } = profile
+export function WorkoutsApp({
+	filters,
+	exerciseNames,
+	workoutNames,
+	workouts,
+}: Session) {
+	const { user } = useAuth()
+	const userId = user!.uid
 	const activeWorkoutNames = sortBy(
-		workoutNames.filter(n => !n.isHidden),
+		workoutNames.filter(n => !n.deleted),
 		"text",
 	)
-	const activeLiftNames = sortBy(
-		liftNames.filter(n => !n.isHidden),
+	const activeExerciseNames = sortBy(
+		exerciseNames.filter(n => !n.deleted),
 		"text",
 	)
 
@@ -43,15 +50,15 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 		null,
 	)
 
-	const localRoutine = new StorageService(`wip-routine_${userId}`)
-	const [routine, setRoutine] = React.useState<Workout["routine"]>(
+	const localRoutine = new StorageService(`exercises_${userId}`)
+	const [exercises, setExercises] = React.useState<Array<Exercise>>(
 		getLocalRoutine(),
 	)
 
 	const defaultValues = {
 		date: today,
-		liftId: activeLiftNames[0]!.id,
-		nameId: activeWorkoutNames[0]!.id,
+		exerciseNameId: activeExerciseNames[0]!.id,
+		workoutNameId: activeWorkoutNames[0]!.id,
 		reps: "",
 		sets: "",
 		weight: "",
@@ -84,10 +91,10 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 
 	useUpdateEvent(() => {
 		if (editingWorkout) {
-			updateRoutine(editingWorkout.routine)
+			updateRoutine(editingWorkout.exercises)
 			setValues({
 				...defaultValues,
-				nameId: editingWorkout.nameId,
+				workoutNameId: editingWorkout.nameId,
 				date: editingWorkout.date.split("T")[0]!,
 			})
 		}
@@ -96,8 +103,8 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	useUpdateEvent(resetState, [workouts])
 
 	useUpdateEvent(() => {
-		setRoutine(getLocalRoutine())
-	}, [liftNames])
+		setExercises(getLocalRoutine())
+	}, [exerciseNames])
 
 	React.useEffect(() => {
 		if (editingWorkout && view !== "create") {
@@ -146,7 +153,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 											appliedFilters,
 											clearFilters,
 											filters,
-											liftNames,
+											exerciseNames,
 											setAppliedFilters,
 											setFilteredWorkouts,
 											workoutNames,
@@ -156,13 +163,13 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 								) : (
 									<WorkoutsForm
 										{...{
-											activeLiftNames,
+											activeExerciseNames,
 											activeWorkoutNames,
 											defaultValues,
 											editingWorkout,
-											liftNames,
+											exerciseNames,
 											resetState,
-											routine,
+											exercises,
 											setValues,
 											updateRoutine,
 											userId,
@@ -185,7 +192,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 				>
 					{view === "filters" ? (
 						<WorkoutsFiltersResults
-							{...{ appliedFilters, filteredWorkouts, liftNames }}
+							{...{ appliedFilters, filteredWorkouts, exerciseNames }}
 						/>
 					) : (
 						<WorkoutsList
@@ -194,7 +201,7 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 								clearFilters,
 								editingWorkout,
 								filteredWorkouts,
-								liftNames,
+								exerciseNames,
 								resetState,
 								setEditingWorkout,
 								setValues,
@@ -212,22 +219,22 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	)
 
 	/**
-	 * Handles changes to the routine to ensure it is valid and keep data in sync
+	 * Handles changes to the exercises to ensure it is valid and keep data in sync
 	 */
-	function updateRoutine(newRoutine: Workout["routine"]) {
-		const routine = eliminateRedundancy(newRoutine)
+	function updateRoutine(newRoutine: Workout["exercises"]) {
+		const exercises = eliminateRedundancy(newRoutine)
 		if (!editingWorkout) {
-			localRoutine.set(routine)
+			localRoutine.set(exercises)
 		}
-		setRoutine(routine)
+		setExercises(exercises)
 		changeView("create")
 	}
 
 	/**
-	 * Adds a new exercise to the routine
+	 * Adds a new exercise to the exercises
 	 */
 	function addExercise(newExercise: Exercise) {
-		updateRoutine([...routine, newExercise])
+		updateRoutine([...exercises, newExercise])
 	}
 
 	/**
@@ -235,21 +242,21 @@ export function WorkoutsApp({ filters, profile, workouts }: Session) {
 	 */
 	function resetState() {
 		clearFilters()
-		setRoutine(getLocalRoutine())
+		setExercises(getLocalRoutine())
 		setValues(defaultValues)
 		setEditingWorkout(null)
 		changeView(defaultView)
 	}
 
 	/**
-	 * Gets the user's WIP routine (if any) from local storage,
+	 * Gets the user's WIP exercises (if any) from local storage,
 	 * filtering out any exercises whose names are hidden/deleted
 	 */
 	function getLocalRoutine() {
 		const newRoutine = eliminateRedundancy(
-			localRoutine.get()?.filter(({ liftId }) => {
-				const liftName = liftNames.find(({ id }) => id === liftId)
-				return liftName && !liftName.isHidden
+			localRoutine.get()?.filter(({ nameId }) => {
+				const exerciseName = exerciseNames.find(({ id }) => id === nameId)
+				return exerciseName && !exerciseName.deleted
 			}) ?? [],
 		)
 		localRoutine.set(newRoutine)
@@ -280,8 +287,8 @@ function countAppliedFilters(appliedFilters: Session["filters"]) {
 		return count
 	}
 	const {
-		liftIds,
-		nameIds,
+		exerciseNameIds,
+		workoutNameIds,
 		workoutDates: { allDates, endDate, startDate },
 	} = appliedFilters
 	if (startDate !== allDates[0]) {
@@ -290,6 +297,8 @@ function countAppliedFilters(appliedFilters: Session["filters"]) {
 	if (endDate !== allDates.at(-1)) {
 		count++
 	}
-	count += [...liftIds, ...nameIds].filter(id => id.checked).length
+	count += [...exerciseNameIds, ...workoutNameIds].filter(
+		id => id.checked,
+	).length
 	return count
 }

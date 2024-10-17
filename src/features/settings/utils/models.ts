@@ -1,6 +1,5 @@
 export interface EditableName {
-	canDelete?: boolean
 	id: string
-	isHidden?: boolean
+	deleted?: boolean
 	text: string
 }

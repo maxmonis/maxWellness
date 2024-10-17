@@ -1,10 +1,6 @@
-import {
-	defaultLiftNames,
-	defaultWorkoutNames,
-} from "@/features/settings/utils/constants"
-import { auth, db } from "@/firebase/app"
+import { createDefaultSettings } from "@/features/settings/firebase/createDefaultSettings"
+import { auth } from "@/firebase/app"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
-import { addDoc, collection } from "firebase/firestore"
 
 /**
  * Creates a new account using the provided name, email, and password
@@ -12,12 +8,6 @@ import { addDoc, collection } from "firebase/firestore"
 export async function signUp(name: string, email: string, password: string) {
 	const { user } = await createUserWithEmailAndPassword(auth, email, password)
 	await updateProfile(user, { displayName: name })
-	await addDoc(collection(db, "profile"), {
-		liftNames: defaultLiftNames,
-		photoURL: "",
-		userId: user.uid,
-		userName: name,
-		workoutNames: defaultWorkoutNames,
-	})
+	await createDefaultSettings(user.uid)
 	return { ...user, displayName: name }
 }

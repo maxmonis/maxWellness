@@ -1,5 +1,5 @@
 import { db } from "@/firebase/app"
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
+import { collection, getDocs, query } from "firebase/firestore"
 import { isWorkoutList } from "../utils/validators"
 
 /**
@@ -7,15 +7,8 @@ import { isWorkoutList } from "../utils/validators"
  */
 export async function loadWorkouts(userId: string) {
 	const { docs } = await getDocs(
-		query(
-			collection(db, "workouts"),
-			where("userId", "==", userId),
-			orderBy("date", "desc"),
-		),
+		query(collection(db, "users", userId, "workouts")),
 	)
 	const workouts = docs.map(doc => ({ ...doc.data(), id: doc.id }))
-	if (!isWorkoutList(workouts)) {
-		return null
-	}
-	return workouts
+	return isWorkoutList(workouts) ? workouts : null
 }

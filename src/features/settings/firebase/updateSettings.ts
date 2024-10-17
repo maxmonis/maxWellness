@@ -1,47 +1,60 @@
-import { loadProfile } from "@/features/profile/firebase/loadProfile"
-import { Profile } from "@/features/profile/utils/models"
 import { loadWorkouts } from "@/features/workouts/firebase/loadWorkouts"
-import { db } from "@/firebase/app"
-import { doc, updateDoc } from "firebase/firestore"
+import { EditableName } from "../utils/models"
+import { loadExerciseNames } from "./loadExerciseNames"
+import { loadWorkoutNames } from "./loadWorkoutNames"
 
 /**
  * Saves the user's updated profile to the database,
  * ensuring that no name is deleted if currently in use
  */
-export async function updateSettings({
-	liftNames,
-	userId,
-	workoutNames,
-}: Profile) {
-	const profile = await loadProfile(userId)
-	const workouts = await loadWorkouts(userId)
-	if (!profile || !workouts) {
-		return
-	}
-	const updatedLiftNames = [...liftNames]
+export async function updateSettings(
+	userId: string,
+	{
+		exerciseNames,
+		workoutNames,
+	}: {
+		exerciseNames: Array<EditableName>
+		workoutNames: Array<EditableName>
+	},
+) {
+	const [workouts, originalWorkoutNames, originalExerciseNames] =
+		await Promise.all([
+			loadWorkouts(userId),
+			loadWorkoutNames(userId),
+			loadExerciseNames(userId),
+		])
+	if (!workouts || !originalWorkoutNames || !originalExerciseNames) return
+
+	const updatedExerciseNames = [...exerciseNames]
 	const updatedWorkoutNames = [...workoutNames]
-	const liftIds = new Set<string>()
-	const nameIds = new Set<string>()
-	for (const { nameId, routine } of workouts) {
-		nameIds.add(nameId)
-		for (const { liftId } of routine) {
-			liftIds.add(liftId)
-		}
-	}
-	for (const liftId of Array.from(liftIds)) {
-		if (!updatedLiftNames.some(({ id }) => id === liftId)) {
-			const liftName = profile.liftNames.find(({ id }) => id === liftId)
+
+	for (const exerciseNameId of Array.from(
+		new Set(
+			workouts.flatMap(({ exercises }) =>
+				exercises.map(({ nameId }) => nameId),
+			),
+		),
+	)) {
+		if (!updatedExerciseNames.some(({ id }) => id === exerciseNameId)) {
+			const exerciseName = originalExerciseNames.find(
+				({ id }) => id === exerciseNameId,
+			)
 			if (
-				liftName &&
-				!updatedLiftNames.some(({ text }) => text === liftName.text)
+				exerciseName &&
+				!updatedExerciseNames.some(({ text }) => text === exerciseName.text)
 			) {
-				updatedLiftNames.push(liftName)
+				updatedExerciseNames.push(exerciseName)
 			}
 		}
 	}
-	for (const nameId of Array.from(nameIds)) {
-		if (!updatedWorkoutNames.some(({ id }) => id === nameId)) {
-			const workoutName = profile.workoutNames.find(({ id }) => id === nameId)
+
+	for (const workoutNameId of Array.from(
+		new Set(workouts.map(({ nameId }) => nameId)),
+	)) {
+		if (!updatedWorkoutNames.some(({ id }) => id === workoutNameId)) {
+			const workoutName = originalWorkoutNames.find(
+				({ id }) => id === workoutNameId,
+			)
 			if (
 				workoutName &&
 				!updatedWorkoutNames.some(({ text }) => text === workoutName.text)
@@ -50,15 +63,6 @@ export async function updateSettings({
 			}
 		}
 	}
-	for (const liftName of updatedLiftNames) {
-		liftName.isHidden ??= false
-	}
-	for (const workoutName of updatedWorkoutNames) {
-		workoutName.isHidden ??= false
-	}
-	return updateDoc(doc(db, "profile", profile.id), {
-		...profile,
-		liftNames: updatedLiftNames,
-		workoutNames: updatedWorkoutNames,
-	})
+
+	console.log({ updatedExerciseNames, updatedWorkoutNames })
 }

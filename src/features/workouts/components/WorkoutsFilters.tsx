@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select"
 import { Session } from "@/features/session/utils/models"
 import {
-	getLiftNameText,
+	getExerciseNameText,
 	getWorkoutNameText,
 } from "@/features/settings/utils/parsers"
 import { getDateText } from "@/utils/parsers"
@@ -22,7 +22,7 @@ import * as React from "react"
 export function WorkoutsFilters({
 	appliedFilters,
 	filters,
-	liftNames,
+	exerciseNames,
 	setAppliedFilters,
 	setFilteredWorkouts,
 	workoutNames,
@@ -31,10 +31,10 @@ export function WorkoutsFilters({
 	appliedFilters: typeof filters
 	clearFilters: () => void
 	filters: Session["filters"]
-	liftNames: Session["profile"]["liftNames"]
+	exerciseNames: Session["exerciseNames"]
 	setAppliedFilters: React.Dispatch<React.SetStateAction<typeof filters>>
 	setFilteredWorkouts: React.Dispatch<React.SetStateAction<typeof workouts>>
-	workoutNames: Session["profile"]["workoutNames"]
+	workoutNames: Session["workoutNames"]
 	workouts: Session["workouts"]
 }) {
 	if (workouts.length === 0) {
@@ -50,13 +50,13 @@ export function WorkoutsFilters({
 			<h2 className="font-bold">Exercise Name</h2>
 			<ul className="mb-8 mt-3 flex flex-col gap-3">
 				{sortBy(appliedFilters.liftIds, ({ id }) =>
-					getLiftNameText(id, liftNames),
+					getExerciseNameText(id, exerciseNames),
 				).map(({ checked, id }) => (
 					<li key={id} translate="no">
 						<Checkbox
-							label={getLiftNameText(id, liftNames)}
+							label={getExerciseNameText(id, exerciseNames)}
 							onCheckedChange={() => {
-								updateWorkoutsFilter(id, "liftId")
+								updateWorkoutsFilter(id, "nameId")
 							}}
 							{...{ checked }}
 						/>
@@ -146,7 +146,7 @@ export function WorkoutsFilters({
 	 */
 	function updateWorkoutsFilter(
 		clickedFilter: string,
-		filterType: "nameId" | "liftId" | "startDate" | "endDate" | "newestFirst",
+		filterType: "nameId" | "nameId" | "startDate" | "endDate" | "newestFirst",
 	) {
 		const updatedFilters = updateFilters()
 		setAppliedFilters(updatedFilters)
@@ -168,13 +168,13 @@ export function WorkoutsFilters({
 								: nameId,
 						),
 					}
-				case "liftId":
+				case "nameId":
 					return {
 						...appliedFilters,
-						liftIds: liftIds.map(liftId =>
-							liftId.id === clickedFilter
-								? { ...liftId, checked: !liftId.checked }
-								: liftId,
+						liftIds: liftIds.map(nameId =>
+							nameId.id === clickedFilter
+								? { ...nameId, checked: !nameId.checked }
+								: nameId,
 						),
 					}
 				case "startDate":
@@ -219,8 +219,8 @@ export function WorkoutsFilters({
 								routine: !liftIds.some(({ checked }) => checked)
 									? workout.routine
 									: workout.routine.filter(
-											({ liftId }) =>
-												liftIds.find(({ id }) => id === liftId)?.checked,
+											({ nameId }) =>
+												liftIds.find(({ id }) => id === nameId)?.checked,
 									  ),
 						  }
 						: [],

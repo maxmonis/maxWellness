@@ -15,7 +15,8 @@ export function useUpdateWorkout({ onSuccess }: { onSuccess: () => void }) {
 	const queryKey = ["workouts", { userId: user?.uid }]
 
 	return useMutation({
-		mutationFn: updateWorkout,
+		mutationFn: (workout: Parameters<typeof updateWorkout>[1]) =>
+			updateWorkout(user!.uid, workout),
 		mutationKey: ["updateWorkout"],
 		onError(error) {
 			toast({

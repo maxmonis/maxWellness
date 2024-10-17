@@ -1,47 +1,40 @@
-import { Profile } from "@/features/profile/utils/models"
+import { EditableName } from "@/features/settings/utils/models"
 import {
-	getLiftNameText,
+	getExerciseNameText,
 	getWorkoutNameText,
 } from "@/features/settings/utils/parsers"
 import { Exercise, Workout } from "@/features/workouts/utils/models"
 import sortBy from "lodash/sortBy"
 
-export function generateSession(profile: Profile, workoutList: Array<Workout>) {
-	const liftIds = new Set<string>()
-	const nameIds = new Set<string>()
+export function generateSession(
+	workoutList: Array<Workout>,
+	workoutNames: Array<EditableName>,
+	exerciseNames: Array<EditableName>,
+) {
+	const exerciseNameIds = new Set<string>()
+	const workoutNameIds = new Set<string>()
 	const workoutDates = new Set<string>()
 
 	const workouts = recursiveChecker(sortBy(workoutList, "date"))
 
 	const filters = generateWorkoutsFilters({
-		liftIds: Array.from(liftIds).filter(
-			id => !profile.liftNames.find(n => n.id === id)?.isHidden,
+		exerciseNameIds: Array.from(exerciseNameIds).filter(
+			id => !exerciseNames.find(n => n.id === id)?.deleted,
 		),
-		nameIds: Array.from(nameIds).filter(
-			id => !profile.workoutNames.find(n => n.id === id)?.isHidden,
+		workoutNameIds: Array.from(workoutNameIds).filter(
+			id => !workoutNames.find(n => n.id === id)?.deleted,
 		),
 		workoutDates: Array.from(workoutDates),
 	})
 
 	return {
 		filters,
-		profile: {
-			...profile,
-			liftNames: sortBy(
-				profile.liftNames.map(liftName => ({
-					...liftName,
-					canDelete: !liftIds.has(liftName.id),
-				})),
-				({ id }) => getLiftNameText(id, profile.liftNames),
-			),
-			workoutNames: sortBy(
-				profile.workoutNames.map(workoutName => ({
-					...workoutName,
-					canDelete: !nameIds.has(workoutName.id),
-				})),
-				({ id }) => getWorkoutNameText(id, profile.workoutNames),
-			),
-		},
+		exerciseNames: sortBy(exerciseNames, ({ id }) =>
+			getExerciseNameText(id, exerciseNames),
+		),
+		workoutNames: sortBy(workoutNames, ({ id }) =>
+			getWorkoutNameText(id, workoutNames),
+		),
 		workouts,
 	}
 
@@ -62,16 +55,16 @@ export function generateSession(profile: Profile, workoutList: Array<Workout>) {
 	}
 
 	function updateRecords(workout: Workout, records: Array<Exercise>) {
-		nameIds.add(workout.nameId)
+		workoutNameIds.add(workout.nameId)
 		workoutDates.add(workout.date)
-		for (const exercise of workout.routine) {
+		for (const exercise of workout.exercises) {
 			delete exercise.recordEndDate
 			delete exercise.recordStartDate
-			const { liftId, sets, reps, weight } = exercise
-			liftIds.add(liftId)
+			const { nameId, sets, reps, weight } = exercise
+			exerciseNameIds.add(nameId)
 			let newRecord = true
 			for (const record of records) {
-				if (!record.recordEndDate && record.liftId === liftId) {
+				if (!record.recordEndDate && record.nameId === nameId) {
 					if (
 						record.sets >= sets &&
 						record.reps >= reps &&
@@ -98,17 +91,20 @@ export function generateSession(profile: Profile, workoutList: Array<Workout>) {
 }
 
 function generateWorkoutsFilters({
-	liftIds,
-	nameIds,
+	exerciseNameIds,
+	workoutNameIds,
 	workoutDates,
 }: {
-	liftIds: Array<string>
-	nameIds: Array<string>
+	exerciseNameIds: Array<string>
+	workoutNameIds: Array<string>
 	workoutDates: Array<string>
 }) {
 	return {
-		liftIds: sortBy(liftIds).map(id => ({ checked: false, id })),
-		nameIds: sortBy(nameIds).map(id => ({ checked: false, id })),
+		exerciseNameIds: sortBy(exerciseNameIds).map(id => ({
+			checked: false,
+			id,
+		})),
+		workoutNameIds: sortBy(workoutNameIds).map(id => ({ checked: false, id })),
 		newestFirst: true,
 		workoutDates: {
 			allDates: workoutDates,
