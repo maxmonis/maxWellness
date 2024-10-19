@@ -34,20 +34,20 @@ export function WorkoutsCalendar({
 	const fullscreen = useFullscreen()
 	const ref = React.useRef<HTMLDivElement>(null)
 	const width = useElementWidth(ref)
-	const maxColumns = width ? Math.floor((width - 176) / 176) || 1 : 1
+	const maxColumns = width ? Math.floor((width - 176) / 176) || 1 : 3
 
-	const liftIds: Record<string, number> = {}
-	for (const { routine } of filteredWorkouts) {
-		for (const { nameId } of routine) {
-			liftIds[nameId] = liftIds[nameId]! + 1 || 1
+	const exerciseNameIds: Record<string, number> = {}
+	for (const { exercises } of filteredWorkouts) {
+		for (const { nameId } of exercises) {
+			exerciseNameIds[nameId] = exerciseNameIds[nameId]! + 1 || 1
 		}
 	}
 	const liftArray: Array<{
 		nameId: string
 		total: number
 	}> = []
-	for (const nameId in liftIds) {
-		liftArray.push({ nameId, total: liftIds[nameId]! })
+	for (const nameId in exerciseNameIds) {
+		liftArray.push({ nameId, total: exerciseNameIds[nameId]! })
 	}
 	const sortedLifts = liftArray.sort((a, b) => b.total - a.total)
 
@@ -91,7 +91,7 @@ export function WorkoutsCalendar({
 					? "fixed bottom-0 left-0 right-0 top-0 z-10 h-screen w-screen bg-background"
 					: "flex min-h-screen w-full justify-center lg:max-w-3xl lg:border-r",
 			)}
-			{...{ ref }}
+			ref={ref}
 		>
 			<div className="w-full flex-col divide-x overflow-hidden">
 				<div className="flex w-full flex-1 flex-col items-center">
@@ -100,19 +100,16 @@ export function WorkoutsCalendar({
 							<BackButton />
 							<h1 className="text-lg">Calendar</h1>
 						</div>
-						<div className="-mb-1 flex items-end justify-center">
+						<div className="flex items-end justify-center">
 							<Button
 								aria-label="View previous column"
-								className={cn(
-									horizontalIndex
-										? "cursor-pointer"
-										: "cursor-default opacity-0",
-								)}
+								className="enabled:cursor-pointer disabled:opacity-0"
 								onClick={() => {
 									horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
 								}}
 								size="icon"
 								variant="ghost"
+								{...(!horizontalIndex && { disabled: true })}
 							>
 								<DoubleArrowLeftIcon className="h-5 w-5" />
 							</Button>
@@ -128,14 +125,13 @@ export function WorkoutsCalendar({
 							</Button>
 							<Button
 								aria-label="View next column"
-								className={cn(
-									canIncrement ? "cursor-pointer" : "cursor-default opacity-0",
-								)}
+								className="enabled:cursor-pointer disabled:opacity-0"
 								onClick={() => {
 									canIncrement && setHorizontalIndex(horizontalIndex + 1)
 								}}
 								size="icon"
 								variant="ghost"
+								{...(!canIncrement && { disabled: true })}
 							>
 								<DoubleArrowRightIcon className="h-5 w-5" />
 							</Button>
@@ -186,7 +182,7 @@ export function WorkoutsCalendar({
 														.map(({ nameId }) => {
 															const exerciseNameText = getExerciseNameText(
 																nameId,
-																session?.profile.exerciseNames ?? [],
+																session?.exerciseNames ?? [],
 															)
 															return (
 																<th
@@ -211,7 +207,7 @@ export function WorkoutsCalendar({
 											? sortedLifts.map(({ nameId }) => {
 													const exerciseNameText = getExerciseNameText(
 														nameId,
-														session?.profile.exerciseNames ?? [],
+														session?.exerciseNames ?? [],
 													)
 													return (
 														<tr
@@ -235,7 +231,7 @@ export function WorkoutsCalendar({
 																.map(workout => (
 																	<td className="p-2" key={nameId + workout.id}>
 																		{groupExercisesByLift(
-																			workout.routine.filter(
+																			workout.exercises.filter(
 																				exercise => exercise.nameId === nameId,
 																			),
 																		).map(exerciseList =>
@@ -263,7 +259,7 @@ export function WorkoutsCalendar({
 															.map(({ nameId }) => (
 																<td className="p-2" key={nameId + workout.id}>
 																	{groupExercisesByLift(
-																		workout.routine.filter(
+																		workout.exercises.filter(
 																			exercise => exercise.nameId === nameId,
 																		),
 																	).map(exerciseList =>

@@ -1,4 +1,4 @@
-import { isEditableName } from "@/features/profile/utils/validators"
+import { isEditableName } from "@/features/settings/utils/validators"
 import { db } from "@/firebase/app"
 import { collection, getDocs, query } from "firebase/firestore"
 

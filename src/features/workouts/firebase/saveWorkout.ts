@@ -19,7 +19,7 @@ export function saveWorkout(
 	return addDoc(collection(db, "users", userId, "workouts"), {
 		...workout,
 		date: new Date(year, month - 1, day).toISOString().split("T")[0]!,
-		routine: workout.exercises.map(exercise =>
+		exercises: workout.exercises.map(exercise =>
 			omit(exercise, ["recordStartDate", "recordEndDate"]),
 		),
 	})

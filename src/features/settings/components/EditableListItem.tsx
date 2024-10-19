@@ -5,8 +5,6 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { EditableName } from "@/features/settings/utils/models"
@@ -86,8 +84,6 @@ export function EditableListItem({
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
-						<DropdownMenuLabel>{editableName.text}</DropdownMenuLabel>
-						<DropdownMenuSeparator />
 						<DropdownMenuItem
 							className="flex gap-1.5"
 							onClick={() => {

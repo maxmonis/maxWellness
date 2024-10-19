@@ -32,14 +32,14 @@ export function createNewExercise(exerciseData: {
 }
 
 /**
- * @returns the routine but updated to remove any consecutive
+ * @returns the exercises but updated to remove any consecutive
  * instances of the same number of reps with the same weight,
  * for example: `2(8x50), 3(8x50) -> 5(8x50)`
  */
-export function eliminateRedundancy(routine: Array<Exercise>) {
-	const updatedRoutine: typeof routine = []
-	for (const exercise of routine) {
-		const previousExercise = updatedRoutine.at(-1)
+export function eliminateRedundancy(exercises: Array<Exercise>) {
+	const updatedExercises: typeof exercises = []
+	for (const exercise of exercises) {
+		const previousExercise = updatedExercises.at(-1)
 		if (
 			previousExercise &&
 			exercise.nameId === previousExercise.nameId &&
@@ -51,14 +51,14 @@ export function eliminateRedundancy(routine: Array<Exercise>) {
 				sets: exercise.sets + previousExercise.sets,
 			})
 			if (updatedExercise) {
-				updatedRoutine.pop()
+				updatedExercises.pop()
 			}
-			updatedRoutine.push(updatedExercise ?? exercise)
+			updatedExercises.push(updatedExercise ?? exercise)
 		} else {
-			updatedRoutine.push(exercise)
+			updatedExercises.push(exercise)
 		}
 	}
-	return updatedRoutine
+	return updatedExercises
 }
 
 /**
@@ -93,19 +93,19 @@ export function getPrintout({
 
 /**
  * @returns an array of lists where each list is comprised of
- * consecutive exercises in the routine with the same lift ID
+ * consecutive exercises in the exercises with the same lift ID
  */
-export function groupExercisesByLift(routine: Array<Exercise>) {
-	const organizedRoutine: Array<Array<Exercise>> = []
-	for (const exercise of routine) {
-		const previous = organizedRoutine.at(-1)
+export function groupExercisesByLift(exercises: Array<Exercise>) {
+	const organizedExercises: Array<Array<Exercise>> = []
+	for (const exercise of exercises) {
+		const previous = organizedExercises.at(-1)
 		if (previous?.[0]?.nameId === exercise.nameId) {
 			previous.push(exercise)
 		} else {
-			organizedRoutine.push([exercise])
+			organizedExercises.push([exercise])
 		}
 	}
-	return organizedRoutine
+	return organizedExercises
 }
 
 export function isValidView(view: unknown): view is View {

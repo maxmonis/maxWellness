@@ -38,7 +38,7 @@ export function WorkoutsListItem({
 	exerciseNames,
 	setEditingWorkout,
 	setValues,
-	updateRoutine,
+	updateExercises,
 	values,
 	view,
 	workout,
@@ -51,7 +51,7 @@ export function WorkoutsListItem({
 	exerciseNames: Session["exerciseNames"]
 	setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
 	setValues: React.Dispatch<React.SetStateAction<typeof values>>
-	updateRoutine: (newRoutine: Array<Exercise>) => void
+	updateExercises: (newExercises: Array<Exercise>) => void
 	values: Record<
 		"date" | "exerciseNameId" | "workoutNameId" | "reps" | "sets" | "weight",
 		string
@@ -89,7 +89,7 @@ export function WorkoutsListItem({
 								"leading-tight",
 								workoutNameText.split(" ").some(word => word.length >= 12) &&
 									"break-all",
-								view === "list" && "font-bold",
+								view === "list" && "max-xl:font-bold",
 							)}
 							translate="no"
 						>
@@ -114,14 +114,14 @@ export function WorkoutsListItem({
 								<DropdownMenuItem
 									className="gap-2"
 									onClick={() => {
-										const copiedRoutine = workouts
+										const copiedExercises = workouts
 											.find(({ id }) => id === workout.id)
 											?.exercises.map(exercise => ({
 												...exercise,
 												id: nanoid(),
 											}))
-										if (copiedRoutine) {
-											updateRoutine(copiedRoutine)
+										if (copiedExercises) {
+											updateExercises(copiedExercises)
 											setValues({ ...values, workoutNameId: workout.nameId })
 										} else {
 											toast({
@@ -228,7 +228,7 @@ export function WorkoutsListItem({
 									<li key={j} className="mt-2 flex flex-wrap">
 										<span
 											className={cn(
-												"leading-tight",
+												"leading-tight xl:text-sm",
 												exerciseNameText
 													.split(" ")
 													.some(word => word.length >= 12) && "break-all",

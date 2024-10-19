@@ -46,7 +46,7 @@ export function WorkoutsForm({
 	resetState,
 	exercises,
 	setValues,
-	updateRoutine,
+	updateExercises,
 	userId,
 	values,
 }: {
@@ -57,7 +57,7 @@ export function WorkoutsForm({
 	exerciseNames: Session["exerciseNames"]
 	resetState: () => void
 	exercises: Workout["exercises"]
-	updateRoutine: (newRoutine: typeof exercises) => void
+	updateExercises: (newExercises: typeof exercises) => void
 	userId: string
 	setValues: React.Dispatch<React.SetStateAction<typeof values>>
 	values: Record<
@@ -73,7 +73,7 @@ export function WorkoutsForm({
 	const getConfig = (action: "saved" | "updated") => ({
 		onSuccess() {
 			if (action === "saved") {
-				updateRoutine([])
+				updateExercises([])
 			}
 			resetState()
 			toast({ title: `Workout ${action}` })
@@ -337,7 +337,7 @@ export function WorkoutsForm({
 							Boolean(session?.workouts.length) && (
 								<Button
 									onClick={() => {
-										updateRoutine([])
+										updateExercises([])
 										resetState()
 									}}
 									variant="ghost"
@@ -392,14 +392,14 @@ export function WorkoutsForm({
 	 * Adds a new exercise to the exercises
 	 */
 	function addExercise(newExercise: Exercise) {
-		updateRoutine([...exercises, newExercise])
+		updateExercises([...exercises, newExercise])
 	}
 
 	/**
 	 * Removes an exercise from the exercises
 	 */
-	function deleteExercise(exerciseId: string) {
-		updateRoutine(exercises.filter(({ id }) => id !== exerciseId))
+	function deleteExercise(exerciseNameId: string) {
+		updateExercises(exercises.filter(({ id }) => id !== exerciseNameId))
 	}
 
 	/**
@@ -407,10 +407,10 @@ export function WorkoutsForm({
 	 */
 	function handleDragEnd({ destination, source, draggableId }: DropResult) {
 		setDragging(false)
-		const exerciseIds = exercises.map(({ id }) => id)
+		const exerciseNameIds = exercises.map(({ id }) => id)
 		if (destination?.droppableId === "ExerciseForm") {
 			const exercise = exercises[source.index]!
-			exerciseIds.splice(source.index, 1)
+			exerciseNameIds.splice(source.index, 1)
 			setValues({
 				...values,
 				exerciseNameId: exercise.nameId ?? activeExerciseNames[0]!.id,
@@ -419,19 +419,19 @@ export function WorkoutsForm({
 				weight: exercise.weight ? exercise.weight.toString() : "",
 			})
 		} else if (destination && destination.index !== source.index) {
-			exerciseIds.splice(source.index, 1)
-			exerciseIds.splice(destination.index, 0, draggableId)
+			exerciseNameIds.splice(source.index, 1)
+			exerciseNameIds.splice(destination.index, 0, draggableId)
 		}
-		const reorderedRoutine: Array<Exercise> = []
-		for (const exerciseId of exerciseIds) {
+		const reorderedExercises: Array<Exercise> = []
+		for (const exerciseNameId of exerciseNameIds) {
 			for (const exercise of exercises) {
-				if (exercise.id === exerciseId) {
-					reorderedRoutine.push(exercise)
+				if (exercise.id === exerciseNameId) {
+					reorderedExercises.push(exercise)
 					break
 				}
 			}
 		}
-		updateRoutine(reorderedRoutine)
+		updateExercises(reorderedExercises)
 	}
 
 	/**

@@ -50,9 +50,9 @@ export function WorkoutsApp({
 		null,
 	)
 
-	const localRoutine = new StorageService(`exercises_${userId}`)
+	const localExercises = new StorageService(`exercises_${userId}`)
 	const [exercises, setExercises] = React.useState<Array<Exercise>>(
-		getLocalRoutine(),
+		getLocalExercises(),
 	)
 
 	const defaultValues = {
@@ -91,7 +91,7 @@ export function WorkoutsApp({
 
 	useUpdateEvent(() => {
 		if (editingWorkout) {
-			updateRoutine(editingWorkout.exercises)
+			updateExercises(editingWorkout.exercises)
 			setValues({
 				...defaultValues,
 				workoutNameId: editingWorkout.nameId,
@@ -103,7 +103,7 @@ export function WorkoutsApp({
 	useUpdateEvent(resetState, [workouts])
 
 	useUpdateEvent(() => {
-		setExercises(getLocalRoutine())
+		setExercises(getLocalExercises())
 	}, [exerciseNames])
 
 	React.useEffect(() => {
@@ -171,7 +171,7 @@ export function WorkoutsApp({
 											resetState,
 											exercises,
 											setValues,
-											updateRoutine,
+											updateExercises,
 											userId,
 											values,
 										}}
@@ -205,7 +205,7 @@ export function WorkoutsApp({
 								resetState,
 								setEditingWorkout,
 								setValues,
-								updateRoutine,
+								updateExercises,
 								values,
 								view,
 								workoutNames,
@@ -221,10 +221,10 @@ export function WorkoutsApp({
 	/**
 	 * Handles changes to the exercises to ensure it is valid and keep data in sync
 	 */
-	function updateRoutine(newRoutine: Workout["exercises"]) {
-		const exercises = eliminateRedundancy(newRoutine)
+	function updateExercises(newExercises: Workout["exercises"]) {
+		const exercises = eliminateRedundancy(newExercises)
 		if (!editingWorkout) {
-			localRoutine.set(exercises)
+			localExercises.set(exercises)
 		}
 		setExercises(exercises)
 		changeView("create")
@@ -234,7 +234,7 @@ export function WorkoutsApp({
 	 * Adds a new exercise to the exercises
 	 */
 	function addExercise(newExercise: Exercise) {
-		updateRoutine([...exercises, newExercise])
+		updateExercises([...exercises, newExercise])
 	}
 
 	/**
@@ -242,7 +242,7 @@ export function WorkoutsApp({
 	 */
 	function resetState() {
 		clearFilters()
-		setExercises(getLocalRoutine())
+		setExercises(getLocalExercises())
 		setValues(defaultValues)
 		setEditingWorkout(null)
 		changeView(defaultView)
@@ -252,15 +252,15 @@ export function WorkoutsApp({
 	 * Gets the user's WIP exercises (if any) from local storage,
 	 * filtering out any exercises whose names are hidden/deleted
 	 */
-	function getLocalRoutine() {
-		const newRoutine = eliminateRedundancy(
-			localRoutine.get()?.filter(({ nameId }) => {
+	function getLocalExercises() {
+		const newExercises = eliminateRedundancy(
+			localExercises.get()?.filter(({ nameId }) => {
 				const exerciseName = exerciseNames.find(({ id }) => id === nameId)
 				return exerciseName && !exerciseName.deleted
 			}) ?? [],
 		)
-		localRoutine.set(newRoutine)
-		return newRoutine
+		localExercises.set(newExercises)
+		return newExercises
 	}
 
 	/**

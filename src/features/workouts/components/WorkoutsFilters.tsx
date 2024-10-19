@@ -49,14 +49,14 @@ export function WorkoutsFilters({
 		<div>
 			<h2 className="font-bold">Exercise Name</h2>
 			<ul className="mb-8 mt-3 flex flex-col gap-3">
-				{sortBy(appliedFilters.liftIds, ({ id }) =>
+				{sortBy(appliedFilters.exerciseNameIds, ({ id }) =>
 					getExerciseNameText(id, exerciseNames),
 				).map(({ checked, id }) => (
 					<li key={id} translate="no">
 						<Checkbox
 							label={getExerciseNameText(id, exerciseNames)}
 							onCheckedChange={() => {
-								updateWorkoutsFilter(id, "nameId")
+								updateWorkoutsFilter(id, "exerciseName")
 							}}
 							{...{ checked }}
 						/>
@@ -65,14 +65,14 @@ export function WorkoutsFilters({
 			</ul>
 			<h2 className="font-bold">Workout Name</h2>
 			<ul className="mb-8 mt-3 flex flex-col gap-3">
-				{sortBy(appliedFilters.nameIds, ({ id }) =>
+				{sortBy(appliedFilters.workoutNameIds, ({ id }) =>
 					getWorkoutNameText(id, workoutNames),
 				).map(({ checked, id }) => (
 					<li key={id} translate="no">
 						<Checkbox
 							label={getWorkoutNameText(id, workoutNames)}
 							onCheckedChange={() => {
-								updateWorkoutsFilter(id, "nameId")
+								updateWorkoutsFilter(id, "workoutName")
 							}}
 							{...{ checked }}
 						/>
@@ -146,7 +146,12 @@ export function WorkoutsFilters({
 	 */
 	function updateWorkoutsFilter(
 		clickedFilter: string,
-		filterType: "nameId" | "nameId" | "startDate" | "endDate" | "newestFirst",
+		filterType:
+			| "endDate"
+			| "exerciseName"
+			| "newestFirst"
+			| "startDate"
+			| "workoutName",
 	) {
 		const updatedFilters = updateFilters()
 		setAppliedFilters(updatedFilters)
@@ -157,21 +162,22 @@ export function WorkoutsFilters({
 		 * Updates the workout filters based on a user action
 		 */
 		function updateFilters() {
-			const { nameIds, workoutDates, liftIds, newestFirst } = appliedFilters
+			const { workoutNameIds, workoutDates, exerciseNameIds, newestFirst } =
+				appliedFilters
 			switch (filterType) {
-				case "nameId":
+				case "workoutName":
 					return {
 						...appliedFilters,
-						nameIds: nameIds.map(nameId =>
+						workoutNameIds: workoutNameIds.map(nameId =>
 							nameId.id === clickedFilter
 								? { ...nameId, checked: !nameId.checked }
 								: nameId,
 						),
 					}
-				case "nameId":
+				case "exerciseName":
 					return {
 						...appliedFilters,
-						liftIds: liftIds.map(nameId =>
+						exerciseNameIds: exerciseNameIds.map(nameId =>
 							nameId.id === clickedFilter
 								? { ...nameId, checked: !nameId.checked }
 								: nameId,
@@ -207,25 +213,27 @@ export function WorkoutsFilters({
 		 * @returns a list of workouts which reflect the current filters (if any)
 		 */
 		function filterWorkouts() {
-			const { workoutDates, nameIds, liftIds, newestFirst } = updatedFilters
+			const { workoutDates, workoutNameIds, exerciseNameIds, newestFirst } =
+				updatedFilters
 			const filteredWorkouts = workouts
 				.flatMap(workout =>
 					workout.date >= workoutDates.startDate! &&
 					workout.date <= workoutDates.endDate! &&
-					(!nameIds.some(({ checked }) => checked) ||
-						nameIds.find(({ id }) => id === workout.nameId)?.checked)
+					(!workoutNameIds.some(({ checked }) => checked) ||
+						workoutNameIds.find(({ id }) => id === workout.nameId)?.checked)
 						? {
 								...workout,
-								routine: !liftIds.some(({ checked }) => checked)
-									? workout.routine
-									: workout.routine.filter(
+								exercises: !exerciseNameIds.some(({ checked }) => checked)
+									? workout.exercises
+									: workout.exercises.filter(
 											({ nameId }) =>
-												liftIds.find(({ id }) => id === nameId)?.checked,
+												exerciseNameIds.find(({ id }) => id === nameId)
+													?.checked,
 									  ),
 						  }
 						: [],
 				)
-				.filter(workout => workout.routine.length > 0)
+				.filter(workout => workout.exercises.length > 0)
 			return newestFirst ? filteredWorkouts : filteredWorkouts.reverse()
 		}
 	}

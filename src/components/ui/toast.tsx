@@ -15,7 +15,7 @@ const ToastViewport = React.forwardRef<
 			"fixed bottom-0 right-0 top-auto z-[100] flex max-h-screen w-full flex-col p-4 sm:max-w-md",
 			className,
 		)}
-		{...{ ref }}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -44,7 +44,7 @@ const Toast = React.forwardRef<
 >(({ className, variant, ...props }, ref) => (
 	<ToastPrimitives.Root
 		className={cn(toastVariants({ variant }), className)}
-		{...{ ref }}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -59,7 +59,7 @@ const ToastAction = React.forwardRef<
 			"z-10 inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-muted group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",
 			className,
 		)}
-		{...{ ref }}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -75,7 +75,7 @@ const ToastClose = React.forwardRef<
 			className,
 		)}
 		toast-close=""
-		{...{ ref }}
+		ref={ref}
 		{...props}
 	>
 		<Cross2Icon className="h-4 w-4" />
@@ -89,7 +89,7 @@ const ToastTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Title
 		className={cn("text-sm font-semibold [&+div]:text-xs", className)}
-		{...{ ref }}
+		ref={ref}
 		{...props}
 	/>
 ))
@@ -101,7 +101,7 @@ const ToastDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<ToastPrimitives.Description
 		className={cn("text-sm opacity-90", className)}
-		{...{ ref }}
+		ref={ref}
 		{...props}
 	/>
 ))

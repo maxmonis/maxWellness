@@ -23,7 +23,7 @@ export function WorkoutsFiltersResults({
 	exerciseNames: Session["exerciseNames"]
 }) {
 	const personalBests = filteredWorkouts.flatMap(w =>
-		w.routine.filter(e => e.recordStartDate),
+		w.exercises.filter(e => e.recordStartDate),
 	)
 	const previousPersonalBests = personalBests.filter(e => e.recordEndDate)
 	const currentPersonalBests = personalBests.filter(e => !e.recordEndDate)
@@ -42,7 +42,7 @@ export function WorkoutsFiltersResults({
 			>
 				<AccordionItem value="workoutsAndExercises">
 					<AccordionTrigger>
-						{filteredWorkouts.reduce((acc, w) => acc + w.routine.length, 0)}{" "}
+						{filteredWorkouts.reduce((acc, w) => acc + w.exercises.length, 0)}{" "}
 						exercises in {filteredWorkouts.length} workouts
 					</AccordionTrigger>
 					<AccordionContent className="flex flex-wrap gap-4">
@@ -68,7 +68,8 @@ export function WorkoutsFiltersResults({
 						<ul className="flex flex-col gap-3">
 							{previousPersonalBests.map(e => (
 								<li className="flex flex-wrap gap-x-2" key={e.id}>
-									{appliedFilters.liftIds.filter(l => l.checked).length !== 1
+									{appliedFilters.exerciseNameIds.filter(l => l.checked)
+										.length !== 1
 										? `${getExerciseNameText(e.nameId, exerciseNames)}: `
 										: ""}
 									{getPrintout(e).replace(/\*/g, "")}
@@ -89,7 +90,8 @@ export function WorkoutsFiltersResults({
 						<ul className="flex flex-col gap-3">
 							{currentPersonalBests.map(e => (
 								<li className="flex flex-wrap gap-x-2" key={e.id}>
-									{appliedFilters.liftIds.filter(l => l.checked).length !== 1
+									{appliedFilters.exerciseNameIds.filter(l => l.checked)
+										.length !== 1
 										? `${getExerciseNameText(e.nameId, exerciseNames)}: `
 										: ""}
 									{getPrintout(e).replace(/\*/g, "")}

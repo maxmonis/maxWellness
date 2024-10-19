@@ -33,11 +33,11 @@ export default function FourOhFourPage() {
 					// 			text,
 					// 		})
 					// }
-					// for (const { date, id, routine, userId, ...workout } of workouts)
+					// for (const { date, id, exercises, userId, ...workout } of workouts)
 					// 	batch.set(doc(db, "users", userId, "workouts", id), {
 					// 		...workout,
 					// 		date: date.split("T")[0],
-					// 		exercises: routine.map(({ nameId, ...exercise }) => ({
+					// 		exercises: exercises.map(({ nameId, ...exercise }) => ({
 					// 			...exercise,
 					// 			nameId: nameId,
 					// 		})),

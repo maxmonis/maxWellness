@@ -29,7 +29,7 @@ export function WorkoutsList({
 	resetState: () => void
 	setEditingWorkout: React.Dispatch<React.SetStateAction<typeof editingWorkout>>
 	setValues: React.Dispatch<React.SetStateAction<typeof props.values>>
-	updateRoutine: (newRoutine: Array<Exercise>) => void
+	updateExercises: (newExercises: Array<Exercise>) => void
 	values: Record<
 		"date" | "exerciseNameId" | "workoutNameId" | "reps" | "sets" | "weight",
 		string
@@ -67,7 +67,7 @@ export function WorkoutsList({
 							/>
 						</div>
 					) : (
-						<div className="flex h-full flex-col divide-y overflow-y-auto overflow-x-hidden">
+						<div className="flex h-full flex-col divide-y overflow-y-auto overflow-x-hidden max-md:h-[calc(100dvh-3.5rem)]">
 							{filteredWorkouts.length ? (
 								filteredWorkouts.map(workout => (
 									<WorkoutsListItem
