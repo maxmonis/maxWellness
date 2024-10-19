@@ -3,11 +3,7 @@ import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
-import {
-	ResizableHandle,
-	ResizablePanel,
-	ResizablePanelGroup,
-} from "@/components/ui/resizable"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
 import { EditableName } from "@/features/settings/utils/models"
 import { useToast } from "@/hooks/use-toast"
@@ -80,7 +76,7 @@ export function SettingsApp({
 
 	return (
 		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
-			<div className="flex h-14 items-end justify-between px-4 pb-2 lg:px-6">
+			<div className="flex h-14 items-end justify-between border-b px-4 pb-2 lg:px-6">
 				<div className="flex">
 					<BackButton />
 					<h1 className="text-lg">Settings</h1>
@@ -91,139 +87,140 @@ export function SettingsApp({
 					</Button>
 				)}
 			</div>
-			<div className="flex flex-grow flex-col border-t">
-				<ResizablePanelGroup
-					className="flex max-h-[calc(100dvh-7rem)] flex-grow md:max-h-[calc(100dvh-3.5rem)]"
-					direction="horizontal"
-				>
-					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
-						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 lg:px-6">
-							<h2 className="mx-auto mb-4 text-center font-bold">Exercises</h2>
-							<Form onSubmit={handleLiftSubmit}>
-								<div className="flex items-center justify-center gap-4 text-lg">
-									<Input
-										className="w-full"
-										id="lift"
-										name="lift"
-										value={lift}
-										placeholder="New exercise"
-										{...{ onChange }}
-									/>
-								</div>
-								{lift && (
-									<>
-										{exerciseNames.some(
-											({ text }) => text.toLowerCase() === lift.toLowerCase(),
-										) ? (
-											<p className="mt-1 text-center text-red-500">
-												Duplicate name
-											</p>
-										) : (
-											<div className="flex justify-center">
-												<Button
-													className="mt-3 w-fit"
-													type="submit"
-													variant="outline"
-												>
-													Add Name
-												</Button>
-											</div>
-										)}
-									</>
-								)}
-							</Form>
-							<ul className="h-full overflow-y-scroll pb-6 pt-2">
-								{sortBy(
-									exerciseNames.filter(n => !n.deleted),
-									"text",
-								).map(exerciseName => (
-									<EditableListItem
-										editableName={exerciseName}
-										editableNameList={exerciseNames}
-										key={exerciseName.id}
-										updateOptions={updateExerciseNames}
-									/>
-								))}
-								{sortBy(
-									exerciseNames.filter(n => n.deleted),
-									"text",
-								).map(exerciseName => (
-									<EditableListItem
-										editableName={exerciseName}
-										editableNameList={exerciseNames}
-										key={exerciseName.id}
-										updateOptions={updateExerciseNames}
-									/>
-								))}
-							</ul>
-						</div>
-					</ResizablePanel>
-					<ResizableHandle withHandle />
-					<ResizablePanel className="flex w-full min-w-[1rem] flex-grow flex-col items-center overflow-hidden sm:min-w-[15rem]">
-						<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-4 lg:px-6">
-							<h2 className="mx-auto mb-4 text-center font-bold">Workouts</h2>
-							<Form onSubmit={handleWorkoutSubmit}>
-								<div className="flex items-center justify-center gap-4 text-lg">
-									<Input
-										className="w-full"
-										id="workout"
-										name="workout"
-										value={workout}
-										placeholder="New workout"
-										{...{ onChange }}
-									/>
-								</div>
-								{workout && (
-									<>
-										{workoutNames.some(
-											({ text }) =>
-												text.toLowerCase() === workout.toLowerCase(),
-										) ? (
-											<p className="mt-1 text-center text-red-500">
-												Duplicate name
-											</p>
-										) : (
-											<div className="flex justify-center">
-												<Button
-													className="mt-3 w-fit"
-													type="submit"
-													variant="outline"
-												>
-													Add Name
-												</Button>
-											</div>
-										)}
-									</>
-								)}
-							</Form>
-							<ul className="h-full overflow-y-scroll pb-6 pt-2">
-								{sortBy(
-									workoutNames.filter(n => !n.deleted),
-									"text",
-								).map(workoutName => (
-									<EditableListItem
-										key={workoutName.id}
-										editableName={workoutName}
-										editableNameList={workoutNames}
-										updateOptions={updateWorkoutNames}
-									/>
-								))}
-								{sortBy(
-									workoutNames.filter(n => n.deleted),
-									"text",
-								).map(workoutName => (
-									<EditableListItem
-										key={workoutName.id}
-										editableName={workoutName}
-										editableNameList={workoutNames}
-										updateOptions={updateWorkoutNames}
-									/>
-								))}
-							</ul>
-						</div>
-					</ResizablePanel>
-				</ResizablePanelGroup>
-			</div>
+			<Tabs defaultValue="exercises">
+				<div className="w-full px-4 pt-4 lg:px-6">
+					<TabsList className="w-full">
+						<TabsTrigger className="w-full" value="exercises">
+							Exercises
+						</TabsTrigger>
+						<TabsTrigger className="w-full" value="workouts">
+							Workouts
+						</TabsTrigger>
+					</TabsList>
+				</div>
+				<TabsContent value="exercises">
+					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 lg:px-6">
+						<Form onSubmit={handleLiftSubmit}>
+							<div className="flex items-center justify-center gap-4 text-lg">
+								<Input
+									className="w-full"
+									id="lift"
+									name="lift"
+									value={lift}
+									placeholder="New exercise"
+									{...{ onChange }}
+								/>
+							</div>
+							{lift && (
+								<>
+									{exerciseNames.some(
+										({ text }) => text.toLowerCase() === lift.toLowerCase(),
+									) ? (
+										<p className="mt-1 text-center text-red-500">
+											Duplicate name
+										</p>
+									) : (
+										<div className="flex justify-center">
+											<Button
+												className="mt-3 w-fit"
+												type="submit"
+												variant="outline"
+											>
+												Add Name
+											</Button>
+										</div>
+									)}
+								</>
+							)}
+						</Form>
+						<ul className="h-full overflow-y-scroll pb-6 pt-2">
+							{sortBy(
+								exerciseNames.filter(n => !n.deleted),
+								"text",
+							).map(exerciseName => (
+								<EditableListItem
+									editableName={exerciseName}
+									editableNameList={exerciseNames}
+									key={exerciseName.id}
+									updateOptions={updateExerciseNames}
+								/>
+							))}
+							{sortBy(
+								exerciseNames.filter(n => n.deleted),
+								"text",
+							).map(exerciseName => (
+								<EditableListItem
+									editableName={exerciseName}
+									editableNameList={exerciseNames}
+									key={exerciseName.id}
+									updateOptions={updateExerciseNames}
+								/>
+							))}
+						</ul>
+					</div>
+				</TabsContent>
+				<TabsContent value="workouts">
+					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 lg:px-6">
+						<Form onSubmit={handleWorkoutSubmit}>
+							<div className="flex items-center justify-center gap-4 text-lg">
+								<Input
+									className="w-full"
+									id="workout"
+									name="workout"
+									value={workout}
+									placeholder="New workout"
+									{...{ onChange }}
+								/>
+							</div>
+							{workout && (
+								<>
+									{workoutNames.some(
+										({ text }) => text.toLowerCase() === workout.toLowerCase(),
+									) ? (
+										<p className="mt-1 text-center text-red-500">
+											Duplicate name
+										</p>
+									) : (
+										<div className="flex justify-center">
+											<Button
+												className="mt-3 w-fit"
+												type="submit"
+												variant="outline"
+											>
+												Add Name
+											</Button>
+										</div>
+									)}
+								</>
+							)}
+						</Form>
+						<ul className="h-full overflow-y-scroll pb-6 pt-2">
+							{sortBy(
+								workoutNames.filter(n => !n.deleted),
+								"text",
+							).map(workoutName => (
+								<EditableListItem
+									key={workoutName.id}
+									editableName={workoutName}
+									editableNameList={workoutNames}
+									updateOptions={updateWorkoutNames}
+								/>
+							))}
+							{sortBy(
+								workoutNames.filter(n => n.deleted),
+								"text",
+							).map(workoutName => (
+								<EditableListItem
+									key={workoutName.id}
+									editableName={workoutName}
+									editableNameList={workoutNames}
+									updateOptions={updateWorkoutNames}
+								/>
+							))}
+						</ul>
+					</div>
+				</TabsContent>
+			</Tabs>
 			<ResponsiveDialog
 				buttons={[
 					<Button

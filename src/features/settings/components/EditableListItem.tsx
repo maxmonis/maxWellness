@@ -5,11 +5,18 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { EditableName } from "@/features/settings/utils/models"
 import { cn } from "@/lib/utils"
-import { Pencil2Icon, PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons"
+import {
+	DotsHorizontalIcon,
+	Pencil2Icon,
+	PlusCircledIcon,
+	TrashIcon,
+} from "@radix-ui/react-icons"
 import * as React from "react"
 import { isTextAlreadyInList } from "../utils/functions"
 
@@ -34,7 +41,7 @@ export function EditableListItem({
 	return (
 		<li className="mt-1 flex items-center justify-between gap-4">
 			{editing ? (
-				<Form className="w-full" onSubmit={handleSubmit}>
+				<Form className="my-1 w-full" onSubmit={handleSubmit}>
 					<Input
 						autoFocus
 						className="px-1"
@@ -47,11 +54,7 @@ export function EditableListItem({
 					/>
 					{newText !== editableName.text && (
 						<div className="mb-2 flex justify-center">
-							{isDuplicate ? (
-								<p className="mt-1 text-center text-red-600 dark:text-red-500">
-									Duplicate name
-								</p>
-							) : newText ? (
+							{newText ? (
 								<Button className="mt-3 w-fit" type="submit" variant="outline">
 									Update Name
 								</Button>
@@ -68,42 +71,51 @@ export function EditableListItem({
 					)}
 				</Form>
 			) : (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button
-							className={cn(
-								"flex h-auto w-full justify-start whitespace-normal text-left leading-tight",
-								editableName.deleted && "line-through",
-								newText.split(" ").some(word => word.length >= 12) &&
-									"break-all",
-							)}
-							translate="no"
-							variant="ghost"
-						>
-							{newText}
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent>
-						<DropdownMenuItem
-							className="flex gap-1.5"
-							onClick={() => {
-								setEditing(true)
-							}}
-						>
-							<Pencil2Icon />
-							Edit
-						</DropdownMenuItem>
-						{((canDelete && !editableName.deleted) || editableName.deleted) && (
+				<div className="flex w-full items-center justify-between">
+					<p
+						className={cn(
+							"leading-tight xl:text-sm",
+							editableName.deleted && "line-through",
+							newText.split(" ").some(word => word.length >= 12) && "break-all",
+						)}
+						onClick={() => {
+							setEditing(true)
+						}}
+						translate="no"
+					>
+						{newText}
+					</p>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button size="icon" variant="ghost">
+								<DotsHorizontalIcon />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuLabel>{editableName.text}</DropdownMenuLabel>
+							<DropdownMenuSeparator />
 							<DropdownMenuItem
 								className="flex gap-1.5"
-								onClick={onDeleteClick}
+								onClick={() => {
+									setEditing(true)
+								}}
 							>
-								{editableName.deleted ? <PlusCircledIcon /> : <TrashIcon />}
-								{editableName.deleted ? "Restore" : "Delete"}
+								<Pencil2Icon />
+								Edit
 							</DropdownMenuItem>
-						)}
-					</DropdownMenuContent>
-				</DropdownMenu>
+							{((canDelete && !editableName.deleted) ||
+								editableName.deleted) && (
+								<DropdownMenuItem
+									className="flex gap-1.5"
+									onClick={onDeleteClick}
+								>
+									{editableName.deleted ? <PlusCircledIcon /> : <TrashIcon />}
+									{editableName.deleted ? "Restore" : "Delete"}
+								</DropdownMenuItem>
+							)}
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</div>
 			)}
 		</li>
 	)
@@ -158,10 +170,10 @@ export function EditableListItem({
 	 * Updates whether a name is hidden (if possible)
 	 */
 	function onDeleteClick() {
-		const newHidden = !editableName.deleted
-		if ((canDelete && newHidden) || !newHidden) {
-			updateOptions({ ...editableName, deleted: newHidden }, editableName)
-		}
+		updateOptions(
+			{ ...editableName, deleted: !editableName.deleted },
+			editableName,
+		)
 	}
 
 	/**
