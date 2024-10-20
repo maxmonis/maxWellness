@@ -158,10 +158,6 @@ export function WorkoutsForm({
 												className="w-full"
 												id={label}
 												inputMode="numeric"
-												inputClass={cn(
-													"xs:pl-3 pr-0",
-													field.value.length < 3 ? "pl-2" : "pl-1",
-												)}
 												key={label}
 												pattern="\d*"
 												{...{ label, onChange }}
@@ -348,7 +344,7 @@ export function WorkoutsForm({
 					</div>
 				</div>
 			) : (
-				<p className="pt-2">
+				<p className="pt-2 xl:text-sm">
 					Each exercise must include either a weight or at least one rep. You
 					can drag and drop to edit.
 				</p>

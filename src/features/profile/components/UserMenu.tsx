@@ -27,7 +27,7 @@ export function UserMenu() {
 
 	if (!user) {
 		return (
-			<div className="max-lg:pr-4">
+			<div className="max-sm:pr-4">
 				<DarkModeToggle />
 			</div>
 		)

@@ -25,11 +25,11 @@ export default function Navbar() {
 
 	return (
 		<div className="flex max-h-screen items-center max-md:h-14 max-md:w-screen max-md:border-t md:max-w-min md:border-r">
-			<div className="flex h-full w-full flex-col items-center justify-center px-2 md:h-full md:justify-between md:overflow-y-scroll md:px-4 lg:px-6">
-				<nav className="mx-auto flex w-full max-w-2xl items-center justify-between gap-y-4 md:h-full md:w-44 md:flex-col md:items-start md:justify-start md:pt-5">
+			<div className="items-between flex h-full w-full flex-col justify-center px-2 sm:pl-6 md:h-full md:items-center md:justify-between md:overflow-y-scroll md:pr-6">
+				<nav className="flex w-full items-center justify-between gap-y-4 md:h-full md:w-44 md:flex-col md:items-start md:justify-start md:pt-5">
 					<div className="md:mb-4">
 						<Link
-							className="ml-4 flex w-full items-center gap-1.5 max-sm:p-2"
+							className="flex w-full items-center gap-1.5 max-sm:ml-4 max-sm:p-2"
 							href={homeHref}
 						>
 							<Image

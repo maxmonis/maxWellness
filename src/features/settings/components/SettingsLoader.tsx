@@ -6,7 +6,7 @@ import { BackButton } from "@/components/BackButton"
 export function SettingsLoader() {
 	return (
 		<div className="min-h-screen lg:max-w-3xl lg:border-r">
-			<div className="flex h-14 items-end border-b px-4 pb-2 lg:px-6">
+			<div className="flex h-14 items-end border-b px-4 pb-2 sm:px-6">
 				<BackButton />
 				<h1 className="text-lg">Settings</h1>
 			</div>

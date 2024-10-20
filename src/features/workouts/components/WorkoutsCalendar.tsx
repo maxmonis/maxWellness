@@ -95,7 +95,7 @@ export function WorkoutsCalendar({
 		>
 			<div className="w-full flex-col divide-x overflow-hidden">
 				<div className="flex w-full flex-1 flex-col items-center">
-					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 lg:px-6">
+					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 sm:px-6">
 						<div className="flex">
 							<BackButton />
 							<h1 className="text-lg">Calendar</h1>
@@ -276,7 +276,7 @@ export function WorkoutsCalendar({
 									</tbody>
 								</table>
 							) : (
-								<div className="flex items-center gap-4 p-4 lg:p-6">
+								<div className="flex items-center gap-4 p-4 sm:p-6">
 									<p>No results</p>
 									<Button onClick={clearFilters} variant="outline">
 										Clear Filters

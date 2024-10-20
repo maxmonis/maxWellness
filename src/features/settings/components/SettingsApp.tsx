@@ -77,7 +77,7 @@ export function SettingsApp({
 
 	return (
 		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
-			<div className="flex h-14 items-end justify-between border-b px-4 pb-2 lg:px-6">
+			<div className="flex h-14 items-end justify-between border-b px-4 pb-2 sm:px-6">
 				<div className="flex">
 					<BackButton />
 					<h1 className="text-lg">Settings</h1>
@@ -89,7 +89,7 @@ export function SettingsApp({
 				)}
 			</div>
 			<Tabs defaultValue="exercises">
-				<div className="w-full px-4 pt-4 lg:px-6">
+				<div className="w-full px-4 pt-4 sm:px-6">
 					<TabsList className="w-full">
 						<TabsTrigger className="w-full" value="exercises">
 							Exercises
@@ -100,7 +100,7 @@ export function SettingsApp({
 					</TabsList>
 				</div>
 				<TabsContent value="exercises">
-					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 lg:px-6">
+					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 sm:px-6">
 						<Form onSubmit={handleLiftSubmit}>
 							<div className="flex items-center justify-center gap-4 text-lg">
 								<Input
@@ -163,7 +163,7 @@ export function SettingsApp({
 					</div>
 				</TabsContent>
 				<TabsContent value="workouts">
-					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 lg:px-6">
+					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 sm:px-6">
 						<Form onSubmit={handleWorkoutSubmit}>
 							<div className="flex items-center justify-center gap-4 text-lg">
 								<Input

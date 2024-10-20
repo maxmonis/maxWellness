@@ -181,7 +181,7 @@ export function WorkoutsApp({
 				</Sheet>
 				<ScrollArea className="flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col border-t md:max-h-[calc(100dvh-3.5rem)]">
 					<div className="w-full overflow-hidden max-md:h-full">
-						<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
+						<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 sm:px-6">
 							<WorkoutsForm
 								{...{
 									activeExerciseNames,
@@ -215,7 +215,7 @@ export function WorkoutsApp({
 					<ResizablePanel className="relative flex w-min min-w-[1rem] flex-grow overflow-x-hidden sm:min-w-[15rem]">
 						<ScrollArea className="flex max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col md:max-h-[calc(100dvh-3.5rem)]">
 							<div className="w-full overflow-hidden max-md:h-full">
-								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
+								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 sm:px-6">
 									<WorkoutsFilters
 										{...{
 											appliedFilters,
@@ -236,7 +236,7 @@ export function WorkoutsApp({
 					<ResizablePanel className="min-w-[1rem] sm:min-w-[15rem]">
 						<ScrollArea className="flex max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col md:max-h-[calc(100dvh-3.5rem)]">
 							<div className="w-full overflow-hidden max-md:h-full">
-								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
+								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 sm:px-6">
 									<WorkoutsFiltersResults
 										{...{ appliedFilters, filteredWorkouts, exerciseNames }}
 									/>

@@ -6,7 +6,7 @@ import { useAuth } from "@/features/auth/hooks/useAuth"
 export function WorkoutsEmptyState() {
 	const { user } = useAuth()
 	return (
-		<div className="flex flex-col gap-4 p-4 text-sm lg:p-6">
+		<div className="flex flex-col gap-4 p-4 text-sm sm:p-6">
 			<h2 className="text-base">
 				Hi {user!.displayName}, welcome to maxWellness!
 			</h2>
