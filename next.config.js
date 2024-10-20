@@ -18,6 +18,12 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "firebasestorage.googleapis.com",
 				port: "",
+				pathname: "/v0/b/max-wellness.appspot.com/o/users**",
+			},
+			{
+				protocol: "https",
+				hostname: "firebasestorage.googleapis.com",
+				port: "",
 				pathname: "/v0/b/max-wellness.appspot.com/o/images**",
 			},
 		],
