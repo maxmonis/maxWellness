@@ -29,7 +29,7 @@ export function WorkoutsFiltersResults({
 	const currentPersonalBests = personalBests.filter(e => !e.recordEndDate)
 
 	return (
-		<div className="h-screen max-h-full overflow-scroll px-4 pb-6 pt-4 lg:px-6">
+		<div>
 			<h1 className="mb-2 font-bold">Results</h1>
 			<p className="text-xs leading-snug text-muted-foreground">
 				Filters will also be applied to the workouts list and calendar

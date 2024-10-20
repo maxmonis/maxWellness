@@ -18,7 +18,6 @@ import { useAuth } from "@/features/auth/hooks/useAuth"
 import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
 import { useUpdateEvent } from "@/hooks/useUpdateEvent"
-import { cn } from "@/lib/utils"
 import { StorageService } from "@/services/StorageService"
 import sortBy from "lodash/sortBy"
 import { SidebarIcon } from "lucide-react"
@@ -205,23 +204,18 @@ export function WorkoutsApp({
 		)
 	}
 
-	return (
-		<div className="min-h-screen lg:max-w-3xl lg:border-r">
-			<WorkoutsHeader {...{ editingWorkout, workouts }} />
-			<ResizablePanelGroup
-				className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center border-t md:max-h-[calc(100dvh-3.5rem)]"
-				direction="horizontal"
-			>
-				<ResizablePanel
-					className={cn(
-						"relative flex w-min min-w-[1rem] flex-grow overflow-x-hidden sm:min-w-[15rem]",
-						view === "list" && "hidden",
-					)}
+	if (view === "filters") {
+		return (
+			<div className="min-h-screen lg:max-w-3xl lg:border-r">
+				<WorkoutsHeader {...{ editingWorkout, workouts }} />
+				<ResizablePanelGroup
+					className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow justify-center border-t md:max-h-[calc(100dvh-3.5rem)]"
+					direction="horizontal"
 				>
-					<div className="flex w-full flex-grow flex-col">
-						<div className="w-full overflow-hidden max-md:h-full">
-							<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
-								{view === "filters" && (
+					<ResizablePanel className="relative flex w-min min-w-[1rem] flex-grow overflow-x-hidden sm:min-w-[15rem]">
+						<ScrollArea className="flex max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col md:max-h-[calc(100dvh-3.5rem)]">
+							<div className="w-full overflow-hidden max-md:h-full">
+								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
 									<WorkoutsFilters
 										{...{
 											appliedFilters,
@@ -234,45 +228,49 @@ export function WorkoutsApp({
 											workouts,
 										}}
 									/>
-								)}
+								</div>
 							</div>
-						</div>
-					</div>
-				</ResizablePanel>
-				<ResizableHandle
-					className={cn(view === "list" && "hidden")}
-					withHandle
+						</ScrollArea>
+					</ResizablePanel>
+					<ResizableHandle withHandle />
+					<ResizablePanel className="min-w-[1rem] sm:min-w-[15rem]">
+						<ScrollArea className="flex max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col md:max-h-[calc(100dvh-3.5rem)]">
+							<div className="w-full overflow-hidden max-md:h-full">
+								<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
+									<WorkoutsFiltersResults
+										{...{ appliedFilters, filteredWorkouts, exerciseNames }}
+									/>
+								</div>
+							</div>
+						</ScrollArea>
+					</ResizablePanel>
+				</ResizablePanelGroup>
+			</div>
+		)
+	}
+
+	return (
+		<div className="min-h-screen lg:max-w-3xl lg:border-r">
+			<WorkoutsHeader {...{ editingWorkout, workouts }} />
+			<ScrollArea className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t md:max-h-[calc(100dvh-3.5rem)]">
+				<WorkoutsList
+					{...{
+						addExercise,
+						clearFilters,
+						editingWorkout,
+						filteredWorkouts,
+						exerciseNames,
+						resetState,
+						setEditingWorkout,
+						setValues,
+						updateExercises,
+						values,
+						view,
+						workoutNames,
+						workouts,
+					}}
 				/>
-				<ResizablePanel
-					className={cn(
-						view === "list" ? "min-w-full" : "min-w-[1rem] sm:min-w-[15rem]",
-					)}
-				>
-					{view === "filters" ? (
-						<WorkoutsFiltersResults
-							{...{ appliedFilters, filteredWorkouts, exerciseNames }}
-						/>
-					) : (
-						<WorkoutsList
-							{...{
-								addExercise,
-								clearFilters,
-								editingWorkout,
-								filteredWorkouts,
-								exerciseNames,
-								resetState,
-								setEditingWorkout,
-								setValues,
-								updateExercises,
-								values,
-								view,
-								workoutNames,
-								workouts,
-							}}
-						/>
-					)}
-				</ResizablePanel>
-			</ResizablePanelGroup>
+			</ScrollArea>
 		</div>
 	)
 

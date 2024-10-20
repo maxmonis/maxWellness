@@ -348,12 +348,9 @@ export function WorkoutsForm({
 					</div>
 				</div>
 			) : (
-				<p className="pt-2 text-sm">
-					Add exercises using the form above
-					{Boolean(session?.workouts.length) &&
-						" or by clicking existing ones in the list to the right"}
-					. Each exercise must include either a weight or at least one rep. You
-					can drag and drop to edit the list.
+				<p className="pt-2">
+					Each exercise must include either a weight or at least one rep. You
+					can drag and drop to edit.
 				</p>
 			)}
 		</DragDropContext>
