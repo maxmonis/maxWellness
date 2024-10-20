@@ -1,7 +1,7 @@
 import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import {
@@ -28,6 +28,7 @@ import { Cross1Icon } from "@radix-ui/react-icons"
 import { useIsMutating } from "@tanstack/react-query"
 import isEqual from "lodash/isEqual"
 import omit from "lodash/omit"
+import Link from "next/link"
 import * as React from "react"
 import { useAddWorkout } from "../hooks/useAddWorkout"
 import { useUpdateWorkout } from "../hooks/useUpdateWorkout"
@@ -132,6 +133,16 @@ export function WorkoutsForm({
 															{text}
 														</SelectItem>
 													))}
+													{activeExerciseNames.length === 0 && (
+														<Link
+															className={cn(
+																buttonVariants({ variant: "ghost" }),
+															)}
+															href="/settings"
+														>
+															Create New Exercise Name
+														</Link>
+													)}
 												</SelectGroup>
 											</SelectContent>
 										</Select>
@@ -288,6 +299,14 @@ export function WorkoutsForm({
 														{text}
 													</SelectItem>
 												))}
+												{activeWorkoutNames.length === 0 && (
+													<Link
+														className={cn(buttonVariants({ variant: "ghost" }))}
+														href="/settings?view=workouts"
+													>
+														Create New Workout Name
+													</Link>
+												)}
 											</SelectGroup>
 										</SelectContent>
 									</Select>

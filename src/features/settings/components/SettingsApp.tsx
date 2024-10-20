@@ -25,6 +25,9 @@ import { EditableListItem } from "./EditableListItem"
  */
 export function SettingsApp(props: Session) {
 	const router = useRouter()
+	const {
+		query: { view },
+	} = router
 	const { toast } = useToast()
 
 	const { isPending: updating, mutate: updateSettings } = useUpdateNames({
@@ -75,7 +78,7 @@ export function SettingsApp(props: Session) {
 					</Button>
 				)}
 			</div>
-			<Tabs defaultValue="exercises">
+			<Tabs defaultValue={view === "workouts" ? "workouts" : "exercises"}>
 				<div className="w-full px-4 pt-4 sm:px-6">
 					<TabsList className="w-full">
 						<TabsTrigger className="w-full" value="exercises">
@@ -231,6 +234,7 @@ function SettingsTab({
 				<Form onSubmit={handleSubmit}>
 					<div className="flex items-center justify-center gap-4 text-lg">
 						<Input
+							autoFocus
 							className="w-full"
 							id="newWorkout"
 							maxLength={40}
