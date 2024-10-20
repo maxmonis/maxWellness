@@ -25,10 +25,9 @@ export default function InfoPage() {
 								<h3 className="text-center font-bold">Overview</h3>
 								<p className="xl:text-sm">
 									This website allows you to create a free account using your
-									Google credentials (recommended) or an email/password
-									combination. It&apos;s a handy way to keep track of your
-									weightlifting workouts and personal bests, and can be used on
-									devices of any size.
+									Google credentials or an email/password combination. It&apos;s
+									a handy way to keep track of your weightlifting workouts and
+									personal bests, and can be used on devices of any size.
 								</p>
 								<Video className="max-w-xs" src="mobile-view" />
 							</div>
@@ -70,11 +69,8 @@ export default function InfoPage() {
 								<h3 className="text-center font-bold">Managing Names</h3>
 								<p className="xl:text-sm">
 									The Settings page allows you to add, update, or delete the
-									names you use for workouts and exercises. Names must be unique
-									and can be deleted unless they&apos;re currently included in
-									any workout(s). You have the option of hiding names which you
-									no longer use, which will cause them to no longer appear in
-									Filters and the New/Edit Workout forms.
+									names you use for workouts and exercises. Names must be
+									unique.
 								</p>
 								<Video src="managing-names" />
 							</div>
