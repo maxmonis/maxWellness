@@ -55,59 +55,44 @@ export function WorkoutsList({
 		<div className="relative flex flex-shrink flex-grow">
 			<div className="flex w-full flex-1 flex-col">
 				<div className="h-screen overflow-hidden">
-					{editingWorkout ? (
-						<div>
-							<WorkoutsListItem
-								{...{
-									editingWorkout,
-									handleDelete,
-									view,
-									workouts,
-								}}
-								{...props}
-								workout={editingWorkout}
-							/>
-						</div>
-					) : (
-						<ScrollArea
-							className={cn(
-								view === "list"
-									? "h-[calc(100dvh-7rem)] md:h-[calc(100dvh-3.5rem)]"
-									: "h-[calc(100dvh-6rem)] pb-2",
-							)}
-						>
-							{filteredWorkouts.length ? (
-								filteredWorkouts.map(workout => (
-									<WorkoutsListItem
-										key={workout.id}
-										{...{
-											editingWorkout,
-											handleDelete,
-											view,
-											workout,
-											workouts,
-										}}
-										{...props}
-									/>
-								))
-							) : (
-								<>
-									{workouts.length ? (
-										<div className="p-4 sm:p-6">
-											<div className="flex flex-wrap items-center gap-4">
-												<p>No results</p>
-												<Button onClick={clearFilters} variant="outline">
-													Clear Filters
-												</Button>
-											</div>
+					<ScrollArea
+						className={cn(
+							view === "list"
+								? "h-[calc(100dvh-7rem)] md:h-[calc(100dvh-3.5rem)]"
+								: "h-[calc(100dvh-6rem)] pb-2",
+						)}
+					>
+						{filteredWorkouts.length ? (
+							filteredWorkouts.map(workout => (
+								<WorkoutsListItem
+									key={workout.id}
+									{...{
+										editingWorkout,
+										handleDelete,
+										view,
+										workout,
+										workouts,
+									}}
+									{...props}
+								/>
+							))
+						) : (
+							<>
+								{workouts.length ? (
+									<div className="p-4 sm:p-6">
+										<div className="flex flex-wrap items-center gap-4">
+											<p>No results</p>
+											<Button onClick={clearFilters} variant="outline">
+												Clear Filters
+											</Button>
 										</div>
-									) : (
-										<WorkoutsEmptyState />
-									)}
-								</>
-							)}
-						</ScrollArea>
-					)}
+									</div>
+								) : (
+									<WorkoutsEmptyState />
+								)}
+							</>
+						)}
+					</ScrollArea>
 				</div>
 			</div>
 		</div>

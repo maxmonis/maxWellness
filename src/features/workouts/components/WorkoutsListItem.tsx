@@ -70,7 +70,6 @@ export function WorkoutsListItem({
 			key={workout.id}
 			className={cn(
 				"h-min justify-between gap-6 border-t first:border-t-0 sm:gap-10",
-				editingWorkout?.id === workout.id && "italic",
 				view === "list" ? "flex px-4 pb-6 pt-4 sm:px-6" : "p-2 sm:flex",
 			)}
 		>
