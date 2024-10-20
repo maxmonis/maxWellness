@@ -1,8 +1,18 @@
+import { Button } from "@/components/ui/button"
 import {
 	ResizableHandle,
 	ResizablePanel,
 	ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet"
 import { ToastAction } from "@/components/ui/toast"
 import { useAuth } from "@/features/auth/hooks/useAuth"
 import { Session } from "@/features/session/utils/models"
@@ -11,6 +21,7 @@ import { useUpdateEvent } from "@/hooks/useUpdateEvent"
 import { cn } from "@/lib/utils"
 import { StorageService } from "@/services/StorageService"
 import sortBy from "lodash/sortBy"
+import { SidebarIcon } from "lucide-react"
 import * as React from "react"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 import { today } from "../utils/constants"
@@ -131,6 +142,69 @@ export function WorkoutsApp({
 		)
 	}
 
+	if (view === "create") {
+		return (
+			<div className="relative min-h-screen w-full lg:max-w-3xl lg:border-r">
+				<WorkoutsHeader {...{ editingWorkout, workouts }} />
+				<Sheet>
+					<SheetTrigger asChild>
+						<Button
+							className="absolute right-4 top-2"
+							size="icon"
+							variant="ghost"
+						>
+							<SidebarIcon className="rotate-180" />
+						</Button>
+					</SheetTrigger>
+					<SheetContent className="w-60 px-4">
+						<SheetHeader className="border-b pb-4 text-left">
+							<SheetTitle>Previous Workouts</SheetTitle>
+							<SheetDescription>Click exercises to copy them</SheetDescription>
+						</SheetHeader>
+						<WorkoutsList
+							{...{
+								addExercise,
+								clearFilters,
+								editingWorkout,
+								filteredWorkouts,
+								exerciseNames,
+								resetState,
+								setEditingWorkout,
+								setValues,
+								updateExercises,
+								values,
+								view,
+								workoutNames,
+								workouts,
+							}}
+						/>
+					</SheetContent>
+				</Sheet>
+				<ScrollArea className="flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col border-t md:max-h-[calc(100dvh-3.5rem)]">
+					<div className="w-full overflow-hidden max-md:h-full">
+						<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
+							<WorkoutsForm
+								{...{
+									activeExerciseNames,
+									activeWorkoutNames,
+									defaultValues,
+									editingWorkout,
+									exerciseNames,
+									resetState,
+									exercises,
+									setValues,
+									updateExercises,
+									userId,
+									values,
+								}}
+							/>
+						</div>
+					</div>
+				</ScrollArea>
+			</div>
+		)
+	}
+
 	return (
 		<div className="min-h-screen lg:max-w-3xl lg:border-r">
 			<WorkoutsHeader {...{ editingWorkout, workouts }} />
@@ -140,14 +214,14 @@ export function WorkoutsApp({
 			>
 				<ResizablePanel
 					className={cn(
-						"relative flex w-min min-w-[10rem] flex-grow overflow-x-hidden sm:min-w-[15rem]",
+						"relative flex w-min min-w-[1rem] flex-grow overflow-x-hidden sm:min-w-[15rem]",
 						view === "list" && "hidden",
 					)}
 				>
 					<div className="flex w-full flex-grow flex-col">
 						<div className="w-full overflow-hidden max-md:h-full">
 							<div className="h-full overflow-y-auto overflow-x-hidden px-4 pb-6 pt-4 lg:px-6">
-								{view === "filters" ? (
+								{view === "filters" && (
 									<WorkoutsFilters
 										{...{
 											appliedFilters,
@@ -158,22 +232,6 @@ export function WorkoutsApp({
 											setFilteredWorkouts,
 											workoutNames,
 											workouts,
-										}}
-									/>
-								) : (
-									<WorkoutsForm
-										{...{
-											activeExerciseNames,
-											activeWorkoutNames,
-											defaultValues,
-											editingWorkout,
-											exerciseNames,
-											resetState,
-											exercises,
-											setValues,
-											updateExercises,
-											userId,
-											values,
 										}}
 									/>
 								)}

@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 import { useIsMutating } from "@tanstack/react-query"
 import * as React from "react"
 import { useDeleteWorkout } from "../hooks/useDeleteWorkout"
@@ -67,7 +69,13 @@ export function WorkoutsList({
 							/>
 						</div>
 					) : (
-						<div className="flex h-full flex-col divide-y overflow-y-auto overflow-x-hidden max-md:h-[calc(100dvh-3.5rem)]">
+						<ScrollArea
+							className={cn(
+								view === "list"
+									? "h-[calc(100dvh-7rem)] md:h-[calc(100dvh-3.5rem)]"
+									: "h-[calc(100dvh-6rem)] pb-2",
+							)}
+						>
 							{filteredWorkouts.length ? (
 								filteredWorkouts.map(workout => (
 									<WorkoutsListItem
@@ -98,7 +106,7 @@ export function WorkoutsList({
 									)}
 								</>
 							)}
-						</div>
+						</ScrollArea>
 					)}
 				</div>
 			</div>

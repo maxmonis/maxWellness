@@ -155,6 +155,7 @@ export function WorkoutsForm({
 											},
 										].map(({ label, ...field }) => (
 											<Input
+												className="w-full"
 												id={label}
 												inputMode="numeric"
 												inputClass={cn(
@@ -269,82 +270,80 @@ export function WorkoutsForm({
 							</ul>
 						)}
 					</Droppable>
-					<ResponsiveDialog
-						body={
-							<>
-								<Select
-									name="workoutNameId"
-									onValueChange={workoutNameId => {
-										setValues({ ...values, workoutNameId })
-									}}
-									value={workoutNameId}
-								>
-									<SelectTrigger translate="no">
-										<SelectValue />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectGroup>
-											<SelectLabel>Workout Name</SelectLabel>
-											{activeWorkoutNames.map(({ id, text }) => (
-												<SelectItem key={id} translate="no" value={id}>
-													{text}
-												</SelectItem>
-											))}
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-								<Label className="sr-only" htmlFor="workoutDate">
-									Workout Date
-								</Label>
-								<Calendar
-									className="mx-auto mt-4 w-min"
-									id="workoutDate"
-									mode="single"
-									selected={new Date(date.split("T")[0] + "T00:00:00")}
-									onSelect={newDate => {
-										if (newDate) {
-											setValues({
-												...values,
-												date: newDate.toISOString(),
-											})
-										}
-									}}
-								/>
-							</>
-						}
-						buttons={[
-							<Button className="w-min" key="cancel" variant="ghost">
-								Cancel
-							</Button>,
-							<Button className="max-sm:w-full" key="save" onClick={handleSave}>
-								Save
-							</Button>,
-						]}
-						description="Please select the name and date of this workout"
-						title="Save Workout"
-						trigger={
-							<Button className="mt-6 w-full" loading={isAdding || isUpdating}>
-								Save
-							</Button>
-						}
-					/>
-					<div className="mx-auto mt-4 flex justify-center">
-						{editingWorkout ? (
-							<Button onClick={resetState} variant="ghost">
-								Discard Changes
-							</Button>
-						) : (
-							Boolean(session?.workouts.length) && (
+					<div className="mt-6 flex items-center justify-between">
+						<ResponsiveDialog
+							body={
+								<>
+									<Select
+										name="workoutNameId"
+										onValueChange={workoutNameId => {
+											setValues({ ...values, workoutNameId })
+										}}
+										value={workoutNameId}
+									>
+										<SelectTrigger translate="no">
+											<SelectValue />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												<SelectLabel>Workout Name</SelectLabel>
+												{activeWorkoutNames.map(({ id, text }) => (
+													<SelectItem key={id} translate="no" value={id}>
+														{text}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
+									<Label className="sr-only" htmlFor="workoutDate">
+										Workout Date
+									</Label>
+									<Calendar
+										className="mx-auto mt-4 w-min"
+										id="workoutDate"
+										mode="single"
+										selected={new Date(date.split("T")[0] + "T00:00:00")}
+										onSelect={newDate => {
+											if (newDate) {
+												setValues({
+													...values,
+													date: newDate.toISOString(),
+												})
+											}
+										}}
+									/>
+								</>
+							}
+							buttons={[
+								<Button className="w-min" key="cancel" variant="ghost">
+									Cancel
+								</Button>,
 								<Button
-									onClick={() => {
-										updateExercises([])
-										resetState()
-									}}
-									variant="ghost"
+									className="max-sm:w-full"
+									key="save"
+									onClick={handleSave}
 								>
-									Discard
+									Save
+								</Button>,
+							]}
+							description="Please select the name and date of this workout"
+							title="Save Workout"
+							trigger={
+								<Button className="flex-grow" loading={isAdding || isUpdating}>
+									Save
 								</Button>
-							)
+							}
+						/>
+						{Boolean(session?.workouts.length) && (
+							<Button
+								onClick={() => {
+									if (editingWorkout) updateExercises([])
+									resetState()
+								}}
+								variant="ghost"
+							>
+								Discard
+							</Button>
 						)}
 					</div>
 				</div>

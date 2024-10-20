@@ -3,6 +3,7 @@ import { Form } from "@/components/Form"
 import { Input } from "@/components/Input"
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
 import { EditableName } from "@/features/settings/utils/models"
@@ -133,30 +134,32 @@ export function SettingsApp({
 								</>
 							)}
 						</Form>
-						<ul className="h-full overflow-y-scroll pb-6 pt-2">
-							{sortBy(
-								exerciseNames.filter(n => !n.deleted),
-								"text",
-							).map(exerciseName => (
-								<EditableListItem
-									editableName={exerciseName}
-									editableNameList={exerciseNames}
-									key={exerciseName.id}
-									updateOptions={updateExerciseNames}
-								/>
-							))}
-							{sortBy(
-								exerciseNames.filter(n => n.deleted),
-								"text",
-							).map(exerciseName => (
-								<EditableListItem
-									editableName={exerciseName}
-									editableNameList={exerciseNames}
-									key={exerciseName.id}
-									updateOptions={updateExerciseNames}
-								/>
-							))}
-						</ul>
+						<ScrollArea className="h-[calc(100dvh-13.5rem)] md:h-[calc(100dvh-10rem)]">
+							<ul className="h-full overflow-y-scroll pb-6 pt-2">
+								{sortBy(
+									exerciseNames.filter(n => !n.deleted),
+									"text",
+								).map(exerciseName => (
+									<EditableListItem
+										editableName={exerciseName}
+										editableNameList={exerciseNames}
+										key={exerciseName.id}
+										updateOptions={updateExerciseNames}
+									/>
+								))}
+								{sortBy(
+									exerciseNames.filter(n => n.deleted),
+									"text",
+								).map(exerciseName => (
+									<EditableListItem
+										editableName={exerciseName}
+										editableNameList={exerciseNames}
+										key={exerciseName.id}
+										updateOptions={updateExerciseNames}
+									/>
+								))}
+							</ul>
+						</ScrollArea>
 					</div>
 				</TabsContent>
 				<TabsContent value="workouts">
@@ -194,30 +197,32 @@ export function SettingsApp({
 								</>
 							)}
 						</Form>
-						<ul className="h-full overflow-y-scroll pb-6 pt-2">
-							{sortBy(
-								workoutNames.filter(n => !n.deleted),
-								"text",
-							).map(workoutName => (
-								<EditableListItem
-									key={workoutName.id}
-									editableName={workoutName}
-									editableNameList={workoutNames}
-									updateOptions={updateWorkoutNames}
-								/>
-							))}
-							{sortBy(
-								workoutNames.filter(n => n.deleted),
-								"text",
-							).map(workoutName => (
-								<EditableListItem
-									key={workoutName.id}
-									editableName={workoutName}
-									editableNameList={workoutNames}
-									updateOptions={updateWorkoutNames}
-								/>
-							))}
-						</ul>
+						<ScrollArea className="h-[calc(100dvh-13.5rem)] md:h-[calc(100dvh-10rem)]">
+							<ul className="h-full overflow-y-scroll pb-6 pt-2">
+								{sortBy(
+									workoutNames.filter(n => !n.deleted),
+									"text",
+								).map(workoutName => (
+									<EditableListItem
+										key={workoutName.id}
+										editableName={workoutName}
+										editableNameList={workoutNames}
+										updateOptions={updateWorkoutNames}
+									/>
+								))}
+								{sortBy(
+									workoutNames.filter(n => n.deleted),
+									"text",
+								).map(workoutName => (
+									<EditableListItem
+										key={workoutName.id}
+										editableName={workoutName}
+										editableNameList={workoutNames}
+										updateOptions={updateWorkoutNames}
+									/>
+								))}
+							</ul>
+						</ScrollArea>
 					</div>
 				</TabsContent>
 			</Tabs>

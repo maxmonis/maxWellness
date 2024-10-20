@@ -69,19 +69,17 @@ export function WorkoutsListItem({
 		<div
 			key={workout.id}
 			className={cn(
-				"h-min justify-between gap-6 px-4 pt-4 last:mb-14 sm:gap-10 lg:px-6",
+				"h-min justify-between gap-6 border-t first:border-t-0 sm:gap-10",
 				editingWorkout?.id === workout.id && "italic",
-				view === "list" ? "flex pb-6" : "pb-4 sm:flex",
+				view === "list" ? "flex px-4 pb-6 pt-4 lg:px-6" : "p-2 sm:flex",
 			)}
 		>
 			<div className="w-full">
 				<div className="mb-2 flex justify-between">
 					<div
 						className={cn(
-							"flex w-full gap-x-4 gap-y-1",
-							view === "list"
-								? "mb-1 flex-col"
-								: "mt-1 flex-wrap items-center justify-between",
+							"flex w-full flex-col gap-x-4 gap-y-1",
+							view === "list" ? "mb-1" : "mt-1",
 						)}
 					>
 						<h1
@@ -194,7 +192,7 @@ export function WorkoutsListItem({
 								return (
 									<li key={i} className="flex flex-wrap">
 										<Button
-											className="-ml-4 flex h-auto whitespace-normal text-left leading-tight"
+											className="-mx-2 flex h-auto whitespace-normal text-left leading-tight"
 											translate="no"
 											variant="ghost"
 											{...(exerciseName?.deleted
@@ -209,7 +207,6 @@ export function WorkoutsListItem({
 																id: nanoid(),
 															})
 														},
-														title: "Click to copy",
 												  })}
 										>
 											{exerciseNameText}:&nbsp;
