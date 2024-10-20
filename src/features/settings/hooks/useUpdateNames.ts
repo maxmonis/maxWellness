@@ -11,7 +11,8 @@ export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
 	const queryClient = useQueryClient()
 	const { user } = useAuth()
 	const { toast } = useToast()
-	const queryKey = ["profile", { userId: user?.uid }]
+	const exerciseQueryKey = ["exerciseNames", { userId: user?.uid }]
+	const workoutQueryKey = ["workoutNames", { userId: user?.uid }]
 
 	return useMutation({
 		mutationFn: (newNames: Parameters<typeof updateSettings>[1]) =>
@@ -24,14 +25,18 @@ export function useUpdateNames({ onSuccess }: { onSuccess: () => void }) {
 				variant: "destructive",
 			})
 		},
-		async onMutate(newProfile) {
-			await queryClient.cancelQueries({ queryKey })
-			const previousProfile = queryClient.getQueryData(queryKey)
-			queryClient.setQueryData(queryKey, newProfile)
-			return { previousProfile }
+		async onMutate(newNames) {
+			await queryClient.cancelQueries({ queryKey: exerciseQueryKey })
+			await queryClient.cancelQueries({ queryKey: workoutQueryKey })
+			const previousExercises = queryClient.getQueryData(exerciseQueryKey)
+			queryClient.setQueryData(exerciseQueryKey, newNames.exerciseNames)
+			const previousWorkouts = queryClient.getQueryData(workoutQueryKey)
+			queryClient.setQueryData(workoutQueryKey, newNames.workoutNames)
+			return { previousExercises, previousWorkouts }
 		},
 		onSettled() {
-			queryClient.invalidateQueries({ queryKey })
+			queryClient.invalidateQueries({ queryKey: exerciseQueryKey })
+			queryClient.invalidateQueries({ queryKey: workoutQueryKey })
 		},
 		onSuccess,
 	})

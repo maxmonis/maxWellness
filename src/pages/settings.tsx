@@ -14,10 +14,7 @@ export default function SettingsPage() {
 			{loading ? (
 				<SettingsLoader />
 			) : session ? (
-				<SettingsApp
-					originalExerciseNames={session.exerciseNames}
-					originalWorkoutNames={session.workoutNames}
-				/>
+				<SettingsApp {...session} />
 			) : null}
 		</Page>
 	)

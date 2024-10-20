@@ -5,28 +5,25 @@ import { ResponsiveDialog } from "@/components/ReponsiveDialog"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Session } from "@/features/session/utils/models"
 import { useUpdateNames } from "@/features/settings/hooks/useUpdateNames"
 import { EditableName } from "@/features/settings/utils/models"
+import { Workout } from "@/features/workouts/utils/models"
 import { useToast } from "@/hooks/use-toast"
+import { hasChars } from "@/utils/validators"
 import { useIsMutating } from "@tanstack/react-query"
 import { isEqual, sortBy } from "lodash"
 import { nanoid } from "nanoid"
 import { useRouter } from "next/router"
 import * as React from "react"
-import { isTextAlreadyInList } from "../utils/functions"
+import { isSameText } from "../utils/functions"
 import { EditableListItem } from "./EditableListItem"
 
 /**
  * Displays the user's workout and exercise names, allowing
  * them to add new ones and edit/delete existing ones
  */
-export function SettingsApp({
-	originalExerciseNames,
-	originalWorkoutNames,
-}: {
-	originalExerciseNames: Array<EditableName>
-	originalWorkoutNames: Array<EditableName>
-}) {
+export function SettingsApp(props: Session) {
 	const router = useRouter()
 	const { toast } = useToast()
 
@@ -38,16 +35,11 @@ export function SettingsApp({
 	const mutationCount = useIsMutating()
 	const mutating = mutationCount > 0
 
-	const [exerciseNames, setExerciseNames] = React.useState(
-		originalExerciseNames,
-	)
-	const [workoutNames, setWorkoutNames] = React.useState(originalWorkoutNames)
+	const [exerciseNames, setExerciseNames] = React.useState(props.exerciseNames)
+	const [workoutNames, setWorkoutNames] = React.useState(props.workoutNames)
 	const hasChangeOccurred =
-		!isEqual(workoutNames, originalWorkoutNames) ||
-		!isEqual(exerciseNames, originalExerciseNames)
-
-	const [values, setValues] = React.useState({ lift: "", workout: "" })
-	const { lift, workout } = values
+		!isEqual(workoutNames, props.workoutNames) ||
+		!isEqual(exerciseNames, props.exerciseNames)
 
 	const [showLeaveConfirmDialog, setShowLeaveConfirmDialog] =
 		React.useState(false)
@@ -70,11 +62,6 @@ export function SettingsApp({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [onRouteChangeStart])
 
-	React.useEffect(() => {
-		setExerciseNames(originalExerciseNames)
-		setWorkoutNames(originalWorkoutNames)
-	}, [originalExerciseNames, originalWorkoutNames])
-
 	return (
 		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
 			<div className="flex h-14 items-end justify-between border-b px-4 pb-2 sm:px-6">
@@ -82,7 +69,7 @@ export function SettingsApp({
 					<BackButton />
 					<h1 className="text-lg">Settings</h1>
 				</div>
-				{hasChangeOccurred && (
+				{(hasChangeOccurred || updating) && (
 					<Button loading={updating} onClick={saveChanges}>
 						Save Changes
 					</Button>
@@ -99,132 +86,18 @@ export function SettingsApp({
 						</TabsTrigger>
 					</TabsList>
 				</div>
-				<TabsContent value="exercises">
-					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 sm:px-6">
-						<Form onSubmit={handleLiftSubmit}>
-							<div className="flex items-center justify-center gap-4 text-lg">
-								<Input
-									className="w-full"
-									id="lift"
-									name="lift"
-									value={lift}
-									placeholder="New exercise"
-									{...{ onChange }}
-								/>
-							</div>
-							{lift && (
-								<>
-									{exerciseNames.some(
-										({ text }) => text.toLowerCase() === lift.toLowerCase(),
-									) ? (
-										<p className="mt-1 text-center text-red-500">
-											Duplicate name
-										</p>
-									) : (
-										<div className="flex justify-center">
-											<Button
-												className="mt-3 w-fit"
-												type="submit"
-												variant="outline"
-											>
-												Add Name
-											</Button>
-										</div>
-									)}
-								</>
-							)}
-						</Form>
-						<ScrollArea className="h-[calc(100dvh-13.5rem)] md:h-[calc(100dvh-10rem)]">
-							<ul className="h-full overflow-y-scroll pb-6 pt-2">
-								{sortBy(
-									exerciseNames.filter(n => !n.deleted),
-									"text",
-								).map(exerciseName => (
-									<EditableListItem
-										editableName={exerciseName}
-										editableNameList={exerciseNames}
-										key={exerciseName.id}
-										updateOptions={updateExerciseNames}
-									/>
-								))}
-								{sortBy(
-									exerciseNames.filter(n => n.deleted),
-									"text",
-								).map(exerciseName => (
-									<EditableListItem
-										editableName={exerciseName}
-										editableNameList={exerciseNames}
-										key={exerciseName.id}
-										updateOptions={updateExerciseNames}
-									/>
-								))}
-							</ul>
-						</ScrollArea>
-					</div>
-				</TabsContent>
-				<TabsContent value="workouts">
-					<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 sm:px-6">
-						<Form onSubmit={handleWorkoutSubmit}>
-							<div className="flex items-center justify-center gap-4 text-lg">
-								<Input
-									className="w-full"
-									id="workout"
-									name="workout"
-									value={workout}
-									placeholder="New workout"
-									{...{ onChange }}
-								/>
-							</div>
-							{workout && (
-								<>
-									{workoutNames.some(
-										({ text }) => text.toLowerCase() === workout.toLowerCase(),
-									) ? (
-										<p className="mt-1 text-center text-red-500">
-											Duplicate name
-										</p>
-									) : (
-										<div className="flex justify-center">
-											<Button
-												className="mt-3 w-fit"
-												type="submit"
-												variant="outline"
-											>
-												Add Name
-											</Button>
-										</div>
-									)}
-								</>
-							)}
-						</Form>
-						<ScrollArea className="h-[calc(100dvh-13.5rem)] md:h-[calc(100dvh-10rem)]">
-							<ul className="h-full overflow-y-scroll pb-6 pt-2">
-								{sortBy(
-									workoutNames.filter(n => !n.deleted),
-									"text",
-								).map(workoutName => (
-									<EditableListItem
-										key={workoutName.id}
-										editableName={workoutName}
-										editableNameList={workoutNames}
-										updateOptions={updateWorkoutNames}
-									/>
-								))}
-								{sortBy(
-									workoutNames.filter(n => n.deleted),
-									"text",
-								).map(workoutName => (
-									<EditableListItem
-										key={workoutName.id}
-										editableName={workoutName}
-										editableNameList={workoutNames}
-										updateOptions={updateWorkoutNames}
-									/>
-								))}
-							</ul>
-						</ScrollArea>
-					</div>
-				</TabsContent>
+				<SettingsTab
+					setUpdatedNames={setExerciseNames}
+					updatedNames={exerciseNames}
+					value="exercises"
+					workouts={props.workouts}
+				/>
+				<SettingsTab
+					setUpdatedNames={setWorkoutNames}
+					updatedNames={workoutNames}
+					value="workouts"
+					workouts={props.workouts}
+				/>
 			</Tabs>
 			<ResponsiveDialog
 				buttons={[
@@ -232,8 +105,8 @@ export function SettingsApp({
 						className="text-destructive hover:text-destructive"
 						key="discard"
 						onClick={() => {
-							setExerciseNames(originalExerciseNames)
-							setWorkoutNames(originalWorkoutNames)
+							setExerciseNames(props.exerciseNames)
+							setWorkoutNames(props.workoutNames)
 							onConfirmRouteChange()
 						}}
 						variant="ghost"
@@ -275,124 +148,7 @@ export function SettingsApp({
 	function saveChanges() {
 		if (!mutating && hasChangeOccurred) {
 			setShowLeaveConfirmDialog(false)
-			updateSettings({
-				exerciseNames: exerciseNames.map(({ id, text, deleted }) => ({
-					id,
-					text,
-					deleted,
-				})),
-				workoutNames: workoutNames.map(({ id, text, deleted }) => ({
-					id,
-					text,
-					deleted,
-				})),
-			})
-		}
-	}
-
-	/**
-	 * Handles updates to the form inputs, sanitizing the values
-	 */
-	function onChange({
-		target: { name, value },
-	}: React.ChangeEvent<HTMLInputElement>) {
-		if (!value || /^[A-Za-z ]+$/.test(value)) {
-			setValues({
-				...values,
-				[name]: value.trimStart().replace(/\s/, " ").substring(0, 36),
-			})
-		}
-	}
-
-	/**
-	 * Saves a lift name unless it is a duplicate
-	 */
-	function handleLiftSubmit() {
-		if (
-			lift &&
-			!exerciseNames.some(
-				({ text }) =>
-					text.toLowerCase().replace(/\s/g, "") ===
-					lift.toLowerCase().replace(/\s/g, ""),
-			)
-		) {
-			setExerciseNames([
-				...exerciseNames,
-				{
-					deleted: false,
-					id: nanoid(),
-					text: lift.trim(),
-				},
-			])
-			setValues({ ...values, lift: "" })
-		}
-	}
-
-	/**
-	 * Saves a workout name unless it is a duplicate
-	 */
-	function handleWorkoutSubmit() {
-		if (
-			workout &&
-			!workoutNames.some(
-				({ text }) =>
-					text.toLowerCase().replace(/\s/g, "") ===
-					workout.toLowerCase().replace(/\s/g, ""),
-			)
-		) {
-			setWorkoutNames([
-				...workoutNames,
-				{
-					deleted: false,
-					id: nanoid(),
-					text: workout.trim(),
-				},
-			])
-			setValues({ ...values, workout: "" })
-		}
-	}
-
-	/**
-	 * Handles deleted or updated workout names
-	 */
-	function updateWorkoutNames(
-		{ deleted, text }: EditableName,
-		workoutName: EditableName,
-	) {
-		if ((!text || deleted) && workoutNames.length > 1) {
-			setWorkoutNames(
-				workoutNames.map(name =>
-					name.id === workoutName.id ? { ...name, deleted } : name,
-				),
-			)
-		} else if (text && !isTextAlreadyInList(text, workoutNames)) {
-			setWorkoutNames(
-				workoutNames.map(name =>
-					name.id === workoutName.id ? { ...name, text } : name,
-				),
-			)
-		}
-	}
-
-	/**
-	 * Handles deleted or updated lift names
-	 */
-	function updateExerciseNames(
-		{ text, deleted }: EditableName,
-		exerciseName: EditableName,
-	) {
-		if ((!text || deleted) && exerciseNames.length > 1) {
-			setExerciseNames(
-				exerciseNames.map(name =>
-					name.id === exerciseName.id ? { ...name, deleted } : name,
-				),
-			)
-		} else if (text && !isTextAlreadyInList(text, exerciseNames)) {
-			setExerciseNames(
-				exerciseNames.map(name =>
-					name.id === exerciseName.id ? { ...name, text } : name,
-				),
-			)
+			updateSettings({ exerciseNames, workoutNames })
 		}
 	}
 
@@ -404,4 +160,141 @@ export function SettingsApp({
 	function removeListener() {
 		router.events.off("routeChangeStart", onRouteChangeStart)
 	}
+}
+
+function SettingsTab({
+	setUpdatedNames,
+	updatedNames,
+	value,
+	workouts,
+}: {
+	setUpdatedNames: (names: Array<EditableName>) => void
+	updatedNames: Array<EditableName>
+	value: "exercises" | "workouts"
+	workouts: Array<Workout>
+}) {
+	const [newName, setNewName] = React.useState("")
+
+	function handleSubmit() {
+		if (!newName) return
+		if (!updatedNames.some(n => isSameText(n.text, newName))) {
+			setUpdatedNames([
+				...updatedNames,
+				{ deleted: false, id: nanoid(), text: newName.trim() },
+			])
+		} else {
+			const existingDeletedName = updatedNames.find(
+				name => name.deleted && isSameText(name.text, newName),
+			)
+			if (existingDeletedName) {
+				setUpdatedNames(
+					updatedNames.map(name =>
+						name.id === existingDeletedName.id
+							? {
+									deleted: false,
+									id: existingDeletedName.id,
+									text: newName.trim(),
+							  }
+							: name,
+					),
+				)
+			}
+		}
+		setNewName("")
+	}
+
+	function handleNameChange({ deleted, id, text }: EditableName) {
+		if (!hasChars(text) || deleted) {
+			setUpdatedNames(
+				updatedNames.map(name =>
+					name.id === id ? { ...name, deleted: true } : name,
+				),
+			)
+		} else if (
+			hasChars(text) &&
+			!updatedNames.some(name => isSameText(name.text, text) && name.id !== id)
+		) {
+			setUpdatedNames(
+				updatedNames.map(name =>
+					name.id === id ? { ...name, deleted, text: text.trim() } : name,
+				),
+			)
+		} else {
+			const existingDeletedName = updatedNames.find(
+				name => name.deleted && isSameText(name.text, text),
+			)
+			if (existingDeletedName) {
+				setUpdatedNames(
+					updatedNames.map(name =>
+						name.id === existingDeletedName.id
+							? { ...name, deleted: false, text: text.trim() }
+							: name,
+					),
+				)
+			}
+		}
+	}
+
+	return (
+		<TabsContent value={value}>
+			<div className="flex w-full flex-grow flex-col justify-center overflow-hidden px-4 pt-2 sm:px-6">
+				<Form onSubmit={handleSubmit}>
+					<div className="flex items-center justify-center gap-4 text-lg">
+						<Input
+							className="w-full"
+							id="newWorkout"
+							maxLength={40}
+							name="newWorkout"
+							onChange={({ target: { value } }) => {
+								if (!value || /^[A-Za-z ]+$/.test(value)) {
+									setNewName(value.trimStart().replace(/\s+/, " "))
+								}
+							}}
+							placeholder={
+								"New " + (value === "exercises" ? "exercise" : "workout")
+							}
+							value={newName}
+						/>
+					</div>
+					{newName && (
+						<div className="flex justify-center">
+							<Button className="mt-3 w-fit" type="submit" variant="outline">
+								Add Name
+							</Button>
+						</div>
+					)}
+				</Form>
+				<ScrollArea className="h-[calc(100dvh-13.5rem)] md:h-[calc(100dvh-10rem)]">
+					<ul className="h-full overflow-y-scroll pb-6 pt-2">
+						{sortBy(
+							updatedNames.filter(n => !n.deleted),
+							"text",
+						).map(workoutName => (
+							<EditableListItem
+								key={workoutName.id}
+								editableName={workoutName}
+								editableNameList={updatedNames}
+								updateOptions={handleNameChange}
+							/>
+						))}
+						{sortBy(
+							updatedNames.filter(
+								({ deleted, id }) =>
+									deleted &&
+									workouts.some(w => w.exercises.some(e => e.nameId === id)),
+							),
+							"text",
+						).map(workoutName => (
+							<EditableListItem
+								key={workoutName.id}
+								editableName={workoutName}
+								editableNameList={updatedNames}
+								updateOptions={handleNameChange}
+							/>
+						))}
+					</ul>
+				</ScrollArea>
+			</div>
+		</TabsContent>
+	)
 }

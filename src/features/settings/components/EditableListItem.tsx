@@ -18,7 +18,7 @@ import {
 	TrashIcon,
 } from "@radix-ui/react-icons"
 import * as React from "react"
-import { isTextAlreadyInList } from "../utils/functions"
+import { isSameText } from "../utils/functions"
 
 /**
  * Allows the user to edit or delete a lift/workout name
@@ -30,12 +30,14 @@ export function EditableListItem({
 }: {
 	editableName: EditableName
 	editableNameList: Array<EditableName>
-	updateOptions: (newValue: EditableName, previousValue: EditableName) => void
+	updateOptions: (newValue: EditableName) => void
 }) {
 	const [newText, setNewText] = React.useState(editableName.text)
 	const [editing, setEditing] = React.useState(false)
 
-	const isDuplicate = isTextAlreadyInList(newText, editableNameList)
+	const isDuplicate = editableNameList.some(
+		name => isSameText(name.text, newText) && name.id !== editableName.id,
+	)
 	const canDelete = editableNameList.filter(n => !n.deleted).length > 1
 
 	return (
@@ -150,7 +152,7 @@ export function EditableListItem({
 		} else if (!newText.trim()) {
 			handleDelete()
 		} else {
-			updateOptions({ ...editableName, text: newText.trim() }, editableName)
+			updateOptions({ ...editableName, text: newText.trim() })
 		}
 		setEditing(false)
 	}
@@ -160,7 +162,7 @@ export function EditableListItem({
 	 */
 	function handleDelete() {
 		if (editableNameList.length > 1) {
-			updateOptions({ ...editableName, deleted: true }, editableName)
+			updateOptions({ ...editableName, deleted: true })
 		} else {
 			handleReset()
 		}
@@ -170,10 +172,7 @@ export function EditableListItem({
 	 * Updates whether a name is hidden (if possible)
 	 */
 	function onDeleteClick() {
-		updateOptions(
-			{ ...editableName, deleted: !editableName.deleted },
-			editableName,
-		)
+		updateOptions({ ...editableName, deleted: !editableName.deleted })
 	}
 
 	/**

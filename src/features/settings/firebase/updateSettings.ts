@@ -1,11 +1,12 @@
-import { loadWorkouts } from "@/features/workouts/firebase/loadWorkouts"
+import { db } from "@/firebase/app"
+import { doc, writeBatch } from "firebase/firestore"
+import { isSameText } from "../utils/functions"
 import { EditableName } from "../utils/models"
 import { loadExerciseNames } from "./loadExerciseNames"
 import { loadWorkoutNames } from "./loadWorkoutNames"
 
 /**
- * Saves the user's updated profile to the database,
- * ensuring that no name is deleted if currently in use
+ * Saves the user's updated settings to the database
  */
 export async function updateSettings(
 	userId: string,
@@ -17,52 +18,54 @@ export async function updateSettings(
 		workoutNames: Array<EditableName>
 	},
 ) {
-	const [workouts, originalWorkoutNames, originalExerciseNames] =
-		await Promise.all([
-			loadWorkouts(userId),
-			loadWorkoutNames(userId),
-			loadExerciseNames(userId),
-		])
-	if (!workouts || !originalWorkoutNames || !originalExerciseNames) return
+	const [originalWorkoutNames, originalExerciseNames] = await Promise.all([
+		loadWorkoutNames(userId),
+		loadExerciseNames(userId),
+	])
+	if (!originalWorkoutNames || !originalExerciseNames)
+		throw Error("500: Server error")
 
-	const updatedExerciseNames = [...exerciseNames]
-	const updatedWorkoutNames = [...workoutNames]
+	const batch = writeBatch(db)
 
-	for (const exerciseNameId of Array.from(
-		new Set(
-			workouts.flatMap(({ exercises }) =>
-				exercises.map(({ nameId }) => nameId),
-			),
-		),
-	)) {
-		if (!updatedExerciseNames.some(({ id }) => id === exerciseNameId)) {
-			const exerciseName = originalExerciseNames.find(
-				({ id }) => id === exerciseNameId,
+	for (const { id, ...updatedName } of exerciseNames)
+		if (
+			exerciseNames.filter(n => isSameText(n.text, updatedName.text)).length > 1
+		)
+			continue
+		else if (
+			originalExerciseNames.some(
+				originalName =>
+					originalName.id === id &&
+					(originalName.text !== updatedName.text ||
+						originalName.deleted !== updatedName.deleted),
 			)
-			if (
-				exerciseName &&
-				!updatedExerciseNames.some(({ text }) => text === exerciseName.text)
-			) {
-				updatedExerciseNames.push(exerciseName)
-			}
-		}
-	}
+		)
+			batch.update(doc(db, "users", userId, "exerciseNames", id), updatedName)
+		else if (
+			!updatedName.deleted &&
+			!originalExerciseNames.some(n => n.id === id)
+		)
+			batch.set(doc(db, "users", userId, "exerciseNames", id), updatedName)
 
-	for (const workoutNameId of Array.from(
-		new Set(workouts.map(({ nameId }) => nameId)),
-	)) {
-		if (!updatedWorkoutNames.some(({ id }) => id === workoutNameId)) {
-			const workoutName = originalWorkoutNames.find(
-				({ id }) => id === workoutNameId,
+	for (const { id, ...updatedName } of workoutNames)
+		if (
+			workoutNames.filter(n => isSameText(n.text, updatedName.text)).length > 1
+		)
+			continue
+		else if (
+			originalWorkoutNames.some(
+				originalName =>
+					originalName.id === id &&
+					(originalName.text !== updatedName.text ||
+						originalName.deleted !== updatedName.deleted),
 			)
-			if (
-				workoutName &&
-				!updatedWorkoutNames.some(({ text }) => text === workoutName.text)
-			) {
-				updatedWorkoutNames.push(workoutName)
-			}
-		}
-	}
+		)
+			batch.update(doc(db, "users", userId, "workoutNames", id), updatedName)
+		else if (
+			!updatedName.deleted &&
+			!originalWorkoutNames.some(n => n.id === id)
+		)
+			batch.set(doc(db, "users", userId, "workoutNames", id), updatedName)
 
-	console.log({ updatedExerciseNames, updatedWorkoutNames })
+	await batch.commit()
 }
