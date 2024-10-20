@@ -70,7 +70,7 @@ export function WorkoutsListItem({
 			key={workout.id}
 			className={cn(
 				"h-min justify-between gap-6 border-t first:border-t-0 sm:gap-10",
-				view === "list" ? "flex px-4 pb-6 pt-4 sm:px-6" : "p-2 sm:flex",
+				view === "list" ? "flex px-4 pb-6 pt-4 sm:px-6" : "py-2 sm:flex",
 			)}
 		>
 			<div className="w-full">
@@ -191,7 +191,7 @@ export function WorkoutsListItem({
 								return (
 									<li key={i} className="flex flex-wrap">
 										<Button
-											className="-mx-2 flex h-auto whitespace-normal text-left leading-tight"
+											className="mx-px flex h-auto whitespace-normal text-left leading-tight"
 											translate="no"
 											variant="ghost"
 											{...(exerciseName?.deleted

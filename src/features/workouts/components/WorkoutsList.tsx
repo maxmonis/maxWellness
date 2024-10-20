@@ -59,7 +59,7 @@ export function WorkoutsList({
 						className={cn(
 							view === "list"
 								? "h-[calc(100dvh-7rem)] md:h-[calc(100dvh-3.5rem)]"
-								: "h-[calc(100dvh-6rem)] pb-2",
+								: "h-[calc(100dvh-6rem)]",
 						)}
 					>
 						{filteredWorkouts.length ? (

@@ -24,7 +24,7 @@ export default function Navbar() {
 	const homeHref = hasWorkouts ? "/" : session ? "/?view=create" : "/login"
 
 	return (
-		<div className="flex max-h-screen items-center max-md:h-14 max-md:w-screen max-md:border-t md:max-w-min md:border-r">
+		<div className="flex max-h-screen items-center max-md:h-14 max-md:w-screen max-md:border-t md:min-h-screen md:max-w-min md:border-r">
 			<div className="items-between flex h-full w-full flex-col justify-center px-2 sm:pl-6 md:h-full md:items-center md:justify-between md:overflow-y-scroll md:pr-6">
 				<nav className="flex w-full items-center justify-between gap-y-4 md:h-full md:w-44 md:flex-col md:items-start md:justify-start md:pt-5">
 					<div className="md:mb-4">

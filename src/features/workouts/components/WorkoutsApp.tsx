@@ -143,7 +143,7 @@ export function WorkoutsApp({
 
 	if (view === "create") {
 		return (
-			<div className="relative min-h-screen w-full lg:max-w-3xl lg:border-r">
+			<div className="relative h-full w-full lg:max-w-3xl lg:border-r">
 				<WorkoutsHeader {...{ editingWorkout, workouts }} />
 				<Sheet>
 					<SheetTrigger asChild>

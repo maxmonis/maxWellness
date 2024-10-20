@@ -235,7 +235,7 @@ export function WorkoutsForm({
 										) => (
 											<li
 												className={cn(
-													"flex items-center justify-between gap-2 py-2",
+													"flex items-center justify-between gap-2",
 													draggingOver === "ExerciseForm" &&
 														"rounded-lg border bg-foreground px-2 text-background",
 												)}
@@ -259,7 +259,7 @@ export function WorkoutsForm({
 												</span>
 												{draggingOver !== "ExerciseForm" && (
 													<Button
-														className="h-5 w-5 rounded-full"
+														className="rounded-full"
 														onClick={() => {
 															deleteExercise(exercise.id)
 														}}
