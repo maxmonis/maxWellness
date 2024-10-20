@@ -248,19 +248,19 @@ export function WorkoutsListItem({
 			</div>
 			<ResponsiveDialog
 				buttons={[
-					<Button key="cancel" variant="ghost">
-						Cancel
-					</Button>,
-					<Button
-						className="max-sm:w-full"
-						key="delete"
-						onClick={() => {
+					{
+						children: "Yes, delete",
+						key: "delete",
+						onClick() {
 							handleDelete(workout.id)
-						}}
-						variant="destructive"
-					>
-						Yes, delete
-					</Button>,
+						},
+						variant: "destructive",
+					},
+					{
+						children: "Cancel",
+						key: "cancel",
+						variant: "ghost",
+					},
 				]}
 				description="This action cannot be undone"
 				open={deleting}

@@ -311,16 +311,16 @@ export function WorkoutsForm({
 								</>
 							}
 							buttons={[
-								<Button className="w-min" key="cancel" variant="ghost">
-									Cancel
-								</Button>,
-								<Button
-									className="max-sm:w-full"
-									key="save"
-									onClick={handleSave}
-								>
-									Save
-								</Button>,
+								{
+									children: "Save",
+									key: "save",
+									onClick: handleSave,
+								},
+								{
+									children: "Continue Editing",
+									key: "continue",
+									variant: "ghost",
+								},
 							]}
 							description="Please select the name and date of this workout"
 							title="Save Workout"

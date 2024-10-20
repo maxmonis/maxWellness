@@ -19,9 +19,11 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { cn } from "@/lib/utils"
 import * as React from "react"
 import { screens } from "tailwindcss/defaultTheme"
 import { Form } from "./Form"
+import { Button, ButtonProps } from "./ui/button"
 
 export function ResponsiveDialog({
 	body,
@@ -32,7 +34,7 @@ export function ResponsiveDialog({
 	trigger,
 	...props
 }: {
-	buttons: Array<JSX.Element>
+	buttons: Array<ButtonProps & { key: string }>
 	description?: string
 	title: string
 } & (
@@ -72,10 +74,14 @@ export function ResponsiveDialog({
 						)}
 					</DialogHeader>
 					<Body {...{ body, onSubmit }}>
-						<DialogFooter>
-							{buttons.map(button => (
-								<DialogClose asChild key={button.key}>
-									{button}
+						<DialogFooter className="flex items-center sm:flex-row-reverse sm:justify-start">
+							{buttons.map(({ className, key, ...props }, i) => (
+								<DialogClose asChild key={key}>
+									<Button
+										autoFocus={i === 0}
+										className={cn("first:ml-4", className)}
+										{...props}
+									/>
 								</DialogClose>
 							))}
 						</DialogFooter>
@@ -94,10 +100,10 @@ export function ResponsiveDialog({
 					{description && <DrawerDescription>{description}</DrawerDescription>}
 				</DrawerHeader>
 				<Body {...{ body, onSubmit }}>
-					<DrawerFooter className="flex-col-reverse items-center">
-						{buttons.map(button => (
-							<DrawerClose asChild key={button.key}>
-								{button}
+					<DrawerFooter className="items-center px-0">
+						{buttons.map(({ className, key, ...props }) => (
+							<DrawerClose asChild key={key}>
+								<Button className={cn("first:w-full", className)} {...props} />
 							</DrawerClose>
 						))}
 					</DrawerFooter>

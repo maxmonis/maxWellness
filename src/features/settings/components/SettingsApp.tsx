@@ -101,38 +101,28 @@ export function SettingsApp(props: Session) {
 			</Tabs>
 			<ResponsiveDialog
 				buttons={[
-					<Button
-						className="text-destructive hover:text-destructive"
-						key="discard"
-						onClick={() => {
-							setExerciseNames(props.exerciseNames)
-							setWorkoutNames(props.workoutNames)
-							onConfirmRouteChange()
-						}}
-						variant="ghost"
-					>
-						Discard Changes
-					</Button>,
-					<Button
-						key="continue"
-						onClick={() => {
-							setNextRouterPath("")
-						}}
-						variant="ghost"
-					>
-						Continue Editing
-					</Button>,
-					<Button
-						autoFocus
-						className="max-sm:w-full"
-						key="save"
-						onClick={() => {
+					{
+						children: "Save Changes",
+						key: "save",
+						onClick() {
 							saveChanges()
 							onConfirmRouteChange()
-						}}
-					>
-						Save Changes
-					</Button>,
+						},
+					},
+					{
+						children: "Continue Editing",
+						key: "continue",
+						onClick() {
+							setNextRouterPath("")
+						},
+						variant: "ghost",
+					},
+					{
+						children: "Discard Changes",
+						key: "discard",
+						onClick: onConfirmRouteChange,
+						variant: "ghost",
+					},
 				]}
 				description="Are you sure you want to leave? Your changes will be lost"
 				open={showLeaveConfirmDialog}

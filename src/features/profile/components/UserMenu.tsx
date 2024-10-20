@@ -153,12 +153,16 @@ function ProfileDialog({
 				</div>
 			}
 			buttons={[
-				<Button key="cancel" variant="ghost">
-					Cancel
-				</Button>,
-				<Button className="max-sm:w-full" key="save" type="submit">
-					Save changes
-				</Button>,
+				{
+					children: "Save",
+					key: "save",
+					type: "submit",
+				},
+				{
+					children: "Cancel",
+					key: "cancel",
+					variant: "ghost",
+				},
 			]}
 			description={`Update your username or upload a ${
 				user.photoURL ? "new " : ""
