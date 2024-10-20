@@ -78,7 +78,7 @@ export function UserImage({
 							try {
 								const url = await uploadImage(
 									file,
-									`profile/${uid}/${file.name}`,
+									`users/${uid}/images/${file.name}`,
 								)
 								setNewUrl(url)
 								handleNewUrl(url)
