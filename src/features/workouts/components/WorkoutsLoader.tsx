@@ -1,5 +1,6 @@
 import { BackButton } from "@/components/BackButton"
 import { cn } from "@/lib/utils"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { useWorkoutView } from "../hooks/useWorkoutView"
 import { WorkoutsHeader } from "./WorkoutsHeader"
 
@@ -43,9 +44,7 @@ export function WorkoutsLoader() {
 										)}
 										<span className="h-3.5 w-36 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 									</div>
-									<div className="flex flex-col items-center gap-y-4">
-										<span className="h-5 w-5 animate-pulse rounded-sm bg-slate-300 dark:bg-slate-700" />
-									</div>
+									<DotsHorizontalIcon className="h-5 w-5" />
 								</div>
 							))}
 						</div>

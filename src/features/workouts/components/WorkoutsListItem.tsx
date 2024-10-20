@@ -17,7 +17,7 @@ import { getDateText } from "@/utils/parsers"
 import {
 	ClipboardCopyIcon,
 	ClipboardIcon,
-	HamburgerMenuIcon,
+	DotsHorizontalIcon,
 	Pencil2Icon,
 	TrashIcon,
 } from "@radix-ui/react-icons"
@@ -105,7 +105,7 @@ export function WorkoutsListItem({
 									size="icon"
 									variant="ghost"
 								>
-									<HamburgerMenuIcon className="h-5 w-5" />
+									<DotsHorizontalIcon className="h-5 w-5" />
 								</Button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent>
