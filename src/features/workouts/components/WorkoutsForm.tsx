@@ -181,7 +181,7 @@ export function WorkoutsForm({
 										))}
 									</div>
 									<div className="mt-2">
-										<div className="flex items-center justify-between">
+										<div className="flex items-center justify-between gap-4">
 											<Button
 												className="flex-grow"
 												type="submit"
@@ -235,7 +235,7 @@ export function WorkoutsForm({
 										) => (
 											<li
 												className={cn(
-													"flex items-center justify-between gap-2",
+													"flex items-center justify-between gap-2 xl:text-sm",
 													draggingOver === "ExerciseForm" &&
 														"rounded-lg border bg-foreground px-2 text-background",
 												)}
@@ -277,7 +277,7 @@ export function WorkoutsForm({
 							</ul>
 						)}
 					</Droppable>
-					<div className="mt-6 flex items-center justify-between">
+					<div className="mt-6 flex items-center justify-between gap-4">
 						<ResponsiveDialog
 							body={
 								<>
@@ -352,7 +352,7 @@ export function WorkoutsForm({
 						{Boolean(session?.workouts.length) && (
 							<Button
 								onClick={() => {
-									if (editingWorkout) updateExercises([])
+									if (!editingWorkout) updateExercises([])
 									resetState()
 								}}
 								variant="ghost"

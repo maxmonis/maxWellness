@@ -221,10 +221,10 @@ export function WorkoutsListItem({
 									exerciseNames,
 								)
 								return (
-									<li key={j} className="mt-2 flex flex-wrap">
+									<li key={j} className="mt-2 flex flex-wrap xl:text-sm">
 										<span
 											className={cn(
-												"leading-tight xl:text-sm",
+												"leading-tight",
 												exerciseNameText
 													.split(" ")
 													.some(word => word.length >= 12) && "break-all",
