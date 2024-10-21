@@ -66,6 +66,7 @@ export function Input({
 					type === "password" ? "pr-10" : reset && "pr-9",
 					inputClass,
 				)}
+				id={id}
 				type={type === "password" && visible ? "text" : type}
 				{...{ name }}
 				{...((clearErrors || onBlur) && {

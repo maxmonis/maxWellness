@@ -1,0 +1,183 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`login page > renders initial state 1`] = `
+<DocumentFragment>
+  <div
+    class="dark fixed left-0 top-0 -z-10 bg-[url('/barbell.jpg')] bg-cover bg-[30%] bg-no-repeat object-cover"
+  >
+    <div
+      class="relative h-screen w-screen overflow-auto px-4 pb-2 pt-10"
+    >
+      <div
+        class="flex h-full flex-col items-center justify-between gap-20"
+      >
+        <div
+          class="w-full max-w-xs rounded-lg border bg-background px-4 pb-6 pt-4 text-foreground sm:px-6"
+        >
+          <div>
+            <div
+              class="mb-4 flex w-full justify-center"
+            >
+              <span
+                class="flex items-center gap-2 text-lg"
+              >
+                <img
+                  alt="maxWellness logo"
+                  class="h-6 w-6"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="/_next/image?url=%2Fandroid-chrome-192x192.png&w=48&q=75"
+                  srcset="/_next/image?url=%2Fandroid-chrome-192x192.png&w=32&q=75 1x, /_next/image?url=%2Fandroid-chrome-192x192.png&w=48&q=75 2x"
+                  style="color: transparent;"
+                  width="24"
+                />
+                maxWellness
+              </span>
+            </div>
+            <h1
+              class="mb-2 font-bold"
+            >
+              Welcome Back!
+            </h1>
+          </div>
+          <form
+            class="grid gap-2"
+            novalidate=""
+          >
+            <div
+              class="relative"
+            >
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="email"
+              >
+                Email
+              </label>
+              <input
+                class="flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm text-inherit shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 border-input"
+                id="email"
+                maxlength="50"
+                name="email"
+                type="email"
+                value=""
+              />
+            </div>
+            <div
+              class="relative"
+            >
+              <label
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="password"
+              >
+                Password
+              </label>
+              <input
+                class="flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm text-inherit shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 border-input pr-10"
+                id="password"
+                maxlength="50"
+                name="password"
+                type="password"
+                value=""
+              />
+              <button
+                aria-label="toggle password visibility"
+                class="absolute right-3 top-8"
+                type="button"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  width="15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.5 11C4.80285 11 2.52952 9.62184 1.09622 7.50001C2.52952 5.37816 4.80285 4 7.5 4C10.1971 4 12.4705 5.37816 13.9038 7.50001C12.4705 9.62183 10.1971 11 7.5 11ZM7.5 3C4.30786 3 1.65639 4.70638 0.0760002 7.23501C-0.0253338 7.39715 -0.0253334 7.60288 0.0760014 7.76501C1.65639 10.2936 4.30786 12 7.5 12C10.6921 12 13.3436 10.2936 14.924 7.76501C15.0253 7.60288 15.0253 7.39715 14.924 7.23501C13.3436 4.70638 10.6921 3 7.5 3ZM7.5 9.5C8.60457 9.5 9.5 8.60457 9.5 7.5C9.5 6.39543 8.60457 5.5 7.5 5.5C6.39543 5.5 5.5 6.39543 5.5 7.5C5.5 8.60457 6.39543 9.5 7.5 9.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="mt-2 grid gap-4"
+            >
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2"
+                type="submit"
+              >
+                Sign In
+              </button>
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2"
+                type="button"
+              >
+                <img
+                  alt="google logo"
+                  class="mr-2"
+                  data-nimg="1"
+                  decoding="async"
+                  height="28"
+                  loading="lazy"
+                  src="/_next/image?url=%2Fgoogle-logo.png&w=64&q=75"
+                  srcset="/_next/image?url=%2Fgoogle-logo.png&w=32&q=75 1x, /_next/image?url=%2Fgoogle-logo.png&w=64&q=75 2x"
+                  style="color: transparent;"
+                  width="28"
+                />
+                Continue with Google
+              </button>
+            </div>
+          </form>
+          <footer
+            class="mt-4 grid gap-2 text-sm"
+          >
+            <div>
+              <a
+                class="underline"
+                href="/password"
+              >
+                Forgot Password
+              </a>
+            </div>
+            <div
+              class="flex flex-wrap gap-x-1.5"
+            >
+              <p
+                class="whitespace-nowrap"
+              >
+                Need an account?
+              </p>
+              <a
+                class="underline"
+                href="/register"
+              >
+                Sign Up
+              </a>
+            </div>
+            <div>
+              <a
+                class="underline"
+                href="/about"
+              >
+                Learn More
+              </a>
+            </div>
+          </footer>
+        </div>
+        <a
+          class="text-sm text-foreground"
+          href="https://maxmonis.com"
+          rel="noreferrer"
+          target="_blank"
+        >
+          © Max Monis 2019-2024
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
