@@ -96,7 +96,7 @@ export function WorkoutsForm({
 				setDragging(true)
 			}}
 		>
-			<Form className="mt-1 flex h-40 flex-col" {...{ onSubmit }}>
+			<Form className="flex h-44 flex-col sm:h-32" {...{ onSubmit }}>
 				<Droppable droppableId="ExerciseForm">
 					{(
 						{ droppableProps, innerRef: droppableRef, placeholder },
@@ -106,7 +106,7 @@ export function WorkoutsForm({
 							{dragging ? (
 								<div
 									className={cn(
-										"grid h-36 place-items-center rounded-lg border-2 border-dashed p-2 text-center",
+										"grid h-36 place-items-center rounded-lg border-2 border-dashed p-2 text-center sm:h-28",
 										isDraggingOver ? "scale-105" : "mb-2",
 									)}
 								>
@@ -114,73 +114,80 @@ export function WorkoutsForm({
 								</div>
 							) : (
 								<>
-									<div className="mb-1">
-										<Select
-											onValueChange={exerciseNameId => {
-												setValues({ ...values, exerciseNameId })
-											}}
-											name="exerciseNameId"
-											value={exerciseNameId}
-										>
-											<SelectTrigger translate="no">
-												<SelectValue />
-											</SelectTrigger>
-											<SelectContent>
-												<SelectGroup>
-													<SelectLabel>Exercise Name</SelectLabel>
-													{activeExerciseNames.map(({ id, text }) => (
-														<SelectItem key={id} translate="no" value={id}>
-															{text}
-														</SelectItem>
-													))}
-													{activeExerciseNames.length === 0 && (
-														<Link
-															className={cn(
-																buttonVariants({ variant: "ghost" }),
-															)}
-															href="/settings"
-														>
-															Create New Exercise Name
-														</Link>
-													)}
-												</SelectGroup>
-											</SelectContent>
-										</Select>
+									<div className="mb-4 grid gap-x-2 gap-y-1 sm:grid-cols-2">
+										<div>
+											<Label aria-hidden className="max-sm:hidden">
+												Exercise
+											</Label>
+											<Select
+												onValueChange={exerciseNameId => {
+													setValues({ ...values, exerciseNameId })
+												}}
+												name="exerciseNameId"
+												value={exerciseNameId}
+											>
+												<SelectTrigger translate="no">
+													<SelectValue />
+												</SelectTrigger>
+												<SelectContent>
+													<SelectGroup>
+														<SelectLabel className="sm:sr-only">
+															Exercise
+														</SelectLabel>
+														{activeExerciseNames.map(({ id, text }) => (
+															<SelectItem key={id} translate="no" value={id}>
+																{text}
+															</SelectItem>
+														))}
+														{activeExerciseNames.length === 0 && (
+															<Link
+																className={cn(
+																	buttonVariants({ variant: "ghost" }),
+																)}
+																href="/settings"
+															>
+																Create New Exercise Name
+															</Link>
+														)}
+													</SelectGroup>
+												</SelectContent>
+											</Select>
+										</div>
+										<div className="flex flex-shrink gap-2">
+											{[
+												{
+													label: "Sets",
+													name: "sets",
+													value: sets,
+												},
+												{
+													label: "Reps",
+													name: "reps",
+													value: reps,
+												},
+												{
+													label: "Weight",
+													name: "weight",
+													value: weight,
+												},
+											].map(({ label, ...field }) => (
+												<Input
+													className="w-full"
+													id={label}
+													inputMode="numeric"
+													key={label}
+													label={label}
+													onChange={onChange}
+													pattern="\d*"
+													{...(label !== "Weight" && {
+														labelProps: { translate: "no" as const },
+													})}
+													{...field}
+												/>
+											))}
+										</div>
 									</div>
-									<div className="flex flex-shrink gap-1">
-										{[
-											{
-												label: "Sets",
-												name: "sets",
-												value: sets,
-											},
-											{
-												label: "Reps",
-												name: "reps",
-												value: reps,
-											},
-											{
-												label: "Weight",
-												name: "weight",
-												value: weight,
-											},
-										].map(({ label, ...field }) => (
-											<Input
-												className="w-full"
-												id={label}
-												inputMode="numeric"
-												key={label}
-												pattern="\d*"
-												{...{ label, onChange }}
-												{...(label === "Sets" && { autoFocus: true })}
-												{...(label !== "Weight" && {
-													labelProps: { translate: "no" as const },
-												})}
-												{...field}
-											/>
-										))}
-									</div>
-									<div className="mt-2">
+									<div>
 										<div className="flex items-center justify-between gap-4">
 											<Button
 												className="flex-grow"
