@@ -12,8 +12,8 @@ export function WorkoutsLoader() {
 	return (
 		<div className="min-h-screen lg:max-w-3xl lg:border-r">
 			{view === "calendar" ? (
-				<div className="mx-auto flex h-14 w-full items-end justify-between px-4 pb-2 sm:px-6">
-					<div className="flex w-full items-end">
+				<div className="mx-auto flex h-14 w-full items-center justify-between px-4 pb-2 pt-1 sm:px-6">
+					<div className="flex w-full items-center">
 						<BackButton />
 						<h1 className="text-lg">Calendar</h1>
 					</div>

@@ -84,7 +84,7 @@ export function WorkoutsListItem({
 						<h1
 							className={cn(
 								"leading-tight",
-								workoutNameText.split(" ").some(word => word.length >= 12) &&
+								workoutNameText.split(" ").some(word => word.length >= 15) &&
 									"break-all",
 								view === "list" && "max-xl:font-bold",
 							)}
@@ -227,7 +227,7 @@ export function WorkoutsListItem({
 												"leading-tight",
 												exerciseNameText
 													.split(" ")
-													.some(word => word.length >= 12) && "break-all",
+													.some(word => word.length >= 15) && "break-all",
 											)}
 											translate="no"
 										>

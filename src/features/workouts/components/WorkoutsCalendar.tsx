@@ -95,12 +95,12 @@ export function WorkoutsCalendar({
 		>
 			<div className="w-full flex-col divide-x overflow-hidden">
 				<div className="flex w-full flex-1 flex-col items-center">
-					<div className="flex h-14 w-full items-end justify-between border-b px-4 pb-2 sm:px-6">
-						<div className="flex">
+					<div className="flex h-14 w-full items-center justify-between border-b px-4 pt-1 sm:px-6">
+						<div className="flex items-center">
 							<BackButton />
 							<h1 className="text-lg">Calendar</h1>
 						</div>
-						<div className="flex items-end justify-center">
+						<div className="flex items-center justify-center">
 							<Button
 								aria-label="View previous column"
 								className="enabled:cursor-pointer disabled:opacity-0"
@@ -190,7 +190,7 @@ export function WorkoutsCalendar({
 																		"p-2 leading-tight shadow-sm shadow-secondary",
 																		exerciseNameText
 																			.split(" ")
-																			.some(word => word.length >= 12) &&
+																			.some(word => word.length >= 15) &&
 																			"break-all",
 																	)}
 																	translate="no"
@@ -215,7 +215,7 @@ export function WorkoutsCalendar({
 																"divide-x border-t",
 																exerciseNameText
 																	.split(" ")
-																	.some(word => word.length >= 12) &&
+																	.some(word => word.length >= 15) &&
 																	"break-all",
 															)}
 															key={nameId}

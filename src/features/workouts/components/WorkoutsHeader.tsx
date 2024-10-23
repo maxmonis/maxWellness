@@ -31,10 +31,10 @@ export function WorkoutsHeader({
 	  }) {
 	const { view } = useWorkoutView()
 	return (
-		<div className="mx-auto flex h-14 w-full items-end px-4 pb-2 sm:px-6">
+		<div className="mx-auto flex h-14 w-full items-center px-4 pt-1 sm:px-6">
 			{view === "list" ? (
 				<>
-					<div className="flex w-full items-end justify-between md:hidden">
+					<div className="-mt-1 flex w-full items-center justify-between md:hidden">
 						<Link
 							className={cn(
 								"flex gap-1.5",
@@ -76,14 +76,14 @@ export function WorkoutsHeader({
 					<h1 className="text-lg max-md:hidden">Workouts</h1>
 				</>
 			) : (
-				<>
+				<div className="flex items-center">
 					{(loading || workouts.length > 0) && <BackButton />}
 					<h1 className="text-lg">
 						{view === "create"
 							? `${editingWorkout ? "Edit" : "New"} Workout`
 							: "Filters"}
 					</h1>
-				</>
+				</div>
 			)}
 		</div>
 	)

@@ -15,7 +15,7 @@ export function BackButton() {
 	return (
 		<Button
 			aria-label="go back"
-			className="mr-2 h-min rounded-full p-1"
+			className="mr-1 rounded-full"
 			onClick={() => {
 				if (history.length > 1) {
 					router.back()
@@ -23,6 +23,7 @@ export function BackButton() {
 					router.replace(user ? "/" : "/register")
 				}
 			}}
+			size="icon"
 			variant="ghost"
 		>
 			<ArrowLeftIcon className="h-5 w-5" />

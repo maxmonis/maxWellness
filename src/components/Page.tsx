@@ -59,7 +59,7 @@ export function Page({
 							<Navbar />
 						</div>
 						<footer className="md:hidden">
-							<div className="flex w-full flex-col items-center justify-end gap-4 pb-2 text-center text-sm max-md:py-6 md:h-14">
+							<div className="flex w-full flex-col items-center justify-end gap-4 pb-2 pt-1 text-center text-sm max-md:py-6 md:h-14">
 								<a
 									href="https://maxmonis.com/"
 									rel="noopener noreferrer"

@@ -67,8 +67,8 @@ export function SettingsApp(props: Session) {
 
 	return (
 		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
-			<div className="flex h-14 items-end justify-between border-b px-4 pb-2 sm:px-6">
-				<div className="flex">
+			<div className="flex h-14 items-center justify-between border-b px-4 pt-1 sm:px-6">
+				<div className="flex items-center">
 					<BackButton />
 					<h1 className="text-lg">Settings</h1>
 				</div>
@@ -258,7 +258,7 @@ function SettingsTab({
 						</div>
 					)}
 				</Form>
-				<ScrollArea className="h-[calc(100dvh-13.5rem)] md:h-[calc(100dvh-10rem)]">
+				<ScrollArea className="h-[calc(100dvh-13.5rem)] pr-2 md:h-[calc(100dvh-10rem)]">
 					<ul className="h-full overflow-y-scroll pb-6 pt-2">
 						{sortBy(
 							updatedNames.filter(n => !n.deleted),

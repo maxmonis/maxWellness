@@ -218,7 +218,7 @@ export function WorkoutsForm({
 				<div>
 					<Droppable droppableId="ExerciseList">
 						{({ droppableProps, innerRef: droppableRef, placeholder }) => (
-							<ul className="mt-4" ref={droppableRef} {...droppableProps}>
+							<ul ref={droppableRef} {...droppableProps}>
 								{exercises.map((exercise, i) => (
 									<Draggable
 										draggableId={exercise.id}
@@ -277,7 +277,7 @@ export function WorkoutsForm({
 							</ul>
 						)}
 					</Droppable>
-					<div className="mt-6 flex items-center justify-between gap-4">
+					<div className="mt-4 flex items-center justify-between gap-4">
 						<ResponsiveDialog
 							body={
 								<>

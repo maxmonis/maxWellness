@@ -78,7 +78,7 @@ export function EditableListItem({
 						className={cn(
 							"leading-tight xl:text-sm",
 							editableName.deleted && "line-through",
-							newText.split(" ").some(word => word.length >= 12) && "break-all",
+							newText.split(" ").some(word => word.length >= 15) && "break-all",
 						)}
 						onClick={() => {
 							setEditing(true)

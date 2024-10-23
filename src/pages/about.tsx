@@ -14,9 +14,11 @@ export default function InfoPage() {
 	return (
 		<Page title="About">
 			<div className="w-full lg:max-w-3xl lg:border-r">
-				<div className="flex h-14 items-end border-b px-4 pb-2 sm:px-6">
-					<BackButton />
-					<h1 className="text-lg">About</h1>
+				<div className="p1-2 flex h-14 items-center border-b px-4 pt-1 sm:px-6">
+					<div className="flex items-center">
+						<BackButton />
+						<h1 className="text-lg">About</h1>
+					</div>
 				</div>
 				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto px-4 sm:px-6 md:max-h-[calc(100dvh-3.5rem)]">
 					<div className="flex flex-col gap-12 pb-12 pt-6">
