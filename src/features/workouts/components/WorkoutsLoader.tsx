@@ -28,7 +28,7 @@ export function WorkoutsLoader() {
 							{Array.from({ length: 5 }).map((_, i) => (
 								<div
 									key={i}
-									className="flex justify-between gap-6 px-4 pb-6 pt-4 sm:px-6"
+									className="flex justify-between gap-6 px-4 pb-6 pt-5 sm:px-6"
 								>
 									<div className="flex flex-col">
 										<span
@@ -44,7 +44,7 @@ export function WorkoutsLoader() {
 										)}
 										<span className="h-3.5 w-36 animate-pulse rounded bg-slate-300 dark:bg-slate-700" />
 									</div>
-									<DotsHorizontalIcon className="h-5 w-5" />
+									<DotsHorizontalIcon className="mr-1 h-5 w-5 lg:mt-1" />
 								</div>
 							))}
 						</div>
