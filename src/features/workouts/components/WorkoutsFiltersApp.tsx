@@ -31,6 +31,10 @@ export function WorkoutsFiltersApp({
 	workoutNames: Session["workoutNames"]
 	workouts: Session["workouts"]
 }) {
+	const exerciseCount = filteredWorkouts.reduce(
+		(count, w) => count + w.exercises.length,
+		0,
+	)
 	const personalBests = filteredWorkouts.flatMap(w =>
 		w.exercises.filter(e => e.recordStartDate),
 	)
@@ -50,9 +54,9 @@ export function WorkoutsFiltersApp({
 				workouts={workouts}
 			/>
 			<h1 className="mb-2 mt-8 border-t pt-6 font-bold">
-				Results -{" "}
-				{filteredWorkouts.reduce((acc, w) => acc + w.exercises.length, 0)}{" "}
-				exercises in {filteredWorkouts.length} workouts
+				Results - {exerciseCount} exercise{exerciseCount === 1 ? "" : "s"} in{" "}
+				{filteredWorkouts.length} workout
+				{filteredWorkouts.length === 1 ? "" : "s"}
 			</h1>
 			<p className="text-xs leading-snug text-muted-foreground">
 				Filters will also be applied to the workouts list and calendar
@@ -60,7 +64,8 @@ export function WorkoutsFiltersApp({
 			<Accordion className="w-full" collapsible type="single">
 				<AccordionItem value="currentPersonalBests">
 					<AccordionTrigger>
-						{currentPersonalBests.length} current personal bests
+						{currentPersonalBests.length} current personal best
+						{currentPersonalBests.length === 1 ? "" : "s"}
 					</AccordionTrigger>
 					<AccordionContent>
 						<ul className="flex flex-col gap-3">
@@ -81,7 +86,8 @@ export function WorkoutsFiltersApp({
 				</AccordionItem>
 				<AccordionItem value="previousPersonalBests">
 					<AccordionTrigger>
-						{previousPersonalBests.length} previous personal bests
+						{previousPersonalBests.length} previous personal best
+						{previousPersonalBests.length === 1 ? "" : "s"}
 					</AccordionTrigger>
 					<AccordionContent>
 						<ul className="flex flex-col gap-3">
