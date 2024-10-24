@@ -6,14 +6,9 @@ import { useAuth } from "@/features/auth/hooks/useAuth"
 export function WorkoutsEmptyState() {
 	const { user } = useAuth()
 	return (
-		<div className="flex flex-col gap-4 p-4 text-sm sm:p-6">
-			<h2 className="text-base">
-				Hi {user!.displayName}, welcome to maxWellness!
-			</h2>
-			<p>
-				The New Workout page allows you to create and upload workouts, and they
-				will be displayed here in an editable list.
-			</p>
+		<div className="mx-auto mt-2 flex max-w-prose flex-col gap-2">
+			<h2>Hi {user!.displayName}, welcome to maxWellness!</h2>
+			<p>The New Workout page allows you to create and upload workouts.</p>
 			<p>
 				Visit the Settings page if you&apos;d like to update the names
 				you&apos;ll use for your exercises and workouts.
