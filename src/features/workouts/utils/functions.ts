@@ -1,7 +1,33 @@
+import { Session } from "@/features/session/utils/models"
 import { getPositiveInt } from "@/utils/parsers"
 import { nanoid } from "nanoid"
 import { validViews } from "./constants"
 import { Exercise, View } from "./models"
+
+/**
+ * @returns the number of filters which the user has applied
+ */
+export function countAppliedFilters(appliedFilters: Session["filters"]) {
+	let count = 0
+	if (appliedFilters.workoutDates.allDates.length === 0) {
+		return count
+	}
+	const {
+		exerciseNameIds,
+		workoutNameIds,
+		workoutDates: { allDates, endDate, startDate },
+	} = appliedFilters
+	if (startDate !== allDates[0]) {
+		count++
+	}
+	if (endDate !== allDates.at(-1)) {
+		count++
+	}
+	count += [...exerciseNameIds, ...workoutNameIds].filter(
+		id => id.checked,
+	).length
+	return count
+}
 
 /**
  * @returns a new exercise if possible, or null if not

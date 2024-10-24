@@ -4,23 +4,32 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion"
-import { buttonVariants } from "@/components/ui/button"
 import { Session } from "@/features/session/utils/models"
 import { getExerciseNameText } from "@/features/settings/utils/parsers"
-import { cn } from "@/lib/utils"
 import { getDateText } from "@/utils/parsers"
-import Link from "next/link"
 import { getPrintout } from "../utils/functions"
-import { Workout } from "../utils/models"
+import { WorkoutsFilters } from "./WorkoutsFilters"
 
 export function WorkoutsFiltersResults({
 	appliedFilters,
+	clearFilters,
 	filteredWorkouts,
+	filters,
 	exerciseNames,
+	setAppliedFilters,
+	setFilteredWorkouts,
+	workoutNames,
+	workouts,
 }: {
-	appliedFilters: Session["filters"]
-	filteredWorkouts: Array<Workout>
+	appliedFilters: typeof filters
+	clearFilters: () => void
+	filters: Session["filters"]
+	filteredWorkouts: Session["workouts"]
 	exerciseNames: Session["exerciseNames"]
+	setAppliedFilters: React.Dispatch<React.SetStateAction<typeof filters>>
+	setFilteredWorkouts: React.Dispatch<React.SetStateAction<typeof workouts>>
+	workoutNames: Session["workoutNames"]
+	workouts: Session["workouts"]
 }) {
 	const personalBests = filteredWorkouts.flatMap(w =>
 		w.exercises.filter(e => e.recordStartDate),
@@ -30,34 +39,44 @@ export function WorkoutsFiltersResults({
 
 	return (
 		<div>
-			<h1 className="mb-2 font-bold">Results</h1>
+			<WorkoutsFilters
+				appliedFilters={appliedFilters}
+				clearFilters={clearFilters}
+				filters={filters}
+				exerciseNames={exerciseNames}
+				setAppliedFilters={setAppliedFilters}
+				setFilteredWorkouts={setFilteredWorkouts}
+				workoutNames={workoutNames}
+				workouts={workouts}
+			/>
+			<h1 className="mb-2 mt-8 border-t pt-6 font-bold">
+				Results -{" "}
+				{filteredWorkouts.reduce((acc, w) => acc + w.exercises.length, 0)}{" "}
+				exercises in {filteredWorkouts.length} workouts
+			</h1>
 			<p className="text-xs leading-snug text-muted-foreground">
 				Filters will also be applied to the workouts list and calendar
 			</p>
-			<Accordion
-				className="w-full"
-				collapsible
-				defaultValue="currentPersonalBests"
-				type="single"
-			>
-				<AccordionItem value="workoutsAndExercises">
+			<Accordion className="w-full" collapsible type="single">
+				<AccordionItem value="currentPersonalBests">
 					<AccordionTrigger>
-						{filteredWorkouts.reduce((acc, w) => acc + w.exercises.length, 0)}{" "}
-						exercises in {filteredWorkouts.length} workouts
+						{currentPersonalBests.length} current personal bests
 					</AccordionTrigger>
-					<AccordionContent className="flex flex-wrap gap-4">
-						<Link
-							className={cn(buttonVariants({ variant: "secondary" }))}
-							href="/"
-						>
-							View list
-						</Link>
-						<Link
-							className={cn(buttonVariants({ variant: "secondary" }))}
-							href="/?view=calendar"
-						>
-							View calendar
-						</Link>
+					<AccordionContent>
+						<ul className="flex flex-col gap-3">
+							{currentPersonalBests.map(e => (
+								<li className="flex flex-wrap gap-x-2" key={e.id}>
+									{appliedFilters.exerciseNameIds.filter(l => l.checked)
+										.length !== 1
+										? `${getExerciseNameText(e.nameId, exerciseNames)}: `
+										: ""}
+									{getPrintout(e).replace(/\*/g, "")}
+									<span className="text-muted-foreground">
+										{getDateText(e.recordStartDate!)}
+									</span>
+								</li>
+							))}
+						</ul>
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="previousPersonalBests">
@@ -76,27 +95,6 @@ export function WorkoutsFiltersResults({
 									<span className="text-muted-foreground">
 										{getDateText(e.recordStartDate!)} -{" "}
 										{getDateText(e.recordEndDate!)}
-									</span>
-								</li>
-							))}
-						</ul>
-					</AccordionContent>
-				</AccordionItem>
-				<AccordionItem value="currentPersonalBests">
-					<AccordionTrigger>
-						{currentPersonalBests.length} current personal bests
-					</AccordionTrigger>
-					<AccordionContent>
-						<ul className="flex flex-col gap-3">
-							{currentPersonalBests.map(e => (
-								<li className="flex flex-wrap gap-x-2" key={e.id}>
-									{appliedFilters.exerciseNameIds.filter(l => l.checked)
-										.length !== 1
-										? `${getExerciseNameText(e.nameId, exerciseNames)}: `
-										: ""}
-									{getPrintout(e).replace(/\*/g, "")}
-									<span className="text-muted-foreground">
-										{getDateText(e.recordStartDate!)}
 									</span>
 								</li>
 							))}

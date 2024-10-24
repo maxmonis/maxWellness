@@ -46,41 +46,9 @@ export function WorkoutsFilters({
 	}
 
 	return (
-		<div>
-			<h2 className="font-bold">Exercise Name</h2>
-			<ul className="mb-8 mt-3 flex flex-col gap-3">
-				{sortBy(appliedFilters.exerciseNameIds, ({ id }) =>
-					getExerciseNameText(id, exerciseNames),
-				).map(({ checked, id }) => (
-					<li key={id} translate="no">
-						<Checkbox
-							label={getExerciseNameText(id, exerciseNames)}
-							onCheckedChange={() => {
-								updateWorkoutsFilter(id, "exerciseName")
-							}}
-							{...{ checked }}
-						/>
-					</li>
-				))}
-			</ul>
-			<h2 className="font-bold">Workout Name</h2>
-			<ul className="mb-8 mt-3 flex flex-col gap-3">
-				{sortBy(appliedFilters.workoutNameIds, ({ id }) =>
-					getWorkoutNameText(id, workoutNames),
-				).map(({ checked, id }) => (
-					<li key={id} translate="no">
-						<Checkbox
-							label={getWorkoutNameText(id, workoutNames)}
-							onCheckedChange={() => {
-								updateWorkoutsFilter(id, "workoutName")
-							}}
-							{...{ checked }}
-						/>
-					</li>
-				))}
-			</ul>
+		<div className="w-full">
 			<h2 className="font-bold">Workout Date</h2>
-			<div className="mb-2 mt-4">
+			<div className="mt-4">
 				<Checkbox
 					checked={appliedFilters.newestFirst}
 					key="newestFirst"
@@ -89,7 +57,7 @@ export function WorkoutsFilters({
 						updateWorkoutsFilter("newestFirst", "newestFirst")
 					}}
 				/>
-				<div className="mt-3 flex flex-col gap-3">
+				<div className="mt-4 grid gap-4 xs:grid-cols-2">
 					<div>
 						<Label htmlFor="startDate">Start date:</Label>
 						<Select
@@ -135,6 +103,42 @@ export function WorkoutsFilters({
 									))}
 							</SelectContent>
 						</Select>
+					</div>
+					<div>
+						<h2 className="mt-2 font-bold">Exercise Name</h2>
+						<ul className="mt-4 flex flex-col gap-4">
+							{sortBy(appliedFilters.exerciseNameIds, ({ id }) =>
+								getExerciseNameText(id, exerciseNames),
+							).map(({ checked, id }) => (
+								<li key={id} translate="no">
+									<Checkbox
+										label={getExerciseNameText(id, exerciseNames)}
+										onCheckedChange={() => {
+											updateWorkoutsFilter(id, "exerciseName")
+										}}
+										{...{ checked }}
+									/>
+								</li>
+							))}
+						</ul>
+					</div>
+					<div>
+						<h2 className="mt-2 font-bold">Workout Name</h2>
+						<ul className="mt-4 flex flex-col gap-4">
+							{sortBy(appliedFilters.workoutNameIds, ({ id }) =>
+								getWorkoutNameText(id, workoutNames),
+							).map(({ checked, id }) => (
+								<li key={id} translate="no">
+									<Checkbox
+										label={getWorkoutNameText(id, workoutNames)}
+										onCheckedChange={() => {
+											updateWorkoutsFilter(id, "workoutName")
+										}}
+										{...{ checked }}
+									/>
+								</li>
+							))}
+						</ul>
 					</div>
 				</div>
 			</div>
