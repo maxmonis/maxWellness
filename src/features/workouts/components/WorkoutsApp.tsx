@@ -67,8 +67,8 @@ export function WorkoutsApp({
 
 	const defaultValues = {
 		date: today,
-		exerciseNameId: activeExerciseNames[0]!.id,
-		workoutNameId: activeWorkoutNames[0]!.id,
+		exerciseNameId: activeExerciseNames[0]?.id ?? "",
+		workoutNameId: activeWorkoutNames[0]?.id ?? "",
 		reps: "",
 		sets: "",
 		weight: "",
