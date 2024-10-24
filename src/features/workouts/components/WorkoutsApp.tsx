@@ -185,19 +185,17 @@ export function WorkoutsApp({
 					<div className="w-full overflow-hidden max-md:h-full">
 						<div className="h-full px-4 pb-6 pt-4 sm:px-6">
 							<WorkoutsForm
-								{...{
-									activeExerciseNames,
-									activeWorkoutNames,
-									defaultValues,
-									editingWorkout,
-									exerciseNames,
-									resetState,
-									exercises,
-									setValues,
-									updateExercises,
-									userId,
-									values,
-								}}
+								activeExerciseNames={activeExerciseNames}
+								activeWorkoutNames={activeWorkoutNames}
+								defaultValues={defaultValues}
+								editingWorkout={editingWorkout}
+								exerciseNames={exerciseNames}
+								resetState={resetState}
+								exercises={exercises}
+								setValues={setValues}
+								updateExercises={updateExercises}
+								userId={userId}
+								values={values}
 							/>
 						</div>
 					</div>
