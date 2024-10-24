@@ -370,10 +370,24 @@ export function WorkoutsForm({
 					</div>
 				</div>
 			) : (
-				<p className="pt-2 xl:text-sm">
-					Each exercise must include either a weight or at least one rep. You
-					can drag and drop to edit.
-				</p>
+				<>
+					<p className="mt-2 xl:text-sm">
+						Each exercise must include either a weight or at least one rep. You
+						can drag and drop to edit.
+					</p>
+					{session?.workouts.length === 0 && (
+						<>
+							<p className="mt-2 xl:text-sm">
+								Visit the Settings page if you&apos;d like to update the names
+								you&apos;ll use for your exercises and workouts.
+							</p>
+							<p className="mt-2 xl:text-sm">
+								The About page contains helpful videos and additional tips and
+								tricks.
+							</p>
+						</>
+					)}
+				</>
 			)}
 		</DragDropContext>
 	)
