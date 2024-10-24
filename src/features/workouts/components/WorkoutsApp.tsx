@@ -22,7 +22,7 @@ import { today } from "../utils/constants"
 import { countAppliedFilters, eliminateRedundancy } from "../utils/functions"
 import { Exercise, Workout } from "../utils/models"
 import { WorkoutsCalendar } from "./WorkoutsCalendar"
-import { WorkoutsFiltersResults } from "./WorkoutsFiltersResults"
+import { WorkoutsFiltersApp } from "./WorkoutsFiltersApp"
 import { WorkoutsForm } from "./WorkoutsForm"
 import { WorkoutsHeader } from "./WorkoutsHeader"
 import { WorkoutsList } from "./WorkoutsList"
@@ -205,7 +205,7 @@ export function WorkoutsApp({
 				<ScrollArea className="flex max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col border-t md:max-h-[calc(100dvh-3.5rem)]">
 					<div className="w-full overflow-hidden max-md:h-full">
 						<div className="h-full px-4 pb-6 pt-4 sm:px-6">
-							<WorkoutsFiltersResults
+							<WorkoutsFiltersApp
 								appliedFilters={appliedFilters}
 								clearFilters={clearFilters}
 								filteredWorkouts={filteredWorkouts}

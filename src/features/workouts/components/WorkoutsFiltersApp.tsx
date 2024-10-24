@@ -10,7 +10,7 @@ import { getDateText } from "@/utils/parsers"
 import { getPrintout } from "../utils/functions"
 import { WorkoutsFilters } from "./WorkoutsFilters"
 
-export function WorkoutsFiltersResults({
+export function WorkoutsFiltersApp({
 	appliedFilters,
 	clearFilters,
 	filteredWorkouts,
