@@ -145,40 +145,42 @@ export function WorkoutsApp({
 		return (
 			<div className="relative h-full w-full lg:max-w-3xl lg:border-r">
 				<WorkoutsHeader {...{ editingWorkout, workouts }} />
-				<Sheet>
-					<SheetTrigger asChild>
-						<Button
-							className="absolute right-4 top-2"
-							size="icon"
-							variant="ghost"
-						>
-							<SidebarIcon className="rotate-180" />
-						</Button>
-					</SheetTrigger>
-					<SheetContent className="w-60 px-4">
-						<SheetHeader className="border-b pb-4 text-left">
-							<SheetTitle>Previous Workouts</SheetTitle>
-							<SheetDescription>Click exercises to copy them</SheetDescription>
-						</SheetHeader>
-						<WorkoutsList
-							{...{
-								addExercise,
-								clearFilters,
-								editingWorkout,
-								filteredWorkouts,
-								exerciseNames,
-								resetState,
-								setEditingWorkout,
-								setValues,
-								updateExercises,
-								values,
-								view,
-								workoutNames,
-								workouts,
-							}}
-						/>
-					</SheetContent>
-				</Sheet>
+				{workouts.length > 0 && (
+					<Sheet>
+						<SheetTrigger asChild>
+							<Button
+								className="absolute right-4 top-2"
+								size="icon"
+								variant="ghost"
+							>
+								<SidebarIcon className="rotate-180" />
+							</Button>
+						</SheetTrigger>
+						<SheetContent className="w-60 px-4">
+							<SheetHeader className="border-b pb-4 text-left">
+								<SheetTitle>Previous Workouts</SheetTitle>
+								<SheetDescription>
+									Click exercises to copy them
+								</SheetDescription>
+							</SheetHeader>
+							<WorkoutsList
+								addExercise={addExercise}
+								clearFilters={clearFilters}
+								editingWorkout={editingWorkout}
+								filteredWorkouts={filteredWorkouts}
+								exerciseNames={exerciseNames}
+								resetState={resetState}
+								setEditingWorkout={setEditingWorkout}
+								setValues={setValues}
+								updateExercises={updateExercises}
+								values={values}
+								view={view}
+								workoutNames={workoutNames}
+								workouts={workouts}
+							/>
+						</SheetContent>
+					</Sheet>
+				)}
 				<ScrollArea className="flex h-full max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col border-t md:max-h-[calc(100dvh-3.5rem)]">
 					<div className="w-full overflow-hidden max-md:h-full">
 						<div className="h-full px-4 pb-6 pt-4 sm:px-6">
