@@ -86,7 +86,7 @@ export function WorkoutsListItem({
 								"leading-tight",
 								workoutNameText.split(" ").some(word => word.length >= 15) &&
 									"break-all",
-								view === "list" && "max-xl:font-bold",
+								view === "list" && "font-bold",
 							)}
 							translate="no"
 						>
@@ -221,7 +221,7 @@ export function WorkoutsListItem({
 									exerciseNames,
 								)
 								return (
-									<li key={j} className="mt-2 flex flex-wrap xl:text-sm">
+									<li key={j} className="mt-2 flex flex-wrap">
 										<span
 											className={cn(
 												"leading-tight",

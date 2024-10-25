@@ -76,7 +76,7 @@ export function EditableListItem({
 				<div className="flex w-full items-center justify-between">
 					<p
 						className={cn(
-							"leading-tight xl:text-sm",
+							"leading-tight",
 							editableName.deleted && "line-through",
 							newText.split(" ").some(word => word.length >= 15) && "break-all",
 						)}

@@ -242,7 +242,7 @@ export function WorkoutsForm({
 										) => (
 											<li
 												className={cn(
-													"flex items-center justify-between gap-2 xl:text-sm",
+													"flex items-center justify-between gap-2",
 													draggingOver === "ExerciseForm" &&
 														"rounded-lg border bg-foreground px-2 text-background",
 												)}
@@ -371,17 +371,17 @@ export function WorkoutsForm({
 				</div>
 			) : (
 				<>
-					<p className="mt-2 xl:text-sm">
+					<p className="mt-2">
 						Each exercise must include either a weight or at least one rep. You
 						can drag and drop to edit.
 					</p>
 					{session?.workouts.length === 0 && (
 						<>
-							<p className="mt-2 xl:text-sm">
+							<p className="mt-2">
 								Visit the Settings page if you&apos;d like to update the names
 								you&apos;ll use for your exercises and workouts.
 							</p>
-							<p className="mt-2 xl:text-sm">
+							<p className="mt-2">
 								The About page contains helpful videos and additional tips and
 								tricks.
 							</p>
