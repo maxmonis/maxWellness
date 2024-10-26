@@ -26,10 +26,15 @@ export default function InfoPage() {
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
 								<h3 className="text-center text-lg">Overview</h3>
 								<p>
-									This website allows you to create a free account using your
-									Google credentials or an email/password combination. It&apos;s
+									This website{" "}
+									{user
+										? "is"
+										: "allows you to create a free account using your " +
+										  "Google credentials or an email/password combination. It's"}{" "}
 									a handy way to keep track of your weightlifting workouts and
-									personal bests, and can be used on devices of any size.
+									personal bests. It can be used on devices of any size and you
+									can install it as an app on your phone, tablet, or computer
+									for easy access.
 								</p>
 								<Video className="max-w-xs" src="mobile-view" />
 							</div>
@@ -42,8 +47,8 @@ export default function InfoPage() {
 									name, sets, reps, and weight. You can drag and drop exercises
 									to reorder them, and clicking the x icon next to an exercise
 									will delete it. When you&apos;ve finished adding exercises,
-									select a name and date for your workout and click the save
-									button.
+									select a name and date for your workout and save it to the
+									database.
 								</p>
 								<Video src="creating-workouts" />
 								<p>
@@ -71,8 +76,7 @@ export default function InfoPage() {
 								<h3 className="text-center text-lg">Managing Names</h3>
 								<p>
 									The Settings page allows you to add, update, or delete the
-									names you use for workouts and exercises. Names must be
-									unique.
+									unique names you use for workouts and exercises.
 								</p>
 								<Video src="managing-names" />
 							</div>
@@ -93,11 +97,12 @@ export default function InfoPage() {
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
 								<h3 className="text-center text-lg">Tips and Tricks</h3>
 								<p>
-									While you&apos;re entering a new workout you can click on the
-									name, date, or exercise of an existing workout to copy that
-									value. The Filters page allows you to sort or filter the
-									workouts list, and the Calendar page provides an alternate way
-									to view your workouts sorted by date or exercise name.
+									While you&apos;re entering a new workout you can open the
+									Existing Workouts slideout and click exercises to copy them.
+									The Filters page allows you to gain insights by filtering by
+									workout date, workout name, or exercise name. The Calendar
+									page provides an alternate way to view your exercises sorted
+									by date.
 								</p>
 								<Video src="tips-and-tricks" />
 								<p>
