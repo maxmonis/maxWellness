@@ -104,6 +104,7 @@ export function WorkoutsListItem({
 									size="icon"
 									variant="ghost"
 								>
+									<span className="sr-only">Open workout menu</span>
 									<DotsHorizontalIcon className="h-5 w-5" />
 								</Button>
 							</DropdownMenuTrigger>

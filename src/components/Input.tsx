@@ -88,13 +88,13 @@ export function Input({
 			/>
 			{type === "password" ? (
 				<button
-					aria-label="toggle password visibility"
 					className="absolute right-3 top-8"
 					onClick={() => {
 						setVisible(!visible)
 					}}
 					type="button"
 				>
+					<span className="sr-only">Toggle password visibility</span>
 					{visible ? (
 						<EyeNoneIcon className="h-5 w-5" />
 					) : (
@@ -105,11 +105,11 @@ export function Input({
 				reset &&
 				props.value && (
 					<button
-						aria-label="clear input"
 						className={cn("absolute right-2 pt-0.5", label ? "top-7" : "top-1")}
 						onClick={reset}
 						type="button"
 					>
+						<span className="sr-only">Clear input</span>
 						<XIcon />
 					</button>
 				)

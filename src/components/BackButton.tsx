@@ -14,7 +14,6 @@ export function BackButton() {
 
 	return (
 		<Button
-			aria-label="go back"
 			className="mr-1 rounded-full"
 			onClick={() => {
 				if (history.length > 1) {
@@ -26,6 +25,7 @@ export function BackButton() {
 			size="icon"
 			variant="ghost"
 		>
+			<span className="sr-only">Go back</span>
 			<ArrowLeftIcon className="h-5 w-5" />
 		</Button>
 	)

@@ -100,10 +100,14 @@ exports[`register page > renders initial state 1`] = `
                 value=""
               />
               <button
-                aria-label="toggle password visibility"
                 class="absolute right-3 top-8"
                 type="button"
               >
+                <span
+                  class="sr-only"
+                >
+                  Toggle password visibility
+                </span>
                 <svg
                   class="h-5 w-5"
                   fill="none"
@@ -139,10 +143,14 @@ exports[`register page > renders initial state 1`] = `
                 value=""
               />
               <button
-                aria-label="toggle password visibility"
                 class="absolute right-3 top-8"
                 type="button"
               >
+                <span
+                  class="sr-only"
+                >
+                  Toggle password visibility
+                </span>
                 <svg
                   class="h-5 w-5"
                   fill="none"

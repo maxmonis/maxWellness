@@ -147,6 +147,7 @@ export function WorkoutsApp({
 								size="icon"
 								variant="ghost"
 							>
+								<span className="sr-only">Previous Workouts</span>
 								<SidebarIcon className="rotate-180" />
 							</Button>
 						</SheetTrigger>

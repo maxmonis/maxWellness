@@ -102,7 +102,6 @@ export function WorkoutsCalendar({
 						</div>
 						<div className="flex items-center justify-center">
 							<Button
-								aria-label="View previous column"
 								className="enabled:cursor-pointer disabled:opacity-0"
 								onClick={() => {
 									horizontalIndex && setHorizontalIndex(horizontalIndex - 1)
@@ -111,20 +110,20 @@ export function WorkoutsCalendar({
 								variant="ghost"
 								{...(!horizontalIndex && { disabled: true })}
 							>
+								<span className="sr-only">View previous column</span>
 								<DoubleArrowLeftIcon className="h-5 w-5" />
 							</Button>
 							<Button
-								aria-label="Reverse x and y axes of calendar"
 								onClick={() => {
 									setSortByDate(!sortByDate)
 								}}
 								size="icon"
 								variant="ghost"
 							>
+								<span className="sr-only">Reverse x and y axes</span>
 								<SymbolIcon className="h-5 w-5" />
 							</Button>
 							<Button
-								aria-label="View next column"
 								className="enabled:cursor-pointer disabled:opacity-0"
 								onClick={() => {
 									canIncrement && setHorizontalIndex(horizontalIndex + 1)
@@ -133,6 +132,7 @@ export function WorkoutsCalendar({
 								variant="ghost"
 								{...(!canIncrement && { disabled: true })}
 							>
+								<span className="sr-only">View next column</span>
 								<DoubleArrowRightIcon className="h-5 w-5" />
 							</Button>
 							{document.fullscreenEnabled && (
@@ -142,6 +142,7 @@ export function WorkoutsCalendar({
 									size="icon"
 									variant="ghost"
 								>
+									<span className="sr-only">Toggle fullscreen</span>
 									{fullscreen ? (
 										<ExitFullScreenIcon className="h-5 w-5" />
 									) : (
