@@ -13,7 +13,7 @@ export default function InfoPage() {
 
 	return (
 		<Page title="About">
-			<div className="w-full lg:max-w-3xl lg:border-r">
+			<div className="w-full">
 				<div className="p1-2 flex h-14 items-center border-b px-4 pt-1 sm:px-6">
 					<div className="flex items-center">
 						<BackButton />

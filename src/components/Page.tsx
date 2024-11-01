@@ -49,7 +49,7 @@ export function Page({
 				<div className="relative overflow-hidden">
 					<div className="min-w-screen flex h-screen flex-col justify-between overflow-auto">
 						<div className="mx-auto flex w-screen max-w-5xl flex-col justify-between md:flex-row-reverse md:justify-end">
-							<div className="h-screen max-h-[calc(100dvh-3.5rem)] w-full md:max-h-screen">
+							<div className="h-screen max-h-[calc(100dvh-3.5rem)] w-full md:max-h-screen lg:max-w-3xl lg:border-r">
 								{children ?? (
 									<p className="p-6">
 										{loading ? loadingText : getErrorMessage(error)}

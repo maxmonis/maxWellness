@@ -137,7 +137,7 @@ export function WorkoutsApp({
 
 	if (view === "create") {
 		return (
-			<div className="relative h-full w-full lg:max-w-3xl lg:border-r">
+			<div className="relative h-full w-full">
 				<WorkoutsHeader {...{ editingWorkout, workouts }} />
 				{workouts.length > 0 && (
 					<Sheet>
@@ -201,7 +201,7 @@ export function WorkoutsApp({
 
 	if (view === "filters") {
 		return (
-			<div className="min-h-screen lg:max-w-3xl lg:border-r">
+			<div className="min-h-screen">
 				<WorkoutsHeader {...{ editingWorkout, workouts }} />
 				<ScrollArea className="flex max-h-[calc(100dvh-7rem)] w-full flex-grow flex-col border-t md:max-h-[calc(100dvh-3.5rem)]">
 					<div className="w-full overflow-hidden max-md:h-full">
@@ -225,7 +225,7 @@ export function WorkoutsApp({
 	}
 
 	return (
-		<div className="min-h-screen lg:max-w-3xl lg:border-r">
+		<div className="min-h-screen">
 			<WorkoutsHeader {...{ editingWorkout, workouts }} />
 			<ScrollArea className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t md:max-h-[calc(100dvh-3.5rem)]">
 				<WorkoutsList

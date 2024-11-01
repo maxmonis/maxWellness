@@ -89,7 +89,7 @@ export function WorkoutsCalendar({
 			className={cn(
 				fullscreen
 					? "fixed bottom-0 left-0 right-0 top-0 z-10 h-screen w-screen bg-background"
-					: "flex min-h-screen w-full justify-center lg:max-w-3xl lg:border-r",
+					: "flex min-h-screen w-full justify-center",
 			)}
 			ref={ref}
 		>

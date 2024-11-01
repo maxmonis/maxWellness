@@ -66,7 +66,7 @@ export function SettingsApp(props: Session) {
 	}, [onRouteChangeStart])
 
 	return (
-		<div className="flex min-h-screen w-full flex-grow flex-col lg:max-w-3xl lg:border-r">
+		<div className="flex min-h-screen w-full flex-grow flex-col">
 			<div className="flex h-14 items-center justify-between border-b px-4 pt-1 sm:px-6">
 				<div className="flex items-center">
 					<BackButton />
