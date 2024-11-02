@@ -126,7 +126,7 @@ export function WorkoutsForm({
 												name="exerciseNameId"
 												value={exerciseNameId}
 											>
-												<SelectTrigger translate="no">
+												<SelectTrigger autoFocus translate="no">
 													<SelectValue />
 												</SelectTrigger>
 												<SelectContent>
