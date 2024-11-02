@@ -192,7 +192,7 @@ export function WorkoutsListItem({
 								return (
 									<li key={i} className="flex flex-wrap">
 										<Button
-											className="mx-px flex h-auto whitespace-normal text-left leading-tight"
+											className="mr-3 flex h-auto whitespace-normal px-2 text-left leading-tight"
 											translate="no"
 											variant="ghost"
 											{...(exerciseName?.deleted
