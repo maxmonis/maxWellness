@@ -13,21 +13,26 @@ import {
 } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 /**
  * The site's main navbar, which is displayed at the bottom of
  * the screen on narrow viewports and to the left on wider ones
  */
 export default function Navbar() {
+	const {
+		query: { view },
+		route,
+	} = useRouter()
 	const { loading, session } = useSession()
 	const hasWorkouts = Boolean(session?.workouts.length)
 	const homeHref = hasWorkouts ? "/" : session ? "/?view=create" : "/login"
 
 	return (
-		<div className="flex max-h-screen items-center max-md:h-14 max-md:w-screen max-md:border-t md:min-h-screen md:max-w-min md:border-r">
+		<div className="flex max-h-screen items-center max-md:h-14 max-md:w-screen max-md:border-t md:min-h-screen md:w-48 md:max-w-min md:border-r">
 			<div className="items-between flex h-full w-full flex-col justify-center px-2 sm:pl-6 md:h-full md:items-center md:justify-between md:overflow-y-scroll md:pr-6">
-				<nav className="flex w-full items-center justify-between gap-y-4 md:h-full md:w-44 md:flex-col md:items-start md:justify-start md:pt-5">
-					<div className="md:mb-4">
+				<nav className="flex w-full items-center justify-between md:h-full md:flex-col md:items-start md:justify-start md:gap-y-2 md:pt-5">
+					<div className="md:mx-auto md:mb-4">
 						<Link
 							className="flex w-full items-center gap-1.5 max-sm:ml-4 max-sm:p-2"
 							href={homeHref}
@@ -49,11 +54,12 @@ export default function Navbar() {
 						<></>
 					) : session ? (
 						<>
-							<div className="flex w-full flex-col gap-x-6 gap-y-4 max-md:hidden">
+							<div className="flex w-full flex-col gap-y-2 max-md:hidden">
 								{hasWorkouts && (
 									<Link
+										aria-current={route === "/" && !view ? "page" : undefined}
 										className={cn(
-											"flex w-full gap-1.5",
+											"flex w-full gap-2 aria-[current]:underline md:justify-start md:border-none md:shadow-none",
 											buttonVariants({ variant: "outline" }),
 										)}
 										href={homeHref}
@@ -62,21 +68,14 @@ export default function Navbar() {
 										<span className="font-bold md:w-16">Home</span>
 									</Link>
 								)}
-								<Link
-									className={cn(
-										"flex w-full gap-1.5",
-										buttonVariants({ variant: "default" }),
-									)}
-									href="/?view=create"
-								>
-									<PlusIcon className="h-5 w-5" />
-									<span className="font-bold md:w-16">Create</span>
-								</Link>
 								{hasWorkouts && (
 									<>
 										<Link
+											aria-current={
+												route === "/" && view === "filters" ? "page" : undefined
+											}
 											className={cn(
-												"flex w-full gap-1.5",
+												"flex w-full gap-2 aria-[current]:underline md:justify-start md:border-none md:shadow-none",
 												buttonVariants({ variant: "outline" }),
 											)}
 											href="/?view=filters"
@@ -85,8 +84,13 @@ export default function Navbar() {
 											<span className="font-bold md:w-16">Filters</span>
 										</Link>
 										<Link
+											aria-current={
+												route === "/" && view === "calendar"
+													? "page"
+													: undefined
+											}
 											className={cn(
-												"flex w-full gap-1.5",
+												"flex w-full gap-2 aria-[current]:underline md:justify-start md:border-none md:shadow-none",
 												buttonVariants({ variant: "outline" }),
 											)}
 											href="/?view=calendar"
@@ -98,8 +102,9 @@ export default function Navbar() {
 								)}
 							</div>
 							<Link
+								aria-current={route === "/settings" ? "page" : undefined}
 								className={cn(
-									"flex w-full gap-1.5 max-md:max-w-min",
+									"flex w-full gap-2 max-md:max-w-min md:justify-start md:border-none md:shadow-none md:aria-[current]:underline",
 									buttonVariants({ variant: "outline" }),
 								)}
 								href="/settings"
@@ -110,8 +115,9 @@ export default function Navbar() {
 								</span>
 							</Link>
 							<Link
+								aria-current={route === "/about" ? "page" : undefined}
 								className={cn(
-									"flex w-full gap-1.5 max-md:max-w-min",
+									"flex w-full gap-2 max-md:max-w-min md:justify-start md:border-none md:shadow-none md:aria-[current]:underline",
 									buttonVariants({ variant: "outline" }),
 								)}
 								href="/about"
@@ -119,12 +125,30 @@ export default function Navbar() {
 								<QuestionMarkCircledIcon className="h-5 w-5" />
 								<span className="font-bold max-xs:sr-only md:w-16">About</span>
 							</Link>
+							<Link
+								aria-current={
+									route === "/" && view === "create" ? "page" : undefined
+								}
+								className={cn(
+									"mt-4 flex w-full justify-start gap-2 max-md:hidden",
+									buttonVariants({
+										variant:
+											route === "/" && view === "create"
+												? "outline"
+												: "default",
+									}),
+								)}
+								href="/?view=create"
+							>
+								<PlusIcon className="h-5 w-5" />
+								<span className="font-bold md:w-16">Create</span>
+							</Link>
 						</>
 					) : (
 						<Link
 							className={cn(
-								"flex w-full gap-1.5 max-md:max-w-min",
-								buttonVariants({ variant: "outline" }),
+								"flex w-full gap-2 aria-[current]:underline max-md:max-w-min md:justify-start md:border-none md:shadow-none",
+								buttonVariants({ variant: "default" }),
 							)}
 							href="/register"
 						>

@@ -27,7 +27,7 @@ export function UserMenu() {
 
 	if (!user) {
 		return (
-			<div className="max-sm:pr-4">
+			<div className="py-2 pr-4">
 				<DarkModeToggle />
 			</div>
 		)
@@ -87,7 +87,7 @@ function DarkModeToggle() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button size="icon" variant="outline">
+				<Button className="relative" size="icon" variant="outline">
 					<SunIcon className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
 					<MoonIcon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
 					<span className="sr-only">Toggle theme</span>
