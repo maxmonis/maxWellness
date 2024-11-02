@@ -377,14 +377,14 @@ export function WorkoutsForm({
 					</p>
 					{session?.workouts.length === 0 && (
 						<>
-							<p className="mt-2">
+							<p className="my-4">
 								Visit the Settings page if you&apos;d like to update the names
-								you&apos;ll use for your exercises and workouts.
+								you&apos;ll use for your exercises and workouts. The About page
+								contains an overview of the site with helpful videos. Additional
+								features will become available once you&apos;ve added at least
+								one workout.
 							</p>
-							<p className="mt-2">
-								The About page contains helpful videos and additional tips and
-								tricks.
-							</p>
+							<p>Thanks for signing up and welcome to maxWellness!</p>
 						</>
 					)}
 				</>
