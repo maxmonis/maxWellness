@@ -275,7 +275,11 @@ function SettingsTab({
 							updatedNames.filter(
 								({ deleted, id }) =>
 									deleted &&
-									workouts.some(w => w.exercises.some(e => e.nameId === id)),
+									workouts.some(w =>
+										value === "exercises"
+											? w.exercises.some(e => e.nameId === id)
+											: w.nameId === id,
+									),
 							),
 							"text",
 						).map(workoutName => (
