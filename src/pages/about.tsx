@@ -1,6 +1,7 @@
 import { BackButton } from "@/components/BackButton"
 import { Page } from "@/components/Page"
 import { buttonVariants } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { useAuth } from "@/features/auth/hooks/useAuth"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
@@ -20,7 +21,7 @@ export default function InfoPage() {
 						<h1 className="text-lg">About</h1>
 					</div>
 				</div>
-				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center overflow-y-auto px-4 sm:px-6 md:max-h-[calc(100dvh-3.5rem)]">
+				<ScrollArea className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full flex-col items-center px-4 sm:px-6 md:max-h-[calc(100dvh-3.5rem)]">
 					<div className="flex flex-col gap-12 pb-12 pt-6">
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
@@ -121,7 +122,7 @@ export default function InfoPage() {
 							</div>
 						</div>
 					</div>
-				</div>
+				</ScrollArea>
 			</div>
 		</Page>
 	)
