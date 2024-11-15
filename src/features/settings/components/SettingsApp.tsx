@@ -263,10 +263,10 @@ function SettingsTab({
 						{sortBy(
 							updatedNames.filter(n => !n.deleted),
 							"text",
-						).map(workoutName => (
+						).map(editableName => (
 							<EditableListItem
-								key={workoutName.id}
-								editableName={workoutName}
+								key={editableName.id}
+								editableName={editableName}
 								editableNameList={updatedNames}
 								updateOptions={handleNameChange}
 							/>
@@ -282,10 +282,10 @@ function SettingsTab({
 									),
 							),
 							"text",
-						).map(workoutName => (
+						).map(editableName => (
 							<EditableListItem
-								key={workoutName.id}
-								editableName={workoutName}
+								key={editableName.id}
+								editableName={editableName}
 								editableNameList={updatedNames}
 								updateOptions={handleNameChange}
 							/>
