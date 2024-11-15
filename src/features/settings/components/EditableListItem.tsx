@@ -89,7 +89,7 @@ export function EditableListItem({
 					</p>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Button className="mr-px" size="icon" variant="ghost">
+							<Button className="-mb-2 mr-px" size="icon" variant="ghost">
 								<span className="sr-only">Open {editableName.text} menu</span>
 								<DotsHorizontalIcon className="h-5 w-5" />
 							</Button>

@@ -42,7 +42,7 @@ export function UserMenu() {
 						variant="ghost"
 					>
 						<UserImage />
-						<span className="w-32 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
+						<span className="w-28 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
 							{user.displayName}
 						</span>
 					</Button>
