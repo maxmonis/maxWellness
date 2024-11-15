@@ -36,10 +36,7 @@ export function WorkoutsHeader({
 				<>
 					<div className="-mt-1 flex w-full items-center justify-between md:hidden">
 						<Link
-							className={cn(
-								"flex gap-1.5",
-								buttonVariants({ variant: "default" }),
-							)}
+							className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-blue-700 py-2 pl-3 pr-4 text-white hover:bg-blue-600"
 							href="/?view=create"
 							shallow
 						>

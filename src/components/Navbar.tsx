@@ -129,19 +129,11 @@ export default function Navbar() {
 								aria-current={
 									route === "/" && view === "create" ? "page" : undefined
 								}
-								className={cn(
-									"mt-4 flex w-full justify-start gap-2 max-md:hidden",
-									buttonVariants({
-										variant:
-											route === "/" && view === "create"
-												? "outline"
-												: "default",
-									}),
-								)}
+								className="mt-4 flex h-10 w-full items-center justify-center gap-2 rounded-full bg-blue-700 py-2 pr-3 text-white hover:bg-blue-600 max-md:hidden"
 								href="/?view=create"
 							>
 								<PlusIcon className="h-5 w-5" />
-								<span className="font-bold md:w-16">Create</span>
+								<span className="font-bold">Create</span>
 							</Link>
 						</>
 					) : (
