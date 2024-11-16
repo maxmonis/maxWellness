@@ -156,9 +156,9 @@ export function WorkoutsCalendar({
 						<div className="max-h-[calc(100dvh-7rem)] w-full overflow-y-auto md:max-h-[calc(100dvh-3.5rem)]">
 							{filteredWorkouts.length > 0 ? (
 								<table className="w-full table-fixed border-b bg-background text-center text-sm">
-									<thead className="sticky top-0 divide-x bg-background shadow-sm shadow-secondary">
-										<tr className="divide-x shadow-sm shadow-secondary">
-											<th className="p-2 shadow-sm shadow-secondary">
+									<thead className="sticky top-0 divide-x bg-background shadow-sm shadow-border">
+										<tr className="divide-x shadow-sm shadow-border">
+											<th className="p-2 shadow-sm shadow-border">
 												{sortByDate ? "Exercise" : "Date"}
 											</th>
 											{sortByDate
@@ -169,7 +169,7 @@ export function WorkoutsCalendar({
 														)
 														.map(workout => (
 															<th
-																className="p-2 leading-tight shadow-sm shadow-secondary"
+																className="p-2 leading-tight shadow-sm shadow-border"
 																key={workout.id}
 															>
 																{getDateText(workout.date)}
@@ -188,7 +188,7 @@ export function WorkoutsCalendar({
 															return (
 																<th
 																	className={cn(
-																		"p-2 leading-tight shadow-sm shadow-secondary",
+																		"p-2 leading-tight shadow-sm shadow-border",
 																		exerciseNameText
 																			.split(" ")
 																			.some(word => word.length >= 15) &&
