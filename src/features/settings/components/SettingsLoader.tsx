@@ -13,7 +13,7 @@ export function SettingsLoader() {
 				</div>
 			</div>
 			<div className="flex w-full flex-grow justify-center">
-				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center border-t md:max-h-[calc(100dvh-3.5rem)]">
+				<div className="mx-auto flex h-full max-h-[calc(100dvh-7rem)] w-full justify-center md:max-h-[calc(100dvh-3.5rem)]">
 					<span
 						aria-busy="true"
 						className="mt-20 h-20 w-20 animate-spin rounded-full border-4 border-r-transparent"
