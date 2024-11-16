@@ -38,11 +38,11 @@ export function UserMenu() {
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button
-						className="h-min gap-2 max-md:flex-row-reverse md:w-full md:px-2"
+						className="h-min gap-2 py-1 max-md:flex-row-reverse sm:w-44 sm:px-1 md:-ml-4"
 						variant="ghost"
 					>
 						<UserImage />
-						<span className="w-28 whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
+						<span className="whitespace-normal text-right text-sm leading-tight max-sm:sr-only md:text-left">
 							{user.displayName}
 						</span>
 					</Button>

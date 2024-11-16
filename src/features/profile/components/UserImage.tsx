@@ -6,6 +6,7 @@ import { getErrorMessage } from "@/utils/parsers"
 import { PersonIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import * as React from "react"
+import { screens } from "tailwindcss/defaultTheme"
 
 /**
  * Displays the user's profile image, allowing them to
@@ -35,7 +36,7 @@ export function UserImage({
 			<div
 				className={cn(
 					"relative flex items-center",
-					src && (editable ? "h-40 w-40" : "h-8 w-8"),
+					src && (editable ? "h-40 w-40" : "h-10 w-10 md:h-12 md:w-12"),
 				)}
 			>
 				{uploading ? (
@@ -52,7 +53,9 @@ export function UserImage({
 									alt={`${displayName} profile image`}
 									className="object-cover"
 									fill
-									sizes={editable ? "160px" : "28px"}
+									sizes={
+										editable ? "160px" : `(min-width: ${screens.md}) 48px, 40px`
+									}
 									src={src}
 									{...(!editable && { priority: true })}
 								/>
