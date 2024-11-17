@@ -51,7 +51,7 @@ export function UserImage({
 							{src && (
 								<Image
 									alt={`${displayName} profile image`}
-									className="object-cover"
+									className="bg-secondary object-cover"
 									fill
 									sizes={
 										editable ? "160px" : `(min-width: ${screens.md}) 48px, 40px`
