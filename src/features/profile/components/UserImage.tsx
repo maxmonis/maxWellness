@@ -62,7 +62,9 @@ export function UserImage({
 							)}
 							<AvatarFallback>
 								<PersonIcon
-									className={cn(editable ? "h-40 w-40" : "h-7 w-7")}
+									className={cn(
+										editable ? "h-40 w-40" : "h-10 w-10 md:h-12 md:w-12",
+									)}
 								/>
 							</AvatarFallback>
 						</Avatar>
