@@ -3,6 +3,7 @@ import { Session } from "@/features/session/utils/models"
 import { useToast } from "@/hooks/use-toast"
 import { getErrorMessage } from "@/utils/parsers"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import { saveWorkout } from "../firebase/saveWorkout"
 
 /**
@@ -10,6 +11,7 @@ import { saveWorkout } from "../firebase/saveWorkout"
  */
 export function useAddWorkout({ onSuccess }: { onSuccess: () => void }) {
 	const queryClient = useQueryClient()
+	const router = useRouter()
 	const { user } = useAuth()
 	const { toast } = useToast()
 	const queryKey = ["workouts", { userId: user?.uid }]
@@ -26,6 +28,7 @@ export function useAddWorkout({ onSuccess }: { onSuccess: () => void }) {
 			})
 		},
 		async onMutate(newWorkout) {
+			router.push("/")
 			await queryClient.cancelQueries({ queryKey })
 			const previousWorkouts = queryClient.getQueryData(queryKey)
 			queryClient.setQueryData(
