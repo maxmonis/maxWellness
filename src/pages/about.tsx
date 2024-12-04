@@ -4,6 +4,8 @@ import { buttonVariants } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useAuth } from "@/features/auth/hooks/useAuth"
 import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes"
+import Image from "next/image"
 import Link from "next/link"
 
 /**
@@ -33,11 +35,22 @@ export default function InfoPage() {
 										: "allows you to create a free account using your " +
 										  "Google credentials or an email/password combination. It's"}{" "}
 									a handy way to keep track of your weightlifting workouts and
-									personal bests. It can be used on devices of any size and you
-									can install it as an app on your phone, tablet, or computer
-									for easy access.
+									personal bests. You can install it as an app on your phone,
+									tablet, or computer for easy access, and it can be used on
+									devices of any size:
 								</p>
-								<Video className="max-w-xs" src="mobile-view" />
+								<div className="mt-2 flex flex-wrap justify-center gap-4">
+									{[
+										"home",
+										"new-workout",
+										"filters",
+										"calendar",
+										"settings",
+										"about",
+									].map(src => (
+										<Screenshot key={src} src={src} />
+									))}
+								</div>
 							</div>
 						</div>
 						<div>
@@ -125,6 +138,22 @@ export default function InfoPage() {
 				</ScrollArea>
 			</div>
 		</Page>
+	)
+}
+
+function Screenshot({ className, src }: { className?: string; src: string }) {
+	const { resolvedTheme } = useTheme()
+	return (
+		<Image
+			alt={`screenshot of the ${src
+				.split("-")
+				.join(" ")} page on a mobile device`}
+			className={cn("border-2", className)}
+			height={283}
+			priority
+			src={`/info/${src}-${resolvedTheme}.png`}
+			width={160}
+		/>
 	)
 }
 
