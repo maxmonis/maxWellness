@@ -74,6 +74,7 @@
 		"coverage": "vitest run --coverage",
 		"dev": "next dev",
 		"lint": "next lint && prettier --write --ignore-path .gitignore .",
+		"prod": "next build && next start",
 		"start": "next start",
 		"test": "vitest"
 	},
