@@ -55,16 +55,24 @@ export default function InfoPage() {
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg">Creating Workouts</h3>
+								<h3 className="text-center text-lg">Managing Workouts</h3>
+								<p>We make it a snap to add, edit, or delete your workouts:</p>
+								<Video src="managing-workouts" />
 								<p>
-									To create a new workout, add exercises by selecting their
-									name, sets, reps, and weight. You can drag and drop exercises
-									to reorder them, and clicking the x icon next to an exercise
-									will delete it. When you&apos;ve finished adding exercises,
-									select a name and date for your workout and save it to the
-									database.
+									You can also copy them to your clipboard to share via text,
+									email, or social media.
 								</p>
-								<Video src="creating-workouts" />
+							</div>
+						</div>
+						<div>
+							<div className="mx-auto flex max-w-prose flex-col gap-4">
+								<h3 className="text-center text-lg">Good to Know</h3>
+								<p>
+									Personal records will be indicated with asterisks (one
+									indicates that the record has been broken, two means it&apos;s
+									still your record). These records will be automatically
+									refreshed any time you add, edit, or remove a workout.
+								</p>
 								<p>
 									Each exercise must include a weight or at least one rep. This
 									is because you could do 10 bodyweight squats or you could
@@ -77,52 +85,25 @@ export default function InfoPage() {
 									2(10x100) immediately followed by 3(10x100) will become
 									5(10x100).
 								</p>
-								<p>
-									Personal records will be indicated with asterisks (one
-									indicates that the record has been broken, two means it&apos;s
-									still your record). These records will be automatically
-									refreshed any time you add, edit, or remove a workout.
-								</p>
 							</div>
 						</div>
 						<div>
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg">Managing Names</h3>
+								<h3 className="text-center text-lg">Additional Pages</h3>
 								<p>
-									The Settings page allows you to add, update, or delete the
-									unique names you use for workouts and exercises.
+									Settings: add, edit, or delete the names you use for your
+									workouts and exercises.
 								</p>
-								<Video src="managing-names" />
-							</div>
-						</div>
-						<div>
-							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg">Managing Workouts</h3>
 								<p>
-									The ellipsis icon to the right of each workout in the list
-									allows you to duplicate it, copy it to clipboard, edit it, or
-									delete it. Please note that edits and deletions cannot be
-									undone once confirmed.
+									Filters: gain insights by filtering by workout date, workout
+									name, and/or exercise name.
 								</p>
-								<Video src="managing-workouts" />
-							</div>
-						</div>
-						<div>
-							<div className="mx-auto flex max-w-prose flex-col gap-4">
-								<h3 className="text-center text-lg">Tips and Tricks</h3>
 								<p>
-									While you&apos;re entering a new workout you can open the
-									Existing Workouts slideout and click exercises to copy them.
-									The Filters page allows you to gain insights by filtering by
-									workout date, workout name, or exercise name. The Calendar
-									page provides an alternate way to view your exercises sorted
-									by date.
+									Calendar: an alternate way to view your exercises sorted by
+									date.
 								</p>
-								<Video src="tips-and-tricks" />
 								<p>
-									If you ever need help you can always return to this About page
-									by clicking the question mark icon in the navbar. That&apos;s
-									all you need to know, time to add some workouts!
+									That&apos;s all you need to know, time to add some workouts!
 								</p>
 								<div className="mt-8 flex w-full justify-center">
 									<Link
@@ -158,14 +139,15 @@ function Screenshot({ className, src }: { className?: string; src: string }) {
 }
 
 function Video({ className, src }: { className?: string; src: string }) {
+	const { resolvedTheme } = useTheme()
 	return (
 		<video
-			className={cn("mx-auto my-2 w-full border", className)}
+			className={cn("mx-auto my-2 w-full border-2", className)}
 			controls
 			height="240"
 			width="320"
 		>
-			<source src={`/info/${src}.mp4`} type="video/mp4" />
+			<source src={`/info/${src}-${resolvedTheme}.mp4`} type="video/mp4" />
 			Your browser does not support the video tag.
 		</video>
 	)
