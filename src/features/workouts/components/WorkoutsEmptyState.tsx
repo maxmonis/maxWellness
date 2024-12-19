@@ -13,9 +13,7 @@ export function WorkoutsEmptyState() {
 				Visit the Settings page if you&apos;d like to update the names
 				you&apos;ll use for your exercises and workouts.
 			</p>
-			<p>
-				The About page contains helpful videos and additional tips and tricks.
-			</p>
+			<p>The About page contains an overview of the site.</p>
 			<p>Get started by entering your first workout now 💪</p>
 		</div>
 	)
