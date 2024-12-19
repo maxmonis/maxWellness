@@ -3,7 +3,7 @@ import * as React from "react"
 /**
  * @returns the width of the element in px, updated on resize events
  */
-export function useElementWidth(ref: React.RefObject<HTMLElement>) {
+export function useElementWidth(ref: React.RefObject<HTMLElement | null>) {
 	const [width, setWidth] = React.useState(ref.current?.offsetWidth)
 
 	React.useEffect(() => {

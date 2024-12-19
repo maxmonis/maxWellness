@@ -41,7 +41,7 @@ export function ResponsiveDialog({
 	| {
 			onOpenChange?: never
 			open?: never
-			trigger: JSX.Element
+			trigger: React.JSX.Element
 	  }
 	| {
 			onOpenChange: (open: boolean) => void
@@ -50,7 +50,7 @@ export function ResponsiveDialog({
 	  }
 ) &
 	(
-		| { body: JSX.Element; onSubmit?: () => void }
+		| { body: React.JSX.Element; onSubmit?: () => void }
 		| { body?: never; onSubmit?: never }
 	)) {
 	const dialog = useMediaQuery(`(min-width: ${screens.sm})`)
@@ -118,7 +118,7 @@ function Body({
 	children,
 	onSubmit,
 }: React.PropsWithChildren<{
-	body?: JSX.Element
+	body?: React.JSX.Element
 	onSubmit?: () => void
 }>) {
 	if (onSubmit) {
