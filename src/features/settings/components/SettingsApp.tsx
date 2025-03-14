@@ -41,8 +41,14 @@ export function SettingsApp(props: Session) {
 	const [exerciseNames, setExerciseNames] = React.useState(props.exerciseNames)
 	const [workoutNames, setWorkoutNames] = React.useState(props.workoutNames)
 	const hasChangeOccurred =
-		!isEqual(workoutNames, props.workoutNames) ||
-		!isEqual(exerciseNames, props.exerciseNames)
+		!isEqual(
+			workoutNames.sort((a, b) => a.text.localeCompare(b.text)),
+			props.workoutNames.sort((a, b) => a.text.localeCompare(b.text)),
+		) ||
+		!isEqual(
+			exerciseNames.sort((a, b) => a.text.localeCompare(b.text)),
+			props.exerciseNames.sort((a, b) => a.text.localeCompare(b.text)),
+		)
 
 	const [showLeaveConfirmDialog, setShowLeaveConfirmDialog] =
 		React.useState(false)
