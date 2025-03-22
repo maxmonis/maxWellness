@@ -1,4 +1,4 @@
-# max-wellness.ca
+# maxWellness
 
 This PWA allows users to track their workouts. It uses Firebase for both
 authentication and data management.
@@ -30,8 +30,8 @@ You can add NVM by following the instructions at
 Clone the repo onto your machine and cd into it:
 
 ```
-git clone https://github.com/maxmonis/max-wellness.ca.git
-cd max-wellness.ca
+git clone https://github.com/maxmonis/maxWellness.git
+cd maxWellness
 ```
 
 Download all dependencies:
