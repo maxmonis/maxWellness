@@ -9,7 +9,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 /**
- * Displays text and GIFs showing how to use the app
+ * Displays text, images, and a video showing how to use the app
  */
 export default function InfoPage() {
 	const { user } = useAuth()
@@ -57,7 +57,15 @@ export default function InfoPage() {
 							<div className="mx-auto flex max-w-prose flex-col gap-4">
 								<h3 className="text-center text-lg">Managing Workouts</h3>
 								<p>We make it a snap to add, edit, or delete your workouts:</p>
-								<Video src="managing-workouts" />
+								<div className="w-full">
+									<iframe
+										allowFullScreen
+										aria-label="video demonstrating maxWellness"
+										className="w-full block h-auto aspect-video"
+										src="https://www.youtube.com/embed/QipvfsK5Tmg"
+										title="maxWellness demo video"
+									></iframe>
+								</div>
 								<p>
 									You can also copy them to your clipboard to share via text,
 									email, or social media.
@@ -135,20 +143,5 @@ function Screenshot({ className, src }: { className?: string; src: string }) {
 			src={`/info/${src}-${resolvedTheme}.png`}
 			width={160}
 		/>
-	)
-}
-
-function Video({ className, src }: { className?: string; src: string }) {
-	const { resolvedTheme } = useTheme()
-	return (
-		<video
-			className={cn("mx-auto my-2 w-full border-2", className)}
-			controls
-			height="240"
-			width="320"
-		>
-			<source src={`/info/${src}-${resolvedTheme}.mp4`} type="video/mp4" />
-			Your browser does not support the video tag.
-		</video>
 	)
 }
