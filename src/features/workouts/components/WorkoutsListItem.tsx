@@ -271,16 +271,16 @@ export function WorkoutsListItem({
 						  })}
 				</ul>
 				{view === "list" && workout.notes && (
-					<div className="mt-4 flex items-start gap-1">
+					<div className="mt-3 flex">
 						<button
 							onClick={() => {
 								setIsEditingNotes(true)
 							}}
 						>
-							<Pencil1Icon className="h-7 w-7 p-1" />
+							<Pencil1Icon className="h-6 w-6 p-1" />
 							<span className="sr-only">Edit Notes</span>
 						</button>
-						<p className="text-muted-foreground">
+						<p className="line-clamp-1 w-full text-sm text-muted-foreground">
 							{workout.notes.split("\n").map((line, i) => (
 								<span className="block" key={i}>
 									{line.trim()}
@@ -315,6 +315,7 @@ export function WorkoutsListItem({
 				body={
 					<>
 						<Textarea
+							autoFocus={!notes}
 							className="resize-none"
 							maxLength={300}
 							onChange={e => {
