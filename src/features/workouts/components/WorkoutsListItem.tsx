@@ -1,4 +1,5 @@
 import { ResponsiveDialog } from "@/components/ReponsiveDialog"
+import { Textarea } from "@/components/ui/Textarea"
 import { Button } from "@/components/ui/button"
 import {
 	DropdownMenu,
@@ -18,12 +19,15 @@ import {
 	ClipboardCopyIcon,
 	ClipboardIcon,
 	DotsHorizontalIcon,
+	FileTextIcon,
+	Pencil1Icon,
 	Pencil2Icon,
 	TrashIcon,
 } from "@radix-ui/react-icons"
 import omit from "lodash/omit"
 import { nanoid } from "nanoid"
 import * as React from "react"
+import { useUpdateWorkout } from "../hooks/useUpdateWorkout"
 import { getPrintout, groupExercisesByLift } from "../utils/functions"
 import { Exercise, View, Workout } from "../utils/models"
 
@@ -64,6 +68,18 @@ export function WorkoutsListItem({
 	const { toast } = useToast()
 	const [deleting, setDeleting] = React.useState(false)
 	const workoutNameText = getWorkoutNameText(workout.nameId, workoutNames)
+	const [isEditingNotes, setIsEditingNotes] = React.useState(false)
+	const [notes, setNotes] = React.useState(workout.notes || "")
+	const { isPending: isUpdatingWorkout, mutate: updateWorkout } =
+		useUpdateWorkout({
+			onSuccess() {
+				const trimmedNotes = notes.trim()
+				workout.notes = trimmedNotes
+				setNotes(trimmedNotes)
+				setIsEditingNotes(false)
+				toast({ title: "Workout notes saved" })
+			},
+		})
 
 	return (
 		<div
@@ -152,6 +168,15 @@ export function WorkoutsListItem({
 										Clipboard
 									</DropdownMenuItem>
 								)}
+								<DropdownMenuItem
+									className="gap-2"
+									onClick={() => {
+										setIsEditingNotes(true)
+									}}
+								>
+									<FileTextIcon />
+									Notes
+								</DropdownMenuItem>
 								<DropdownMenuItem
 									className="gap-2"
 									onClick={() => {
@@ -245,6 +270,25 @@ export function WorkoutsListItem({
 								)
 						  })}
 				</ul>
+				{view === "list" && workout.notes && (
+					<div className="mt-4 flex items-start gap-1">
+						<button
+							onClick={() => {
+								setIsEditingNotes(true)
+							}}
+						>
+							<Pencil1Icon className="h-7 w-7 p-1" />
+							<span className="sr-only">Edit Notes</span>
+						</button>
+						<p className="text-muted-foreground">
+							{workout.notes.split("\n").map((line, i) => (
+								<span className="block" key={i}>
+									{line.trim()}
+								</span>
+							))}
+						</p>
+					</div>
+				)}
 			</div>
 			<ResponsiveDialog
 				buttons={[
@@ -266,6 +310,48 @@ export function WorkoutsListItem({
 				open={deleting}
 				onOpenChange={setDeleting}
 				title="Delete workout?"
+			/>
+			<ResponsiveDialog
+				body={
+					<>
+						<Textarea
+							className="resize-none"
+							maxLength={300}
+							onChange={e => {
+								setNotes(e.target.value)
+							}}
+							rows={5}
+							value={notes}
+						/>
+						<div className="mb-4 text-right text-sm text-muted-foreground">
+							{notes.length}/300
+						</div>
+					</>
+				}
+				buttons={[
+					{
+						children: "Save",
+						key: "save",
+						loading: isUpdatingWorkout,
+						onClick() {
+							const trimmedNotes = notes.trim()
+							if (trimmedNotes === workout.notes) setIsEditingNotes(false)
+							else updateWorkout({ ...workout, notes: trimmedNotes })
+						},
+					},
+					{
+						children: "Cancel",
+						disabled: isUpdatingWorkout,
+						key: "cancel",
+						onClick() {
+							setNotes(workout.notes ?? "")
+						},
+						variant: "ghost",
+					},
+				]}
+				open={isEditingNotes}
+				onOpenChange={setIsEditingNotes}
+				title="Workout Notes"
 			/>
 		</div>
 	)

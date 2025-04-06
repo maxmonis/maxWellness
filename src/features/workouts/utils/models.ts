@@ -17,5 +17,6 @@ export interface Workout {
 	exercises: Array<Exercise>
 	id: string
 	nameId: string
+	notes?: string
 	userId: string
 }
