@@ -361,16 +361,16 @@ export function WorkoutsListItem({
 	 * Gets workout text we will copy to clipboard
 	 */
 	function getClipboardText(workout: Workout) {
-		return `${getWorkoutNameText(workout.nameId, workoutNames)}
-${getDateText(workout.date)}
-${groupExercisesByLift(workout.exercises)
-	.map(
-		exerciseList =>
-			`${getExerciseNameText(
-				exerciseList[0]!.nameId,
-				exerciseNames,
-			)}: ${exerciseList.map(getPrintout).join(", ")}`,
-	)
-	.join("\n")}`
+		return `${getWorkoutNameText(workout.nameId, workoutNames)} - ${getDateText(
+			workout.date,
+		)}\n\n${groupExercisesByLift(workout.exercises)
+			.map(
+				exerciseList =>
+					`${getExerciseNameText(
+						exerciseList[0]!.nameId,
+						exerciseNames,
+					)}: ${exerciseList.map(getPrintout).join(", ")}`,
+			)
+			.join("\n")}${workout.notes ? `\n\n${workout.notes}` : ""}`
 	}
 }
