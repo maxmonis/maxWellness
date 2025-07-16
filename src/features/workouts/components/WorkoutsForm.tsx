@@ -477,6 +477,7 @@ export function WorkoutsForm({
 			nameId: workoutNameId,
 			exercises,
 			userId,
+			...(editingWorkout?.notes && { notes: editingWorkout.notes }),
 		}
 		const { id, ...originalWorkout } = editingWorkout ?? {}
 		if ("date" in originalWorkout) {
