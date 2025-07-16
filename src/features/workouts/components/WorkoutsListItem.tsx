@@ -271,23 +271,22 @@ export function WorkoutsListItem({
 						  })}
 				</ul>
 				{view === "list" && workout.notes && (
-					<div className="mt-3 flex">
-						<button
-							onClick={() => {
-								setIsEditingNotes(true)
-							}}
-						>
-							<Pencil1Icon className="h-6 w-6 p-1" />
-							<span className="sr-only">Edit Notes</span>
-						</button>
-						<p className="line-clamp-1 w-full text-sm text-muted-foreground">
+					<button
+						aria-label="view/edit notes"
+						className="group mt-3 flex items-center"
+						onClick={() => {
+							setIsEditingNotes(true)
+						}}
+					>
+						<Pencil1Icon className="h-6 w-6 p-1" />
+						<span className="line-clamp-1 w-full text-sm text-muted-foreground group-hover:text-foreground">
 							{workout.notes.split("\n").map((line, i) => (
 								<span className="block" key={i}>
 									{line.trim()}
 								</span>
 							))}
-						</p>
-					</div>
+						</span>
+					</button>
 				)}
 			</div>
 			<ResponsiveDialog
