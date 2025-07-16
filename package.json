@@ -67,7 +67,7 @@
 		]
 	},
 	"license": "MIT",
-	"name": "max-wellness.ca",
+	"name": "max-wellness",
 	"private": true,
 	"resolutions": {
 		"@types/react": "19.0.2",
