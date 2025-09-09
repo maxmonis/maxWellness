@@ -25,7 +25,7 @@ export function WorkoutsLoader() {
 				{view === "list" ? (
 					<div className="flex flex-1 flex-col overflow-hidden">
 						<div className="h-full divide-y">
-							{Array.from({ length: 5 }).map((_, i) => (
+							{Array.from({ length: 10 }).map((_, i) => (
 								<div
 									key={i}
 									className="flex justify-between gap-6 px-4 pb-6 pt-5 sm:px-6"
