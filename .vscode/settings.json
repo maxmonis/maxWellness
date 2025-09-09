@@ -1,3 +1,4 @@
 {
-	"cSpell.words": ["chronologize", "tailwindcss"]
+	"cSpell.words": ["chronologize", "tailwindcss"],
+	"editor.formatOnSave": true
 }
